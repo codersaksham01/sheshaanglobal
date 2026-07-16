@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://global-roots-express.lovable.app/sitemap.xml

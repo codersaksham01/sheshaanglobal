@@ -1,0 +1,27 @@
+# Sheshaan Global
+
+> IEC & APEDA certified Indian exporter of fresh onions, green chillies, premium rice, coconut, spices, pulses, dry fruits, fruits and vegetables to 25+ countries.
+
+Sheshaan Global sources agricultural produce directly from Indian farms and ships to importers, wholesalers and retailers worldwide. The site lists product categories, packing and export standards, certifications (GST, IEC, APEDA, Coconut Development Board), and contact channels (WhatsApp, email, brochure download).
+
+## Pages
+
+- [Home](/): Company overview, hero, product categories, global export network (25+ countries), certifications, process timeline, FAQ and contact.
+
+## Products
+
+- [Fresh Onions](/products/fresh-onions): Varieties, packing options, export standards and brochure.
+- [Green Chillies](/products/green-chillies): Varieties, packing options, export standards and brochure.
+- [Premium Rice](/products/premium-rice): Basmati and non-basmati rice for export.
+- [Coconut (Brown Husked)](/products/coconut-brown-husked): Fresh brown husked coconuts.
+- [Fresh Vegetables](/products/fresh-vegetables): Assorted export-grade vegetables.
+- [Fresh Fruits](/products/fresh-fruits): Tropical and seasonal fruits.
+- [Spices & Masalas](/products/spices-masalas): Whole and ground Indian spices.
+- [Pulses & Cereals](/products/pulses-cereals): Lentils, dals and cereals.
+- [Dry Fruits & Nuts](/products/dry-fruits-nuts): Almonds, cashews, raisins and more.
+
+## Optional
+
+- [Sitemap](/sitemap.xml)
+- [Certifications section](/#certs)
+- [FAQ section](/#faq)
