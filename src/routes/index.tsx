@@ -118,12 +118,11 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 const NAV_LINKS = [
 
   { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Products", href: "#products" },
+  { label: "Products", href: "/products" },
   { label: "Markets", href: "#markets" },
   { label: "Certifications", href: "#certs" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "More Info", href: "/more-info" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 
@@ -131,15 +130,26 @@ function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 20);
-    on(); window.addEventListener("scroll", on);
-    return () => window.removeEventListener("scroll", on);
+    let raf = 0;
+    const on = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        setScrolled(window.scrollY > 20);
+      });
+    };
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", on);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "bg-white/90 backdrop-blur-lg shadow-[0_2px_20px_rgba(0,0,0,0.06)]" : "bg-white"}`}>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <a href="#home" className="flex items-center gap-3">
-          <img src={logo} alt="Sheshaan Global" className="h-12 w-12 object-contain" />
+          <img src={logo} alt="Sheshaan Global" className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]" />
           <div className="leading-tight">
             <div className="font-display text-xl font-bold tracking-tight" style={{ color: BLUE }}>SHESHAAN</div>
             <div className="text-[9px] font-semibold tracking-[0.22em]" style={{ color: ORANGE }}>EXPORTING GOODNESS WORLDWIDE</div>
@@ -150,7 +160,7 @@ function Nav() {
             <a key={l.href} href={l.href} className="text-sm font-medium text-slate-700 transition-colors hover:text-[#0057B8]">{l.label}</a>
           ))}
         </nav>
-        <a href="#contact" className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+        <a href="/contact" className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
           Get In Touch <ArrowRight className="h-4 w-4" />
         </a>
         <button className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
@@ -175,7 +185,7 @@ function Hero() {
   const reduced = useReducedMotion();
   const stats = [
     { icon: Globe2, n: "25+", l: "Export Markets" },
-    { icon: Box, n: "20+", l: "Product Categories" },
+    { icon: Box, n: "Farm Fresh", l: "Sourced Direct" },
     { icon: ShieldCheck, n: "100%", l: "Quality Focus" },
     { icon: Ship, n: "Global", l: "Logistics Network" },
   ];
@@ -216,7 +226,7 @@ function Hero() {
             <a href="#products" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}>
               Explore Products <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#contact" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+            <a href="/contact" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
               Export Inquiry <ArrowRight className="h-4 w-4" />
             </a>
           </div>
@@ -271,7 +281,7 @@ function About() {
               </div>
             ))}
           </div>
-          <a href="#contact" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+          <a href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
             Know More About Us <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
@@ -330,7 +340,10 @@ function Products() {
             </h2>
             <div className="mx-auto mt-3 h-1 w-24 rounded-full sm:mx-0" style={{ background: ORANGE }} />
           </motion.div>
-          <div className="hidden gap-2 sm:flex">
+          <div className="hidden items-center gap-2 sm:flex">
+            <a href="/products" className="mr-2 inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2.5 text-xs font-semibold transition hover:border-[#0057B8]" style={{ color: BLUE }}>
+              All products & HS codes
+            </a>
             <button onClick={() => scroll(-1)} aria-label="Scroll left" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0057B8] hover:text-[#0057B8]"><ChevronLeft className="h-5 w-5" /></button>
             <button onClick={() => scroll(1)} aria-label="Scroll right" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0057B8] hover:text-[#0057B8]"><ChevronRight className="h-5 w-5" /></button>
           </div>
@@ -378,29 +391,60 @@ function Markets() {
   const listRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
-  // Highlight the country row nearest the viewport center as the user scrolls
+  // Highlight the country row nearest the viewport center as the user scrolls.
+  // Perf: the measuring pass is rAF-throttled and only runs while the list is
+  // actually on screen, so scrolling the rest of the page costs nothing.
   useEffect(() => {
     if (reduced) return;
     const container = listRef.current;
     if (!container) return;
     const rows = Array.from(container.querySelectorAll<HTMLElement>("[data-country]"));
-    const onScroll = () => {
-      const viewportCenter = window.innerHeight / 2;
+    if (!rows.length) return;
+
+    let raf = 0;
+    let onScreen = true;
+
+    const measure = () => {
+      raf = 0;
+      const vh = window.innerHeight;
+      const viewportCenter = vh / 2;
       let best: { name: string; dist: number } | null = null;
       for (const r of rows) {
         const rect = r.getBoundingClientRect();
-        if (rect.bottom < 0 || rect.top > window.innerHeight) continue;
-        const c = rect.top + rect.height / 2;
-        const dist = Math.abs(c - viewportCenter);
-        const name = r.dataset.country!;
+        if (rect.bottom < 0 || rect.top > vh) continue;
+        const dist = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+        const name = r.dataset.country;
+        if (!name) continue;
         if (!best || dist < best.dist) best = { name, dist };
       }
-      if (best) setActive(best.name);
+      if (best) setActive((prev) => (prev === best!.name ? prev : best!.name));
     };
-    onScroll();
+
+    const onScroll = () => {
+      if (!onScreen || raf) return;
+      raf = requestAnimationFrame(measure);
+    };
+
+    let observer: IntersectionObserver | undefined;
+    if (typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(([entry]) => {
+        onScreen = entry.isIntersecting;
+        if (onScreen) onScroll();
+      });
+      observer.observe(container);
+    }
+
+    measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      observer?.disconnect();
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, [reduced]);
+
 
   return (
     <section id="markets" className="relative overflow-hidden py-24" style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #062354 100%)` }}>
@@ -421,7 +465,7 @@ function Markets() {
           <p className="mt-6 max-w-md text-white/75">
             We are proud to export our premium quality products to a wide range of countries across the globe. Hover a country to spot it on the map.
           </p>
-          <a href="#contact" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}>
+          <a href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}>
             Start Export Inquiry <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
@@ -571,10 +615,13 @@ function Certifications() {
     }
   }, []);
 
+  // Bug fix: a stray "All (products)" pseudo-option matched no certificate and
+  // produced an always-empty result list. Only real product names are offered.
   const allCategories = useMemo(
-    () => ["All", ...Array.from(new Set(["All (products)", ...PRODUCTS.map((p) => p.name)]))].filter((v, i, a) => a.indexOf(v) === i),
+    () => ["All", ...Array.from(new Set(PRODUCTS.map((p) => p.name)))],
     [],
   );
+
   const allCountries = useMemo(() => {
     const set = new Set<string>();
     CERTIFICATES.forEach((c) => c.countries.forEach((x) => set.add(x)));
@@ -605,9 +652,12 @@ function Certifications() {
 
   const handleDownload = async (cert: Certificate) => {
     setDownloading(cert.id);
+    // Abort a stalled request instead of leaving the button spinning forever.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 20000);
     try {
-      const res = await fetch(cert.file);
-      if (!res.ok) throw new Error("Fetch failed");
+      const res = await fetch(cert.file, { signal: controller.signal });
+      if (!res.ok) throw new Error(`Fetch failed (${res.status})`);
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -617,13 +667,16 @@ function Certifications() {
       document.body.appendChild(a);
       a.click();
       a.remove();
-      URL.revokeObjectURL(url);
+      // Revoking synchronously can cancel the download in Safari/Firefox.
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
     } catch {
       window.open(cert.file, "_blank", "noopener,noreferrer");
     } finally {
+      clearTimeout(timer);
       setDownloading(null);
     }
   };
+
 
   const resetFilters = () => { setQ(""); setFType("All"); setFCategory("All"); setFCountry("All"); };
   const isFiltered = q || fType !== "All" || fCategory !== "All" || fCountry !== "All";
@@ -675,7 +728,7 @@ function Certifications() {
             </select>
             <select aria-label="Filter by product category" value={fCategory} onChange={(e) => setFCategory(e.target.value)} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-[#0057B8]">
               <option value="All">All categories</option>
-              {allCategories.filter((c) => c !== "All" && c !== "All (products)").map((c) => <option key={c} value={c}>{c}</option>)}
+              {allCategories.filter((c) => c !== "All").map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
             <select aria-label="Filter by country" value={fCountry} onChange={(e) => setFCountry(e.target.value)} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-[#0057B8]">
               {allCountries.map((c) => <option key={c} value={c}>{c === "All" ? "All countries" : c}</option>)}
@@ -845,107 +898,6 @@ function WhyUs() {
   );
 }
 
-/* ---------- Contact ---------- */
-function Contact() {
-  const [form, setForm] = useState({
-    name: "", company: "", email: "", country: "",
-    category: PRODUCTS[0].name,
-    message: "",
-  });
-  const set = <K extends keyof typeof form>(k: K, v: string) => setForm((f) => ({ ...f, [k]: v }));
-
-  const waUrl = useMemo(
-    () => buildWhatsAppUrl({
-      category: form.category,
-      name: form.name,
-      company: form.company,
-      country: form.country,
-      message: form.message,
-    }),
-    [form],
-  );
-
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    window.open(waUrl, "_blank", "noopener,noreferrer");
-  };
-
-  return (
-    <section id="contact" className="bg-white py-24">
-      <div className="mx-auto max-w-7xl px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: EASE }}
-          className="text-center"
-        >
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Contact Us</div>
-          <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
-            Let's Start Your <span style={{ color: ORANGE }}>Export Journey</span>
-          </h2>
-        </motion.div>
-
-        <div className="mt-14 grid gap-10 lg:grid-cols-2">
-          <div className="rounded-3xl p-8 shadow-2xl" style={{ background: `linear-gradient(135deg, ${NAVY}, #062354)` }}>
-            <h3 className="font-display text-2xl font-bold text-white">Get in Touch</h3>
-            <p className="mt-2 text-sm text-white/70">Reach out to discuss requirements, pricing, and shipments.</p>
-            <div className="mt-8 space-y-5 text-white">
-              {([
-                { i: MapPin, t: "Office", d: "Maharashtra, India", href: "" },
-                { i: Phone, t: "Phone", d: PHONE, href: `tel:${PHONE_RAW}` },
-                { i: Mail, t: "Email", d: EMAIL, href: `mailto:${EMAIL}` },
-              ] as const).map((it) => (
-                <div key={it.t} className="flex items-start gap-4">
-                  <div className="grid h-11 w-11 place-items-center rounded-xl" style={{ background: `${ORANGE}22`, color: ORANGE }}>
-                    <it.i className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-wider text-white/60">{it.t}</div>
-                    {it.href ? (
-                      <a href={it.href} className="text-sm font-semibold hover:text-[#FF8A00]">{it.d}</a>
-                    ) : (
-                      <div className="text-sm font-semibold">{it.d}</div>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-8 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
-              <Award className="h-5 w-5" style={{ color: ORANGE }} />
-              <div className="text-xs text-white/80">Proprietor: <b className="text-white">Sana Zeba Siraj Bakshi</b></div>
-            </div>
-          </div>
-
-          <form onSubmit={submit} className="rounded-3xl border border-slate-200 bg-white p-8 shadow-xl">
-            <h3 className="font-display text-2xl font-bold text-slate-900">Send an Inquiry</h3>
-            <p className="mt-1 text-xs text-slate-500">Sends directly to WhatsApp with your details pre-filled.</p>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              <input value={form.name} onChange={(e) => set("name", e.target.value)} placeholder="Full name" className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0057B8]" />
-              <input value={form.company} onChange={(e) => set("company", e.target.value)} placeholder="Company" className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0057B8]" />
-              <input value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="Email" type="email" className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0057B8]" />
-              <input value={form.country} onChange={(e) => set("country", e.target.value)} placeholder="Country" className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0057B8]" />
-            </div>
-            <label className="mt-4 block text-xs font-semibold uppercase tracking-wider text-slate-500">Product Category</label>
-            <select
-              value={form.category}
-              onChange={(e) => set("category", e.target.value)}
-              className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0057B8]"
-            >
-              {PRODUCTS.map((p) => <option key={p.slug} value={p.name}>{p.name}</option>)}
-            </select>
-            <textarea value={form.message} onChange={(e) => set("message", e.target.value)} placeholder="Your message — required quantity, destination port, packing..." rows={4} className="mt-4 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none focus:border-[#0057B8]" />
-            <button type="submit" className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-[1.02]" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
-              Send via WhatsApp <MessageCircle className="h-4 w-4" />
-            </button>
-            <div className="mt-3 text-center text-[11px] text-slate-500">Prefer email? <a href={MAILTO_URL} className="font-semibold" style={{ color: BLUE }}>Write to us instead →</a></div>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ---------- Footer ---------- */
 function Footer() {
   return (
@@ -953,7 +905,7 @@ function Footer() {
       <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Sheshaan Global" className="h-12 w-12 object-contain" />
+            <img src={logo} alt="Sheshaan Global" className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]" />
             <div>
               <div className="font-display text-lg font-bold" style={{ color: "#fff" }}>SHESHAAN</div>
               <div className="text-[9px] font-semibold tracking-[0.2em]" style={{ color: ORANGE }}>EXPORTING GOODNESS WORLDWIDE</div>
@@ -1192,7 +1144,6 @@ function Home() {
         <Certifications />
         <WhyUs />
         <FAQ />
-        <Contact />
       </main>
       <Footer />
       <MessageFab />

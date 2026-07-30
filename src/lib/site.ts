@@ -6,6 +6,39 @@ import prodSpices from "@/assets/prod-spices.jpg";
 import prodDryfruits from "@/assets/prod-dryfruits.jpg";
 import prodCoconut from "@/assets/prod-coconut.jpg";
 import prodChillies from "@/assets/prod-chillies.jpg";
+import prodTurmericDetail from "@/assets/prod-turmeric-detail.jpg";
+import prodSugarDetail from "@/assets/prod-sugar-detail.jpg";
+import prodMakhanaDetail from "@/assets/prod-makhana-detail.jpg";
+import prodMakhanaAltDetail from "@/assets/prod-makhana-alt-detail.jpg";
+import prodPomegranateDetail from "@/assets/prod-pomegranate-detail.jpg";
+import prodCuminDetail from "@/assets/prod-cumin-detail.jpg";
+import prodCashewDetail from "@/assets/prod-cashew-detail.jpg";
+import prodTamarindDetail from "@/assets/prod-tamarind-detail.jpg";
+import prodPotatoesDetail from "@/assets/prod-potatoes-detail.jpg";
+import prodOkraDetail from "@/assets/prod-okra-detail.jpg";
+import prodDehydratedOnionDetail from "@/assets/prod-dehydrated-onion-detail.jpg";
+import prodGrapesDetail from "@/assets/prod-grapes-detail.jpg";
+import prodDrumsticksDetail from "@/assets/prod-drumsticks-detail.jpg";
+import prodDehydratedGarlicDetail from "@/assets/prod-dehydrated-garlic-detail.jpg";
+import prodBananaDetail from "@/assets/prod-banana-detail.jpg";
+import prodTomatoesDetail from "@/assets/prod-tomatoes-detail.jpg";
+import prodSoyabeanDetail from "@/assets/prod-soyabean-detail.jpg";
+import prodMustardDetail from "@/assets/prod-mustard-detail.jpg";
+import prodWheatDetail from "@/assets/prod-wheat-detail.jpg";
+import prodDriedRedChilliesDetail from "@/assets/prod-dried-red-chillies-detail.jpg";
+import prodGreenPeppercornDetail from "@/assets/prod-green-peppercorn-detail.jpg";
+import prodChickpeasDetail from "@/assets/prod-chickpeas-detail.jpg";
+import prodMangoDetail from "@/assets/prod-mango-detail.jpg";
+import prodDalDetail from "@/assets/prod-dal-detail.jpg";
+import prodOrangesDetail from "@/assets/prod-oranges-detail.jpg";
+import prodLemonDetail from "@/assets/prod-lemon-detail.jpg";
+import prodFenugreekDetail from "@/assets/prod-fenugreek-detail.jpg";
+import prodClusterBeansDetail from "@/assets/prod-cluster-beans-detail.jpg";
+import prodGarlicDetail from "@/assets/prod-garlic-detail.jpg";
+import prodCurryLeavesDetail from "@/assets/prod-curry-leaves-detail.jpg";
+import prodCowDungDetail from "@/assets/prod-cow-dung-detail.jpg";
+import prodGingerDetail from "@/assets/prod-ginger-detail.jpg";
+import prodBlackPepperDetail from "@/assets/prod-black-pepper-detail.jpg";
 
 export const BLUE = "#0057B8";
 export const ORANGE = "#FF8A00";
@@ -179,6 +212,7 @@ export const ORGANIZATION_JSONLD = {
 export type Product = {
   slug: string;
   name: string;
+  hsCode?: string;
   tagline: string;
   img: string;
   gallery: string[];
@@ -188,6 +222,7 @@ export type Product = {
   standards: string[];
   brochure?: string;
   brochureName?: string;
+  group?: string;
 };
 
 const B = "/brochures";
@@ -195,6 +230,7 @@ const B = "/brochures";
 export const PRODUCTS: Product[] = [
   {
     slug: "fresh-onions",
+    hsCode: "0703",
     name: "Fresh Onions",
     tagline: "Export-grade red, pink & white onions",
     img: prodVeg,
@@ -209,6 +245,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "green-chillies",
+    hsCode: "0709",
     name: "Green Chillies",
     tagline: "Vibrant, high-pungency Indian chillies",
     img: prodChillies,
@@ -223,6 +260,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "premium-rice",
+    hsCode: "1006",
     name: "Premium Rice",
     tagline: "Long-grain aromatic Basmati & Non-Basmati",
     img: prodRice,
@@ -237,6 +275,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "coconut-brown-husked",
+    hsCode: "0801",
     name: "Coconut (Brown Husked)",
     tagline: "Mature brown husked coconuts — CDB registered",
     img: prodCoconut,
@@ -251,6 +290,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "fresh-vegetables",
+    hsCode: "0709",
     name: "Fresh Vegetables",
     tagline: "Farm-fresh produce, cold-chain shipped",
     img: prodVeg,
@@ -265,6 +305,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "fresh-fruits",
+    hsCode: "0804",
     name: "Fresh Fruits",
     tagline: "Sun-ripened, hand-picked, export-graded",
     img: prodFruits,
@@ -279,6 +320,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "spices-masalas",
+    hsCode: "0910",
     name: "Spices & Masalas",
     tagline: "Whole & ground — steam-sterilized",
     img: prodSpices,
@@ -293,6 +335,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "pulses-lentils",
+    hsCode: "0713",
     name: "Pulses & Lentils",
     tagline: "Protein-rich, machine-cleaned & sorted",
     img: prodPulses,
@@ -307,6 +350,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     slug: "dry-fruits-nuts",
+    hsCode: "0801",
     name: "Dry Fruits & Nuts",
     tagline: "Premium grade, moisture-controlled",
     img: prodDryfruits,
@@ -321,8 +365,179 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
+/* ---------- Full HS-code export catalogue ---------- */
+
+type CatalogGroup = "vegetable" | "fruit" | "spice" | "grain" | "pulse" | "nut" | "other";
+
+const GROUP_IMG: Record<CatalogGroup, string> = {
+  vegetable: prodVeg,
+  fruit: prodFruits,
+  spice: prodSpices,
+  grain: prodRice,
+  pulse: prodPulses,
+  nut: prodDryfruits,
+  other: prodCoconut,
+};
+
+const GROUP_GALLERY: Record<CatalogGroup, string[]> = {
+  vegetable: [prodVeg, prodChillies, prodFruits],
+  fruit: [prodFruits, prodVeg, prodCoconut],
+  spice: [prodSpices, prodChillies, prodPulses],
+  grain: [prodRice, prodPulses, prodSpices],
+  pulse: [prodPulses, prodRice, prodSpices],
+  nut: [prodDryfruits, prodCoconut, prodRice],
+  other: [prodCoconut, prodRice, prodSpices],
+};
+
+const GROUP_PACKING: Record<CatalogGroup, string[]> = {
+  vegetable: ["Mesh bags 5 / 10 / 25 kg", "Ventilated corrugated cartons", "Plastic crates", "Reefer 20' / 40' container"],
+  fruit: ["Corrugated 3–5 kg cartons", "Ventilated plastic crates", "Reefer 40' HC container", "Private-label retail packs"],
+  spice: ["Food-grade PP bags 25 / 50 kg", "Retail pouches 100 g – 1 kg", "Bulk drums", "Aluminium-foil sachets"],
+  grain: ["PP woven bags 25 / 50 kg", "Non-woven 5 / 10 kg bags", "Jute bags", "Bulk containerised"],
+  pulse: ["PP bags 25 / 50 kg", "Retail 500 g / 1 kg pouches", "Bulk container", "Private label"],
+  nut: ["Vacuum pouches 250 g – 1 kg", "Tins 5 / 10 kg", "Cartons 10 / 12.5 kg", "Retail gift packs"],
+  other: ["PP / HDPE bags 25 / 50 kg", "Cartons as per buyer spec", "Bulk containerised", "Private-label packs"],
+};
+
+const GROUP_STANDARDS: Record<CatalogGroup, string[]> = {
+  vegetable: ["APEDA Certified", "FSSAI Compliant", "Residue-tested", "Phytosanitary Certified"],
+  fruit: ["APEDA Certified", "FSSAI Compliant", "GlobalG.A.P. sourcing", "Phytosanitary Certified"],
+  spice: ["Steam Sterilized", "FSSAI Compliant", "ASTA Standards", "ISO 22000"],
+  grain: ["APEDA Certified", "FSSAI Compliant", "Sortex Cleaned", "Non-GMO"],
+  pulse: ["FSSAI Compliant", "Sortex Cleaned 99.95%", "ISO 22000", "Non-GMO"],
+  nut: ["FSSAI Compliant", "ISO 22000", "HACCP", "Grade Sorted"],
+  other: ["FSSAI Compliant", "Export Documentation Support", "Certificate of Origin", "Quality Inspected"],
+};
+
+const GROUP_LABEL: Record<CatalogGroup, string> = {
+  vegetable: "Fresh Vegetables",
+  fruit: "Fresh Fruits",
+  spice: "Spices & Herbs",
+  grain: "Grains & Cereals",
+  pulse: "Pulses & Lentils",
+  nut: "Nuts & Dry Fruits",
+  other: "Agri Commodities",
+};
+
+type CatalogSeed = {
+  slug: string;
+  name: string;
+  hs: string;
+  g: CatalogGroup;
+  tagline: string;
+  varieties: string[];
+  brochure?: string;
+  img?: string;
+  gallery?: string[];
+};
+
+const CATALOG_IMAGE_OVERRIDES: Record<string, { img: string; gallery?: string[] }> = {
+  cumin: { img: prodCuminDetail },
+  turmeric: { img: prodTurmericDetail, gallery: [prodTurmericDetail, prodSpices, prodDriedRedChilliesDetail] },
+  "dried-red-chillies": { img: prodDriedRedChilliesDetail },
+  sugar: { img: prodSugarDetail },
+  tamarind: { img: prodTamarindDetail },
+  "makhana-raw": { img: prodMakhanaDetail, gallery: [prodMakhanaDetail, prodMakhanaAltDetail, prodDryfruits] },
+  "makhana-processed": { img: prodMakhanaAltDetail, gallery: [prodMakhanaAltDetail, prodMakhanaDetail, prodDryfruits] },
+  "dal-split-pulses": { img: prodDalDetail },
+  cashew: { img: prodCashewDetail },
+  pomegranate: { img: prodPomegranateDetail },
+  "dehydrated-onion-garlic": {
+    img: prodDehydratedOnionDetail,
+    gallery: [prodDehydratedOnionDetail, prodDehydratedGarlicDetail, prodGarlicDetail],
+  },
+  potatoes: { img: prodPotatoesDetail },
+  "okra-drumsticks": { img: prodOkraDetail, gallery: [prodOkraDetail, prodDrumsticksDetail, prodVeg] },
+  "g9-banana": { img: prodBananaDetail },
+  grapes: { img: prodGrapesDetail },
+  tomatoes: { img: prodTomatoesDetail },
+  mango: { img: prodMangoDetail },
+  soyabean: { img: prodSoyabeanDetail },
+  lemon: { img: prodLemonDetail },
+  oranges: { img: prodOrangesDetail },
+  chickpeas: { img: prodChickpeasDetail },
+  mustard: { img: prodMustardDetail },
+  wheat: { img: prodWheatDetail },
+  fenugreek: { img: prodFenugreekDetail },
+  "cluster-beans": { img: prodClusterBeansDetail },
+  ginger: { img: prodGingerDetail },
+  garlic: { img: prodGarlicDetail },
+  "black-pepper": { img: prodBlackPepperDetail },
+  "green-peppercorn": { img: prodGreenPeppercornDetail, gallery: [prodGreenPeppercornDetail, prodBlackPepperDetail, prodSpices] },
+  "curry-leaves": { img: prodCurryLeavesDetail },
+  "cow-dung": { img: prodCowDungDetail },
+};
+
+const CATALOG_SEEDS: CatalogSeed[] = [
+  { slug: "cumin", name: "Cumin (Jeera)", hs: "0909", g: "spice", tagline: "Machine-cleaned Gujarat & Rajasthan cumin", varieties: ["Europe Quality 99%", "Singapore Quality 99%", "Sortex Clean", "Cumin Powder"], brochure: `${B}/sheshaan-spices.pdf` },
+  { slug: "turmeric", name: "Turmeric", hs: "0910", g: "spice", tagline: "High-curcumin fingers, bulbs & powder", varieties: ["Salem Finger", "Nizamabad Bulb", "Erode Finger", "Turmeric Powder"], brochure: `${B}/sheshaan-spices.pdf` },
+  { slug: "dried-red-chillies", name: "Dried Red Chillies", hs: "0904", g: "spice", tagline: "Stemless & with-stem, high colour value", varieties: ["Teja S17", "Byadgi", "Guntur Sannam 334", "Wrinkle 273"], brochure: `${B}/sheshaan-spices.pdf` },
+  { slug: "tea", name: "Tea", hs: "0902", g: "other", tagline: "Assam, Nilgiri & Darjeeling origins", varieties: ["Assam CTC", "Nilgiri Orthodox", "Darjeeling", "Green Tea"] },
+  { slug: "sugar", name: "Sugar", hs: "1701", g: "other", tagline: "ICUMSA-graded Indian refined sugar", varieties: ["ICUMSA 45", "ICUMSA 100", "ICUMSA 150", "Raw Sugar"] },
+  { slug: "coffee", name: "Coffee", hs: "0901", g: "other", tagline: "Arabica & Robusta green beans", varieties: ["Arabica Plantation A", "Robusta Cherry AA", "Robusta Parchment", "Monsooned Malabar"] },
+  { slug: "tamarind", name: "Tamarind", hs: "0810", g: "fruit", tagline: "Seedless & with-seed, deep-toned pulp", varieties: ["Seedless Tamarind", "With Seed", "Tamarind Paste", "Tamarind Block"] },
+  { slug: "peanuts", name: "Peanuts (Groundnut)", hs: "1202", g: "nut", tagline: "Bold & Java kernels, aflatoxin-tested", varieties: ["Bold 40/50", "Java 45/55", "TJ Peanuts", "Blanched Kernels"] },
+  { slug: "makhana-raw", name: "Makhana (Raw Fox Nuts)", hs: "08109090", g: "nut", tagline: "Bihar-origin popped fox nuts, size graded", varieties: ["4 Suta", "5 Suta", "6 Suta", "Handpicked Premium"] },
+  { slug: "makhana-processed", name: "Makhana (Processed & Flavoured)", hs: "20081990", g: "nut", tagline: "Roasted, seasoned & retail-ready fox nuts", varieties: ["Roasted Salted", "Peri Peri", "Cheese", "Himalayan Salt"] },
+  { slug: "dal-split-pulses", name: "Dal (Split Pulses)", hs: "0713", g: "pulse", tagline: "Mill-fresh split & polished dals", varieties: ["Toor Dal", "Chana Dal", "Moong Dal", "Urad Dal", "Masoor Dal"], brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf` },
+  { slug: "cashew", name: "Cashew Kernels", hs: "0801", g: "nut", tagline: "Whole white kernels, grade sorted", varieties: ["W180", "W240", "W320", "SW / Pieces"], brochure: `${B}/sheshaan-dry-fruits-nuts.pdf` },
+  { slug: "pomegranate", name: "Pomegranate", hs: "08109010", g: "fruit", tagline: "Bhagwa arils with deep ruby colour", varieties: ["Bhagwa", "Ganesh", "Ruby", "Arakta"], brochure: `${B}/sheshaan-fresh-fruits.pdf` },
+  { slug: "dehydrated-onion-garlic", name: "Dehydrated Onion & Garlic", hs: "0712", g: "vegetable", tagline: "Kibbled, minced, granules & powder", varieties: ["White Onion Kibbled", "Onion Powder", "Garlic Granules", "Garlic Powder"] },
+  { slug: "potatoes", name: "Potatoes", hs: "0701", g: "vegetable", tagline: "Table & processing grade potatoes", varieties: ["Jyoti", "Kufri Pukhraj", "Chipsona", "Table Grade 50–100 g"] },
+  { slug: "okra-drumsticks", name: "Okra & Drumsticks", hs: "0709", g: "vegetable", tagline: "Tender pods, pre-cooled for air & sea", varieties: ["Okra (Lady Finger)", "Drumstick (Moringa Pod)", "Baby Okra", "PKM-1 Drumstick"] },
+  { slug: "g9-banana", name: "G9 Banana (Cavendish)", hs: "0803", g: "fruit", tagline: "Export-grade Grand Naine bananas", varieties: ["G9 Cavendish", "Grand Naine", "Class I 13–14 kg", "Green Mature"], brochure: `${B}/sheshaan-fresh-fruits.pdf` },
+  { slug: "grapes", name: "Grapes", hs: "0806", g: "fruit", tagline: "Nashik table grapes, cold-chain shipped", varieties: ["Thompson Seedless", "Sonaka", "Flame Seedless", "Black Jumbo"], brochure: `${B}/sheshaan-fresh-fruits.pdf` },
+  { slug: "tomatoes", name: "Tomatoes", hs: "0702", g: "vegetable", tagline: "Firm, uniform, long-shelf-life tomatoes", varieties: ["Hybrid Round", "Roma / Plum", "Cherry Tomato", "Semi-ripe Export Grade"] },
+  { slug: "mango", name: "Mango", hs: "0804", g: "fruit", tagline: "Alphonso, Kesar & Banganapalli", varieties: ["Alphonso", "Kesar", "Banganapalli", "Totapuri"], brochure: `${B}/sheshaan-fresh-fruits.pdf` },
+  { slug: "other-vegetables", name: "Other Fresh Vegetables", hs: "0709", g: "vegetable", tagline: "Mixed vegetable programmes on request", varieties: ["Green Peas", "Brinjal", "Bitter Gourd", "Bottle Gourd", "Capsicum"] },
+  { slug: "coriander", name: "Coriander (Dhania)", hs: "0909", g: "spice", tagline: "Eagle & Scooter seeds, bright green", varieties: ["Eagle Quality", "Scooter Quality", "Split Coriander", "Coriander Powder"], brochure: `${B}/sheshaan-spices.pdf` },
+  { slug: "soyabean", name: "Soyabean", hs: "12019000", g: "grain", tagline: "Non-GMO soyabean seeds & meal", varieties: ["Non-GMO Yellow", "Food Grade", "Crushing Grade", "Soyabean Meal"], brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf` },
+  { slug: "lemon", name: "Lemon", hs: "0805", g: "fruit", tagline: "High-juice Indian lemons & limes", varieties: ["Kagzi Lime", "Seedless Lime", "Eureka Lemon", "Baramasi"] },
+  { slug: "oranges", name: "Oranges", hs: "0805", g: "fruit", tagline: "Nagpur & Kinnow citrus", varieties: ["Nagpur Mandarin", "Kinnow", "Malta", "Sweet Lime (Mosambi)"] },
+  { slug: "chickpeas", name: "Chickpeas", hs: "0713", g: "pulse", tagline: "Kabuli & desi chana, size graded", varieties: ["Kabuli 42/44", "Kabuli 58/60", "Desi Chana", "Chana Dal"], brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf` },
+  { slug: "mustard", name: "Mustard (Seed & Meal)", hs: "2306", g: "other", tagline: "Oil-rich seed and de-oiled cake", varieties: ["Black Mustard Seed", "Yellow Mustard Seed", "Rapeseed Meal", "De-oiled Cake"] },
+  { slug: "wheat", name: "Wheat", hs: "1001", g: "grain", tagline: "Milling-grade Indian wheat", varieties: ["Sharbati", "Lokwan", "Durum", "Milling Grade"], brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf` },
+  { slug: "fenugreek", name: "Fenugreek (Methi)", hs: "0910", g: "spice", tagline: "Bold, bright seeds & kasuri methi", varieties: ["Fenugreek Seed", "Kasuri Methi", "Fenugreek Powder", "Sortex Clean"], brochure: `${B}/sheshaan-spices.pdf` },
+  { slug: "guar-gum", name: "Guar Gum", hs: "1301", g: "other", tagline: "Food & industrial grade guar gum powder", varieties: ["Food Grade 200 Mesh", "Industrial Grade", "Guar Splits", "Guar Korma"] },
+  { slug: "cluster-beans", name: "Cluster Beans (Guar)", hs: "0708", g: "vegetable", tagline: "Tender fresh guar pods", varieties: ["Pusa Naubahar", "Fresh Tender Pods", "Class I", "Bulk Grade"] },
+  { slug: "cardamom", name: "Cardamom", hs: "0908", g: "spice", tagline: "Bold green cardamom from Idukki", varieties: ["8 mm Bold", "7 mm", "6.5 mm", "Extra Bold"], brochure: `${B}/sheshaan-spices.pdf` },
+  { slug: "maize-corn", name: "Maize (Corn)", hs: "1005", g: "grain", tagline: "Feed & food grade yellow maize", varieties: ["Yellow Maize Feed Grade", "Food Grade", "White Maize", "Non-GMO"], brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf` },
+  { slug: "ginger", name: "Ginger", hs: "0910", g: "spice", tagline: "Fresh & dried ginger, high oleoresin", varieties: ["Fresh Ginger", "Dried Ginger (Sonth)", "Ginger Powder", "Organic Ginger"] },
+  { slug: "garlic", name: "Garlic", hs: "0703", g: "vegetable", tagline: "White & pink garlic, tight-skinned bulbs", varieties: ["White Garlic 40–50 mm", "Pink Garlic", "Peeled Cloves", "Ooty Garlic"] },
+  { slug: "black-pepper", name: "Black Pepper", hs: "0904", g: "spice", tagline: "Malabar garbled, 550–600 g/l", varieties: ["Malabar Garbled 550 g/l", "MG1 600 g/l", "Tellicherry Extra Bold", "Pepper Powder"], brochure: `${B}/sheshaan-spices.pdf` },
+  { slug: "green-peppercorn", name: "Green Peppercorn", hs: "0904", g: "spice", tagline: "Fresh green pepper clusters from Indian plantations", varieties: ["Fresh Green Peppercorn", "Brined Peppercorn", "Dehydrated Green Pepper", "Whole Clusters"], brochure: `${B}/sheshaan-spices.pdf` },
+  { slug: "curry-leaves", name: "Curry Leaves", hs: "0910", g: "spice", tagline: "Fresh & dehydrated aromatic leaves", varieties: ["Fresh Curry Leaves", "Dehydrated Leaves", "Curry Leaf Powder", "Air-freight Grade"] },
+  { slug: "jaggery", name: "Jaggery", hs: "1701", g: "other", tagline: "Chemical-free blocks, cubes & powder", varieties: ["Jaggery Blocks", "Jaggery Cubes", "Jaggery Powder", "Organic Jaggery"] },
+  { slug: "cow-dung", name: "Cow Dung (Organic Manure)", hs: "3101", g: "other", tagline: "Sun-dried cakes & organic manure", varieties: ["Dried Cow Dung Cakes", "Powdered Manure", "Vermicompost Blend", "Bulk Bags"] },
+];
+
+export const CATALOG: Product[] = CATALOG_SEEDS.map((c) => {
+  const override = CATALOG_IMAGE_OVERRIDES[c.slug];
+  const img = c.img ?? override?.img ?? "";
+  const gallery = c.gallery ?? override?.gallery ?? (img ? [img] : []);
+
+  return {
+    slug: c.slug,
+    name: c.name,
+    hsCode: c.hs,
+    tagline: c.tagline,
+    img,
+    gallery,
+    description: `Export-grade ${c.name.toLowerCase()} (HS Code ${c.hs}) supplied by Sheshaan Global from India. Sourced from established growing belts, graded and quality-checked before dispatch, with complete export documentation and buyer-specified packing for shipments to 25+ countries across the Middle East, Europe, UK, USA and Asia.`,
+    varieties: c.varieties,
+    packing: GROUP_PACKING[c.g],
+    standards: GROUP_STANDARDS[c.g],
+    brochure: c.brochure ?? BROCHURE_URL,
+    brochureName: `Sheshaan-Global-${c.name.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "")}.pdf`,
+    group: GROUP_LABEL[c.g],
+  };
+});
+
+/** Flagship categories first, then the full HS-code catalogue. */
+export const ALL_PRODUCTS: Product[] = [...PRODUCTS, ...CATALOG];
+
 export function getProductBySlug(slug: string) {
-  return PRODUCTS.find((p) => p.slug === slug);
+  return ALL_PRODUCTS.find((p) => p.slug === slug);
 }
 
 /** Countries with map coordinates (0-100% of world map image). */

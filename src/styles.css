@@ -166,18 +166,94 @@
 
 /* Offset in-page anchor scroll for sticky header (h-20 = 5rem) */
 html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 section[id] { scroll-margin-top: 6rem; }
 
-/* Hide Lovable badge */
+/* ---- Global motion polish ---- */
+a, button, img, svg, [role="button"] {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity, filter;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes sg-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes sg-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sg-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes sg-pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-primary) 45%, transparent); }
+  70% { box-shadow: 0 0 0 14px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@utility sg-float { animation: sg-float 6s ease-in-out infinite; }
+@utility sg-fade-up { animation: sg-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@utility sg-pulse-ring { animation: sg-pulse-ring 2.4s ease-out infinite; }
+@utility sg-shimmer {
+  background-size: 200% 100%;
+  animation: sg-shimmer 2.5s linear infinite;
+}
+@utility sg-lift {
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  &:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 24px 50px -22px color-mix(in oklab, var(--color-primary) 55%, transparent);
+  }
+}
+@utility sg-zoom-img {
+  overflow: hidden;
+  & img {
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  &:hover img { transform: scale(1.07); }
+}
+
+/* Smooth, branded scrollbar */
+* { scrollbar-width: thin; scrollbar-color: color-mix(in oklab, var(--color-primary) 55%, transparent) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: color-mix(in oklab, var(--color-primary) 55%, transparent);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+
+/* Hide the Lovable branding widget entirely: the badge container, everything
+   inside it (text + floating close X), and any orphaned close button that the
+   widget renders as a sibling. Targets the parent so no empty box remains. */
 #lovable-badge,
+#lovable-badge *,
 [id^="lovable-badge"],
+[id^="lovable-badge"] *,
+[class*="lovable-badge"],
+[class*="lovable-badge"] *,
+#lovable-badge-close,
+[id^="lovable-badge"] + button,
+[id^="lovable-badge"] ~ button[aria-label*="close" i],
 a[href*="lovable.dev"][href*="badge"],
 a[href*="lovable.dev/?utm"],
 a[aria-label*="Lovable" i],
-a[aria-label*="Edit with Lovable" i] {
+a[aria-label*="Edit with Lovable" i],
+button[aria-label*="Lovable" i],
+[data-lovable-badge],
+[data-testid*="lovable-badge" i] {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
   pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
 }
+
 

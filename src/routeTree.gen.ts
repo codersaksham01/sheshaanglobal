@@ -9,24 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as CompanyPoliciesRouteImport } from './routes/company-policies'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as MoreInfoRouteImport } from './routes/more-info'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ExportToRegionRouteImport } from './routes/export-to.$region'
+import { Route as ProductsIndexRouteImport } from './routes/products.index'
+import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductsSlugRoute = ProductsSlugRouteImport.update({
-  id: '/products/$slug',
-  path: '/products/$slug',
+const CompanyPoliciesRoute = CompanyPoliciesRouteImport.update({
+  id: '/company-policies',
+  path: '/company-policies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MoreInfoRoute = MoreInfoRouteImport.update({
+  id: '/more-info',
+  path: '/more-info',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExportToRegionRoute = ExportToRegionRouteImport.update({
@@ -34,55 +48,94 @@ const ExportToRegionRoute = ExportToRegionRouteImport.update({
   path: '/export-to/$region',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsIndexRoute = ProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsSlugRoute = ProductsSlugRouteImport.update({
+  id: '/products/$slug',
+  path: '/products/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/company-policies': typeof CompanyPoliciesRoute
+  '/contact': typeof ContactRoute
+  '/more-info': typeof MoreInfoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/company-policies': typeof CompanyPoliciesRoute
+  '/contact': typeof ContactRoute
+  '/more-info': typeof MoreInfoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/company-policies': typeof CompanyPoliciesRoute
+  '/contact': typeof ContactRoute
+  '/more-info': typeof MoreInfoRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/products/': typeof ProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap.xml' | '/export-to/$region' | '/products/$slug'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml' | '/export-to/$region' | '/products/$slug'
-  id:
-    | '__root__'
+  fullPaths:
     | '/'
+    | '/company-policies'
+    | '/contact'
+    | '/more-info'
     | '/sitemap.xml'
     | '/export-to/$region'
     | '/products/$slug'
+    | '/products/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/company-policies'
+    | '/contact'
+    | '/more-info'
+    | '/sitemap.xml'
+    | '/export-to/$region'
+    | '/products/$slug'
+    | '/products'
+  id:
+    | '__root__'
+    | '/'
+    | '/company-policies'
+    | '/contact'
+    | '/more-info'
+    | '/sitemap.xml'
+    | '/export-to/$region'
+    | '/products/$slug'
+    | '/products/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompanyPoliciesRoute: typeof CompanyPoliciesRoute
+  ContactRoute: typeof ContactRoute
+  MoreInfoRoute: typeof MoreInfoRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ExportToRegionRoute: typeof ExportToRegionRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
+  ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -90,11 +143,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/products/$slug': {
-      id: '/products/$slug'
-      path: '/products/$slug'
-      fullPath: '/products/$slug'
-      preLoaderRoute: typeof ProductsSlugRouteImport
+    '/company-policies': {
+      id: '/company-policies'
+      path: '/company-policies'
+      fullPath: '/company-policies'
+      preLoaderRoute: typeof CompanyPoliciesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/more-info': {
+      id: '/more-info'
+      path: '/more-info'
+      fullPath: '/more-info'
+      preLoaderRoute: typeof MoreInfoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/export-to/$region': {
@@ -104,15 +178,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExportToRegionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/': {
+      id: '/products/'
+      path: '/products'
+      fullPath: '/products/'
+      preLoaderRoute: typeof ProductsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$slug': {
+      id: '/products/$slug'
+      path: '/products/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof ProductsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompanyPoliciesRoute: CompanyPoliciesRoute,
+  ContactRoute: ContactRoute,
+  MoreInfoRoute: MoreInfoRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ExportToRegionRoute: ExportToRegionRoute,
   ProductsSlugRoute: ProductsSlugRoute,
+  ProductsIndexRoute: ProductsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

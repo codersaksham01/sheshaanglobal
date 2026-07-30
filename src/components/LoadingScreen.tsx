@@ -13,14 +13,20 @@ export function LoadingScreen({ minMs = 1100 }: { minMs?: number }) {
 
   useEffect(() => {
     const start = performance.now();
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
     const finish = () => {
-      const elapsed = performance.now() - start;
-      const wait = Math.max(0, minMs - elapsed);
-      setTimeout(() => setVisible(false), wait);
+      const wait = Math.max(0, minMs - (performance.now() - start));
+      hideTimer = setTimeout(() => setVisible(false), wait);
     };
     if (document.readyState === "complete") finish();
     else window.addEventListener("load", finish, { once: true });
-    return () => window.removeEventListener("load", finish);
+    // Safety net: a single stalled asset must never trap users on the splash.
+    const failsafe = setTimeout(() => setVisible(false), Math.max(minMs, 6000));
+    return () => {
+      window.removeEventListener("load", finish);
+      if (hideTimer) clearTimeout(hideTimer);
+      clearTimeout(failsafe);
+    };
   }, [minMs]);
 
   return (

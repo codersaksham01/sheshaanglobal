@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ArrowLeft, ArrowRight, Download, MessageCircle, Mail, ShieldCheck,
   Package, Sparkles, Award, ChevronRight, FileText, Eye, Loader2,
@@ -27,7 +27,8 @@ export const Route = createFileRoute("/products/$slug")({
     const p = loaderData.product;
     const SITE_URL = "https://global-roots-express.lovable.app";
     const url = `${SITE_URL}/products/${params.slug}`;
-    const img = p.gallery[0]?.startsWith("http") ? p.gallery[0] : `${SITE_URL}${p.gallery[0] ?? p.img}`;
+    const previewImage = p.gallery[0] || p.img || "/logo.png";
+    const img = previewImage.startsWith("http") ? previewImage : `${SITE_URL}${previewImage}`;
     const title = `${p.name} Exporter from India — Sheshaan Global`;
     const desc = `${p.tagline}. Export-grade ${p.name.toLowerCase()} from India — packing, standards, certifications and direct inquiry. Sheshaan Global ships to 25+ countries.`;
     return {
@@ -53,7 +54,8 @@ export const Route = createFileRoute("/products/$slug")({
             "@type": "Product",
             name: p.name,
             description: p.description,
-            image: p.gallery.map((g) => (g.startsWith("http") ? g : `${SITE_URL}${g}`)),
+            ...(p.hsCode ? { sku: `HS-${p.hsCode}` } : {}),
+            image: (p.gallery.length ? p.gallery : [p.img || "/logo.png"]).map((g) => (g.startsWith("http") ? g : `${SITE_URL}${g}`)),
             category: p.name,
             brand: { "@type": "Brand", name: "Sheshaan Global" },
             manufacturer: { "@type": "Organization", name: "Sheshaan Global" },
@@ -117,6 +119,13 @@ function ProductPage() {
   const [active, setActive] = useState(0);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [pdfLoading, setPdfLoading] = useState(true);
+  // Some browsers (notably iOS Safari) never fire load/error on a PDF iframe.
+  // Clear the spinner after a short grace period so the dialog is never stuck.
+  useEffect(() => {
+    if (!previewOpen) return;
+    const t = setTimeout(() => setPdfLoading(false), 8000);
+    return () => clearTimeout(t);
+  }, [previewOpen]);
   const related = PRODUCTS.filter((p) => p.slug !== product.slug).slice(0, 4);
 
   const waUrl = buildWhatsAppUrl({ category: product.name });
@@ -145,7 +154,7 @@ function ProductPage() {
         <div className="flex items-center gap-2 text-xs text-slate-500">
           <Link to="/" className="hover:text-[#0057B8]">Home</Link>
           <ChevronRight className="h-3 w-3" />
-          <Link to="/" hash="products" className="hover:text-[#0057B8]">Products</Link>
+          <Link to="/products" className="hover:text-[#0057B8]">Products</Link>
           <ChevronRight className="h-3 w-3" />
           <span className="font-semibold text-slate-800">{product.name}</span>
         </div>
@@ -162,10 +171,15 @@ function ProductPage() {
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-50 shadow-xl"
           >
-            <img src={product.gallery[active]} alt={product.name} className="aspect-square w-full object-cover" />
+            {product.gallery[active] ? (
+              <img src={product.gallery[active]} alt={product.name} className="aspect-square w-full object-cover" />
+            ) : (
+              <ProductGraphic name={product.name} group={product.group} />
+            )}
           </motion.div>
-          <div className="mt-4 grid grid-cols-4 gap-3">
-            {product.gallery.map((g, i) => (
+          {product.gallery.length > 0 && (
+            <div className="mt-4 grid grid-cols-4 gap-3">
+              {product.gallery.map((g, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
@@ -175,8 +189,9 @@ function ProductPage() {
               >
                 <img src={g} alt={`${product.name} ${i + 1}`} className="h-full w-full object-cover" />
               </button>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Info */}
@@ -192,6 +207,11 @@ function ProductPage() {
             {product.name}
           </h1>
           <p className="mt-3 text-lg" style={{ color: ORANGE }}>{product.tagline}</p>
+          {product.hsCode && (
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold text-white">
+              HS Code <span style={{ color: ORANGE }}>{product.hsCode}</span>
+            </div>
+          )}
           <p className="mt-6 text-slate-600">{product.description}</p>
 
           {/* Varieties */}
@@ -272,6 +292,7 @@ function ProductPage() {
                   title={`${product.name} Brochure`}
                   src={`${brochureUrl}#view=FitH`}
                   onLoad={() => setPdfLoading(false)}
+                  onError={() => setPdfLoading(false)}
                   className="h-full w-full border-0"
                 />
               </div>
@@ -352,7 +373,7 @@ function ProductPage() {
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="flex items-end justify-between">
           <h2 className="font-display text-3xl font-bold text-slate-900">Related Products</h2>
-          <Link to="/" hash="products" className="hidden text-sm font-semibold hover:underline sm:block" style={{ color: BLUE }}>
+          <Link to="/products" className="hidden text-sm font-semibold hover:underline sm:block" style={{ color: BLUE }}>
             View all →
           </Link>
         </div>
@@ -422,6 +443,20 @@ function ProductPage() {
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+function ProductGraphic({ name, group }: { name: string; group?: string }) {
+  return (
+    <div className="grid aspect-square w-full place-items-center bg-[radial-gradient(circle_at_28%_18%,rgba(255,138,0,0.16),transparent_32%),linear-gradient(135deg,#f8fafc,#e2e8f0)] p-8 text-center">
+      <div>
+        <div className="mx-auto grid h-20 w-20 place-items-center rounded-3xl bg-white text-[#0057B8] shadow-sm">
+          <Package className="h-10 w-10" />
+        </div>
+        <div className="mt-5 text-xs font-bold uppercase tracking-wider text-slate-500">{group ?? "Product"}</div>
+        <div className="mt-2 font-display text-xl font-bold text-slate-700">{name}</div>
+      </div>
     </div>
   );
 }
