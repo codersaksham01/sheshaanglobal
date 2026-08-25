@@ -1,5 +1,6 @@
 import prodFruits from "@/assets/prod-fruits.jpg";
 import prodVeg from "@/assets/prod-vegetables.jpg";
+import prodFreshOnionsDetail from "@/assets/prod-fresh-onions-detail.jpg";
 import prodRice from "@/assets/prod-rice.jpg";
 import prodPulses from "@/assets/prod-pulses.jpg";
 import prodSpices from "@/assets/prod-spices.jpg";
@@ -233,8 +234,8 @@ export const PRODUCTS: Product[] = [
     hsCode: "0703",
     name: "Fresh Onions",
     tagline: "Export-grade red, pink & white onions",
-    img: prodVeg,
-    gallery: [prodVeg, prodChillies, prodFruits],
+    img: prodFreshOnionsDetail,
+    gallery: [prodFreshOnionsDetail, prodVeg, prodChillies],
     description:
       "Our flagship export — premium Indian onions sourced directly from Nashik, Maharashtra. Uniformly graded, well-cured and packed for long transit, meeting the size, color and pungency standards of Middle East, South-East Asia and European buyers.",
     varieties: ["Red Onion (Nashik)", "Pink Onion", "White Onion", "Rose Onion", "Bangalore Rose"],
