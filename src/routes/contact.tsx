@@ -3,10 +3,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ArrowRight, Mail, Phone, MessageCircle, MapPin, Send,
-  Briefcase, Globe2, Crown, CheckCircle2, Loader2,
+  Briefcase, Globe2, Crown, CheckCircle2, Loader2, Linkedin,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
-import { BLUE, ORANGE, NAVY, PHONE, PHONE_RAW, EMAIL, PRODUCTS, buildWhatsAppUrl } from "@/lib/site";
+import {
+  BLUE, ORANGE, NAVY, PHONE, PHONE_RAW, EMAIL, PRODUCTS,
+  LINKEDIN_SAKSHAM, LINKEDIN_SANA, buildWhatsAppUrl,
+} from "@/lib/site";
 
 const SITE_URL = "https://global-roots-express.lovable.app";
 const FORMSPREE = "https://formspree.io/f/xpqvnnav";
@@ -25,6 +28,7 @@ const TEAM = [
     name: "Sana Zeba Bakshi",
     role: "Chief Executive Officer",
     email: "sanazeba@sheshaanglobal.com",
+    linkedin: LINKEDIN_SANA,
     blurb: "Strategic alliances, distributor agreements, large-volume annual contracts and corporate matters.",
     Icon: Crown,
   },
@@ -39,6 +43,7 @@ const TEAM = [
     name: "Saksham Singh",
     role: "Business Development",
     email: "sakshamsingh@sheshaanglobal.com",
+    linkedin: LINKEDIN_SAKSHAM,
     blurb: "New buyer partnerships, product sourcing, indicative pricing and sample dispatch requests.",
     Icon: Briefcase,
   },
@@ -220,6 +225,17 @@ function ContactPage() {
               >
                 <Mail className="h-4 w-4" /> {t.email}
               </a>
+              {t.linkedin && (
+                <a
+                  href={t.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`mt-2 flex items-center gap-2 text-sm font-semibold ${t.featured ? "text-white hover:text-[#FF8A00]" : ""}`}
+                  style={t.featured ? undefined : { color: BLUE }}
+                >
+                  <Linkedin className="h-4 w-4" /> Connect on LinkedIn
+                </a>
+              )}
               {t.phone && (
                 <a href={`tel:+${PHONE_RAW}`} className="mt-2 flex items-center gap-2 text-sm font-semibold text-white hover:text-[#FF8A00]">
                   <Phone className="h-4 w-4" /> {t.phone}

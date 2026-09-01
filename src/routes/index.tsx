@@ -5,7 +5,7 @@ import {
   Globe2, Package, ShieldCheck, Ship, ArrowRight, MapPin, Phone, Mail,
   MessageCircle, Award, Sprout, Truck, DollarSign, Clock, HeartHandshake,
   FileCheck2, Box, ChevronLeft, ChevronRight, X, Menu, Download, Eye, FileText,
-  Loader2, Search, Filter, BadgePercent,
+  Loader2, Search, Filter, BadgePercent, Linkedin,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import heroGlobe from "@/assets/hero-globe.jpg";
@@ -13,7 +13,7 @@ import farmExport from "@/assets/farm-export.jpg";
 import worldMap from "@/assets/world-map.jpg";
 import {
   BLUE, ORANGE, NAVY, PHONE, PHONE_RAW, EMAIL, BROCHURE_URL,
-  WHATSAPP_URL, MAILTO_URL, buildWhatsAppUrl, PRODUCTS, COUNTRIES,
+  WHATSAPP_URL, MAILTO_URL, LINKEDIN_SAKSHAM, LINKEDIN_SANA, buildWhatsAppUrl, PRODUCTS, COUNTRIES,
   CERTIFICATES, CERT_TYPES, FAQS, REGIONS, ORGANIZATION_JSONLD, type Certificate,
 } from "@/lib/site";
 import {
@@ -933,6 +933,8 @@ function Footer() {
             <div className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> Maharashtra, India</div>
             <a href={`tel:${PHONE_RAW}`} className="flex items-start gap-2 hover:text-white"><Phone className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {PHONE}</a>
             <a href={`mailto:${EMAIL}`} className="flex items-start gap-2 hover:text-white"><Mail className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {EMAIL}</a>
+            <a href={LINKEDIN_SAKSHAM} target="_blank" rel="noreferrer" className="flex items-start gap-2 hover:text-white"><Linkedin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> Saksham Singh</a>
+            <a href={LINKEDIN_SANA} target="_blank" rel="noreferrer" className="flex items-start gap-2 hover:text-white"><Linkedin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> Sana Zeba Bakshi</a>
           </div>
         </div>
       </div>
@@ -951,6 +953,8 @@ function MessageFab() {
   const actions = [
     { label: "WhatsApp", sub: "Chat instantly", icon: MessageCircle, href: WHATSAPP_URL, bg: "#25D366", external: true },
     { label: "Email Us", sub: EMAIL, icon: Mail, href: MAILTO_URL, bg: BLUE },
+    { label: "Saksham LinkedIn", sub: "Business development", icon: Linkedin, href: LINKEDIN_SAKSHAM, bg: "#0A66C2", external: true },
+    { label: "Sana LinkedIn", sub: "Chief Executive Officer", icon: Linkedin, href: LINKEDIN_SANA, bg: NAVY, external: true },
     { label: "Download Brochure", sub: "PDF catalogue", icon: FileText, href: BROCHURE_URL, bg: ORANGE, download: "Sheshaan-Global-Catalogue.pdf" },
   ] as const;
 
@@ -1150,4 +1154,3 @@ function Home() {
     </div>
   );
 }
-

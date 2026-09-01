@@ -49,6 +49,8 @@ export const PHONE = "+91 81499 09546";
 export const PHONE_RAW = "918149909546";
 export const EMAIL = "info@sheshaanglobal.com";
 export const BROCHURE_URL = "/catalogue.pdf";
+export const LINKEDIN_SAKSHAM = "https://www.linkedin.com/in/saksham-singh-ba591638a/";
+export const LINKEDIN_SANA = "https://www.linkedin.com/in/sana-zeba-bakshi/";
 
 export function buildWhatsAppUrl(opts?: {
   category?: string;
