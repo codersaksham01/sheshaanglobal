@@ -45,8 +45,8 @@ export const BLUE = "#0057B8";
 export const ORANGE = "#FF8A00";
 export const NAVY = "#04152D";
 
-export const PHONE = "+91 95276 00745";
-export const PHONE_RAW = "919527600745";
+export const PHONE = "+91 81499 09546";
+export const PHONE_RAW = "918149909546";
 export const EMAIL = "info@sheshaanglobal.com";
 export const BROCHURE_URL = "/catalogue.pdf";
 
