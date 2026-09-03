@@ -10,6 +10,7 @@ import {
   BLUE, ORANGE, NAVY, PHONE, EMAIL, BROCHURE_URL, MAILTO_URL,
   PRODUCTS, REGIONS, getProductBySlug, buildWhatsAppUrl, faqsForProduct, type Product,
 } from "@/lib/site";
+import { adminProductToProduct, type AdminState } from "@/lib/admin-content";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
 } from "@/components/ui/dialog";
@@ -17,14 +18,14 @@ import {
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
     const product = getProductBySlug(params.slug);
-    if (!product) throw notFound();
-    return { product };
+    return { product, slug: params.slug };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
       return { meta: [{ title: "Product not found — Sheshaan Global" }, { name: "robots", content: "noindex" }] };
     }
     const p = loaderData.product;
+    if (!p) return { meta: [{ title: "Product - Sheshaan Global" }, { name: "robots", content: "noindex" }] };
     const SITE_URL = "https://global-roots-express.lovable.app";
     const url = `${SITE_URL}/products/${params.slug}`;
     const previewImage = p.gallery[0] || p.img || "/logo.png";
@@ -115,10 +116,20 @@ export const Route = createFileRoute("/products/$slug")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData() as { product: Product };
+  const { product: initialProduct, slug } = Route.useLoaderData() as { product?: Product; slug: string };
+  const [liveProduct, setLiveProduct] = useState<Product | undefined>(initialProduct);
   const [active, setActive] = useState(0);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [pdfLoading, setPdfLoading] = useState(true);
+  useEffect(() => {
+    fetch("/api/admin/content")
+      .then((res) => res.ok ? res.json() : Promise.reject(new Error("No live content")))
+      .then((payload: { content?: AdminState | null }) => {
+        const adminProduct = payload.content?.products.find((p) => p.slug === slug && p.status === "Published");
+        if (adminProduct) setLiveProduct(adminProductToProduct(adminProduct));
+      })
+      .catch(() => undefined);
+  }, [slug]);
   // Some browsers (notably iOS Safari) never fire load/error on a PDF iframe.
   // Clear the spinner after a short grace period so the dialog is never stuck.
   useEffect(() => {
@@ -126,6 +137,21 @@ function ProductPage() {
     const t = setTimeout(() => setPdfLoading(false), 8000);
     return () => clearTimeout(t);
   }, [previewOpen]);
+  if (!liveProduct) {
+    return (
+      <div className="grid min-h-screen place-items-center bg-slate-50 px-6 text-center">
+        <div>
+          <div className="font-display text-4xl font-bold text-slate-900">Product not found</div>
+          <p className="mt-3 text-slate-600">The product you're looking for is not published yet.</p>
+          <Link to="/products" className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+            <ArrowLeft className="h-4 w-4" /> Back to products
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const product = liveProduct;
   const related = PRODUCTS.filter((p) => p.slug !== product.slug).slice(0, 4);
 
   const waUrl = buildWhatsAppUrl({ category: product.name });

@@ -22,6 +22,7 @@ import { Route as ExportToRegionRouteImport } from './routes/export-to.$region'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as SeoSlugRouteImport } from './routes/seo.$slug'
+import { Route as ApiAdminContentRouteImport } from './routes/api.admin.content'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -88,6 +89,11 @@ const SeoSlugRoute = SeoSlugRouteImport.update({
   path: '/seo/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAdminContentRoute = ApiAdminContentRouteImport.update({
+  id: '/api/admin/content',
+  path: '/api/admin/content',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/seo/$slug': typeof SeoSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/api/admin/content': typeof ApiAdminContentRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/seo/$slug': typeof SeoSlugRoute
   '/blog': typeof BlogIndexRoute
   '/products': typeof ProductsIndexRoute
+  '/api/admin/content': typeof ApiAdminContentRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/seo/$slug': typeof SeoSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
+  '/api/admin/content': typeof ApiAdminContentRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/seo/$slug'
     | '/blog/'
     | '/products/'
+    | '/api/admin/content'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/seo/$slug'
     | '/blog'
     | '/products'
+    | '/api/admin/content'
   id:
     | '__root__'
     | '/'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/seo/$slug'
     | '/blog/'
     | '/products/'
+    | '/api/admin/content'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -197,6 +209,7 @@ export interface RootRouteChildren {
   SeoSlugRoute: typeof SeoSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
+  ApiAdminContentRoute: typeof ApiAdminContentRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -292,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SeoSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/admin/content': {
+      id: '/api/admin/content'
+      path: '/api/admin/content'
+      fullPath: '/api/admin/content'
+      preLoaderRoute: typeof ApiAdminContentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -309,6 +329,7 @@ const rootRouteChildren: RootRouteChildren = {
   SeoSlugRoute: SeoSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
+  ApiAdminContentRoute: ApiAdminContentRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

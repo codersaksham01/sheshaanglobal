@@ -7,6 +7,7 @@ import {
   BLUE, ORANGE, NAVY, EMAIL, BROCHURE_URL, PRODUCTS, CATALOG, ALL_PRODUCTS,
   buildWhatsAppUrl,
 } from "@/lib/site";
+import { publishedProducts, type AdminState } from "@/lib/admin-content";
 
 const SITE_URL = "https://global-roots-express.lovable.app";
 const TITLE = "Products & HS Codes — Indian Agri Export Catalogue | Sheshaan Global";
@@ -70,15 +71,25 @@ export const Route = createFileRoute("/products/")({
 function ProductsIndex() {
   const [q, setQ] = useState("");
   const [group, setGroup] = useState("All");
+  const [liveCatalog, setLiveCatalog] = useState(CATALOG);
+
+  useEffect(() => {
+    fetch("/api/admin/content")
+      .then((res) => res.ok ? res.json() : Promise.reject(new Error("No live content")))
+      .then((payload: { content?: AdminState | null }) => {
+        if (payload.content) setLiveCatalog(publishedProducts(payload.content));
+      })
+      .catch(() => undefined);
+  }, []);
 
   const groups = useMemo(
-    () => ["All", ...Array.from(new Set(CATALOG.map((c) => c.group ?? "Other")))],
-    [],
+    () => ["All", ...Array.from(new Set(liveCatalog.map((c) => c.group ?? "Other")))],
+    [liveCatalog],
   );
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
-    return CATALOG.filter((c) => {
+    return liveCatalog.filter((c) => {
       if (group !== "All" && (c.group ?? "Other") !== group) return false;
       if (!needle) return true;
       return (
@@ -87,7 +98,7 @@ function ProductsIndex() {
         c.varieties.join(" ").toLowerCase().includes(needle)
       );
     });
-  }, [q, group]);
+  }, [q, group, liveCatalog]);
 
   return (
     <main className="bg-white">
@@ -106,7 +117,7 @@ function ProductsIndex() {
               Export Product Catalogue <span style={{ color: ORANGE }}>with HS Codes</span>
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">
-              {ALL_PRODUCTS.length} export lines across fresh produce, spices, grains, pulses, nuts and agri commodities —
+              {liveCatalog.length || ALL_PRODUCTS.length} export lines across fresh produce, spices, grains, pulses, nuts and agri commodities —
               each with its own detail page covering varieties, packing, standards and inquiry options.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">

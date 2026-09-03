@@ -7,132 +7,14 @@ import {
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import {
-  ALL_PRODUCTS, BLOG_POSTS, BLUE, CERTIFICATES, EMAIL, NAVY, ORANGE, PHONE,
-  REGIONS, SEO_LANDING_PAGES, buildWhatsAppUrl,
+  BLUE, EMAIL, NAVY, ORANGE, REGIONS, buildWhatsAppUrl,
 } from "@/lib/site";
+import { defaultAdminState, type AdminBlog, type AdminCertificate, type AdminInquiry, type AdminProduct, type AdminSeo, type AdminState } from "@/lib/admin-content";
 
 type Tab = "dashboard" | "products" | "blogs" | "seo" | "certificates" | "inquiries" | "settings";
 
-type AdminProduct = {
-  id: string;
-  name: string;
-  slug: string;
-  hsCode: string;
-  group: string;
-  status: "Published" | "Draft";
-  image: string;
-  description: string;
-  packing: string;
-  standards: string;
-};
-
-type AdminBlog = {
-  id: string;
-  title: string;
-  slug: string;
-  category: string;
-  status: "Published" | "Draft";
-  description: string;
-  body: string;
-};
-
-type AdminSeo = {
-  id: string;
-  title: string;
-  slug: string;
-  keyword: string;
-  status: "Published" | "Draft";
-  description: string;
-};
-
-type AdminCertificate = {
-  id: string;
-  name: string;
-  type: string;
-  issuer: string;
-  file: string;
-  status: "Published" | "Draft";
-};
-
-type AdminInquiry = {
-  id: string;
-  buyer: string;
-  company: string;
-  product: string;
-  destination: string;
-  quantity: string;
-  channel: string;
-  status: "New" | "Quoted" | "Follow-up" | "Closed";
-};
-
-type AdminState = {
-  products: AdminProduct[];
-  blogs: AdminBlog[];
-  seoPages: AdminSeo[];
-  certificates: AdminCertificate[];
-  inquiries: AdminInquiry[];
-  settings: {
-    phone: string;
-    email: string;
-    analyticsId: string;
-    searchConsole: string;
-    homepageNotice: string;
-  };
-};
-
 const STORAGE_KEY = "sheshaan-admin-portal-v1";
-
-const defaultState: AdminState = {
-  products: ALL_PRODUCTS.slice(0, 18).map((p) => ({
-    id: p.slug,
-    name: p.name,
-    slug: p.slug,
-    hsCode: p.hsCode ?? "",
-    group: p.group ?? "Flagship",
-    status: "Published",
-    image: p.img,
-    description: p.description,
-    packing: p.packing.join(", "),
-    standards: p.standards.join(", "),
-  })),
-  blogs: BLOG_POSTS.map((p) => ({
-    id: p.slug,
-    title: p.title,
-    slug: p.slug,
-    category: p.category,
-    status: "Published",
-    description: p.description,
-    body: p.body.join("\n\n"),
-  })),
-  seoPages: SEO_LANDING_PAGES.map((p) => ({
-    id: p.slug,
-    title: p.title,
-    slug: p.slug,
-    keyword: p.keyword,
-    status: "Published",
-    description: p.description,
-  })),
-  certificates: CERTIFICATES.map((c) => ({
-    id: c.id,
-    name: c.name,
-    type: c.type,
-    issuer: c.issuer,
-    file: c.file,
-    status: "Published",
-  })),
-  inquiries: [
-    { id: "INQ-1042", buyer: "Ahmed Trading", company: "Dubai Wholesale LLC", product: "Fresh Onions", destination: "UAE", quantity: "1 x 40' FCL", channel: "WhatsApp", status: "New" },
-    { id: "INQ-1041", buyer: "Priya Foods", company: "Retail Foods UK", product: "Premium Rice", destination: "UK", quantity: "24 MT", channel: "Email", status: "Quoted" },
-    { id: "INQ-1040", buyer: "Global Spice Co.", company: "Importer", product: "Turmeric", destination: "EU", quantity: "10 MT", channel: "Form", status: "Follow-up" },
-  ],
-  settings: {
-    phone: PHONE,
-    email: EMAIL,
-    analyticsId: "G-HNHHQGFH13",
-    searchConsole: "",
-    homepageNotice: "Same-day FOB / CIF quotes available for verified importers.",
-  },
-};
+const PIN_KEY = "sheshaan-admin-passcode";
 
 const tabs: { id: Tab; label: string; icon: ElementType }[] = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -159,11 +41,12 @@ function AdminPortal() {
   const [pin, setPin] = useState("");
   const [tab, setTab] = useState<Tab>("dashboard");
   const [query, setQuery] = useState("");
-  const [state, setState] = useState<AdminState>(defaultState);
-  const [selectedProduct, setSelectedProduct] = useState(defaultState.products[0]);
-  const [selectedBlog, setSelectedBlog] = useState(defaultState.blogs[0]);
-  const [selectedSeo, setSelectedSeo] = useState(defaultState.seoPages[0]);
+  const [state, setState] = useState<AdminState>(defaultAdminState);
+  const [selectedProduct, setSelectedProduct] = useState(defaultAdminState.products[0]);
+  const [selectedBlog, setSelectedBlog] = useState(defaultAdminState.blogs[0]);
+  const [selectedSeo, setSelectedSeo] = useState(defaultAdminState.seoPages[0]);
   const [saved, setSaved] = useState(false);
+  const [liveStatus, setLiveStatus] = useState("Loading live content...");
 
   useEffect(() => {
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -171,14 +54,33 @@ function AdminPortal() {
       try {
         const parsed = JSON.parse(raw) as AdminState;
         setState(parsed);
-        setSelectedProduct(parsed.products[0] ?? defaultState.products[0]);
-        setSelectedBlog(parsed.blogs[0] ?? defaultState.blogs[0]);
-        setSelectedSeo(parsed.seoPages[0] ?? defaultState.seoPages[0]);
+        setSelectedProduct(parsed.products[0] ?? defaultAdminState.products[0]);
+        setSelectedBlog(parsed.blogs[0] ?? defaultAdminState.blogs[0]);
+        setSelectedSeo(parsed.seoPages[0] ?? defaultAdminState.seoPages[0]);
       } catch {
         localStorage.removeItem(STORAGE_KEY);
       }
     }
-    setUnlocked(localStorage.getItem("sheshaan-admin-unlocked") === "true");
+    const savedPin = localStorage.getItem(PIN_KEY);
+    if (savedPin) {
+      setPin(savedPin);
+      setUnlocked(true);
+    }
+    fetch("/api/admin/content")
+      .then((res) => res.ok ? res.json() : Promise.reject(new Error("Live content unavailable")))
+      .then((payload: { content?: AdminState | null }) => {
+        if (!payload.content) {
+          setLiveStatus("Using starter content. Save once to publish live data.");
+          return;
+        }
+        setState(payload.content);
+        setSelectedProduct(payload.content.products[0] ?? defaultAdminState.products[0]);
+        setSelectedBlog(payload.content.blogs[0] ?? defaultAdminState.blogs[0]);
+        setSelectedSeo(payload.content.seoPages[0] ?? defaultAdminState.seoPages[0]);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload.content));
+        setLiveStatus("Live content loaded.");
+      })
+      .catch(() => setLiveStatus("Live store not connected yet. Local backup is still available."));
   }, []);
 
   const metrics = useMemo(() => [
@@ -188,10 +90,25 @@ function AdminPortal() {
     { label: "Open Inquiries", value: state.inquiries.filter((i) => i.status !== "Closed").length, change: "Leads needing follow-up", icon: MessageCircle },
   ], [state]);
 
-  const saveState = (next = state) => {
+  const saveState = async (next = state) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    setSaved(true);
-    window.setTimeout(() => setSaved(false), 1600);
+    setLiveStatus("Publishing changes...");
+    try {
+      const response = await fetch("/api/admin/content", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-admin-passcode": pin,
+        },
+        body: JSON.stringify(next),
+      });
+      if (!response.ok) throw new Error(await response.text());
+      setSaved(true);
+      setLiveStatus("Published live.");
+      window.setTimeout(() => setSaved(false), 1600);
+    } catch {
+      setLiveStatus("Could not publish live. Check Cloudflare KV and admin passcode.");
+    }
   };
 
   const exportJson = () => {
@@ -207,9 +124,9 @@ function AdminPortal() {
   const importJson = async (file: File) => {
     const parsed = JSON.parse(await file.text()) as AdminState;
     setState(parsed);
-    setSelectedProduct(parsed.products[0] ?? defaultState.products[0]);
-    setSelectedBlog(parsed.blogs[0] ?? defaultState.blogs[0]);
-    setSelectedSeo(parsed.seoPages[0] ?? defaultState.seoPages[0]);
+    setSelectedProduct(parsed.products[0] ?? defaultAdminState.products[0]);
+    setSelectedBlog(parsed.blogs[0] ?? defaultAdminState.blogs[0]);
+    setSelectedSeo(parsed.seoPages[0] ?? defaultAdminState.seoPages[0]);
     saveState(parsed);
   };
 
@@ -227,7 +144,7 @@ function AdminPortal() {
           <button
             onClick={() => {
               if (pin.trim()) {
-                localStorage.setItem("sheshaan-admin-unlocked", "true");
+                localStorage.setItem(PIN_KEY, pin.trim());
                 setUnlocked(true);
               }
             }}
@@ -236,7 +153,7 @@ function AdminPortal() {
           >
             <Lock className="h-4 w-4" /> Enter Dashboard
           </button>
-          <p className="mt-4 text-xs text-white/50">Frontend access gate only. Use Cloudflare Access or a backend login before storing private data.</p>
+          <p className="mt-4 text-xs text-white/50">Use the passcode from your Cloudflare environment variable to publish live changes.</p>
         </div>
       </main>
     );
@@ -280,10 +197,11 @@ function AdminPortal() {
               <button onClick={exportJson} className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-bold text-slate-700">
                 <ArrowDownToLine className="h-4 w-4" /> Export
               </button>
-              <button onClick={() => { localStorage.removeItem("sheshaan-admin-unlocked"); setUnlocked(false); }} className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-600" aria-label="Logout">
+              <button onClick={() => { localStorage.removeItem(PIN_KEY); setUnlocked(false); }} className="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-600" aria-label="Logout">
                 <LogOut className="h-4 w-4" />
               </button>
             </div>
+            <div className="mt-3 text-xs font-semibold text-slate-500">{liveStatus}</div>
           </div>
           <div className="flex gap-2 overflow-x-auto border-t border-slate-100 bg-white px-5 py-3 lg:hidden">
             {tabs.map((item) => <NavButton key={item.id} item={item} active={tab === item.id} onClick={() => setTab(item.id)} compact />)}
@@ -305,7 +223,7 @@ function AdminPortal() {
               }}
               onDelete={(id) => {
                 const next = { ...state, products: state.products.filter((p) => p.id !== id) };
-                setState(next); setSelectedProduct(next.products[0] ?? defaultState.products[0]); saveState(next);
+                setState(next); setSelectedProduct(next.products[0] ?? defaultAdminState.products[0]); saveState(next);
               }}
               onChange={(item) => {
                 const next = { ...state, products: state.products.map((p) => p.id === item.id ? item : p) };
@@ -419,7 +337,7 @@ function ProductEditor({ item, onChange, onDelete }: { item: AdminProduct; onCha
   );
 }
 
-function BlogsManager({ query, state, setState, selected, setSelected, saveState }: { query: string; state: AdminState; setState: (s: AdminState) => void; selected: AdminBlog; setSelected: (b: AdminBlog) => void; saveState: (s?: AdminState) => void }) {
+function BlogsManager({ query, state, setState, selected, setSelected, saveState }: { query: string; state: AdminState; setState: (s: AdminState) => void; selected: AdminBlog; setSelected: (b: AdminBlog) => void; saveState: (s?: AdminState) => void | Promise<void> }) {
   const items = state.blogs.filter((b) => `${b.title} ${b.category}`.toLowerCase().includes(query.toLowerCase()));
   const change = (blog: AdminBlog) => { const next = { ...state, blogs: state.blogs.map((b) => b.id === blog.id ? blog : b) }; setState(next); setSelected(blog); };
   return (
@@ -443,7 +361,7 @@ function BlogsManager({ query, state, setState, selected, setSelected, saveState
   );
 }
 
-function SeoManager({ query, state, setState, selected, setSelected, saveState }: { query: string; state: AdminState; setState: (s: AdminState) => void; selected: AdminSeo; setSelected: (b: AdminSeo) => void; saveState: (s?: AdminState) => void }) {
+function SeoManager({ query, state, setState, selected, setSelected, saveState }: { query: string; state: AdminState; setState: (s: AdminState) => void; selected: AdminSeo; setSelected: (b: AdminSeo) => void; saveState: (s?: AdminState) => void | Promise<void> }) {
   const items = state.seoPages.filter((b) => `${b.title} ${b.keyword}`.toLowerCase().includes(query.toLowerCase()));
   const change = (page: AdminSeo) => { const next = { ...state, seoPages: state.seoPages.map((b) => b.id === page.id ? page : b) }; setState(next); setSelected(page); };
   return (
@@ -466,7 +384,7 @@ function SeoManager({ query, state, setState, selected, setSelected, saveState }
   );
 }
 
-function CertificatesManager({ state, setState, saveState }: { state: AdminState; setState: (s: AdminState) => void; saveState: (s?: AdminState) => void }) {
+function CertificatesManager({ state, setState, saveState }: { state: AdminState; setState: (s: AdminState) => void; saveState: (s?: AdminState) => void | Promise<void> }) {
   const update = (id: string, key: keyof AdminCertificate, value: string) => {
     const next = { ...state, certificates: state.certificates.map((c) => c.id === id ? { ...c, [key]: value } : c) };
     setState(next);
@@ -487,7 +405,7 @@ function CertificatesManager({ state, setState, saveState }: { state: AdminState
   );
 }
 
-function InquiriesManager({ state, setState, saveState }: { state: AdminState; setState: (s: AdminState) => void; saveState: (s?: AdminState) => void }) {
+function InquiriesManager({ state, setState, saveState }: { state: AdminState; setState: (s: AdminState) => void; saveState: (s?: AdminState) => void | Promise<void> }) {
   const update = (id: string, status: AdminInquiry["status"]) => {
     const next = { ...state, inquiries: state.inquiries.map((i) => i.id === id ? { ...i, status } : i) };
     setState(next); saveState(next);
@@ -499,7 +417,7 @@ function InquiriesManager({ state, setState, saveState }: { state: AdminState; s
   );
 }
 
-function SettingsManager({ state, setState, saveState, importJson }: { state: AdminState; setState: (s: AdminState) => void; saveState: (s?: AdminState) => void; importJson: (file: File) => void }) {
+function SettingsManager({ state, setState, saveState, importJson }: { state: AdminState; setState: (s: AdminState) => void; saveState: (s?: AdminState) => void | Promise<void>; importJson: (file: File) => void }) {
   const update = (key: keyof AdminState["settings"], value: string) => setState({ ...state, settings: { ...state.settings, [key]: value } });
   return (
     <div className="grid gap-6 xl:grid-cols-[1fr,360px]">

@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowRight, CalendarDays, MessageCircle } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { BLOG_POSTS, BLUE, NAVY, ORANGE, SITE_URL, buildWhatsAppUrl } from "@/lib/site";
+import { publishedBlogs, type AdminState } from "@/lib/admin-content";
 
 const TITLE = "Export Knowledge Blog | Sheshaan Global";
 const DESC = "Guides for importers buying agricultural products from India, including onion imports, export documents, FOB/CIF pricing and product sourcing.";
@@ -23,6 +25,17 @@ export const Route = createFileRoute("/blog/")({
 });
 
 function BlogIndex() {
+  const [posts, setPosts] = useState(BLOG_POSTS);
+
+  useEffect(() => {
+    fetch("/api/admin/content")
+      .then((res) => res.ok ? res.json() : Promise.reject(new Error("No live content")))
+      .then((payload: { content?: AdminState | null }) => {
+        if (payload.content) setPosts(publishedBlogs(payload.content));
+      })
+      .catch(() => undefined);
+  }, []);
+
   return (
     <main className="min-h-screen bg-white text-slate-900">
       <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -55,7 +68,7 @@ function BlogIndex() {
 
       <section className="mx-auto max-w-7xl px-5 py-14 sm:px-6 sm:py-16">
         <div className="grid gap-6 md:grid-cols-3">
-          {BLOG_POSTS.map((post) => (
+          {posts.map((post) => (
             <Link key={post.slug} to="/blog/$slug" params={{ slug: post.slug }} className="group flex min-h-72 flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:shadow-xl">
               <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
                 <CalendarDays className="h-4 w-4" style={{ color: ORANGE }} />

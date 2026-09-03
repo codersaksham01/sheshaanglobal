@@ -1,20 +1,22 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, CalendarDays, MessageCircle } from "lucide-react";
 import logo from "@/assets/logo.png";
 import {
   BLUE, BLOG_POSTS, NAVY, ORANGE, SITE_URL, buildWhatsAppUrl,
   getBlogPost, getProductBySlug, type BlogPost,
 } from "@/lib/site";
+import { adminBlogToBlogPost, type AdminState } from "@/lib/admin-content";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
     const post = getBlogPost(params.slug);
-    if (!post) throw notFound();
-    return { post };
+    return { post, slug: params.slug };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) return { meta: [{ title: "Blog not found - Sheshaan Global" }, { name: "robots", content: "noindex" }] };
     const post = loaderData.post;
+    if (!post) return { meta: [{ title: "Blog - Sheshaan Global" }, { name: "robots", content: "noindex" }] };
     const url = `${SITE_URL}/blog/${params.slug}`;
     return {
       meta: [
@@ -47,7 +49,34 @@ export const Route = createFileRoute("/blog/$slug")({
 });
 
 function BlogPostPage() {
-  const { post } = Route.useLoaderData() as { post: BlogPost };
+  const { post: initialPost, slug } = Route.useLoaderData() as { post?: BlogPost; slug: string };
+  const [livePost, setLivePost] = useState<BlogPost | undefined>(initialPost);
+
+  useEffect(() => {
+    fetch("/api/admin/content")
+      .then((res) => res.ok ? res.json() : Promise.reject(new Error("No live content")))
+      .then((payload: { content?: AdminState | null }) => {
+        const adminPost = payload.content?.blogs.find((p) => p.slug === slug && p.status === "Published");
+        if (adminPost) setLivePost(adminBlogToBlogPost(adminPost));
+      })
+      .catch(() => undefined);
+  }, [slug]);
+
+  if (!livePost) {
+    return (
+      <div className="grid min-h-screen place-items-center bg-slate-50 px-6 text-center">
+        <div>
+          <div className="font-display text-4xl font-bold text-slate-900">Blog not found</div>
+          <p className="mt-3 text-slate-600">This blog post is not published yet.</p>
+          <Link to="/blog" className="mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+            <ArrowLeft className="h-4 w-4" /> Back to blog
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  const post = livePost;
   const product = post.productSlug ? getProductBySlug(post.productSlug) : undefined;
   const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
 
