@@ -2,7 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
-import type { AdminState } from "./lib/admin-content";
+import { normalizeAdminState, type AdminState } from "./lib/admin-content";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -76,8 +76,10 @@ async function handleAdminContentApi(request: Request, env: SiteEnv = {}) {
   if (request.method === "GET") {
     const stored = env.SHESHAAN_CONTENT
       ? await env.SHESHAAN_CONTENT.get(CONTENT_KEY, { type: "json" })
-      : localStore.__sheshaanAdminContent ?? null;
-    return jsonResponse({ content: stored ?? null });
+      : (localStore.__sheshaanAdminContent ?? null);
+    return jsonResponse({
+      content: stored ? normalizeAdminState(stored as Partial<AdminState>) : null,
+    });
   }
 
   if (request.method !== "POST") {
@@ -85,10 +87,13 @@ async function handleAdminContentApi(request: Request, env: SiteEnv = {}) {
   }
 
   if (!env.SHESHAAN_CONTENT && !isLocalRequest(request)) {
-    return jsonResponse({
-      error: "Cloudflare KV binding SHESHAAN_CONTENT is not connected.",
-      visibleBindings: Object.keys(env).filter((key) => !key.toLowerCase().includes("passcode")),
-    }, { status: 503 });
+    return jsonResponse(
+      {
+        error: "Cloudflare KV binding SHESHAAN_CONTENT is not connected.",
+        visibleBindings: Object.keys(env).filter((key) => !key.toLowerCase().includes("passcode")),
+      },
+      { status: 503 },
+    );
   }
 
   const expectedPasscode = env.SHESHAAN_ADMIN_PASSCODE;
@@ -101,7 +106,7 @@ async function handleAdminContentApi(request: Request, env: SiteEnv = {}) {
     return jsonResponse({ error: "Invalid admin passcode." }, { status: 401 });
   }
 
-  const content = await request.json() as AdminState;
+  const content = normalizeAdminState((await request.json()) as Partial<AdminState>);
   if (!content || !Array.isArray(content.products) || !Array.isArray(content.blogs)) {
     return jsonResponse({ error: "Invalid content payload." }, { status: 400 });
   }

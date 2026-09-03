@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { AdminState } from "@/lib/admin-content";
+import { normalizeAdminState, type AdminState } from "@/lib/admin-content";
 
 const localStore = globalThis as typeof globalThis & { __sheshaanAdminContent?: AdminState };
 
@@ -7,12 +7,22 @@ export const Route = createFileRoute("/api/admin/content")({
   server: {
     handlers: {
       GET: async () => {
-        return json({ content: localStore.__sheshaanAdminContent ?? null });
+        return json({
+          content: localStore.__sheshaanAdminContent
+            ? normalizeAdminState(localStore.__sheshaanAdminContent)
+            : null,
+        });
       },
       POST: async ({ request }) => {
         const providedPasscode = request.headers.get("x-admin-passcode") ?? "";
-        const processEnv = (globalThis as typeof globalThis & { process?: { env?: Record<string, string | undefined> } }).process?.env;
-        const localFallbackPasscode = isLocalRequest(request) ? "sheshaan-admin" : processEnv?.SHESHAAN_ADMIN_PASSCODE;
+        const processEnv = (
+          globalThis as typeof globalThis & {
+            process?: { env?: Record<string, string | undefined> };
+          }
+        ).process?.env;
+        const localFallbackPasscode = isLocalRequest(request)
+          ? "sheshaan-admin"
+          : processEnv?.SHESHAAN_ADMIN_PASSCODE;
 
         if (!localFallbackPasscode) {
           return json({ error: "Admin passcode is not configured." }, { status: 503 });
@@ -21,7 +31,7 @@ export const Route = createFileRoute("/api/admin/content")({
           return json({ error: "Invalid admin passcode." }, { status: 401 });
         }
 
-        const content = await request.json() as AdminState;
+        const content = normalizeAdminState((await request.json()) as Partial<AdminState>);
         if (!content || !Array.isArray(content.products) || !Array.isArray(content.blogs)) {
           return json({ error: "Invalid content payload." }, { status: 400 });
         }
