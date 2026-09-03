@@ -77,7 +77,7 @@ function SeoLanding() {
         <div className="mx-auto grid max-w-7xl gap-10 px-5 sm:px-6 lg:grid-cols-[1fr,0.85fr] lg:items-center">
           <div className="text-white">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest">
-              <Ship className="h-4 w-4" style={{ color: ORANGE }} /> SEO Export Page
+              <Ship className="h-4 w-4" style={{ color: ORANGE }} /> Export Supply Page
             </div>
             <h1 className="mt-5 max-w-4xl font-display text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
               {page.keyword}
@@ -93,11 +93,11 @@ function SeoLanding() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-4 shadow-2xl backdrop-blur">
+          <div className="mx-auto w-full max-w-md overflow-hidden rounded-2xl border border-white/15 bg-white/10 p-4 shadow-2xl backdrop-blur lg:mx-0 lg:justify-self-end">
             {product?.img ? (
-              <img src={product.img} alt={page.keyword} className="aspect-[4/3] w-full rounded-xl object-cover" width={720} height={540} />
+              <img src={product.img} alt={page.keyword} className="aspect-[5/3] w-full rounded-xl object-cover" width={560} height={336} />
             ) : (
-              <div className="grid aspect-[4/3] place-items-center rounded-xl bg-white/10 text-white">
+              <div className="grid aspect-[5/3] place-items-center rounded-xl bg-white/10 text-white">
                 <Package className="h-16 w-16" />
               </div>
             )}
