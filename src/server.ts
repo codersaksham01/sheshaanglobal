@@ -85,7 +85,10 @@ async function handleAdminContentApi(request: Request, env: SiteEnv = {}) {
   }
 
   if (!env.SHESHAAN_CONTENT && !isLocalRequest(request)) {
-    return jsonResponse({ error: "Cloudflare KV binding SHESHAAN_CONTENT is not connected." }, { status: 503 });
+    return jsonResponse({
+      error: "Cloudflare KV binding SHESHAAN_CONTENT is not connected.",
+      visibleBindings: Object.keys(env).filter((key) => !key.toLowerCase().includes("passcode")),
+    }, { status: 503 });
   }
 
   const expectedPasscode = env.SHESHAAN_ADMIN_PASSCODE;
@@ -115,7 +118,7 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const url = new URL(request.url);
-      if (url.pathname === "/api/admin/content") {
+      if (url.pathname === "/api/admin/content" && (env as SiteEnv | undefined)?.SHESHAAN_CONTENT) {
         return await handleAdminContentApi(request, env as SiteEnv);
       }
       const handler = await getServerEntry();
