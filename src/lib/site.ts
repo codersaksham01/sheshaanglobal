@@ -80,6 +80,7 @@ export const MAILTO_URL = `mailto:${EMAIL}?subject=${encodeURIComponent(
 import certGst from "@/assets/cert-gst.png";
 import certIec from "@/assets/cert-iec.png";
 import certCoconut from "@/assets/cert-coconut.jpg";
+import certCompliance from "@/assets/cert-compliance.svg";
 
 export type CertType = "Government" | "Trade" | "Food Safety" | "Quality";
 export type Certificate = {
@@ -158,6 +159,42 @@ export const CERTIFICATES: Certificate[] = [
     img: certIec,
     file: certIec,
   },
+  {
+    id: "iso-22000",
+    name: "ISO 22000",
+    fullName: "Food Safety Management System Certification",
+    label: "Certified",
+    type: "Food Safety",
+    issuer: "Certification Body",
+    categories: ["All"],
+    countries: ["Global"],
+    img: certCompliance,
+    file: "/certificates/iso-22000-sheshaan.pdf",
+  },
+  {
+    id: "haccp",
+    name: "HACCP",
+    fullName: "Hazard Analysis and Critical Control Points Certification",
+    label: "Certified",
+    type: "Food Safety",
+    issuer: "Certification Body",
+    categories: ["All"],
+    countries: ["Global"],
+    img: certCompliance,
+    file: "/certificates/haccp-sheshaan.pdf",
+  },
+  {
+    id: "non-gmo",
+    name: "Non-GMO",
+    fullName: "Non-GMO Product Certification",
+    label: "Certified",
+    type: "Quality",
+    issuer: "Certification Body",
+    categories: ["Premium Rice", "Pulses", "Cereals & Seeds"],
+    countries: ["Global"],
+    img: certCompliance,
+    file: "/certificates/non-gmo-sheshaan.pdf",
+  },
 ];
 
 export const CERT_TYPES: CertType[] = ["Government", "Trade", "Food Safety", "Quality"];
@@ -169,7 +206,7 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What certifications do you hold?",
-    a: "We are GST registered, IEC certified (DGFT), APEDA registered and FSSAI compliant. Product-specific documentation (Phytosanitary, COO, Health Certificate, Fumigation) is provided per shipment.",
+    a: "We are GST registered, IEC certified (DGFT), APEDA registered, FSSAI compliant, ISO 22000 certified, HACCP certified and Non-GMO certified. Product-specific documentation (Phytosanitary, COO, Health Certificate, Fumigation) is provided per shipment.",
   },
   {
     q: "What is the minimum order quantity (MOQ)?",

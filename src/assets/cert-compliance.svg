@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 900" role="img" aria-label="Certificate document graphic">
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef5ff"/>
+    </linearGradient>
+    <linearGradient id="seal" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffb13b"/>
+      <stop offset="1" stop-color="#ff7a00"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="900" fill="#f8fafc"/>
+  <rect x="74" y="70" width="492" height="760" rx="18" fill="url(#paper)" stroke="#d7e3f4" stroke-width="8"/>
+  <rect x="120" y="132" width="400" height="10" rx="5" fill="#0057b8"/>
+  <rect x="168" y="178" width="304" height="8" rx="4" fill="#94a3b8"/>
+  <rect x="156" y="234" width="328" height="26" rx="13" fill="#04152d"/>
+  <rect x="132" y="322" width="376" height="12" rx="6" fill="#cbd5e1"/>
+  <rect x="132" y="370" width="376" height="12" rx="6" fill="#cbd5e1"/>
+  <rect x="132" y="418" width="288" height="12" rx="6" fill="#cbd5e1"/>
+  <circle cx="320" cy="590" r="96" fill="url(#seal)"/>
+  <circle cx="320" cy="590" r="70" fill="none" stroke="#fff" stroke-width="8"/>
+  <path d="M281 590l27 28 55-68" fill="none" stroke="#fff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M267 678l-32 92 79-42 78 42-31-92" fill="#0057b8"/>
+  <rect x="174" y="784" width="292" height="10" rx="5" fill="#94a3b8"/>
+</svg>
