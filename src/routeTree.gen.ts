@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CompanyPoliciesRouteImport } from './routes/company-policies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as MoreInfoRouteImport } from './routes/more-info'
@@ -25,6 +26,11 @@ import { Route as SeoSlugRouteImport } from './routes/seo.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompanyPoliciesRoute = CompanyPoliciesRouteImport.update({
@@ -85,6 +91,7 @@ const SeoSlugRoute = SeoSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/more-info': typeof MoreInfoRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/more-info': typeof MoreInfoRoute
@@ -114,6 +122,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/more-info': typeof MoreInfoRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/company-policies'
     | '/contact'
     | '/more-info'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/company-policies'
     | '/contact'
     | '/more-info'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/company-policies'
     | '/contact'
     | '/more-info'
@@ -173,6 +185,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   CompanyPoliciesRoute: typeof CompanyPoliciesRoute
   ContactRoute: typeof ContactRoute
   MoreInfoRoute: typeof MoreInfoRoute
@@ -193,6 +206,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/company-policies': {
@@ -277,6 +297,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   CompanyPoliciesRoute: CompanyPoliciesRoute,
   ContactRoute: ContactRoute,
   MoreInfoRoute: MoreInfoRoute,
