@@ -14,7 +14,7 @@ import worldMap from "@/assets/world-map.jpg";
 import {
   BLUE, ORANGE, NAVY, PHONE, PHONE_RAW, EMAIL, BROCHURE_URL,
   WHATSAPP_URL, MAILTO_URL, LINKEDIN_SAKSHAM, LINKEDIN_SANA, buildWhatsAppUrl, PRODUCTS, COUNTRIES,
-  CERTIFICATES, CERT_TYPES, FAQS, REGIONS, ORGANIZATION_JSONLD, type Certificate,
+  CERTIFICATES, CERT_TYPES, FAQS, REGIONS, BLOG_POSTS, SEO_LANDING_PAGES, ORGANIZATION_JSONLD, type Certificate,
 } from "@/lib/site";
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
@@ -120,8 +120,9 @@ const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Products", href: "/products" },
   { label: "Markets", href: "#markets" },
+  { label: "Quote", href: "/request-quote" },
+  { label: "Blog", href: "/blog" },
   { label: "Certifications", href: "#certs" },
-  { label: "More Info", href: "/more-info" },
   { label: "Contact Us", href: "/contact" },
 ];
 
@@ -160,8 +161,8 @@ function Nav() {
             <a key={l.href} href={l.href} className="text-sm font-medium text-slate-700 transition-colors hover:text-[#0057B8]">{l.label}</a>
           ))}
         </nav>
-        <a href="/contact" className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
-          Get In Touch <ArrowRight className="h-4 w-4" />
+        <a href="/request-quote" className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+          Request Quote <ArrowRight className="h-4 w-4" />
         </a>
         <button className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -197,6 +198,8 @@ function Hero() {
         className="absolute inset-0 h-full w-full object-cover opacity-70"
         width={1600}
         height={1000}
+        loading="eager"
+        decoding="async"
         initial={reduced ? undefined : { scale: 1.1 }}
         animate={reduced ? undefined : { scale: 1 }}
         transition={{ duration: 1.6, ease: EASE }}
@@ -226,8 +229,8 @@ function Hero() {
             <a href="#products" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}>
               Explore Products <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="/contact" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
-              Export Inquiry <ArrowRight className="h-4 w-4" />
+            <a href="/request-quote" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+              Request Quote <ArrowRight className="h-4 w-4" />
             </a>
           </div>
 
@@ -343,6 +346,9 @@ function Products() {
           <div className="hidden items-center gap-2 sm:flex">
             <a href="/products" className="mr-2 inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2.5 text-xs font-semibold transition hover:border-[#0057B8]" style={{ color: BLUE }}>
               All products & HS codes
+            </a>
+            <a href="/request-quote" className="mr-2 inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-semibold text-white shadow-sm" style={{ background: ORANGE }}>
+              Get price quote
             </a>
             <button onClick={() => scroll(-1)} aria-label="Scroll left" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0057B8] hover:text-[#0057B8]"><ChevronLeft className="h-5 w-5" /></button>
             <button onClick={() => scroll(1)} aria-label="Scroll right" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0057B8] hover:text-[#0057B8]"><ChevronRight className="h-5 w-5" /></button>
@@ -465,7 +471,7 @@ function Markets() {
           <p className="mt-6 max-w-md text-white/75">
             We are proud to export our premium quality products to a wide range of countries across the globe. Hover a country to spot it on the map.
           </p>
-          <a href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}>
+          <a href="/request-quote" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}>
             Start Export Inquiry <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
@@ -872,6 +878,93 @@ function Certifications() {
   );
 }
 
+/* ---------- SEO landing page hub ---------- */
+function SeoHub() {
+  return (
+    <section className="bg-slate-50 py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Popular Searches</div>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">High-demand export pages</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">Focused pages built for buyers searching specific products and export markets.</p>
+          </div>
+          <a href="/request-quote" className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white shadow-lg" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+            Request Quote <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {SEO_LANDING_PAGES.map((page) => (
+            <Link key={page.slug} to="/seo/$slug" params={{ slug: page.slug }} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:shadow-xl">
+              <div className="text-xs font-bold uppercase tracking-widest" style={{ color: BLUE }}>{page.keyword}</div>
+              <h3 className="mt-3 font-display text-lg font-bold text-slate-900">{page.title.replace(" | Sheshaan Global", "")}</h3>
+              <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{page.description}</p>
+              <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold" style={{ color: ORANGE }}>
+                Open page <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Blog preview ---------- */
+function BlogPreview() {
+  return (
+    <section className="bg-white py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Knowledge Hub</div>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">Importer guides that build trust</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">Helpful articles bring search traffic and answer buyer questions before they inquire.</p>
+          </div>
+          <Link to="/blog" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 shadow-sm hover:border-[#0057B8] hover:text-[#0057B8]">
+            View Blog <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {BLOG_POSTS.map((post) => (
+            <Link key={post.slug} to="/blog/$slug" params={{ slug: post.slug }} className="group flex min-h-64 flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6 transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:bg-white hover:shadow-xl">
+              <div className="text-xs font-bold uppercase tracking-widest" style={{ color: ORANGE }}>{post.category}</div>
+              <h3 className="mt-3 font-display text-xl font-bold leading-snug text-slate-900">{post.title}</h3>
+              <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{post.description}</p>
+              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold" style={{ color: BLUE }}>
+                Read guide <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Strong final CTA ---------- */
+function QuoteCta() {
+  return (
+    <section className="px-5 py-14 sm:px-6" style={{ background: `linear-gradient(135deg,${NAVY},#062354)` }}>
+      <div className="mx-auto grid max-w-7xl gap-6 rounded-2xl border border-white/10 bg-white/10 p-6 text-white shadow-2xl backdrop-blur sm:p-8 lg:grid-cols-[1fr,auto] lg:items-center">
+        <div>
+          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Ready To Buy</div>
+          <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">Get a clear export quote with product, packing and port details.</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">The quote form prepares a clean WhatsApp or email message, helping our team reply faster with availability and FOB/CIF pricing.</p>
+        </div>
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <a href="/request-quote" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-slate-900 shadow-lg">
+            Request Quote <ArrowRight className="h-4 w-4" />
+          </a>
+          <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white shadow-lg" style={{ background: "#25D366" }}>
+            <MessageCircle className="h-4 w-4" /> WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 
 
 /* ---------- Why Us Strip ---------- */
@@ -962,6 +1055,7 @@ function MessageFab() {
   const btnRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const actions = [
+    { label: "Request Quote", sub: "Structured inquiry", icon: FileText, href: "/request-quote", bg: ORANGE },
     { label: "WhatsApp", sub: "Chat instantly", icon: MessageCircle, href: WHATSAPP_URL, bg: "#25D366", external: true },
     { label: "Email Us", sub: EMAIL, icon: Mail, href: MAILTO_URL, bg: BLUE },
     { label: "Saksham LinkedIn", sub: "Business development", icon: Linkedin, href: LINKEDIN_SAKSHAM, bg: "#0A66C2", external: true },
@@ -1009,7 +1103,7 @@ function MessageFab() {
   }, [open]);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -1021,7 +1115,7 @@ function MessageFab() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ type: "spring", damping: 22 }}
-            className="flex w-64 flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl"
+            className="flex w-[calc(100vw-2rem)] max-w-72 flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl sm:w-64"
           >
             <div className="px-3 py-2">
               <div className="font-display text-sm font-bold text-slate-900">How can we help?</div>
@@ -1156,9 +1250,12 @@ function Home() {
         <Products />
         <Markets />
         <RegionsStrip />
+        <SeoHub />
         <Certifications />
         <WhyUs />
+        <BlogPreview />
         <FAQ />
+        <QuoteCta />
       </main>
       <Footer />
       <MessageFab />

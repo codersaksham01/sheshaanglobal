@@ -13,10 +13,14 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CompanyPoliciesRouteImport } from './routes/company-policies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as MoreInfoRouteImport } from './routes/more-info'
+import { Route as RequestQuoteRouteImport } from './routes/request-quote'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as ExportToRegionRouteImport } from './routes/export-to.$region'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as SeoSlugRouteImport } from './routes/seo.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -38,9 +42,24 @@ const MoreInfoRoute = MoreInfoRouteImport.update({
   path: '/more-info',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RequestQuoteRoute = RequestQuoteRouteImport.update({
+  id: '/request-quote',
+  path: '/request-quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ExportToRegionRoute = ExportToRegionRouteImport.update({
@@ -58,15 +77,24 @@ const ProductsSlugRoute = ProductsSlugRouteImport.update({
   path: '/products/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SeoSlugRoute = SeoSlugRouteImport.update({
+  id: '/seo/$slug',
+  path: '/seo/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/more-info': typeof MoreInfoRoute
+  '/request-quote': typeof RequestQuoteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/seo/$slug': typeof SeoSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -74,9 +102,13 @@ export interface FileRoutesByTo {
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/more-info': typeof MoreInfoRoute
+  '/request-quote': typeof RequestQuoteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/seo/$slug': typeof SeoSlugRoute
+  '/blog': typeof BlogIndexRoute
   '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesById {
@@ -85,9 +117,13 @@ export interface FileRoutesById {
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/more-info': typeof MoreInfoRoute
+  '/request-quote': typeof RequestQuoteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/products/$slug': typeof ProductsSlugRoute
+  '/seo/$slug': typeof SeoSlugRoute
+  '/blog/': typeof BlogIndexRoute
   '/products/': typeof ProductsIndexRoute
 }
 export interface FileRouteTypes {
@@ -97,9 +133,13 @@ export interface FileRouteTypes {
     | '/company-policies'
     | '/contact'
     | '/more-info'
+    | '/request-quote'
     | '/sitemap.xml'
+    | '/blog/$slug'
     | '/export-to/$region'
     | '/products/$slug'
+    | '/seo/$slug'
+    | '/blog/'
     | '/products/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -107,9 +147,13 @@ export interface FileRouteTypes {
     | '/company-policies'
     | '/contact'
     | '/more-info'
+    | '/request-quote'
     | '/sitemap.xml'
+    | '/blog/$slug'
     | '/export-to/$region'
     | '/products/$slug'
+    | '/seo/$slug'
+    | '/blog'
     | '/products'
   id:
     | '__root__'
@@ -117,9 +161,13 @@ export interface FileRouteTypes {
     | '/company-policies'
     | '/contact'
     | '/more-info'
+    | '/request-quote'
     | '/sitemap.xml'
+    | '/blog/$slug'
     | '/export-to/$region'
     | '/products/$slug'
+    | '/seo/$slug'
+    | '/blog/'
     | '/products/'
   fileRoutesById: FileRoutesById
 }
@@ -128,9 +176,13 @@ export interface RootRouteChildren {
   CompanyPoliciesRoute: typeof CompanyPoliciesRoute
   ContactRoute: typeof ContactRoute
   MoreInfoRoute: typeof MoreInfoRoute
+  RequestQuoteRoute: typeof RequestQuoteRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   ExportToRegionRoute: typeof ExportToRegionRoute
   ProductsSlugRoute: typeof ProductsSlugRoute
+  SeoSlugRoute: typeof SeoSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
@@ -164,11 +216,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MoreInfoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/request-quote': {
+      id: '/request-quote'
+      path: '/request-quote'
+      fullPath: '/request-quote'
+      preLoaderRoute: typeof RequestQuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/export-to/$region': {
@@ -192,6 +265,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/seo/$slug': {
+      id: '/seo/$slug'
+      path: '/seo/$slug'
+      fullPath: '/seo/$slug'
+      preLoaderRoute: typeof SeoSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -200,9 +280,13 @@ const rootRouteChildren: RootRouteChildren = {
   CompanyPoliciesRoute: CompanyPoliciesRoute,
   ContactRoute: ContactRoute,
   MoreInfoRoute: MoreInfoRoute,
+  RequestQuoteRoute: RequestQuoteRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  BlogSlugRoute: BlogSlugRoute,
   ExportToRegionRoute: ExportToRegionRoute,
   ProductsSlugRoute: ProductsSlugRoute,
+  SeoSlugRoute: SeoSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
 }
 export const routeTree = rootRouteImport

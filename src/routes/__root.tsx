@@ -14,6 +14,8 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { ScrollProgress } from "../components/ScrollProgress";
 
+const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID || "";
+const SEARCH_CONSOLE_ID = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION || "";
 
 function NotFoundComponent() {
   return (
@@ -89,13 +91,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:locale", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "theme-color", content: "#0057B8" },
-    ],
+      SEARCH_CONSOLE_ID ? { name: "google-site-verification", content: SEARCH_CONSOLE_ID } : null,
+    ].filter(Boolean),
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      ...(GA_ID ? [
+        { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${GA_ID}` },
+        {
+          children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`,
+        },
+      ] : []),
     ],
   }),
   shellComponent: RootShell,

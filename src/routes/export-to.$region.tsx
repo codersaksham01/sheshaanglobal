@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ArrowRight, MessageCircle, Mail, Ship, Package, ShieldCheck,
-  Clock, MapPin, Download, ChevronRight, Award,
+  Clock, MapPin, Download, ChevronRight, Award, FileText,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import {
@@ -131,6 +131,9 @@ function RegionPage() {
           <p className="mt-5 max-w-3xl text-lg text-slate-600">{region.hero}</p>
 
           <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/request-quote" className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+              <FileText className="h-4 w-4" /> Request Quote
+            </Link>
             <a href={waUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: "#25D366" }}>
               <MessageCircle className="h-4 w-4" /> Inquire on WhatsApp
             </a>
@@ -274,6 +277,9 @@ function RegionPage() {
             <a href={waUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg" style={{ background: "#25D366" }}>
               <MessageCircle className="h-4 w-4" /> WhatsApp {PHONE}
             </a>
+            <Link to="/request-quote" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-slate-900 shadow-lg">
+              <FileText className="h-4 w-4" /> Request Quote
+            </Link>
             <a href={MAILTO_URL} className="inline-flex items-center gap-2 rounded-full bg-white/10 px-6 py-3.5 text-sm font-semibold text-white ring-1 ring-white/20 backdrop-blur">
               <Mail className="h-4 w-4" /> {EMAIL}
             </a>

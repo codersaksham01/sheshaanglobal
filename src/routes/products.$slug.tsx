@@ -226,6 +226,11 @@ function ProductPage() {
 
           {/* CTAs */}
           <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/request-quote"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FF8A00]/40"
+              style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+              <FileText className="h-4 w-4" aria-hidden /> Request Detailed Quote
+            </Link>
             <a href={waUrl} target="_blank" rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40"
               style={{ background: "#25D366" }}>

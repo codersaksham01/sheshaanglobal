@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-import { ALL_PRODUCTS, REGIONS } from "@/lib/site";
+import { ALL_PRODUCTS, BLOG_POSTS, REGIONS, SEO_LANDING_PAGES } from "@/lib/site";
 
 const BASE_URL = "https://global-roots-express.lovable.app";
 
@@ -17,6 +17,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
           { path: "/contact", changefreq: "yearly", priority: "0.7" },
+          { path: "/request-quote", changefreq: "weekly", priority: "0.95" },
+          { path: "/blog", changefreq: "weekly", priority: "0.75" },
           { path: "/products", changefreq: "weekly", priority: "0.9" },
           { path: "/more-info", changefreq: "yearly", priority: "0.6" },
           ...REGIONS.map((r) => ({
@@ -28,6 +30,16 @@ export const Route = createFileRoute("/sitemap.xml")({
             path: `/products/${p.slug}`,
             changefreq: "monthly" as const,
             priority: "0.8",
+          })),
+          ...SEO_LANDING_PAGES.map((p) => ({
+            path: `/seo/${p.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.85",
+          })),
+          ...BLOG_POSTS.map((p) => ({
+            path: `/blog/${p.slug}`,
+            changefreq: "monthly" as const,
+            priority: "0.7",
           })),
         ];
 
