@@ -2,46 +2,116 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  Globe2, Package, ShieldCheck, Ship, ArrowRight, MapPin, Phone, Mail,
-  MessageCircle, Award, Sprout, Truck, DollarSign, Clock, HeartHandshake,
-  FileCheck2, Box, ChevronLeft, ChevronRight, X, Menu, Download, Eye, FileText,
-  Loader2, Search, Filter, BadgePercent, Linkedin,
+  Globe2,
+  Package,
+  ShieldCheck,
+  Ship,
+  ArrowRight,
+  MapPin,
+  Phone,
+  Mail,
+  MessageCircle,
+  Award,
+  Sprout,
+  Truck,
+  DollarSign,
+  Clock,
+  HeartHandshake,
+  FileCheck2,
+  Box,
+  ChevronLeft,
+  ChevronRight,
+  X,
+  Menu,
+  Download,
+  Eye,
+  FileText,
+  Loader2,
+  Search,
+  Filter,
+  BadgePercent,
+  Linkedin,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import heroGlobe from "@/assets/hero-globe.jpg";
 import farmExport from "@/assets/farm-export.jpg";
 import worldMap from "@/assets/world-map.jpg";
 import {
-  BLUE, ORANGE, NAVY, PHONE, PHONE_RAW, EMAIL, BROCHURE_URL,
-  WHATSAPP_URL, MAILTO_URL, LINKEDIN_SAKSHAM, LINKEDIN_SANA, buildWhatsAppUrl, PRODUCTS, COUNTRIES,
-  CERTIFICATES, CERT_TYPES, FAQS, REGIONS, BLOG_POSTS, SEO_LANDING_PAGES, ORGANIZATION_JSONLD, type Certificate,
+  BLUE,
+  ORANGE,
+  NAVY,
+  PHONE,
+  PHONE_RAW,
+  EMAIL,
+  BROCHURE_URL,
+  WHATSAPP_URL,
+  MAILTO_URL,
+  LINKEDIN_SAKSHAM,
+  LINKEDIN_SANA,
+  buildWhatsAppUrl,
+  PRODUCTS,
+  COUNTRIES,
+  CERTIFICATES,
+  CERT_TYPES,
+  FAQS,
+  REGIONS,
+  BLOG_POSTS,
+  SEO_LANDING_PAGES,
+  ORGANIZATION_JSONLD,
+  type Certificate,
 } from "@/lib/site";
+import { normalizeAdminState, type AdminState } from "@/lib/admin-content";
 import {
-  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { LoadingScreen } from "@/components/LoadingScreen";
 
 const SITE_URL = "https://global-roots-express.lovable.app";
-const HOME_OG_IMAGE = "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/151163a4-b0a4-4618-870c-3036bf272bc4/id-preview-9f783eb1--1c1a3479-b063-4556-a6ca-26b03b90f481.lovable.app-1784225780475.png";
+const HOME_OG_IMAGE =
+  "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/151163a4-b0a4-4618-870c-3036bf272bc4/id-preview-9f783eb1--1c1a3479-b063-4556-a6ca-26b03b90f481.lovable.app-1784225780475.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries" },
-      { name: "description", content: "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue & pricing." },
-      { name: "keywords", content: "Indian agricultural exporter, onion exporter India, green chillies exporter, basmati rice exporter, coconut exporter, spices exporter, pulses exporter, APEDA, IEC certified, Sheshaan Global" },
-      { property: "og:title", content: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries" },
-      { property: "og:description", content: "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue & pricing." },
+      {
+        name: "description",
+        content:
+          "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue & pricing.",
+      },
+      {
+        name: "keywords",
+        content:
+          "Indian agricultural exporter, onion exporter India, green chillies exporter, basmati rice exporter, coconut exporter, spices exporter, pulses exporter, APEDA, IEC certified, Sheshaan Global",
+      },
+      {
+        property: "og:title",
+        content: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries",
+      },
+      {
+        property: "og:description",
+        content:
+          "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue & pricing.",
+      },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL + "/" },
       { property: "og:image", content: HOME_OG_IMAGE },
-      { name: "twitter:title", content: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries" },
-      { name: "twitter:description", content: "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries." },
+      {
+        name: "twitter:title",
+        content: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries.",
+      },
       { name: "twitter:image", content: HOME_OG_IMAGE },
     ],
-    links: [
-      { rel: "canonical", href: SITE_URL + "/" },
-    ],
+    links: [{ rel: "canonical", href: SITE_URL + "/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -73,7 +143,6 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-
 /* ---------- Motion helpers ---------- */
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -83,7 +152,11 @@ function useMotionSafe() {
     reduced: !!reduced,
     fadeUp: reduced
       ? { initial: { opacity: 0 }, whileInView: { opacity: 1 }, transition: { duration: 0.2 } }
-      : { initial: { opacity: 0, y: 30 }, whileInView: { opacity: 1, y: 0 }, transition: { duration: 0.7, ease: EASE } },
+      : {
+          initial: { opacity: 0, y: 30 },
+          whileInView: { opacity: 1, y: 0 },
+          transition: { duration: 0.7, ease: EASE },
+        },
   };
 }
 
@@ -93,7 +166,10 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const [n, setN] = useState(reduced ? to : 0);
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
-    if (reduced) { setN(to); return; }
+    if (reduced) {
+      setN(to);
+      return;
+    }
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(([e]) => {
@@ -111,12 +187,16 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
     obs.observe(el);
     return () => obs.disconnect();
   }, [to, reduced]);
-  return <span ref={ref}>{n}{suffix}</span>;
+  return (
+    <span ref={ref}>
+      {n}
+      {suffix}
+    </span>
+  );
 }
 
 /* ---------- Nav ---------- */
 const NAV_LINKS = [
-
   { label: "Home", href: "#home" },
   { label: "Products", href: "/products" },
   { label: "Markets", href: "#markets" },
@@ -126,6 +206,32 @@ const NAV_LINKS = [
   { label: "Contact Us", href: "/contact" },
 ];
 
+function useLiveTeamLinks() {
+  const [teamLinks, setTeamLinks] = useState([
+    { name: "Saksham Singh", role: "Business development", linkedin: LINKEDIN_SAKSHAM },
+    { name: "Sana Zeba Bakshi", role: "Chief Executive Officer", linkedin: LINKEDIN_SANA },
+  ]);
+
+  useEffect(() => {
+    fetch("/api/admin/content")
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("No live content"))))
+      .then((payload: { content?: Partial<AdminState> | null }) => {
+        if (!payload.content) return;
+        const state = normalizeAdminState(payload.content);
+        const next = state.team
+          .filter((member) => member.status === "Published" && member.linkedin)
+          .map((member) => ({
+            name: member.name,
+            role: member.role || "Export team",
+            linkedin: member.linkedin,
+          }));
+        if (next.length) setTeamLinks(next);
+      })
+      .catch(() => undefined);
+  }, []);
+
+  return teamLinks;
+}
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -147,21 +253,41 @@ function Nav() {
     };
   }, []);
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "bg-white/90 backdrop-blur-lg shadow-[0_2px_20px_rgba(0,0,0,0.06)]" : "bg-white"}`}>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-all ${scrolled ? "bg-white/90 backdrop-blur-lg shadow-[0_2px_20px_rgba(0,0,0,0.06)]" : "bg-white"}`}
+    >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
         <a href="#home" className="flex items-center gap-3">
-          <img src={logo} alt="Sheshaan Global" className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]" />
+          <img
+            src={logo}
+            alt="Sheshaan Global"
+            className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]"
+          />
           <div className="leading-tight">
-            <div className="font-display text-xl font-bold tracking-tight" style={{ color: BLUE }}>SHESHAAN</div>
-            <div className="text-[9px] font-semibold tracking-[0.22em]" style={{ color: ORANGE }}>EXPORTING GOODNESS WORLDWIDE</div>
+            <div className="font-display text-xl font-bold tracking-tight" style={{ color: BLUE }}>
+              SHESHAAN
+            </div>
+            <div className="text-[9px] font-semibold tracking-[0.22em]" style={{ color: ORANGE }}>
+              EXPORTING GOODNESS WORLDWIDE
+            </div>
           </div>
         </a>
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-slate-700 transition-colors hover:text-[#0057B8]">{l.label}</a>
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-sm font-medium text-slate-700 transition-colors hover:text-[#0057B8]"
+            >
+              {l.label}
+            </a>
           ))}
         </nav>
-        <a href="/request-quote" className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+        <a
+          href="/request-quote"
+          className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex"
+          style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
+        >
           Request Quote <ArrowRight className="h-4 w-4" />
         </a>
         <button className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
@@ -172,7 +298,14 @@ function Nav() {
         <div className="border-t bg-white lg:hidden">
           <div className="flex flex-col gap-1 p-4">
             {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100">{l.label}</a>
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100"
+              >
+                {l.label}
+              </a>
             ))}
           </div>
         </div>
@@ -191,7 +324,11 @@ function Hero() {
     { icon: Ship, n: "Global", l: "Logistics Network" },
   ];
   return (
-    <section id="home" className="relative overflow-hidden pt-20" style={{ background: `linear-gradient(180deg, ${NAVY} 0%, #072b5a 100%)` }}>
+    <section
+      id="home"
+      className="relative overflow-hidden pt-20"
+      style={{ background: `linear-gradient(180deg, ${NAVY} 0%, #072b5a 100%)` }}
+    >
       <motion.img
         src={heroGlobe}
         alt="Global export network"
@@ -204,7 +341,12 @@ function Hero() {
         animate={reduced ? undefined : { scale: 1 }}
         transition={{ duration: 1.6, ease: EASE }}
       />
-      <div className="absolute inset-0" style={{ background: `linear-gradient(90deg, ${NAVY}ee 0%, ${NAVY}88 55%, transparent 100%)` }} />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(90deg, ${NAVY}ee 0%, ${NAVY}88 55%, transparent 100%)`,
+        }}
+      />
 
       <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-14 lg:pt-24">
         <motion.div
@@ -218,18 +360,29 @@ function Hero() {
             Trusted Global Exporter
           </div>
           <h1 className="font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-            CONNECTING INDIA'S<br />
-            AGRICULTURAL EXCELLENCE<br />
+            CONNECTING INDIA'S
+            <br />
+            AGRICULTURAL EXCELLENCE
+            <br />
             TO <span style={{ color: ORANGE }}>GLOBAL MARKETS</span>
           </h1>
           <p className="mt-6 max-w-lg text-base text-white/80 sm:text-lg">
-            Premium sourcing, production, processing and export solutions delivering quality agricultural products worldwide.
+            Premium sourcing, production, processing and export solutions delivering quality
+            agricultural products worldwide.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <a href="#products" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}>
+            <a
+              href="#products"
+              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
+              style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}
+            >
               Explore Products <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="/request-quote" className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+            <a
+              href="/request-quote"
+              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
+              style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
+            >
               Request Quote <ArrowRight className="h-4 w-4" />
             </a>
           </div>
@@ -269,22 +422,39 @@ function About() {
     <section id="about" className="bg-slate-50 py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
         <motion.div {...fadeUp} viewport={{ once: true, margin: "-80px" }}>
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>About Sheshaan Global</div>
+          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
+            About Sheshaan Global
+          </div>
           <h2 className="mt-4 font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
-            Delivering Value From<br />Our Farms to <span style={{ color: ORANGE }}>The World</span>
+            Delivering Value From
+            <br />
+            Our Farms to <span style={{ color: ORANGE }}>The World</span>
           </h2>
           <p className="mt-6 max-w-lg text-slate-600">
-            Founded in 2022, Sheshaan Global is committed to providing the finest agricultural products from India to international markets with trust, transparency, and unmatched quality.
+            Founded in 2022, Sheshaan Global is committed to providing the finest agricultural
+            products from India to international markets with trust, transparency, and unmatched
+            quality.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             {["IEC Certified", "GST Registered", "APEDA Certified", "FSSAI Certified"].map((c) => (
-              <div key={c} className="rounded-xl border border-slate-200 bg-white px-5 py-3 shadow-sm">
-                <div className="font-display text-sm font-bold" style={{ color: BLUE }}>{c.split(" ")[0]}</div>
-                <div className="text-[10px] uppercase tracking-wider text-slate-500">{c.split(" ").slice(1).join(" ")}</div>
+              <div
+                key={c}
+                className="rounded-xl border border-slate-200 bg-white px-5 py-3 shadow-sm"
+              >
+                <div className="font-display text-sm font-bold" style={{ color: BLUE }}>
+                  {c.split(" ")[0]}
+                </div>
+                <div className="text-[10px] uppercase tracking-wider text-slate-500">
+                  {c.split(" ").slice(1).join(" ")}
+                </div>
               </div>
             ))}
           </div>
-          <a href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+          <a
+            href="/contact"
+            className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
+            style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+          >
             Know More About Us <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
@@ -297,7 +467,14 @@ function About() {
             transition={{ duration: 0.8, ease: EASE }}
             className="overflow-hidden rounded-3xl shadow-2xl"
           >
-            <img src={farmExport} alt="Farm to export" width={1024} height={1024} loading="lazy" className="h-[440px] w-full object-cover" />
+            <img
+              src={farmExport}
+              alt="Farm to export"
+              width={1024}
+              height={1024}
+              loading="lazy"
+              className="h-[440px] w-full object-cover"
+            />
           </motion.div>
           <div className="absolute -right-4 top-6 flex flex-col gap-3">
             {badges.map((b, i) => (
@@ -309,7 +486,10 @@ function About() {
                 transition={{ delay: i * 0.1, ease: EASE }}
                 className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl"
               >
-                <div className="grid h-9 w-9 place-items-center rounded-full" style={{ background: `${BLUE}15`, color: BLUE }}>
+                <div
+                  className="grid h-9 w-9 place-items-center rounded-full"
+                  style={{ background: `${BLUE}15`, color: BLUE }}
+                >
                   <b.i className="h-5 w-5" />
                 </div>
                 <div className="text-xs font-semibold leading-tight text-slate-800">{b.t}</div>
@@ -325,7 +505,8 @@ function About() {
 /* ---------- Products ---------- */
 function Products() {
   const scroller = useRef<HTMLDivElement>(null);
-  const scroll = (dir: number) => scroller.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
+  const scroll = (dir: number) =>
+    scroller.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
   return (
     <section id="products" className="bg-white py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -337,25 +518,56 @@ function Products() {
             transition={{ duration: 0.6, ease: EASE }}
             className="text-center sm:text-left mx-auto sm:mx-0"
           >
-            <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Our Products</div>
+            <div
+              className="text-xs font-bold uppercase tracking-[0.28em]"
+              style={{ color: ORANGE }}
+            >
+              Our Products
+            </div>
             <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
               Premium Quality <span style={{ color: ORANGE }}>Agricultural Products</span>
             </h2>
-            <div className="mx-auto mt-3 h-1 w-24 rounded-full sm:mx-0" style={{ background: ORANGE }} />
+            <div
+              className="mx-auto mt-3 h-1 w-24 rounded-full sm:mx-0"
+              style={{ background: ORANGE }}
+            />
           </motion.div>
           <div className="hidden items-center gap-2 sm:flex">
-            <a href="/products" className="mr-2 inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2.5 text-xs font-semibold transition hover:border-[#0057B8]" style={{ color: BLUE }}>
+            <a
+              href="/products"
+              className="mr-2 inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2.5 text-xs font-semibold transition hover:border-[#0057B8]"
+              style={{ color: BLUE }}
+            >
               All products & HS codes
             </a>
-            <a href="/request-quote" className="mr-2 inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-semibold text-white shadow-sm" style={{ background: ORANGE }}>
+            <a
+              href="/request-quote"
+              className="mr-2 inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-semibold text-white shadow-sm"
+              style={{ background: ORANGE }}
+            >
               Get price quote
             </a>
-            <button onClick={() => scroll(-1)} aria-label="Scroll left" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0057B8] hover:text-[#0057B8]"><ChevronLeft className="h-5 w-5" /></button>
-            <button onClick={() => scroll(1)} aria-label="Scroll right" className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0057B8] hover:text-[#0057B8]"><ChevronRight className="h-5 w-5" /></button>
+            <button
+              onClick={() => scroll(-1)}
+              aria-label="Scroll left"
+              className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0057B8] hover:text-[#0057B8]"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => scroll(1)}
+              aria-label="Scroll right"
+              className="grid h-11 w-11 place-items-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:border-[#0057B8] hover:text-[#0057B8]"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
 
-        <div ref={scroller} className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden">
+        <div
+          ref={scroller}
+          className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden"
+        >
           {PRODUCTS.map((p, i) => (
             <motion.div
               key={p.slug}
@@ -371,14 +583,28 @@ function Products() {
                 className="group relative block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-2 hover:shadow-2xl"
               >
                 <div className="aspect-square overflow-hidden">
-                  <img src={p.img} alt={p.name} width={480} height={480} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <img
+                    src={p.img}
+                    alt={p.name}
+                    width={480}
+                    height={480}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
                 </div>
                 <div className="flex items-center justify-between px-4 py-4">
                   <div>
-                    <div className="font-display text-sm font-semibold text-slate-900">{p.name}</div>
-                    <div className="mt-0.5 text-[10px] uppercase tracking-wider text-slate-500">View details</div>
+                    <div className="font-display text-sm font-semibold text-slate-900">
+                      {p.name}
+                    </div>
+                    <div className="mt-0.5 text-[10px] uppercase tracking-wider text-slate-500">
+                      View details
+                    </div>
                   </div>
-                  <div className="grid h-8 w-8 place-items-center rounded-full transition-colors group-hover:bg-[#0057B8] group-hover:text-white" style={{ background: `${BLUE}12`, color: BLUE }}>
+                  <div
+                    className="grid h-8 w-8 place-items-center rounded-full transition-colors group-hover:bg-[#0057B8] group-hover:text-white"
+                    style={{ background: `${BLUE}12`, color: BLUE }}
+                  >
                     <ChevronRight className="h-4 w-4" />
                   </div>
                 </div>
@@ -451,9 +677,12 @@ function Markets() {
     };
   }, [reduced]);
 
-
   return (
-    <section id="markets" className="relative overflow-hidden py-24" style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #062354 100%)` }}>
+    <section
+      id="markets"
+      className="relative overflow-hidden py-24"
+      style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #062354 100%)` }}
+    >
       <div className="mx-auto grid max-w-7xl items-start gap-12 px-6 lg:grid-cols-[1fr,1.2fr]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -462,16 +691,27 @@ function Markets() {
           transition={{ duration: 0.7, ease: EASE }}
           className="text-white lg:sticky lg:top-28"
         >
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Global Reach</div>
+          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
+            Global Reach
+          </div>
           <h2 className="mt-4 font-display text-4xl font-bold leading-tight sm:text-5xl">
-            Exporting to<br /><span style={{ color: ORANGE }}>
+            Exporting to
+            <br />
+            <span style={{ color: ORANGE }}>
               <Counter to={25} suffix="+" /> Countries
-            </span><br />Worldwide
+            </span>
+            <br />
+            Worldwide
           </h2>
           <p className="mt-6 max-w-md text-white/75">
-            We are proud to export our premium quality products to a wide range of countries across the globe. Hover a country to spot it on the map.
+            We are proud to export our premium quality products to a wide range of countries across
+            the globe. Hover a country to spot it on the map.
           </p>
-          <a href="/request-quote" className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}>
+          <a
+            href="/request-quote"
+            className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
+            style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}
+          >
             Start Export Inquiry <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
@@ -479,7 +719,14 @@ function Markets() {
         <div>
           {/* Map */}
           <div className="relative overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
-            <img src={worldMap} alt="Export destinations map" width={1400} height={900} loading="lazy" className="w-full" />
+            <img
+              src={worldMap}
+              alt="Export destinations map"
+              width={1400}
+              height={900}
+              loading="lazy"
+              className="w-full"
+            />
             <div className="absolute inset-0">
               {COUNTRIES.map((c) => {
                 const isActive = active === c.n;
@@ -522,7 +769,10 @@ function Markets() {
           </div>
 
           {/* Country list */}
-          <div ref={listRef} className="mt-6 grid grid-cols-2 gap-x-6 gap-y-1 rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md sm:grid-cols-2">
+          <div
+            ref={listRef}
+            className="mt-6 grid grid-cols-2 gap-x-6 gap-y-1 rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md sm:grid-cols-2"
+          >
             {COUNTRIES.map((c) => {
               const isActive = active === c.n;
               return (
@@ -535,7 +785,10 @@ function Markets() {
                     isActive ? "bg-white/10 text-white" : "text-white/80 hover:bg-white/5"
                   }`}
                 >
-                  <span className={`inline-block h-1.5 w-1.5 rounded-full transition-all ${isActive ? "scale-150" : ""}`} style={{ background: isActive ? ORANGE : "rgba(255,255,255,0.35)" }} />
+                  <span
+                    className={`inline-block h-1.5 w-1.5 rounded-full transition-all ${isActive ? "scale-150" : ""}`}
+                    style={{ background: isActive ? ORANGE : "rgba(255,255,255,0.35)" }}
+                  />
                   <span className="text-lg">{c.f}</span>
                   <span className={isActive ? "font-semibold" : ""}>{c.n}</span>
                 </button>
@@ -555,9 +808,19 @@ function RegionsStrip() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Dedicated Export Markets</div>
-            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">Region-specific export pages</h2>
-            <p className="mt-2 max-w-2xl text-slate-600">Ports, incoterms, transit windows and localised documentation for each of our key markets.</p>
+            <div
+              className="text-xs font-bold uppercase tracking-[0.28em]"
+              style={{ color: ORANGE }}
+            >
+              Dedicated Export Markets
+            </div>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
+              Region-specific export pages
+            </h2>
+            <p className="mt-2 max-w-2xl text-slate-600">
+              Ports, incoterms, transit windows and localised documentation for each of our key
+              markets.
+            </p>
           </div>
         </div>
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -577,13 +840,19 @@ function RegionsStrip() {
                 <div className="flex items-center gap-3">
                   <span className="text-3xl leading-none">{r.flag}</span>
                   <div>
-                    <div className="font-display text-lg font-bold text-slate-900">Export to {r.short}</div>
+                    <div className="font-display text-lg font-bold text-slate-900">
+                      Export to {r.short}
+                    </div>
                     <div className="text-xs text-slate-500">{r.name}</div>
                   </div>
                 </div>
                 <p className="mt-4 line-clamp-3 text-sm text-slate-600">{r.intro}</p>
-                <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold" style={{ color: BLUE }}>
-                  Explore {r.short} exports <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                <div
+                  className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold"
+                  style={{ color: BLUE }}
+                >
+                  Explore {r.short} exports{" "}
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </div>
               </Link>
             </motion.div>
@@ -638,7 +907,8 @@ function Certifications() {
     const qs = q.trim().toLowerCase();
     return CERTIFICATES.filter((c) => {
       if (fType !== "All" && c.type !== fType) return false;
-      if (fCategory !== "All" && !c.categories.includes("All") && !c.categories.includes(fCategory)) return false;
+      if (fCategory !== "All" && !c.categories.includes("All") && !c.categories.includes(fCategory))
+        return false;
       if (fCountry !== "All" && !c.countries.includes(fCountry)) return false;
       if (!qs) return true;
       return (
@@ -650,7 +920,7 @@ function Certifications() {
     });
   }, [q, fType, fCategory, fCountry]);
 
-  const active = openId ? CERTIFICATES.find((c) => c.id === openId) ?? null : null;
+  const active = openId ? (CERTIFICATES.find((c) => c.id === openId) ?? null) : null;
   const activeFileIsPdf = active?.file.split("?")[0].toLowerCase().endsWith(".pdf") ?? false;
 
   useEffect(() => {
@@ -684,8 +954,12 @@ function Certifications() {
     }
   };
 
-
-  const resetFilters = () => { setQ(""); setFType("All"); setFCategory("All"); setFCountry("All"); };
+  const resetFilters = () => {
+    setQ("");
+    setFType("All");
+    setFCategory("All");
+    setFCountry("All");
+  };
   const isFiltered = q || fType !== "All" || fCategory !== "All" || fCountry !== "All";
 
   return (
@@ -698,12 +972,15 @@ function Certifications() {
           transition={{ duration: 0.6, ease: EASE }}
           className="text-center"
         >
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Our Certifications</div>
+          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
+            Our Certifications
+          </div>
           <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
             Certified. Compliant. <span style={{ color: ORANGE }}>Globally Trusted.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600">
-            Search or filter by type, product category or country to find the compliance document you need.
+            Search or filter by type, product category or country to find the compliance document
+            you need.
           </p>
         </motion.div>
 
@@ -729,19 +1006,51 @@ function Certifications() {
           </label>
           <div className="flex flex-wrap items-center gap-2">
             <Filter className="hidden h-4 w-4 text-slate-500 md:block" aria-hidden />
-            <select aria-label="Filter by type" value={fType} onChange={(e) => setFType(e.target.value)} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-[#0057B8]">
+            <select
+              aria-label="Filter by type"
+              value={fType}
+              onChange={(e) => setFType(e.target.value)}
+              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-[#0057B8]"
+            >
               <option value="All">All types</option>
-              {CERT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+              {CERT_TYPES.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
             </select>
-            <select aria-label="Filter by product category" value={fCategory} onChange={(e) => setFCategory(e.target.value)} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-[#0057B8]">
+            <select
+              aria-label="Filter by product category"
+              value={fCategory}
+              onChange={(e) => setFCategory(e.target.value)}
+              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-[#0057B8]"
+            >
               <option value="All">All categories</option>
-              {allCategories.filter((c) => c !== "All").map((c) => <option key={c} value={c}>{c}</option>)}
+              {allCategories
+                .filter((c) => c !== "All")
+                .map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
             </select>
-            <select aria-label="Filter by country" value={fCountry} onChange={(e) => setFCountry(e.target.value)} className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-[#0057B8]">
-              {allCountries.map((c) => <option key={c} value={c}>{c === "All" ? "All countries" : c}</option>)}
+            <select
+              aria-label="Filter by country"
+              value={fCountry}
+              onChange={(e) => setFCountry(e.target.value)}
+              className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-[#0057B8]"
+            >
+              {allCountries.map((c) => (
+                <option key={c} value={c}>
+                  {c === "All" ? "All countries" : c}
+                </option>
+              ))}
             </select>
             {isFiltered && (
-              <button onClick={resetFilters} className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-semibold text-slate-600 hover:border-[#0057B8] hover:text-[#0057B8]">
+              <button
+                onClick={resetFilters}
+                className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-semibold text-slate-600 hover:border-[#0057B8] hover:text-[#0057B8]"
+              >
                 Reset
               </button>
             )}
@@ -770,7 +1079,12 @@ function Certifications() {
                     aria-label={`View ${c.name} — ${c.fullName}`}
                     className="mx-auto block w-[70%] overflow-hidden rounded-lg border-4 border-slate-100 bg-white shadow-xl transition-transform hover:-translate-y-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8]"
                   >
-                    <img src={c.img} alt={`${c.name} certificate preview`} loading="lazy" className="h-48 w-full object-cover" />
+                    <img
+                      src={c.img}
+                      alt={`${c.name} certificate preview`}
+                      loading="lazy"
+                      className="h-48 w-full object-cover"
+                    />
                   </button>
                   <div className="mx-auto mt-2 h-3 w-[80%] rounded-b-full bg-gradient-to-b from-slate-200 to-transparent" />
                   <div className="mx-auto -mt-1 h-5 w-[85%] rounded-full bg-white shadow-md" />
@@ -794,7 +1108,11 @@ function Certifications() {
                     className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-semibold text-white shadow disabled:opacity-70 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
                     style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
                   >
-                    {downloading === c.id ? <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden /> : <Download className="h-3.5 w-3.5" aria-hidden />}
+                    {downloading === c.id ? (
+                      <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
+                    ) : (
+                      <Download className="h-3.5 w-3.5" aria-hidden />
+                    )}
                     {downloading === c.id ? "Saving…" : "Download"}
                   </button>
                 </div>
@@ -805,9 +1123,18 @@ function Certifications() {
 
         {filtered.length === 0 && (
           <div className="mx-auto mt-10 max-w-md rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center">
-            <div className="font-display text-lg font-semibold text-slate-800">No certificates match</div>
-            <p className="mt-2 text-sm text-slate-500">Try clearing filters or searching a different keyword.</p>
-            <button onClick={resetFilters} className="mt-4 rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold text-white">Reset filters</button>
+            <div className="font-display text-lg font-semibold text-slate-800">
+              No certificates match
+            </div>
+            <p className="mt-2 text-sm text-slate-500">
+              Try clearing filters or searching a different keyword.
+            </p>
+            <button
+              onClick={resetFilters}
+              className="mt-4 rounded-full bg-slate-900 px-5 py-2 text-xs font-semibold text-white"
+            >
+              Reset filters
+            </button>
           </div>
         )}
       </div>
@@ -840,12 +1167,18 @@ function Certifications() {
                     className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold text-white shadow disabled:opacity-70"
                     style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
                   >
-                    {downloading === active.id ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <Download className="h-4 w-4" aria-hidden />}
+                    {downloading === active.id ? (
+                      <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                    ) : (
+                      <Download className="h-4 w-4" aria-hidden />
+                    )}
                     {downloading === active.id ? "Preparing…" : "Download"}
                   </button>
                 </div>
               </DialogHeader>
-              <div className={`relative bg-slate-50 ${activeFileIsPdf ? "h-[70vh] p-3" : "max-h-[70vh] overflow-auto p-4"}`}>
+              <div
+                className={`relative bg-slate-50 ${activeFileIsPdf ? "h-[70vh] p-3" : "max-h-[70vh] overflow-auto p-4"}`}
+              >
                 {imgLoading && (
                   <div className="absolute inset-0 z-10 grid place-items-center bg-slate-50/80 backdrop-blur-sm">
                     <div className="flex items-center gap-2 text-sm font-semibold text-slate-600">
@@ -861,13 +1194,13 @@ function Certifications() {
                     className="h-full w-full rounded-lg border border-slate-200 bg-white shadow-lg"
                   />
                 ) : (
-                <img
-                  src={active.img}
-                  alt={`${active.name} certificate — full view`}
-                  onLoad={() => setImgLoading(false)}
-                  onError={() => setImgLoading(false)}
-                  className="mx-auto max-h-[65vh] w-auto rounded-lg shadow-lg"
-                />
+                  <img
+                    src={active.img}
+                    alt={`${active.name} certificate — full view`}
+                    onLoad={() => setImgLoading(false)}
+                    onError={() => setImgLoading(false)}
+                    className="mx-auto max-h-[65vh] w-auto rounded-lg shadow-lg"
+                  />
                 )}
               </div>
             </>
@@ -885,22 +1218,50 @@ function SeoHub() {
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Popular Searches</div>
-            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">High-demand export pages</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">Focused pages built for buyers searching specific products and export markets.</p>
+            <div
+              className="text-xs font-bold uppercase tracking-[0.28em]"
+              style={{ color: ORANGE }}
+            >
+              Popular Searches
+            </div>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
+              High-demand export pages
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">
+              Focused pages built for buyers searching specific products and export markets.
+            </p>
           </div>
-          <a href="/request-quote" className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white shadow-lg" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+          <a
+            href="/request-quote"
+            className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white shadow-lg"
+            style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
+          >
             Request Quote <ArrowRight className="h-4 w-4" />
           </a>
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SEO_LANDING_PAGES.map((page) => (
-            <Link key={page.slug} to="/seo/$slug" params={{ slug: page.slug }} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:shadow-xl">
-              <div className="text-xs font-bold uppercase tracking-widest" style={{ color: BLUE }}>{page.keyword}</div>
-              <h3 className="mt-3 font-display text-lg font-bold text-slate-900">{page.title.replace(" | Sheshaan Global", "")}</h3>
-              <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{page.description}</p>
-              <div className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold" style={{ color: ORANGE }}>
-                Open page <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+            <Link
+              key={page.slug}
+              to="/seo/$slug"
+              params={{ slug: page.slug }}
+              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:shadow-xl"
+            >
+              <div className="text-xs font-bold uppercase tracking-widest" style={{ color: BLUE }}>
+                {page.keyword}
+              </div>
+              <h3 className="mt-3 font-display text-lg font-bold text-slate-900">
+                {page.title.replace(" | Sheshaan Global", "")}
+              </h3>
+              <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">
+                {page.description}
+              </p>
+              <div
+                className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold"
+                style={{ color: ORANGE }}
+              >
+                Open page{" "}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </div>
             </Link>
           ))}
@@ -917,22 +1278,50 @@ function BlogPreview() {
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Knowledge Hub</div>
-            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">Importer guides that build trust</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">Helpful articles bring search traffic and answer buyer questions before they inquire.</p>
+            <div
+              className="text-xs font-bold uppercase tracking-[0.28em]"
+              style={{ color: ORANGE }}
+            >
+              Knowledge Hub
+            </div>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
+              Importer guides that build trust
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">
+              Helpful articles bring search traffic and answer buyer questions before they inquire.
+            </p>
           </div>
-          <Link to="/blog" className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 shadow-sm hover:border-[#0057B8] hover:text-[#0057B8]">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 shadow-sm hover:border-[#0057B8] hover:text-[#0057B8]"
+          >
             View Blog <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {BLOG_POSTS.map((post) => (
-            <Link key={post.slug} to="/blog/$slug" params={{ slug: post.slug }} className="group flex min-h-64 flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6 transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:bg-white hover:shadow-xl">
-              <div className="text-xs font-bold uppercase tracking-widest" style={{ color: ORANGE }}>{post.category}</div>
-              <h3 className="mt-3 font-display text-xl font-bold leading-snug text-slate-900">{post.title}</h3>
+            <Link
+              key={post.slug}
+              to="/blog/$slug"
+              params={{ slug: post.slug }}
+              className="group flex min-h-64 flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6 transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:bg-white hover:shadow-xl"
+            >
+              <div
+                className="text-xs font-bold uppercase tracking-widest"
+                style={{ color: ORANGE }}
+              >
+                {post.category}
+              </div>
+              <h3 className="mt-3 font-display text-xl font-bold leading-snug text-slate-900">
+                {post.title}
+              </h3>
               <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{post.description}</p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold" style={{ color: BLUE }}>
-                Read guide <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <span
+                className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold"
+                style={{ color: BLUE }}
+              >
+                Read guide{" "}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
           ))}
@@ -945,18 +1334,37 @@ function BlogPreview() {
 /* ---------- Strong final CTA ---------- */
 function QuoteCta() {
   return (
-    <section className="px-5 py-14 sm:px-6" style={{ background: `linear-gradient(135deg,${NAVY},#062354)` }}>
+    <section
+      className="px-5 py-14 sm:px-6"
+      style={{ background: `linear-gradient(135deg,${NAVY},#062354)` }}
+    >
       <div className="mx-auto grid max-w-7xl gap-6 rounded-2xl border border-white/10 bg-white/10 p-6 text-white shadow-2xl backdrop-blur sm:p-8 lg:grid-cols-[1fr,auto] lg:items-center">
         <div>
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>Ready To Buy</div>
-          <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">Get a clear export quote with product, packing and port details.</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">The quote form prepares a clean WhatsApp or email message, helping our team reply faster with availability and FOB/CIF pricing.</p>
+          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
+            Ready To Buy
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">
+            Get a clear export quote with product, packing and port details.
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">
+            The quote form prepares a clean WhatsApp or email message, helping our team reply faster
+            with availability and FOB/CIF pricing.
+          </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
-          <a href="/request-quote" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-slate-900 shadow-lg">
+          <a
+            href="/request-quote"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-slate-900 shadow-lg"
+          >
             Request Quote <ArrowRight className="h-4 w-4" />
           </a>
-          <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white shadow-lg" style={{ background: "#25D366" }}>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white shadow-lg"
+            style={{ background: "#25D366" }}
+          >
             <MessageCircle className="h-4 w-4" /> WhatsApp
           </a>
         </div>
@@ -964,8 +1372,6 @@ function QuoteCta() {
     </section>
   );
 }
-
-
 
 /* ---------- Why Us Strip ---------- */
 function WhyUs() {
@@ -980,7 +1386,11 @@ function WhyUs() {
     { i: Package, t: "Customized Packaging Solutions" },
   ];
   return (
-    <section id="why" className="py-4" style={{ background: `linear-gradient(90deg, ${BLUE}, #003c85)` }}>
+    <section
+      id="why"
+      className="py-4"
+      style={{ background: `linear-gradient(90deg, ${BLUE}, #003c85)` }}
+    >
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-2 px-4 py-8 text-white sm:grid-cols-4 lg:grid-cols-8">
         {items.map((it, i) => (
           <motion.div
@@ -1004,41 +1414,98 @@ function WhyUs() {
 
 /* ---------- Footer ---------- */
 function Footer() {
+  const teamLinks = useLiveTeamLinks();
+
   return (
     <footer className="py-14 text-white" style={{ background: NAVY }}>
       <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">
-            <img src={logo} alt="Sheshaan Global" className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]" />
+            <img
+              src={logo}
+              alt="Sheshaan Global"
+              className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]"
+            />
             <div>
-              <div className="font-display text-lg font-bold" style={{ color: "#fff" }}>SHESHAAN</div>
-              <div className="text-[9px] font-semibold tracking-[0.2em]" style={{ color: ORANGE }}>EXPORTING GOODNESS WORLDWIDE</div>
+              <div className="font-display text-lg font-bold" style={{ color: "#fff" }}>
+                SHESHAAN
+              </div>
+              <div className="text-[9px] font-semibold tracking-[0.2em]" style={{ color: ORANGE }}>
+                EXPORTING GOODNESS WORLDWIDE
+              </div>
             </div>
           </div>
-          <p className="mt-4 text-sm text-white/60">Premium agricultural exports from India to the world.</p>
+          <p className="mt-4 text-sm text-white/60">
+            Premium agricultural exports from India to the world.
+          </p>
         </div>
         <div>
-          <div className="font-display text-sm font-semibold uppercase tracking-widest" style={{ color: ORANGE }}>Explore</div>
-          <div className="mt-4 space-y-2">
-            {NAV_LINKS.map((l) => <a key={l.href} href={l.href} className="block text-sm text-white/70 hover:text-white">{l.label}</a>)}
+          <div
+            className="font-display text-sm font-semibold uppercase tracking-widest"
+            style={{ color: ORANGE }}
+          >
+            Explore
           </div>
-        </div>
-        <div>
-          <div className="font-display text-sm font-semibold uppercase tracking-widest" style={{ color: ORANGE }}>Products</div>
           <div className="mt-4 space-y-2">
-            {PRODUCTS.map((p) => (
-              <Link key={p.slug} to="/products/$slug" params={{ slug: p.slug }} className="block text-sm text-white/70 hover:text-white">{p.name}</Link>
+            {NAV_LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="block text-sm text-white/70 hover:text-white"
+              >
+                {l.label}
+              </a>
             ))}
           </div>
         </div>
         <div>
-          <div className="font-display text-sm font-semibold uppercase tracking-widest" style={{ color: ORANGE }}>Contact</div>
+          <div
+            className="font-display text-sm font-semibold uppercase tracking-widest"
+            style={{ color: ORANGE }}
+          >
+            Products
+          </div>
+          <div className="mt-4 space-y-2">
+            {PRODUCTS.map((p) => (
+              <Link
+                key={p.slug}
+                to="/products/$slug"
+                params={{ slug: p.slug }}
+                className="block text-sm text-white/70 hover:text-white"
+              >
+                {p.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div
+            className="font-display text-sm font-semibold uppercase tracking-widest"
+            style={{ color: ORANGE }}
+          >
+            Contact
+          </div>
           <div className="mt-4 space-y-3 text-sm text-white/70">
-            <div className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> Maharashtra, India</div>
-            <a href={`tel:${PHONE_RAW}`} className="flex items-start gap-2 hover:text-white"><Phone className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {PHONE}</a>
-            <a href={`mailto:${EMAIL}`} className="flex items-start gap-2 hover:text-white"><Mail className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {EMAIL}</a>
-            <a href={LINKEDIN_SAKSHAM} target="_blank" rel="noreferrer" className="flex items-start gap-2 hover:text-white"><Linkedin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> Saksham Singh</a>
-            <a href={LINKEDIN_SANA} target="_blank" rel="noreferrer" className="flex items-start gap-2 hover:text-white"><Linkedin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> Sana Zeba Bakshi</a>
+            <div className="flex items-start gap-2">
+              <MapPin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> Maharashtra, India
+            </div>
+            <a href={`tel:${PHONE_RAW}`} className="flex items-start gap-2 hover:text-white">
+              <Phone className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {PHONE}
+            </a>
+            <a href={`mailto:${EMAIL}`} className="flex items-start gap-2 hover:text-white">
+              <Mail className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {EMAIL}
+            </a>
+            {teamLinks.map((member) => (
+              <a
+                key={member.linkedin}
+                href={member.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-start gap-2 hover:text-white"
+              >
+                <Linkedin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {member.name}
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -1054,39 +1521,82 @@ function MessageFab() {
   const [open, setOpen] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const teamLinks = useLiveTeamLinks();
   const actions = [
-    { label: "Request Quote", sub: "Structured inquiry", icon: FileText, href: "/request-quote", bg: ORANGE },
-    { label: "WhatsApp", sub: "Chat instantly", icon: MessageCircle, href: WHATSAPP_URL, bg: "#25D366", external: true },
+    {
+      label: "Request Quote",
+      sub: "Structured inquiry",
+      icon: FileText,
+      href: "/request-quote",
+      bg: ORANGE,
+    },
+    {
+      label: "WhatsApp",
+      sub: "Chat instantly",
+      icon: MessageCircle,
+      href: WHATSAPP_URL,
+      bg: "#25D366",
+      external: true,
+    },
     { label: "Email Us", sub: EMAIL, icon: Mail, href: MAILTO_URL, bg: BLUE },
-    { label: "Saksham LinkedIn", sub: "Business development", icon: Linkedin, href: LINKEDIN_SAKSHAM, bg: "#0A66C2", external: true },
-    { label: "Sana LinkedIn", sub: "Chief Executive Officer", icon: Linkedin, href: LINKEDIN_SANA, bg: NAVY, external: true },
-    { label: "Download Brochure", sub: "PDF catalogue", icon: FileText, href: BROCHURE_URL, bg: ORANGE, download: "Sheshaan-Global-Catalogue.pdf" },
+    ...teamLinks.map((member, index) => ({
+      label: `${member.name} LinkedIn`,
+      sub: member.role,
+      icon: Linkedin,
+      href: member.linkedin,
+      bg: index === 0 ? "#0A66C2" : NAVY,
+      external: true,
+    })),
+    {
+      label: "Download Brochure",
+      sub: "PDF catalogue",
+      icon: FileText,
+      href: BROCHURE_URL,
+      bg: ORANGE,
+      download: "Sheshaan-Global-Catalogue.pdf",
+    },
   ] as const;
 
   // Close on ESC, click-outside, and manage focus.
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setOpen(false); btnRef.current?.focus(); return; }
+      if (e.key === "Escape") {
+        setOpen(false);
+        btnRef.current?.focus();
+        return;
+      }
       if (e.key === "Tab") {
         // Simple focus trap between menu items + trigger
         const items = menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]');
         if (!items || items.length === 0) return;
-        const first = items[0]; const last = items[items.length - 1];
+        const first = items[0];
+        const last = items[items.length - 1];
         const active = document.activeElement as HTMLElement | null;
-        if (e.shiftKey && active === first) { e.preventDefault(); last.focus(); }
-        else if (!e.shiftKey && active === last) { e.preventDefault(); first.focus(); }
+        if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        }
       }
       if (e.key === "ArrowDown" || e.key === "ArrowUp") {
         e.preventDefault();
-        const items = Array.from(menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]') ?? []);
+        const items = Array.from(
+          menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]') ?? [],
+        );
         const i = items.indexOf(document.activeElement as HTMLElement);
-        const next = e.key === "ArrowDown" ? (i + 1) % items.length : (i - 1 + items.length) % items.length;
+        const next =
+          e.key === "ArrowDown" ? (i + 1) % items.length : (i - 1 + items.length) % items.length;
         items[next]?.focus();
       }
     };
     const onClick = (e: MouseEvent) => {
-      if (!menuRef.current?.contains(e.target as Node) && !btnRef.current?.contains(e.target as Node)) {
+      if (
+        !menuRef.current?.contains(e.target as Node) &&
+        !btnRef.current?.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -1130,7 +1640,9 @@ function MessageFab() {
                   tabIndex={-1}
                   aria-label={`${a.label} — ${a.sub}`}
                   href={a.href}
-                  {...(("external" in a && a.external) ? { target: "_blank", rel: "noreferrer" } : {})}
+                  {...("external" in a && a.external
+                    ? { target: "_blank", rel: "noreferrer" }
+                    : {})}
                   {...(isDownload ? { download: a.download } : {})}
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -1138,7 +1650,10 @@ function MessageFab() {
                   onClick={() => setOpen(false)}
                   className="flex items-center gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8]"
                 >
-                  <div className="grid h-10 w-10 place-items-center rounded-xl text-white shadow" style={{ background: a.bg }}>
+                  <div
+                    className="grid h-10 w-10 place-items-center rounded-xl text-white shadow"
+                    style={{ background: a.bg }}
+                  >
                     <a.icon className="h-5 w-5" aria-hidden />
                   </div>
                   <div className="min-w-0">
@@ -1165,15 +1680,35 @@ function MessageFab() {
       >
         <AnimatePresence mode="wait" initial={false}>
           {open ? (
-            <motion.span key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}><X className="h-6 w-6" aria-hidden /></motion.span>
+            <motion.span
+              key="x"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+            >
+              <X className="h-6 w-6" aria-hidden />
+            </motion.span>
           ) : (
-            <motion.span key="m" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}><MessageCircle className="h-6 w-6" aria-hidden /></motion.span>
+            <motion.span
+              key="m"
+              initial={{ rotate: 90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: -90, opacity: 0 }}
+            >
+              <MessageCircle className="h-6 w-6" aria-hidden />
+            </motion.span>
           )}
         </AnimatePresence>
         {!open && (
           <span aria-hidden className="absolute -top-1 -right-1 flex h-3 w-3">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" style={{ background: ORANGE }} />
-            <span className="relative inline-flex h-3 w-3 rounded-full" style={{ background: ORANGE }} />
+            <span
+              className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
+              style={{ background: ORANGE }}
+            />
+            <span
+              className="relative inline-flex h-3 w-3 rounded-full"
+              style={{ background: ORANGE }}
+            />
           </span>
         )}
       </motion.button>
@@ -1194,7 +1729,9 @@ function FAQ() {
           transition={{ duration: 0.6, ease: EASE }}
           className="text-center"
         >
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>FAQ</div>
+          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
+            FAQ
+          </div>
           <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
             Frequently Asked <span style={{ color: ORANGE }}>Questions</span>
           </h2>
@@ -1211,7 +1748,11 @@ function FAQ() {
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left font-display text-base font-semibold text-slate-900 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8]"
                 >
                   <span>{f.q}</span>
-                  <ChevronRight className={`h-5 w-5 flex-shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`} style={{ color: ORANGE }} aria-hidden />
+                  <ChevronRight
+                    className={`h-5 w-5 flex-shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}
+                    style={{ color: ORANGE }}
+                    aria-hidden
+                  />
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
@@ -1236,12 +1777,10 @@ function FAQ() {
   );
 }
 
-
 /* ---------- Page ---------- */
 function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
-
       <LoadingScreen />
       <Nav />
       <main id="main">
