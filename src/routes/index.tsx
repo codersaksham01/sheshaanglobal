@@ -645,10 +645,11 @@ function Certifications() {
   }, [q, fType, fCategory, fCountry]);
 
   const active = openId ? CERTIFICATES.find((c) => c.id === openId) ?? null : null;
+  const activeFileIsPdf = active?.file.split("?")[0].toLowerCase().endsWith(".pdf") ?? false;
 
   useEffect(() => {
     if (openId) setImgLoading(true);
-  }, [openId]);
+  }, [openId, activeFileIsPdf]);
 
   const handleDownload = async (cert: Certificate) => {
     setDownloading(cert.id);
@@ -775,7 +776,8 @@ function Certifications() {
                   <button
                     onClick={() => setOpenId(c.id)}
                     aria-label={`View ${c.name} certificate`}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-700 hover:border-[#0057B8] hover:text-[#0057B8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8]"
+                    className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-semibold text-white shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8]"
+                    style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
                   >
                     <Eye className="h-3.5 w-3.5" aria-hidden /> View
                   </button>
@@ -837,7 +839,7 @@ function Certifications() {
                   </button>
                 </div>
               </DialogHeader>
-              <div className="relative max-h-[70vh] overflow-auto bg-slate-50 p-4">
+              <div className={`relative bg-slate-50 ${activeFileIsPdf ? "h-[70vh] p-3" : "max-h-[70vh] overflow-auto p-4"}`}>
                 {imgLoading && (
                   <div className="absolute inset-0 z-10 grid place-items-center bg-slate-50/80 backdrop-blur-sm">
                     <div className="flex items-center gap-2 text-sm font-semibold text-slate-600">
@@ -845,6 +847,14 @@ function Certifications() {
                     </div>
                   </div>
                 )}
+                {activeFileIsPdf ? (
+                  <iframe
+                    src={active.file}
+                    title={`${active.name} certificate PDF`}
+                    onLoad={() => setImgLoading(false)}
+                    className="h-full w-full rounded-lg border border-slate-200 bg-white shadow-lg"
+                  />
+                ) : (
                 <img
                   src={active.img}
                   alt={`${active.name} certificate — full view`}
@@ -852,6 +862,7 @@ function Certifications() {
                   onError={() => setImgLoading(false)}
                   className="mx-auto max-h-[65vh] w-auto rounded-lg shadow-lg"
                 />
+                )}
               </div>
             </>
           )}
