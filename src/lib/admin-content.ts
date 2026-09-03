@@ -1,6 +1,13 @@
 import {
-  ALL_PRODUCTS, BLOG_POSTS, CERTIFICATES, EMAIL, PHONE, SEO_LANDING_PAGES,
-  type BlogPost, type Product, type SeoLandingPage,
+  ALL_PRODUCTS,
+  BLOG_POSTS,
+  CERTIFICATES,
+  EMAIL,
+  PHONE,
+  SEO_LANDING_PAGES,
+  type BlogPost,
+  type Product,
+  type SeoLandingPage,
 } from "@/lib/site";
 
 export type PublishStatus = "Published" | "Draft";
@@ -54,7 +61,50 @@ export type AdminInquiry = {
   destination: string;
   quantity: string;
   channel: string;
-  status: "New" | "Quoted" | "Follow-up" | "Closed";
+  email?: string;
+  phone?: string;
+  value?: string;
+  notes?: string;
+  nextAction?: string;
+  status: "New" | "Contacted" | "Quoted" | "Follow-up" | "Won" | "Lost" | "Closed";
+};
+
+export type AdminMedia = {
+  id: string;
+  title: string;
+  type: "Image" | "PDF" | "Video" | "Other";
+  url: string;
+  alt: string;
+  category: string;
+};
+
+export type AdminCountryPage = {
+  id: string;
+  country: string;
+  slug: string;
+  port: string;
+  topProducts: string;
+  status: PublishStatus;
+  description: string;
+};
+
+export type AdminTestimonial = {
+  id: string;
+  name: string;
+  company: string;
+  country: string;
+  quote: string;
+  status: PublishStatus;
+};
+
+export type AdminTeamMember = {
+  id: string;
+  name: string;
+  role: string;
+  linkedin: string;
+  email: string;
+  phone: string;
+  status: PublishStatus;
 };
 
 export type AdminState = {
@@ -63,6 +113,24 @@ export type AdminState = {
   seoPages: AdminSeo[];
   certificates: AdminCertificate[];
   inquiries: AdminInquiry[];
+  media: AdminMedia[];
+  countryPages: AdminCountryPage[];
+  testimonials: AdminTestimonial[];
+  team: AdminTeamMember[];
+  homepage: {
+    heroTitle: string;
+    heroSubtitle: string;
+    primaryCta: string;
+    secondaryCta: string;
+    featuredProducts: string;
+    announcement: string;
+  };
+  quoteSettings: {
+    whatsappTemplate: string;
+    emailSubject: string;
+    autoReply: string;
+    requiredFields: string;
+  };
   settings: {
     phone: string;
     email: string;
@@ -111,10 +179,151 @@ export const defaultAdminState: AdminState = {
     status: "Published",
   })),
   inquiries: [
-    { id: "INQ-1042", buyer: "Ahmed Trading", company: "Dubai Wholesale LLC", product: "Fresh Onions", destination: "UAE", quantity: "1 x 40' FCL", channel: "WhatsApp", status: "New" },
-    { id: "INQ-1041", buyer: "Priya Foods", company: "Retail Foods UK", product: "Premium Rice", destination: "UK", quantity: "24 MT", channel: "Email", status: "Quoted" },
-    { id: "INQ-1040", buyer: "Global Spice Co.", company: "Importer", product: "Turmeric", destination: "EU", quantity: "10 MT", channel: "Form", status: "Follow-up" },
+    {
+      id: "INQ-1042",
+      buyer: "Ahmed Trading",
+      company: "Dubai Wholesale LLC",
+      product: "Fresh Onions",
+      destination: "UAE",
+      quantity: "1 x 40' FCL",
+      channel: "WhatsApp",
+      value: "High",
+      notes: "Needs CIF Jebel Ali quote.",
+      nextAction: "Send onion price sheet",
+      status: "New",
+    },
+    {
+      id: "INQ-1041",
+      buyer: "Priya Foods",
+      company: "Retail Foods UK",
+      product: "Premium Rice",
+      destination: "UK",
+      quantity: "24 MT",
+      channel: "Email",
+      value: "Medium",
+      notes: "Asked for private-label bags.",
+      nextAction: "Follow up with bag artwork",
+      status: "Quoted",
+    },
+    {
+      id: "INQ-1040",
+      buyer: "Global Spice Co.",
+      company: "Importer",
+      product: "Turmeric",
+      destination: "EU",
+      quantity: "10 MT",
+      channel: "Form",
+      value: "Medium",
+      notes: "Needs HACCP and ISO files.",
+      nextAction: "Share certificates",
+      status: "Follow-up",
+    },
   ],
+  media: [
+    {
+      id: "media-logo",
+      title: "Sheshaan Logo",
+      type: "Image",
+      url: "/logo.png",
+      alt: "Sheshaan Global logo",
+      category: "Brand",
+    },
+    {
+      id: "media-catalogue",
+      title: "Company Catalogue",
+      type: "PDF",
+      url: "/catalogue.pdf",
+      alt: "Sheshaan Global catalogue",
+      category: "Brochure",
+    },
+    {
+      id: "media-haccp",
+      title: "HACCP Certificate",
+      type: "PDF",
+      url: "/certificates/haccp-sheshaan.pdf",
+      alt: "HACCP certificate",
+      category: "Certificate",
+    },
+  ],
+  countryPages: [
+    {
+      id: "country-uae",
+      country: "United Arab Emirates",
+      slug: "uae",
+      port: "Jebel Ali",
+      topProducts: "Fresh Onions, Green Chillies, Rice, Spices",
+      status: "Published",
+      description:
+        "Exporter from India to UAE with FOB and CIF quote support for wholesale importers.",
+    },
+    {
+      id: "country-uk",
+      country: "United Kingdom",
+      slug: "uk",
+      port: "Felixstowe",
+      topProducts: "Basmati Rice, Spices, Green Chillies, Pulses",
+      status: "Published",
+      description:
+        "Indian agricultural products shipped to UK importers with documentation support.",
+    },
+    {
+      id: "country-usa",
+      country: "United States",
+      slug: "usa",
+      port: "New York / Los Angeles",
+      topProducts: "Rice, Spices, Pulses, Dry Fruits",
+      status: "Draft",
+      description: "Export-ready Indian food and agri products for US importers and distributors.",
+    },
+  ],
+  testimonials: [
+    {
+      id: "test-1",
+      name: "Procurement Head",
+      company: "Gulf Wholesale Buyer",
+      country: "UAE",
+      quote:
+        "Responsive quotation support and clear export documentation made the buying process easier.",
+      status: "Draft",
+    },
+  ],
+  team: [
+    {
+      id: "saksham-singh",
+      name: "Saksham Singh",
+      role: "Business Development",
+      linkedin: "https://www.linkedin.com/in/saksham-singh-ba591638a/",
+      email: EMAIL,
+      phone: PHONE,
+      status: "Published",
+    },
+    {
+      id: "sana-zeba-bakshi",
+      name: "Sana Zeba Bakshi",
+      role: "Founder",
+      linkedin: "https://www.linkedin.com/in/sana-zeba-bakshi/",
+      email: EMAIL,
+      phone: PHONE,
+      status: "Published",
+    },
+  ],
+  homepage: {
+    heroTitle: "Indian Agricultural Exports for Global Buyers",
+    heroSubtitle:
+      "Fresh produce, rice, spices, pulses, dry fruits and certified export documentation from Sheshaan Global.",
+    primaryCta: "Request Quote",
+    secondaryCta: "View Products",
+    featuredProducts: "Fresh Onions, Green Chillies, Premium Rice, Spices & Masalas",
+    announcement: "Same-day FOB / CIF quotes available for verified importers.",
+  },
+  quoteSettings: {
+    whatsappTemplate:
+      "Hello Sheshaan Global, I want a quote for {{product}} to {{country}}. Quantity: {{quantity}}.",
+    emailSubject: "Export Inquiry - Sheshaan Global",
+    autoReply:
+      "Thank you for your inquiry. Our export team will review your requirement and respond with pricing and documentation details.",
+    requiredFields: "Name, Company, Product, Quantity, Destination Country, WhatsApp Number",
+  },
   settings: {
     phone: PHONE,
     email: EMAIL,
@@ -123,6 +332,32 @@ export const defaultAdminState: AdminState = {
     homepageNotice: "Same-day FOB / CIF quotes available for verified importers.",
   },
 };
+
+export function normalizeAdminState(value: Partial<AdminState> | null | undefined): AdminState {
+  const source = value ?? {};
+  return {
+    ...defaultAdminState,
+    ...source,
+    products: Array.isArray(source.products) ? source.products : defaultAdminState.products,
+    blogs: Array.isArray(source.blogs) ? source.blogs : defaultAdminState.blogs,
+    seoPages: Array.isArray(source.seoPages) ? source.seoPages : defaultAdminState.seoPages,
+    certificates: Array.isArray(source.certificates)
+      ? source.certificates
+      : defaultAdminState.certificates,
+    inquiries: Array.isArray(source.inquiries) ? source.inquiries : defaultAdminState.inquiries,
+    media: Array.isArray(source.media) ? source.media : defaultAdminState.media,
+    countryPages: Array.isArray(source.countryPages)
+      ? source.countryPages
+      : defaultAdminState.countryPages,
+    testimonials: Array.isArray(source.testimonials)
+      ? source.testimonials
+      : defaultAdminState.testimonials,
+    team: Array.isArray(source.team) ? source.team : defaultAdminState.team,
+    homepage: { ...defaultAdminState.homepage, ...source.homepage },
+    quoteSettings: { ...defaultAdminState.quoteSettings, ...source.quoteSettings },
+    settings: { ...defaultAdminState.settings, ...source.settings },
+  };
+}
 
 export function splitList(value: string) {
   return value
@@ -161,7 +396,10 @@ export function adminBlogToBlogPost(blog: AdminBlog): BlogPost {
     readTime: fallback?.readTime ?? "4 min read",
     category: blog.category,
     productSlug: fallback?.productSlug,
-    body: blog.body.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean),
+    body: blog.body
+      .split(/\n{2,}/)
+      .map((p) => p.trim())
+      .filter(Boolean),
   };
 }
 
@@ -182,8 +420,14 @@ export function adminSeoToSeoLandingPage(page: AdminSeo): SeoLandingPage {
       "Buyer-focused packing and dispatch planning",
     ],
     faqs: fallback?.faqs ?? [
-      { q: `Can I request pricing for ${page.keyword}?`, a: "Yes. Share quantity, destination port and packing requirement to receive the latest quote." },
-      { q: "Do you support export documents?", a: "Yes. Product-specific export documentation can be arranged according to buyer and destination requirements." },
+      {
+        q: `Can I request pricing for ${page.keyword}?`,
+        a: "Yes. Share quantity, destination port and packing requirement to receive the latest quote.",
+      },
+      {
+        q: "Do you support export documents?",
+        a: "Yes. Product-specific export documentation can be arranged according to buyer and destination requirements.",
+      },
     ],
   };
 }
