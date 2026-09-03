@@ -102,12 +102,15 @@ function AdminPortal() {
         },
         body: JSON.stringify(next),
       });
-      if (!response.ok) throw new Error(await response.text());
+      if (!response.ok) {
+        const message = await response.text();
+        throw new Error(message || `Publish failed with status ${response.status}`);
+      }
       setSaved(true);
       setLiveStatus("Published live.");
       window.setTimeout(() => setSaved(false), 1600);
-    } catch {
-      setLiveStatus("Could not publish live. Check Cloudflare KV and admin passcode.");
+    } catch (error) {
+      setLiveStatus(error instanceof Error ? `Could not publish live: ${error.message}` : "Could not publish live.");
     }
   };
 

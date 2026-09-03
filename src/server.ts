@@ -84,6 +84,10 @@ async function handleAdminContentApi(request: Request, env: SiteEnv = {}) {
     return jsonResponse({ error: "Method not allowed" }, { status: 405 });
   }
 
+  if (!env.SHESHAAN_CONTENT && !isLocalRequest(request)) {
+    return jsonResponse({ error: "Cloudflare KV binding SHESHAAN_CONTENT is not connected." }, { status: 503 });
+  }
+
   const expectedPasscode = env.SHESHAAN_ADMIN_PASSCODE;
   const providedPasscode = request.headers.get("x-admin-passcode") ?? "";
   const localFallbackPasscode = isLocalRequest(request) ? "sheshaan-admin" : "";
