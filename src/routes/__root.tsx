@@ -14,7 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { ScrollProgress } from "../components/ScrollProgress";
 
-const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID || "";
+const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID || "G-HNHHQGFH13";
 const SEARCH_CONSOLE_ID = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION || "";
 
 function NotFoundComponent() {
