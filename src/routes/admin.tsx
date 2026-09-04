@@ -773,6 +773,8 @@ function BlogsManager({
               slug: "new-blog-post",
               category: "Export Guide",
               status: "Draft",
+              image: "",
+              imageAlt: "New Blog Post",
               description: "",
               body: "",
             };
@@ -793,45 +795,80 @@ function BlogsManager({
         />
       ))}
     >
-      <Panel title="Blog Editor" icon={Pencil}>
-        <FormGrid>
-          <Input
-            label="Title"
-            value={selected.title}
-            onChange={(v) => change({ ...selected, title: v })}
-          />
-          <Input
-            label="Slug"
-            value={selected.slug}
-            onChange={(v) => change({ ...selected, slug: v })}
-          />
-          <Input
-            label="Category"
-            value={selected.category}
-            onChange={(v) => change({ ...selected, category: v })}
-          />
-          <Select
-            label="Status"
-            value={selected.status}
-            onChange={(v) => change({ ...selected, status: v as PublishStatus })}
-            options={statusOptions}
-          />
-          <Textarea
-            label="Meta Description"
-            value={selected.description}
-            onChange={(v) => change({ ...selected, description: v })}
-            wide
-          />
-          <Textarea
-            label="Article Body"
-            value={selected.body}
-            onChange={(v) => change({ ...selected, body: v })}
-            wide
-            tall
-          />
-        </FormGrid>
-        <PrimarySave onClick={() => saveState()} />
-      </Panel>
+      <div className="grid gap-5 xl:grid-cols-[1fr,320px]">
+        <Panel title="Blog Editor" icon={Pencil}>
+          <FormGrid>
+            <Input
+              label="Title"
+              value={selected.title}
+              onChange={(v) => change({ ...selected, title: v })}
+            />
+            <Input
+              label="Slug"
+              value={selected.slug}
+              onChange={(v) => change({ ...selected, slug: v })}
+            />
+            <Input
+              label="Category"
+              value={selected.category}
+              onChange={(v) => change({ ...selected, category: v })}
+            />
+            <Select
+              label="Status"
+              value={selected.status}
+              onChange={(v) => change({ ...selected, status: v as PublishStatus })}
+              options={statusOptions}
+            />
+            <Input
+              label="Featured Image URL / path"
+              value={selected.image}
+              onChange={(v) => change({ ...selected, image: v })}
+            />
+            <Input
+              label="Image Alt Text"
+              value={selected.imageAlt}
+              onChange={(v) => change({ ...selected, imageAlt: v })}
+            />
+            <Textarea
+              label="Meta Description"
+              value={selected.description}
+              onChange={(v) => change({ ...selected, description: v })}
+              wide
+            />
+            <Textarea
+              label="Article Body"
+              value={selected.body}
+              onChange={(v) => change({ ...selected, body: v })}
+              wide
+              tall
+            />
+          </FormGrid>
+          <PrimarySave onClick={() => saveState()} />
+        </Panel>
+        <Panel title="Photo Preview" icon={FileImage}>
+          <div className="overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
+            {selected.image ? (
+              <img
+                src={selected.image}
+                alt={selected.imageAlt || selected.title}
+                className="aspect-[16/10] w-full object-cover"
+              />
+            ) : (
+              <div className="grid aspect-[16/10] place-items-center text-slate-400">
+                <FileImage className="h-12 w-12" />
+              </div>
+            )}
+            <div className="p-5">
+              <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-slate-600">
+                {selected.status}
+              </span>
+              <h3 className="mt-4 font-display text-xl font-bold leading-snug text-slate-950">
+                {selected.title}
+              </h3>
+            </div>
+          </div>
+        </Panel>
+      </div>
     </EditorLayout>
   );
 }

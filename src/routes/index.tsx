@@ -26,6 +26,7 @@ import {
   Download,
   Eye,
   FileText,
+  FileImage,
   Loader2,
   Search,
   Filter,
@@ -58,9 +59,10 @@ import {
   BLOG_POSTS,
   SEO_LANDING_PAGES,
   ORGANIZATION_JSONLD,
+  type BlogPost,
   type Certificate,
 } from "@/lib/site";
-import { normalizeAdminState, type AdminState } from "@/lib/admin-content";
+import { normalizeAdminState, publishedBlogs, type AdminState } from "@/lib/admin-content";
 import {
   Dialog,
   DialogContent,
@@ -231,6 +233,23 @@ function useLiveTeamLinks() {
   }, []);
 
   return teamLinks;
+}
+
+function useLiveBlogPosts() {
+  const [posts, setPosts] = useState<BlogPost[]>(BLOG_POSTS);
+
+  useEffect(() => {
+    fetch("/api/admin/content")
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("No live content"))))
+      .then((payload: { content?: Partial<AdminState> | null }) => {
+        if (!payload.content) return;
+        const next = publishedBlogs(normalizeAdminState(payload.content));
+        if (next.length) setPosts(next.slice(0, 3));
+      })
+      .catch(() => undefined);
+  }, []);
+
+  return posts.slice(0, 3);
 }
 
 function Nav() {
@@ -1273,6 +1292,8 @@ function SeoHub() {
 
 /* ---------- Blog preview ---------- */
 function BlogPreview() {
+  const posts = useLiveBlogPosts();
+
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
@@ -1299,30 +1320,44 @@ function BlogPreview() {
           </Link>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {BLOG_POSTS.map((post) => (
+          {posts.map((post) => (
             <Link
               key={post.slug}
               to="/blog/$slug"
               params={{ slug: post.slug }}
-              className="group flex min-h-64 flex-col rounded-2xl border border-slate-200 bg-slate-50 p-6 transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:bg-white hover:shadow-xl"
+              className="group flex min-h-64 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:bg-white hover:shadow-xl"
             >
-              <div
-                className="text-xs font-bold uppercase tracking-widest"
-                style={{ color: ORANGE }}
-              >
-                {post.category}
+              {post.image ? (
+                <img
+                  src={post.image}
+                  alt={post.imageAlt || post.title}
+                  className="aspect-[16/10] w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="grid aspect-[16/10] place-items-center bg-white text-slate-300">
+                  <FileImage className="h-11 w-11" />
+                </div>
+              )}
+              <div className="flex flex-1 flex-col p-6">
+                <div
+                  className="text-xs font-bold uppercase tracking-widest"
+                  style={{ color: ORANGE }}
+                >
+                  {post.category}
+                </div>
+                <h3 className="mt-3 font-display text-xl font-bold leading-snug text-slate-900">
+                  {post.title}
+                </h3>
+                <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{post.description}</p>
+                <span
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold"
+                  style={{ color: BLUE }}
+                >
+                  Read guide{" "}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
               </div>
-              <h3 className="mt-3 font-display text-xl font-bold leading-snug text-slate-900">
-                {post.title}
-              </h3>
-              <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{post.description}</p>
-              <span
-                className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold"
-                style={{ color: BLUE }}
-              >
-                Read guide{" "}
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
             </Link>
           ))}
         </div>

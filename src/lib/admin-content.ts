@@ -31,6 +31,8 @@ export type AdminBlog = {
   slug: string;
   category: string;
   status: PublishStatus;
+  image: string;
+  imageAlt: string;
   description: string;
   body: string;
 };
@@ -159,6 +161,8 @@ export const defaultAdminState: AdminState = {
     slug: p.slug,
     category: p.category,
     status: "Published",
+    image: p.image ?? "",
+    imageAlt: p.imageAlt ?? p.title,
     description: p.description,
     body: p.body.join("\n\n"),
   })),
@@ -339,7 +343,13 @@ export function normalizeAdminState(value: Partial<AdminState> | null | undefine
     ...defaultAdminState,
     ...source,
     products: Array.isArray(source.products) ? source.products : defaultAdminState.products,
-    blogs: Array.isArray(source.blogs) ? source.blogs : defaultAdminState.blogs,
+    blogs: Array.isArray(source.blogs)
+      ? source.blogs.map((blog) => ({
+          ...blog,
+          image: blog.image ?? "",
+          imageAlt: blog.imageAlt ?? blog.title ?? "",
+        }))
+      : defaultAdminState.blogs,
     seoPages: Array.isArray(source.seoPages) ? source.seoPages : defaultAdminState.seoPages,
     certificates: Array.isArray(source.certificates)
       ? source.certificates
@@ -396,6 +406,8 @@ export function adminBlogToBlogPost(blog: AdminBlog): BlogPost {
     readTime: fallback?.readTime ?? "4 min read",
     category: blog.category,
     productSlug: fallback?.productSlug,
+    image: blog.image.trim() || fallback?.image || "",
+    imageAlt: blog.imageAlt.trim() || fallback?.imageAlt || blog.title,
     body: blog.body
       .split(/\n{2,}/)
       .map((p) => p.trim())
