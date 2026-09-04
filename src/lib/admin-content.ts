@@ -106,6 +106,7 @@ export type AdminTeamMember = {
   linkedin: string;
   email: string;
   phone: string;
+  image?: string;
   status: PublishStatus;
 };
 
@@ -307,6 +308,15 @@ export const defaultAdminState: AdminState = {
       role: "Founder",
       linkedin: "https://www.linkedin.com/in/sana-zeba-bakshi/",
       email: EMAIL,
+      phone: PHONE,
+      status: "Published",
+    },
+    {
+      id: "juned-barade",
+      name: "Juned Barade",
+      role: "Chief Operating Officer - Trade Exhibitions",
+      linkedin: "",
+      email: "junedbarade@sheshaanglobal.com",
       phone: PHONE,
       status: "Published",
     },

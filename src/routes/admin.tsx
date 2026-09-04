@@ -1532,6 +1532,7 @@ function TeamManager({ state, setState, saveState }: ManagerProps) {
               linkedin: "",
               email: state.settings.email,
               phone: state.settings.phone,
+              image: "",
               status: "Draft",
             };
             const next = { ...state, team: [item, ...state.team] };
@@ -1573,6 +1574,12 @@ function TeamManager({ state, setState, saveState }: ManagerProps) {
                 label="LinkedIn"
                 value={member.linkedin}
                 onChange={(v) => update(member.id, "linkedin", v)}
+                compact
+              />
+              <Input
+                label="Photo URL / path"
+                value={member.image ?? ""}
+                onChange={(v) => update(member.id, "image", v)}
                 compact
               />
               <Select

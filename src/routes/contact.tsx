@@ -16,6 +16,9 @@ import {
   Linkedin,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
+import teamJuned from "@/assets/team-juned-barade.jpg";
+import teamSaksham from "@/assets/team-saksham-singh.jpg";
+import teamSana from "@/assets/team-sana-zeba-bakshi.jpg";
 import {
   BLUE,
   ORANGE,
@@ -40,6 +43,7 @@ type ContactTeamMember = {
   email: string;
   phone?: string;
   linkedin?: string;
+  image?: string;
   blurb: string;
   Icon: ElementType;
   featured?: boolean;
@@ -63,6 +67,7 @@ const DEFAULT_TEAM: ContactTeamMember[] = [
     role: "Chief Executive Officer",
     email: "sanazeba@sheshaanglobal.com",
     linkedin: LINKEDIN_SANA,
+    image: teamSana,
     blurb:
       "Strategic alliances, distributor agreements, large-volume annual contracts and corporate matters.",
     Icon: Crown,
@@ -72,6 +77,7 @@ const DEFAULT_TEAM: ContactTeamMember[] = [
     name: "Juned Barade",
     role: "Chief Operating Officer — Trade Exhibitions",
     email: "junedbarade@sheshaanglobal.com",
+    image: teamJuned,
     blurb:
       "Operations, logistics and quality control. Represents Sheshaan Global at international trade fairs and expos.",
     Icon: Globe2,
@@ -82,6 +88,7 @@ const DEFAULT_TEAM: ContactTeamMember[] = [
     role: "Business Development",
     email: "sakshamsingh@sheshaanglobal.com",
     linkedin: LINKEDIN_SAKSHAM,
+    image: teamSaksham,
     blurb:
       "New buyer partnerships, product sourcing, indicative pricing and sample dispatch requests.",
     Icon: Briefcase,
@@ -94,22 +101,46 @@ function adminTeamToContactTeam(content: Partial<AdminState> | null | undefined)
   const liveMembers = state.team.filter((member) => member.status === "Published");
   if (!liveMembers.length) return DEFAULT_TEAM;
   const general = DEFAULT_TEAM[0];
-  const liveCards = liveMembers.map((member) => {
-    const fallback = DEFAULT_TEAM.find((item) => item.id === member.id);
+  const defaultPeople = DEFAULT_TEAM.slice(1);
+  const mergedDefaults = defaultPeople.map((fallback) => {
+    const member =
+      liveMembers.find((item) => item.id === fallback.id) ||
+      liveMembers.find((item) => item.name.toLowerCase() === fallback.name.toLowerCase());
+    if (!member) return fallback;
     return {
-      id: member.id,
-      name: member.name,
-      role: member.role || fallback?.role || "Export Team",
-      email: member.email || fallback?.email || state.settings.email,
-      phone: member.phone || fallback?.phone,
-      linkedin: member.linkedin || fallback?.linkedin,
-      blurb:
-        fallback?.blurb || "Buyer communication, product requirements and export coordination.",
-      Icon: fallback?.Icon || Briefcase,
-      featured: fallback?.featured,
+      ...fallback,
+      id: member.id || fallback.id,
+      name: member.name || fallback.name,
+      role: member.role || fallback.role || "Export Team",
+      email: member.email || fallback.email || state.settings.email,
+      phone: member.phone || fallback.phone,
+      linkedin: member.linkedin || fallback.linkedin,
+      image: member.image || fallback.image,
+      blurb: fallback.blurb || "Buyer communication, product requirements and export coordination.",
+      Icon: fallback.Icon || Briefcase,
+      featured: fallback.featured,
     };
   });
-  return [general, ...liveCards];
+  const extraMembers = liveMembers
+    .filter(
+      (member) =>
+        !defaultPeople.some(
+          (fallback) =>
+            fallback.id === member.id || fallback.name.toLowerCase() === member.name.toLowerCase(),
+        ),
+    )
+    .map((member) => ({
+      id: member.id,
+      name: member.name,
+      role: member.role || "Export Team",
+      email: member.email || state.settings.email,
+      phone: member.phone,
+      linkedin: member.linkedin,
+      image: member.image,
+      blurb: "Buyer communication, product requirements and export coordination.",
+      Icon: Briefcase,
+    }));
+  return [general, ...mergedDefaults, ...extraMembers];
 }
 
 const COMPANY_FACTS = [
@@ -315,16 +346,29 @@ function ContactPage() {
                 t.featured ? { background: `linear-gradient(135deg,${NAVY},#062a55)` } : undefined
               }
             >
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-xl text-white"
-                style={{
-                  background: t.featured
-                    ? `linear-gradient(135deg,${ORANGE},#ff6a00)`
-                    : `linear-gradient(135deg,${BLUE},#003c85)`,
-                }}
-              >
-                <t.Icon className="h-5 w-5" />
-              </div>
+              {t.image ? (
+                <div className="overflow-hidden rounded-2xl border border-white/40 bg-slate-100 shadow-sm">
+                  <img
+                    src={t.image}
+                    alt={t.name}
+                    className="aspect-[4/5] w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+                    loading="lazy"
+                    width={360}
+                    height={450}
+                  />
+                </div>
+              ) : (
+                <div
+                  className="flex h-12 w-12 items-center justify-center rounded-xl text-white"
+                  style={{
+                    background: t.featured
+                      ? `linear-gradient(135deg,${ORANGE},#ff6a00)`
+                      : `linear-gradient(135deg,${BLUE},#003c85)`,
+                  }}
+                >
+                  <t.Icon className="h-5 w-5" />
+                </div>
+              )}
               <h3
                 className={`mt-5 font-display text-xl font-bold ${t.featured ? "text-white" : ""}`}
                 style={t.featured ? undefined : { color: NAVY }}
