@@ -1,5 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useMemo, useState, type ElementType, type ReactNode } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type ChangeEvent,
+  type ElementType,
+  type ReactNode,
+} from "react";
 import {
   ArrowDownToLine,
   ArrowLeft,
@@ -829,6 +836,25 @@ function BlogsManager({
               value={selected.imageAlt}
               onChange={(v) => change({ ...selected, imageAlt: v })}
             />
+            <div className="md:col-span-2 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <div className="text-sm font-bold text-slate-800">Upload Featured Image</div>
+                  <div className="mt-1 text-xs leading-5 text-slate-500">
+                    JPG, PNG or WebP. Large photos are resized for a clean medium blog frame.
+                  </div>
+                </div>
+                <ImageUploadButton
+                  onUpload={(image) =>
+                    change({
+                      ...selected,
+                      image,
+                      imageAlt: selected.imageAlt || selected.title,
+                    })
+                  }
+                />
+              </div>
+            </div>
             <Textarea
               label="Meta Description"
               value={selected.description}
@@ -1919,6 +1945,70 @@ function Textarea({
       />
     </label>
   );
+}
+
+function ImageUploadButton({ onUpload }: { onUpload: (image: string) => void }) {
+  const [busy, setBusy] = useState(false);
+
+  const onFile = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      window.alert("Please choose an image file.");
+      return;
+    }
+
+    setBusy(true);
+    try {
+      onUpload(await resizeImageFile(file));
+    } catch {
+      window.alert("Could not upload this image. Please try another JPG, PNG or WebP file.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <label className="relative inline-flex cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-xl px-4 py-2.5 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5">
+      <span
+        className="absolute inset-0 -z-10"
+        style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+      />
+      <Upload className="h-4 w-4" />
+      {busy ? "Preparing..." : "Upload Image"}
+      <input type="file" accept="image/*" className="sr-only" onChange={onFile} disabled={busy} />
+    </label>
+  );
+}
+
+function resizeImageFile(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("Could not read image"));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error("Could not load image"));
+      img.onload = () => {
+        const maxWidth = 1200;
+        const scale = Math.min(1, maxWidth / img.width);
+        const width = Math.max(1, Math.round(img.width * scale));
+        const height = Math.max(1, Math.round(img.height * scale));
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) {
+          reject(new Error("Could not prepare image"));
+          return;
+        }
+        ctx.drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL("image/jpeg", 0.82));
+      };
+      img.src = String(reader.result);
+    };
+    reader.readAsDataURL(file);
+  });
 }
 
 function PreviewCard({
