@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   Globe2,
   Package,
@@ -208,6 +208,32 @@ const NAV_LINKS = [
   { label: "Contact Us", href: "/contact" },
 ];
 
+function MainNavLink({
+  href,
+  children,
+  className,
+  onClick,
+}: {
+  href: string;
+  children: ReactNode;
+  className: string;
+  onClick?: () => void;
+}) {
+  if (href.startsWith("/")) {
+    return (
+      <Link to={href} className={className} onClick={onClick}>
+        {children}
+      </Link>
+    );
+  }
+
+  return (
+    <a href={href} className={className} onClick={onClick}>
+      {children}
+    </a>
+  );
+}
+
 function useLiveTeamLinks() {
   const [teamLinks, setTeamLinks] = useState([
     { name: "Saksham Singh", role: "Business development", linkedin: LINKEDIN_SAKSHAM },
@@ -293,22 +319,22 @@ function Nav() {
         </a>
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((l) => (
-            <a
+            <MainNavLink
               key={l.href}
               href={l.href}
               className="text-sm font-medium text-slate-700 transition-colors hover:text-[#0057B8]"
             >
               {l.label}
-            </a>
+            </MainNavLink>
           ))}
         </nav>
-        <a
-          href="/request-quote"
+        <Link
+          to="/request-quote"
           className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex"
           style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
         >
           Request Quote <ArrowRight className="h-4 w-4" />
-        </a>
+        </Link>
         <button className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
@@ -317,14 +343,14 @@ function Nav() {
         <div className="border-t bg-white lg:hidden">
           <div className="flex flex-col gap-1 p-4">
             {NAV_LINKS.map((l) => (
-              <a
+              <MainNavLink
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100"
               >
                 {l.label}
-              </a>
+              </MainNavLink>
             ))}
           </div>
         </div>
@@ -1483,13 +1509,13 @@ function Footer() {
           </div>
           <div className="mt-4 space-y-2">
             {NAV_LINKS.map((l) => (
-              <a
+              <MainNavLink
                 key={l.href}
                 href={l.href}
                 className="block text-sm text-white/70 hover:text-white"
               >
                 {l.label}
-              </a>
+              </MainNavLink>
             ))}
           </div>
         </div>
