@@ -16,6 +16,12 @@ dist-ssr
 .nitro
 *.local
 
+# Local extracted archives / working copies
+30-7-26 updated/
+global-roots-express (1)/
+global-roots-express (1).zip
+*.zip
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars

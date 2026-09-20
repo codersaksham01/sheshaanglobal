@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Globe2,
   Package,
@@ -26,12 +26,17 @@ import {
   Download,
   Eye,
   FileText,
-  FileImage,
   Loader2,
   Search,
   Filter,
   BadgePercent,
-  Linkedin,
+  ClipboardCheck,
+  Warehouse,
+  Anchor,
+  Plane,
+  Factory,
+  BarChart3,
+  Layers3,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import heroGlobe from "@/assets/hero-globe.jpg";
@@ -47,8 +52,6 @@ import {
   BROCHURE_URL,
   WHATSAPP_URL,
   MAILTO_URL,
-  LINKEDIN_SAKSHAM,
-  LINKEDIN_SANA,
   buildWhatsAppUrl,
   PRODUCTS,
   COUNTRIES,
@@ -56,13 +59,10 @@ import {
   CERT_TYPES,
   FAQS,
   REGIONS,
-  BLOG_POSTS,
-  SEO_LANDING_PAGES,
   ORGANIZATION_JSONLD,
-  type BlogPost,
   type Certificate,
 } from "@/lib/site";
-import { normalizeAdminState, publishedBlogs, type AdminState } from "@/lib/admin-content";
+import { absoluteUrl, DEFAULT_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/seo";
 import {
   Dialog,
   DialogContent,
@@ -72,48 +72,49 @@ import {
 } from "@/components/ui/dialog";
 import { LoadingScreen } from "@/components/LoadingScreen";
 
-const SITE_URL = "https://global-roots-express.lovable.app";
 const HOME_OG_IMAGE =
   "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/151163a4-b0a4-4618-870c-3036bf272bc4/id-preview-9f783eb1--1c1a3479-b063-4556-a6ca-26b03b90f481.lovable.app-1784225780475.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries" },
+      { title: "Sheshaan Global - Premium Agricultural Exports From India to 25+ Countries" },
       {
         name: "description",
         content:
-          "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue & pricing.",
+          "IEC and APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue and pricing.",
       },
-      {
-        name: "keywords",
-        content:
-          "Indian agricultural exporter, onion exporter India, green chillies exporter, basmati rice exporter, coconut exporter, spices exporter, pulses exporter, APEDA, IEC certified, Sheshaan Global",
-      },
+      { name: "keywords", content: DEFAULT_KEYWORDS },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       {
         property: "og:title",
-        content: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries",
+        content: "Sheshaan Global - Premium Agricultural Exports From India to 25+ Countries",
       },
       {
         property: "og:description",
         content:
-          "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue & pricing.",
+          "IEC and APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue and pricing.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL + "/" },
       { property: "og:image", content: HOME_OG_IMAGE },
+      { property: "og:image:alt", content: `${SITE_NAME} agricultural export company` },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries",
+        content: "Sheshaan Global - Premium Agricultural Exports From India to 25+ Countries",
       },
       {
         name: "twitter:description",
         content:
-          "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries.",
+          "IEC and APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries.",
       },
       { name: "twitter:image", content: HOME_OG_IMAGE },
     ],
-    links: [{ rel: "canonical", href: SITE_URL + "/" }],
+    links: [
+      { rel: "canonical", href: SITE_URL + "/" },
+      { rel: "preload", as: "image", href: heroGlobe },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -136,8 +137,27 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "Sheshaan Global",
+          name: SITE_NAME,
           url: SITE_URL + "/",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: `${SITE_URL}/products?search={search_term_string}`,
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          name: "Sheshaan Global agricultural export products",
+          itemListElement: PRODUCTS.map((p, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: p.name,
+            url: absoluteUrl(`/products/${p.slug}`),
+          })),
         }),
       },
     ],
@@ -202,81 +222,10 @@ const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Products", href: "/products" },
   { label: "Markets", href: "#markets" },
-  { label: "Quote", href: "/request-quote" },
-  { label: "Blog", href: "/blog" },
   { label: "Certifications", href: "#certs" },
+  { label: "More Info", href: "/more-info" },
   { label: "Contact Us", href: "/contact" },
 ];
-
-function MainNavLink({
-  href,
-  children,
-  className,
-  onClick,
-}: {
-  href: string;
-  children: ReactNode;
-  className: string;
-  onClick?: () => void;
-}) {
-  if (href.startsWith("/")) {
-    return (
-      <Link to={href} className={className} onClick={onClick}>
-        {children}
-      </Link>
-    );
-  }
-
-  return (
-    <a href={href} className={className} onClick={onClick}>
-      {children}
-    </a>
-  );
-}
-
-function useLiveTeamLinks() {
-  const [teamLinks, setTeamLinks] = useState([
-    { name: "Saksham Singh", role: "Business development", linkedin: LINKEDIN_SAKSHAM },
-    { name: "Sana Zeba Bakshi", role: "Chief Executive Officer", linkedin: LINKEDIN_SANA },
-  ]);
-
-  useEffect(() => {
-    fetch("/api/admin/content")
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("No live content"))))
-      .then((payload: { content?: Partial<AdminState> | null }) => {
-        if (!payload.content) return;
-        const state = normalizeAdminState(payload.content);
-        const next = state.team
-          .filter((member) => member.status === "Published" && member.linkedin)
-          .map((member) => ({
-            name: member.name,
-            role: member.role || "Export team",
-            linkedin: member.linkedin,
-          }));
-        if (next.length) setTeamLinks(next);
-      })
-      .catch(() => undefined);
-  }, []);
-
-  return teamLinks;
-}
-
-function useLiveBlogPosts() {
-  const [posts, setPosts] = useState<BlogPost[]>(BLOG_POSTS);
-
-  useEffect(() => {
-    fetch("/api/admin/content")
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("No live content"))))
-      .then((payload: { content?: Partial<AdminState> | null }) => {
-        if (!payload.content) return;
-        const next = publishedBlogs(normalizeAdminState(payload.content));
-        if (next.length) setPosts(next.slice(0, 3));
-      })
-      .catch(() => undefined);
-  }, []);
-
-  return posts.slice(0, 3);
-}
 
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -319,22 +268,22 @@ function Nav() {
         </a>
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((l) => (
-            <MainNavLink
+            <a
               key={l.href}
               href={l.href}
               className="text-sm font-medium text-slate-700 transition-colors hover:text-[#0057B8]"
             >
               {l.label}
-            </MainNavLink>
+            </a>
           ))}
         </nav>
-        <Link
-          to="/request-quote"
+        <a
+          href="/contact"
           className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex"
-          style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
+          style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
         >
-          Request Quote <ArrowRight className="h-4 w-4" />
-        </Link>
+          Get In Touch <ArrowRight className="h-4 w-4" />
+        </a>
         <button className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
@@ -343,14 +292,14 @@ function Nav() {
         <div className="border-t bg-white lg:hidden">
           <div className="flex flex-col gap-1 p-4">
             {NAV_LINKS.map((l) => (
-              <MainNavLink
+              <a
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
                 className="rounded-lg px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100"
               >
                 {l.label}
-              </MainNavLink>
+              </a>
             ))}
           </div>
         </div>
@@ -364,9 +313,14 @@ function Hero() {
   const reduced = useReducedMotion();
   const stats = [
     { icon: Globe2, n: "25+", l: "Export Markets" },
-    { icon: Box, n: "Farm Fresh", l: "Sourced Direct" },
-    { icon: ShieldCheck, n: "100%", l: "Quality Focus" },
-    { icon: Ship, n: "Global", l: "Logistics Network" },
+    { icon: Package, n: "70+", l: "HS Code Lines" },
+    { icon: ShieldCheck, n: "5", l: "Compliance Layers" },
+    { icon: Ship, n: "FCL/LCL", l: "Ocean Freight" },
+  ];
+  const tradeCards = [
+    { label: "Quality Gate", value: "Lot-wise inspection", icon: ClipboardCheck },
+    { label: "Documents", value: "COO, phyto, fumigation", icon: FileCheck2 },
+    { label: "Dispatch Mode", value: "Sea, air and reefer", icon: Plane },
   ];
   return (
     <section
@@ -377,10 +331,10 @@ function Hero() {
       <motion.img
         src={heroGlobe}
         alt="Global export network"
-        className="absolute inset-0 h-full w-full object-cover opacity-70"
+        className="absolute inset-0 h-full w-full object-cover opacity-65"
         width={1600}
         height={1000}
-        loading="eager"
+        fetchPriority="high"
         decoding="async"
         initial={reduced ? undefined : { scale: 1.1 }}
         animate={reduced ? undefined : { scale: 1 }}
@@ -389,11 +343,12 @@ function Hero() {
       <div
         className="absolute inset-0"
         style={{
-          background: `linear-gradient(90deg, ${NAVY}ee 0%, ${NAVY}88 55%, transparent 100%)`,
+          background: `linear-gradient(90deg, ${NAVY}f4 0%, ${NAVY}c5 48%, ${NAVY}44 100%)`,
         }}
       />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent,rgba(4,21,45,0.35))]" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-16 pt-14 lg:pt-24">
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-20 pt-12 sm:pb-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:pt-24">
         <motion.div
           initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -404,16 +359,16 @@ function Hero() {
             <span className="h-1.5 w-1.5 rounded-full" style={{ background: ORANGE }} />
             Trusted Global Exporter
           </div>
-          <h1 className="font-display text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-            CONNECTING INDIA'S
+          <h1 className="font-display text-[2.05rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+            CONNECTING INDIA&apos;S
             <br />
             AGRICULTURAL EXCELLENCE
             <br />
             TO <span style={{ color: ORANGE }}>GLOBAL MARKETS</span>
           </h1>
-          <p className="mt-6 max-w-lg text-base text-white/80 sm:text-lg">
-            Premium sourcing, production, processing and export solutions delivering quality
-            agricultural products worldwide.
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+            Sheshaan Global supplies fresh produce, rice, spices, pulses and agri commodities with
+            disciplined sourcing, export documentation and shipment coordination.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a
@@ -424,11 +379,11 @@ function Hero() {
               Explore Products <ArrowRight className="h-4 w-4" />
             </a>
             <a
-              href="/request-quote"
+              href="/contact"
               className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
               style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
             >
-              Request Quote <ArrowRight className="h-4 w-4" />
+              Export Inquiry <ArrowRight className="h-4 w-4" />
             </a>
           </div>
 
@@ -446,6 +401,60 @@ function Hero() {
                 <div className="text-[11px] uppercase tracking-wider text-white/70">{s.l}</div>
               </motion.div>
             ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={reduced ? { opacity: 0 } : { opacity: 0, x: 36 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.15, ease: EASE }}
+          className="relative hidden lg:block"
+        >
+          <div className="rounded-3xl border border-white/15 bg-white/[0.08] p-5 text-white shadow-[0_24px_70px_rgba(0,0,0,0.24)] backdrop-blur-md">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
+                  Live Export Desk
+                </div>
+                <div className="mt-1 font-display text-2xl font-bold">India to World</div>
+              </div>
+              <div className="rounded-full bg-emerald-400/15 px-3 py-1 text-xs font-semibold text-emerald-200">
+                Active lanes
+              </div>
+            </div>
+
+            <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-white/10">
+              <img
+                src={worldMap}
+                alt="Export destination map"
+                className="h-56 w-full object-cover opacity-80"
+              />
+            </div>
+
+            <div className="mt-5 grid gap-3">
+              {tradeCards.map((card, i) => (
+                <motion.div
+                  key={card.label}
+                  initial={reduced ? { opacity: 0 } : { opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.55 + i * 0.12, ease: EASE }}
+                  className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.08] p-3"
+                >
+                  <div
+                    className="grid h-11 w-11 place-items-center rounded-2xl"
+                    style={{ background: `${ORANGE}22`, color: ORANGE }}
+                  >
+                    <card.icon className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs uppercase tracking-[0.18em] text-white/45">
+                      {card.label}
+                    </div>
+                    <div className="truncate text-sm font-semibold text-white">{card.value}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
@@ -585,13 +594,6 @@ function Products() {
             >
               All products & HS codes
             </a>
-            <a
-              href="/request-quote"
-              className="mr-2 inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-semibold text-white shadow-sm"
-              style={{ background: ORANGE }}
-            >
-              Get price quote
-            </a>
             <button
               onClick={() => scroll(-1)}
               aria-label="Scroll left"
@@ -654,6 +656,212 @@ function Products() {
                   </div>
                 </div>
               </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Trust dashboard ---------- */
+function TrustDashboard() {
+  const proof = [
+    {
+      icon: Globe2,
+      value: "25+",
+      label: "active export markets",
+      detail: "Middle East, Europe, UK, USA, Asia and Africa",
+    },
+    {
+      icon: Package,
+      value: "70+",
+      label: "catalogue lines",
+      detail: "Fresh produce, spices, rice, pulses, nuts and commodities",
+    },
+    {
+      icon: ShieldCheck,
+      value: "IEC/APEDA",
+      label: "trade compliance",
+      detail: "GST, IEC, APEDA, FSSAI and product-specific documentation",
+    },
+    {
+      icon: Ship,
+      value: "FCL/LCL",
+      label: "shipment support",
+      detail: "FOB, CIF, CFR and DDP coordination across key lanes",
+    },
+  ];
+  return (
+    <section className="bg-white py-16">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm lg:p-8">
+          <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <div
+                className="text-xs font-bold uppercase tracking-[0.28em]"
+                style={{ color: ORANGE }}
+              >
+                Trust Dashboard
+              </div>
+              <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
+                Export readiness buyers can verify
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                Clear registrations, category depth, shipment planning and documentation support
+                make the buying process easier from the first RFQ.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {proof.map((p, i) => (
+                <motion.div
+                  key={p.label}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06, ease: EASE }}
+                  className="rounded-2xl border border-slate-200 bg-white p-5"
+                >
+                  <p.icon className="h-5 w-5" style={{ color: BLUE }} />
+                  <div className="mt-3 font-display text-2xl font-bold text-slate-900">
+                    {p.value}
+                  </div>
+                  <div
+                    className="text-xs font-bold uppercase tracking-wider"
+                    style={{ color: ORANGE }}
+                  >
+                    {p.label}
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-500">{p.detail}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Export operations ---------- */
+function TradeJourney() {
+  const steps = [
+    {
+      icon: Sprout,
+      title: "Origin Sourcing",
+      body: "Direct farm and processor network across key Indian growing belts.",
+    },
+    {
+      icon: Factory,
+      title: "Processing",
+      body: "Cleaning, grading, sortex, pre-cooling or steam sterilization as required.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Quality Control",
+      body: "Moisture, size, residue and packaging checks before dispatch.",
+    },
+    {
+      icon: FileCheck2,
+      title: "Documentation",
+      body: "Invoice, packing list, COO, phytosanitary and fumigation support.",
+    },
+    {
+      icon: Warehouse,
+      title: "Packing",
+      body: "Bulk, retail-ready and private-label packs with buyer specifications.",
+    },
+    {
+      icon: Anchor,
+      title: "Freight Handover",
+      body: "FOB, CIF, CFR and DDP coordination across sea, air and reefer lanes.",
+    },
+  ];
+  const proof = [
+    {
+      icon: BarChart3,
+      label: "Quotation clarity",
+      text: "FOB/CIF pricing with packing, lead time and route visibility.",
+    },
+    {
+      icon: Layers3,
+      label: "Category depth",
+      text: "Fresh produce, rice, pulses, spices, dry fruits and commodities.",
+    },
+    {
+      icon: HeartHandshake,
+      label: "Buyer support",
+      text: "Responsive coordination for trials, repeat orders and private-label needs.",
+    },
+  ];
+
+  return (
+    <section
+      id="process"
+      className="relative overflow-hidden border-y border-slate-200 bg-slate-50 py-24 text-slate-900"
+    >
+      <div className="mx-auto max-w-7xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: EASE }}
+          className="max-w-3xl"
+        >
+          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
+            Export Operating System
+          </div>
+          <h2 className="mt-3 font-display text-4xl font-bold sm:text-5xl">
+            A disciplined shipment flow from inquiry to port handover
+          </h2>
+          <p className="mt-4 text-slate-600">
+            International buyers need more than product photos. They need a supplier that
+            understands compliance, packing, documents and logistics from the first quotation.
+          </p>
+        </motion.div>
+
+        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {steps.map((s, i) => (
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.06, duration: 0.55, ease: EASE }}
+              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-[#0057B8]/35 hover:shadow-xl"
+            >
+              <div className="flex items-center gap-4">
+                <div
+                  className="grid h-12 w-12 place-items-center rounded-2xl text-white shadow-lg"
+                  style={{ background: `linear-gradient(135deg,${BLUE},${ORANGE})` }}
+                >
+                  <s.icon className="h-5 w-5" />
+                </div>
+                <div className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">
+                  Step {String(i + 1).padStart(2, "0")}
+                </div>
+              </div>
+              <h3 className="mt-5 font-display text-xl font-bold">{s.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{s.body}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          {proof.map((item, i) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.12 + i * 0.08, ease: EASE }}
+              className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+            >
+              <item.icon className="mt-1 h-5 w-5 shrink-0" style={{ color: ORANGE }} />
+              <div>
+                <div className="font-display text-sm font-bold">{item.label}</div>
+                <p className="mt-1 text-xs leading-relaxed text-slate-500">{item.text}</p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -753,7 +961,7 @@ function Markets() {
             the globe. Hover a country to spot it on the map.
           </p>
           <a
-            href="/request-quote"
+            href="/contact"
             className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
             style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}
           >
@@ -966,11 +1174,10 @@ function Certifications() {
   }, [q, fType, fCategory, fCountry]);
 
   const active = openId ? (CERTIFICATES.find((c) => c.id === openId) ?? null) : null;
-  const activeFileIsPdf = active?.file.split("?")[0].toLowerCase().endsWith(".pdf") ?? false;
 
   useEffect(() => {
     if (openId) setImgLoading(true);
-  }, [openId, activeFileIsPdf]);
+  }, [openId]);
 
   const handleDownload = async (cert: Certificate) => {
     setDownloading(cert.id);
@@ -1141,8 +1348,7 @@ function Certifications() {
                   <button
                     onClick={() => setOpenId(c.id)}
                     aria-label={`View ${c.name} certificate`}
-                    className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[11px] font-semibold text-white shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8]"
-                    style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-[11px] font-semibold text-slate-700 hover:border-[#0057B8] hover:text-[#0057B8] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8]"
                   >
                     <Eye className="h-3.5 w-3.5" aria-hidden /> View
                   </button>
@@ -1221,9 +1427,7 @@ function Certifications() {
                   </button>
                 </div>
               </DialogHeader>
-              <div
-                className={`relative bg-slate-50 ${activeFileIsPdf ? "h-[70vh] p-3" : "max-h-[70vh] overflow-auto p-4"}`}
-              >
+              <div className="relative max-h-[70vh] overflow-auto bg-slate-50 p-4">
                 {imgLoading && (
                   <div className="absolute inset-0 z-10 grid place-items-center bg-slate-50/80 backdrop-blur-sm">
                     <div className="flex items-center gap-2 text-sm font-semibold text-slate-600">
@@ -1231,205 +1435,18 @@ function Certifications() {
                     </div>
                   </div>
                 )}
-                {activeFileIsPdf ? (
-                  <iframe
-                    src={active.file}
-                    title={`${active.name} certificate PDF`}
-                    onLoad={() => setImgLoading(false)}
-                    className="h-full w-full rounded-lg border border-slate-200 bg-white shadow-lg"
-                  />
-                ) : (
-                  <img
-                    src={active.img}
-                    alt={`${active.name} certificate — full view`}
-                    onLoad={() => setImgLoading(false)}
-                    onError={() => setImgLoading(false)}
-                    className="mx-auto max-h-[65vh] w-auto rounded-lg shadow-lg"
-                  />
-                )}
+                <img
+                  src={active.img}
+                  alt={`${active.name} certificate — full view`}
+                  onLoad={() => setImgLoading(false)}
+                  onError={() => setImgLoading(false)}
+                  className="mx-auto max-h-[65vh] w-auto rounded-lg shadow-lg"
+                />
               </div>
             </>
           )}
         </DialogContent>
       </Dialog>
-    </section>
-  );
-}
-
-/* ---------- SEO landing page hub ---------- */
-function SeoHub() {
-  return (
-    <section className="bg-slate-50 py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-5 sm:px-6">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <div
-              className="text-xs font-bold uppercase tracking-[0.28em]"
-              style={{ color: ORANGE }}
-            >
-              Popular Searches
-            </div>
-            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
-              High-demand export pages
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">
-              Focused pages built for buyers searching specific products and export markets.
-            </p>
-          </div>
-          <a
-            href="/request-quote"
-            className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white shadow-lg"
-            style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
-          >
-            Request Quote <ArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SEO_LANDING_PAGES.map((page) => (
-            <Link
-              key={page.slug}
-              to="/seo/$slug"
-              params={{ slug: page.slug }}
-              className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:shadow-xl"
-            >
-              <div className="text-xs font-bold uppercase tracking-widest" style={{ color: BLUE }}>
-                {page.keyword}
-              </div>
-              <h3 className="mt-3 font-display text-lg font-bold text-slate-900">
-                {page.title.replace(" | Sheshaan Global", "")}
-              </h3>
-              <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">
-                {page.description}
-              </p>
-              <div
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold"
-                style={{ color: ORANGE }}
-              >
-                Open page{" "}
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Blog preview ---------- */
-function BlogPreview() {
-  const posts = useLiveBlogPosts();
-
-  return (
-    <section className="bg-white py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl px-5 sm:px-6">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <div
-              className="text-xs font-bold uppercase tracking-[0.28em]"
-              style={{ color: ORANGE }}
-            >
-              Knowledge Hub
-            </div>
-            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
-              Importer guides that build trust
-            </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-600">
-              Helpful articles bring search traffic and answer buyer questions before they inquire.
-            </p>
-          </div>
-          <Link
-            to="/blog"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 shadow-sm hover:border-[#0057B8] hover:text-[#0057B8]"
-          >
-            View Blog <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {posts.map((post) => (
-            <Link
-              key={post.slug}
-              to="/blog/$slug"
-              params={{ slug: post.slug }}
-              className="group flex min-h-64 flex-col overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 transition-all hover:-translate-y-1 hover:border-[#0057B8] hover:bg-white hover:shadow-xl"
-            >
-              {post.image ? (
-                <img
-                  src={post.image}
-                  alt={post.imageAlt || post.title}
-                  className="aspect-[16/10] w-full object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="grid aspect-[16/10] place-items-center bg-white text-slate-300">
-                  <FileImage className="h-11 w-11" />
-                </div>
-              )}
-              <div className="flex flex-1 flex-col p-6">
-                <div
-                  className="text-xs font-bold uppercase tracking-widest"
-                  style={{ color: ORANGE }}
-                >
-                  {post.category}
-                </div>
-                <h3 className="mt-3 font-display text-xl font-bold leading-snug text-slate-900">
-                  {post.title}
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-7 text-slate-600">{post.description}</p>
-                <span
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold"
-                  style={{ color: BLUE }}
-                >
-                  Read guide{" "}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Strong final CTA ---------- */
-function QuoteCta() {
-  return (
-    <section
-      className="px-5 py-14 sm:px-6"
-      style={{ background: `linear-gradient(135deg,${NAVY},#062354)` }}
-    >
-      <div className="mx-auto grid max-w-7xl gap-6 rounded-2xl border border-white/10 bg-white/10 p-6 text-white shadow-2xl backdrop-blur sm:p-8 lg:grid-cols-[1fr,auto] lg:items-center">
-        <div>
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
-            Ready To Buy
-          </div>
-          <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">
-            Get a clear export quote with product, packing and port details.
-          </h2>
-          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75">
-            The quote form prepares a clean WhatsApp or email message, helping our team reply faster
-            with availability and FOB/CIF pricing.
-          </p>
-        </div>
-        <div className="flex flex-col gap-3 sm:flex-row">
-          <a
-            href="/request-quote"
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-slate-900 shadow-lg"
-          >
-            Request Quote <ArrowRight className="h-4 w-4" />
-          </a>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold text-white shadow-lg"
-            style={{ background: "#25D366" }}
-          >
-            <MessageCircle className="h-4 w-4" /> WhatsApp
-          </a>
-        </div>
-      </div>
     </section>
   );
 }
@@ -1473,10 +1490,213 @@ function WhyUs() {
   );
 }
 
+function BuyerProof() {
+  const segments = [
+    "Importers",
+    "Wholesalers",
+    "Retail Chains",
+    "HORECA",
+    "Spice Distributors",
+    "Fresh Produce Traders",
+  ];
+  const notes = [
+    {
+      title: "Fast first response",
+      body: "RFQs are routed to WhatsApp or email with product, quantity and destination context.",
+    },
+    {
+      title: "Commercial clarity",
+      body: "Quotes can include packing, Incoterm, loading port, documents and expected lead time.",
+    },
+    {
+      title: "Repeat-order friendly",
+      body: "Product pages expose consistent varieties, standards and market links for easy reordering.",
+    },
+  ];
+  return (
+    <section className="bg-slate-50 py-20">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+          <div>
+            <div
+              className="text-xs font-bold uppercase tracking-[0.28em]"
+              style={{ color: ORANGE }}
+            >
+              Buyer Confidence
+            </div>
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
+              Built for serious import buyers
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              Instead of fake client logos, this section shows the real buyer categories the website
+              is built to serve.
+            </p>
+            <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              {segments.map((s) => (
+                <div
+                  key={s}
+                  className="rounded-2xl border border-slate-200 bg-white px-4 py-4 text-center text-sm font-bold text-slate-700 shadow-sm"
+                >
+                  {s}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="grid gap-4">
+            {notes.map((n, i) => (
+              <motion.div
+                key={n.title}
+                initial={{ opacity: 0, x: 22 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, ease: EASE }}
+                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="grid h-10 w-10 place-items-center rounded-xl text-white"
+                    style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+                  >
+                    <Award className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-display text-lg font-bold text-slate-900">{n.title}</h3>
+                </div>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600">{n.body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function LeadCapturePopup() {
+  const [open, setOpen] = useState(false);
+  const [product, setProduct] = useState(PRODUCTS[0]?.name ?? "Fresh Onions");
+  const [country, setCountry] = useState("");
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (localStorage.getItem("sg_lead_popup_closed_v1")) return;
+    const t = setTimeout(() => setOpen(true), 7000);
+    return () => clearTimeout(t);
+  }, []);
+  const close = () => {
+    localStorage.setItem("sg_lead_popup_closed_v1", "1");
+    setOpen(false);
+  };
+  if (!open) return null;
+  const href = buildWhatsAppUrl({
+    category: product,
+    country,
+    message: "Please share the latest export price list and packing options.",
+  });
+  return (
+    <div className="fixed inset-0 z-[90] grid place-items-center bg-slate-950/55 p-4 backdrop-blur-sm">
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        className="w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl"
+      >
+        <div
+          className="relative p-6 text-white"
+          style={{ background: `linear-gradient(135deg,${NAVY},#062a55)` }}
+        >
+          <button
+            onClick={close}
+            aria-label="Close quote popup"
+            className="absolute right-4 top-4 rounded-full p-2 text-white/70 hover:bg-white/10 hover:text-white"
+          >
+            <X className="h-4 w-4" />
+          </button>
+          <div className="text-xs font-bold uppercase tracking-[0.24em]" style={{ color: ORANGE }}>
+            Price List Request
+          </div>
+          <h2 className="mt-3 font-display text-2xl font-bold">Get the latest export quote</h2>
+          <p className="mt-2 text-sm text-white/70">
+            Tell us the product and destination. We will prepare product, packing and pricing
+            details.
+          </p>
+        </div>
+        <div className="p-6">
+          <label className="text-xs font-bold uppercase tracking-wider text-slate-500">
+            Product
+          </label>
+          <select
+            value={product}
+            onChange={(e) => setProduct(e.target.value)}
+            className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#0057B8]"
+          >
+            {PRODUCTS.map((p) => (
+              <option key={p.slug}>{p.name}</option>
+            ))}
+          </select>
+          <label className="mt-4 block text-xs font-bold uppercase tracking-wider text-slate-500">
+            Destination country
+          </label>
+          <input
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            placeholder="e.g. UAE, Saudi Arabia, UK"
+            className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none focus:border-[#0057B8]"
+          />
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={href}
+              target="_blank"
+              rel="noreferrer"
+              onClick={close}
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white"
+              style={{ background: "#25D366" }}
+            >
+              <MessageCircle className="h-4 w-4" /> Continue on WhatsApp
+            </a>
+            <button
+              onClick={close}
+              className="rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700"
+            >
+              Not now
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+function MobileStickyCTA() {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-3 py-2 shadow-[0_-10px_30px_rgba(4,21,45,0.12)] backdrop-blur md:hidden">
+      <div className="grid grid-cols-3 gap-2">
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center justify-center gap-1 rounded-full bg-[#25D366] px-3 py-2 text-xs font-bold text-white"
+        >
+          <MessageCircle className="h-4 w-4" /> WhatsApp
+        </a>
+        <a
+          href="/contact"
+          className="inline-flex items-center justify-center gap-1 rounded-full px-3 py-2 text-xs font-bold text-white"
+          style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+        >
+          <Mail className="h-4 w-4" /> Quote
+        </a>
+        <a
+          href={BROCHURE_URL}
+          download
+          className="inline-flex items-center justify-center gap-1 rounded-full border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700"
+        >
+          <Download className="h-4 w-4" /> Catalogue
+        </a>
+      </div>
+    </div>
+  );
+}
+
 /* ---------- Footer ---------- */
 function Footer() {
-  const teamLinks = useLiveTeamLinks();
-
   return (
     <footer className="py-14 text-white" style={{ background: NAVY }}>
       <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-4">
@@ -1509,13 +1729,13 @@ function Footer() {
           </div>
           <div className="mt-4 space-y-2">
             {NAV_LINKS.map((l) => (
-              <MainNavLink
+              <a
                 key={l.href}
                 href={l.href}
                 className="block text-sm text-white/70 hover:text-white"
               >
                 {l.label}
-              </MainNavLink>
+              </a>
             ))}
           </div>
         </div>
@@ -1556,17 +1776,6 @@ function Footer() {
             <a href={`mailto:${EMAIL}`} className="flex items-start gap-2 hover:text-white">
               <Mail className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {EMAIL}
             </a>
-            {teamLinks.map((member) => (
-              <a
-                key={member.linkedin}
-                href={member.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-start gap-2 hover:text-white"
-              >
-                <Linkedin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {member.name}
-              </a>
-            ))}
           </div>
         </div>
       </div>
@@ -1582,15 +1791,7 @@ function MessageFab() {
   const [open, setOpen] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const teamLinks = useLiveTeamLinks();
   const actions = [
-    {
-      label: "Request Quote",
-      sub: "Structured inquiry",
-      icon: FileText,
-      href: "/request-quote",
-      bg: ORANGE,
-    },
     {
       label: "WhatsApp",
       sub: "Chat instantly",
@@ -1600,14 +1801,6 @@ function MessageFab() {
       external: true,
     },
     { label: "Email Us", sub: EMAIL, icon: Mail, href: MAILTO_URL, bg: BLUE },
-    ...teamLinks.map((member, index) => ({
-      label: `${member.name} LinkedIn`,
-      sub: member.role,
-      icon: Linkedin,
-      href: member.linkedin,
-      bg: index === 0 ? "#0A66C2" : NAVY,
-      external: true,
-    })),
     {
       label: "Download Brochure",
       sub: "PDF catalogue",
@@ -1674,7 +1867,7 @@ function MessageFab() {
   }, [open]);
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3 sm:bottom-6 sm:right-6">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -1686,7 +1879,7 @@ function MessageFab() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ type: "spring", damping: 22 }}
-            className="flex w-[calc(100vw-2rem)] max-w-72 flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl sm:w-64"
+            className="flex w-64 flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl"
           >
             <div className="px-3 py-2">
               <div className="font-display text-sm font-bold text-slate-900">How can we help?</div>
@@ -1736,7 +1929,7 @@ function MessageFab() {
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls="message-fab-menu"
-        className="relative grid h-16 w-16 place-items-center rounded-full text-white shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FF8A00]/40"
+        className="relative grid h-14 w-14 place-items-center rounded-full text-white shadow-2xl focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FF8A00]/40 sm:h-16 sm:w-16"
         style={{ background: `linear-gradient(135deg,${BLUE},${ORANGE})` }}
       >
         <AnimatePresence mode="wait" initial={false}>
@@ -1847,18 +2040,20 @@ function Home() {
       <main id="main">
         <Hero />
         <About />
+        <TrustDashboard />
         <Products />
+        <TradeJourney />
         <Markets />
         <RegionsStrip />
-        <SeoHub />
         <Certifications />
         <WhyUs />
-        <BlogPreview />
+        <BuyerProof />
         <FAQ />
-        <QuoteCta />
       </main>
       <Footer />
       <MessageFab />
+      <LeadCapturePopup />
+      <MobileStickyCTA />
     </div>
   );
 }

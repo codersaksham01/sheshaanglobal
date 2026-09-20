@@ -1,4 +1,4 @@
-import { useEffect, useState, type ElementType } from "react";
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
@@ -13,12 +13,8 @@ import {
   Crown,
   CheckCircle2,
   Loader2,
-  Linkedin,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
-import teamJuned from "@/assets/team-juned-barade.jpg";
-import teamSaksham from "@/assets/team-saksham-singh.jpg";
-import teamSana from "@/assets/team-sana-zeba-bakshi.jpg";
 import {
   BLUE,
   ORANGE,
@@ -27,31 +23,14 @@ import {
   PHONE_RAW,
   EMAIL,
   PRODUCTS,
-  LINKEDIN_SAKSHAM,
-  LINKEDIN_SANA,
   buildWhatsAppUrl,
 } from "@/lib/site";
-import { normalizeAdminState, type AdminState } from "@/lib/admin-content";
+import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "@/lib/seo";
 
-const SITE_URL = "https://global-roots-express.lovable.app";
 const FORMSPREE = "https://formspree.io/f/xpqvnnav";
 
-type ContactTeamMember = {
-  id: string;
-  name: string;
-  role: string;
-  email: string;
-  phone?: string;
-  linkedin?: string;
-  image?: string;
-  blurb: string;
-  Icon: ElementType;
-  featured?: boolean;
-};
-
-const DEFAULT_TEAM: ContactTeamMember[] = [
+const TEAM = [
   {
-    id: "general",
     name: "General & Trade Inquiries",
     role: "First point of contact",
     email: EMAIL,
@@ -62,86 +41,30 @@ const DEFAULT_TEAM: ContactTeamMember[] = [
     featured: true,
   },
   {
-    id: "sana-zeba-bakshi",
     name: "Sana Zeba Bakshi",
     role: "Chief Executive Officer",
     email: "sanazeba@sheshaanglobal.com",
-    linkedin: LINKEDIN_SANA,
-    image: teamSana,
     blurb:
       "Strategic alliances, distributor agreements, large-volume annual contracts and corporate matters.",
     Icon: Crown,
   },
   {
-    id: "juned-barade",
     name: "Juned Barade",
     role: "Chief Operating Officer — Trade Exhibitions",
     email: "junedbarade@sheshaanglobal.com",
-    image: teamJuned,
     blurb:
       "Operations, logistics and quality control. Represents Sheshaan Global at international trade fairs and expos.",
     Icon: Globe2,
   },
   {
-    id: "saksham-singh",
     name: "Saksham Singh",
     role: "Business Development",
     email: "sakshamsingh@sheshaanglobal.com",
-    linkedin: LINKEDIN_SAKSHAM,
-    image: teamSaksham,
     blurb:
       "New buyer partnerships, product sourcing, indicative pricing and sample dispatch requests.",
     Icon: Briefcase,
   },
 ];
-
-function adminTeamToContactTeam(content: Partial<AdminState> | null | undefined) {
-  if (!content) return DEFAULT_TEAM;
-  const state = normalizeAdminState(content);
-  const liveMembers = state.team.filter((member) => member.status === "Published");
-  if (!liveMembers.length) return DEFAULT_TEAM;
-  const general = DEFAULT_TEAM[0];
-  const defaultPeople = DEFAULT_TEAM.slice(1);
-  const mergedDefaults = defaultPeople.map((fallback) => {
-    const member =
-      liveMembers.find((item) => item.id === fallback.id) ||
-      liveMembers.find((item) => item.name.toLowerCase() === fallback.name.toLowerCase());
-    if (!member) return fallback;
-    return {
-      ...fallback,
-      id: member.id || fallback.id,
-      name: member.name || fallback.name,
-      role: member.role || fallback.role || "Export Team",
-      email: member.email || fallback.email || state.settings.email,
-      phone: member.phone || fallback.phone,
-      linkedin: member.linkedin || fallback.linkedin,
-      image: member.image || fallback.image,
-      blurb: fallback.blurb || "Buyer communication, product requirements and export coordination.",
-      Icon: fallback.Icon || Briefcase,
-      featured: fallback.featured,
-    };
-  });
-  const extraMembers = liveMembers
-    .filter(
-      (member) =>
-        !defaultPeople.some(
-          (fallback) =>
-            fallback.id === member.id || fallback.name.toLowerCase() === member.name.toLowerCase(),
-        ),
-    )
-    .map((member) => ({
-      id: member.id,
-      name: member.name,
-      role: member.role || "Export Team",
-      email: member.email || state.settings.email,
-      phone: member.phone,
-      linkedin: member.linkedin,
-      image: member.image,
-      blurb: "Buyer communication, product requirements and export coordination.",
-      Icon: Briefcase,
-    }));
-  return [general, ...mergedDefaults, ...extraMembers];
-}
 
 const COMPANY_FACTS = [
   { k: "Legal entity", v: "Sheshaan Global — Proprietor: Sana Zeba Siraj Bakshi" },
@@ -161,7 +84,7 @@ const CREDENTIALS = [
   "Phytosanitary & Certificate of Origin support",
 ];
 
-const TITLE = "Contact Sheshaan Global — Export Sales, Trade Exhibitions & Leadership";
+const TITLE = "Contact Sheshaan Global - Export Sales, Trade Exhibitions and Leadership";
 const DESC =
   "Get in touch with Sheshaan Global. Reach business development, trade exhibition and leadership contacts directly, or send an export inquiry for onions, green chillies, rice, coconut and spices.";
 
@@ -170,13 +93,17 @@ export const Route = createFileRoute("/contact")({
     meta: [
       { title: TITLE },
       { name: "description", content: DESC },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/contact` },
+      { property: "og:image", content: DEFAULT_OG_IMAGE },
+      { property: "og:image:alt", content: `${SITE_NAME} contact and export sales` },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESC },
+      { name: "twitter:image", content: DEFAULT_OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/contact` }],
     scripts: [
@@ -189,11 +116,11 @@ export const Route = createFileRoute("/contact")({
           url: `${SITE_URL}/contact`,
           mainEntity: {
             "@type": "Organization",
-            name: "Sheshaan Global",
+            name: SITE_NAME,
             url: SITE_URL,
             email: EMAIL,
             telephone: `+${PHONE_RAW}`,
-            contactPoint: DEFAULT_TEAM.map((t) => ({
+            contactPoint: TEAM.map((t) => ({
               "@type": "ContactPoint",
               contactType: t.role,
               name: t.name,
@@ -215,16 +142,6 @@ function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [category, setCategory] = useState(PRODUCTS[0]?.name ?? "");
   const [form, setForm] = useState({ name: "", email: "", company: "", country: "", message: "" });
-  const [team, setTeam] = useState<ContactTeamMember[]>(DEFAULT_TEAM);
-
-  useEffect(() => {
-    fetch("/api/admin/content")
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("No live content"))))
-      .then((payload: { content?: Partial<AdminState> | null }) => {
-        setTeam(adminTeamToContactTeam(payload.content));
-      })
-      .catch(() => setTeam(DEFAULT_TEAM));
-  }, []);
 
   const set =
     (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -330,7 +247,7 @@ function ContactPage() {
           Direct lines to the people who handle your requirement.
         </p>
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {team.map((t, i) => (
+          {TEAM.map((t, i) => (
             <motion.article
               key={t.email}
               initial={{ opacity: 0, y: 28 }}
@@ -346,29 +263,16 @@ function ContactPage() {
                 t.featured ? { background: `linear-gradient(135deg,${NAVY},#062a55)` } : undefined
               }
             >
-              {t.image ? (
-                <div className="overflow-hidden rounded-2xl border border-white/40 bg-slate-100 shadow-sm">
-                  <img
-                    src={t.image}
-                    alt={t.name}
-                    className="aspect-[4/5] w-full object-cover object-top transition duration-500 group-hover:scale-[1.03]"
-                    loading="lazy"
-                    width={360}
-                    height={450}
-                  />
-                </div>
-              ) : (
-                <div
-                  className="flex h-12 w-12 items-center justify-center rounded-xl text-white"
-                  style={{
-                    background: t.featured
-                      ? `linear-gradient(135deg,${ORANGE},#ff6a00)`
-                      : `linear-gradient(135deg,${BLUE},#003c85)`,
-                  }}
-                >
-                  <t.Icon className="h-5 w-5" />
-                </div>
-              )}
+              <div
+                className="flex h-12 w-12 items-center justify-center rounded-xl text-white"
+                style={{
+                  background: t.featured
+                    ? `linear-gradient(135deg,${ORANGE},#ff6a00)`
+                    : `linear-gradient(135deg,${BLUE},#003c85)`,
+                }}
+              >
+                <t.Icon className="h-5 w-5" />
+              </div>
               <h3
                 className={`mt-5 font-display text-xl font-bold ${t.featured ? "text-white" : ""}`}
                 style={t.featured ? undefined : { color: NAVY }}
@@ -393,17 +297,6 @@ function ContactPage() {
               >
                 <Mail className="h-4 w-4" /> {t.email}
               </a>
-              {t.linkedin && (
-                <a
-                  href={t.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`mt-2 flex items-center gap-2 text-sm font-semibold ${t.featured ? "text-white hover:text-[#FF8A00]" : ""}`}
-                  style={t.featured ? undefined : { color: BLUE }}
-                >
-                  <Linkedin className="h-4 w-4" /> Connect on LinkedIn
-                </a>
-              )}
               {t.phone && (
                 <a
                   href={`tel:+${PHONE_RAW}`}

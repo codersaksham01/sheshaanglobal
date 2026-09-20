@@ -7,6 +7,9 @@ Sheshaan Global sources agricultural produce directly from Indian farms and ship
 ## Pages
 
 - [Home](/): Company overview, hero, product categories, global export network (25+ countries), certifications, process timeline, FAQ and contact.
+- [Products & HS Codes](/products): Complete export catalogue with HS codes, searchable product groups and product detail links.
+- [Contact](/contact): Export inquiry form, WhatsApp, email, leadership and business development contacts.
+- [Trade Info](/more-info): Payment terms, shipping options, ports, Incoterms, logistics, documentation and private-label information.
 
 ## Products
 
@@ -17,8 +20,15 @@ Sheshaan Global sources agricultural produce directly from Indian farms and ship
 - [Fresh Vegetables](/products/fresh-vegetables): Assorted export-grade vegetables.
 - [Fresh Fruits](/products/fresh-fruits): Tropical and seasonal fruits.
 - [Spices & Masalas](/products/spices-masalas): Whole and ground Indian spices.
-- [Pulses & Cereals](/products/pulses-cereals): Lentils, dals and cereals.
+- [Pulses & Lentils](/products/pulses-lentils): Lentils, dals and cereals.
 - [Dry Fruits & Nuts](/products/dry-fruits-nuts): Almonds, cashews, raisins and more.
+
+## Export Markets
+
+- [Export to UAE](/export-to/uae): Jebel Ali, Khalifa Port and Sharjah export details.
+- [Export to EU](/export-to/eu): EU documentation, ports and compliant product categories.
+- [Export to UK](/export-to/uk): UK import documentation, ports and priority products.
+- [Export to USA](/export-to/usa): US port coverage, FDA-aware documentation and product categories.
 
 ## Optional
 

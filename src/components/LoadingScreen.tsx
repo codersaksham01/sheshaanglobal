@@ -73,7 +73,10 @@ export function LoadingScreen({ minMs = 1100 }: { minMs?: number }) {
               />
             </div>
             <div className="text-center">
-              <div className="font-display text-2xl font-bold tracking-tight" style={{ color: "#fff" }}>
+              <div
+                className="font-display text-2xl font-bold tracking-tight"
+                style={{ color: "#fff" }}
+              >
                 SHESHAAN <span style={{ color: ORANGE }}>GLOBAL</span>
               </div>
               <div className="mt-1 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/70">
@@ -86,7 +89,9 @@ export function LoadingScreen({ minMs = 1100 }: { minMs?: number }) {
                 animate={{ x: "100%" }}
                 transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
                 className="h-full w-1/2 rounded-full"
-                style={{ background: `linear-gradient(90deg, transparent, ${ORANGE}, ${BLUE}, transparent)` }}
+                style={{
+                  background: `linear-gradient(90deg, transparent, ${ORANGE}, ${BLUE}, transparent)`,
+                }}
               />
             </div>
           </div>

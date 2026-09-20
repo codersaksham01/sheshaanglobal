@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRight, Search, Package, MessageCircle, Mail, Download } from "lucide-react";
@@ -14,12 +14,11 @@ import {
   ALL_PRODUCTS,
   buildWhatsAppUrl,
 } from "@/lib/site";
-import { normalizeAdminState, publishedProducts, type AdminState } from "@/lib/admin-content";
+import { DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo";
 
-const SITE_URL = "https://global-roots-express.lovable.app";
-const TITLE = "Products & HS Codes — Indian Agri Export Catalogue | Sheshaan Global";
+const TITLE = "Products and HS Codes - Indian Agri Export Catalogue | Sheshaan Global";
 const DESC =
-  "Complete Sheshaan Global export catalogue with HS codes — onions (0703), rice (1006), coconut (0801), green chillies (0709), spices, pulses, fruits, vegetables, nuts and agri commodities shipped to 25+ countries.";
+  "Complete Sheshaan Global export catalogue with HS codes: onions (0703), rice (1006), coconut (0801), green chillies (0709), spices, pulses, fruits, vegetables, nuts and agri commodities shipped to 25+ countries.";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -33,13 +32,17 @@ export const Route = createFileRoute("/products/")({
         content:
           "Indian agri exporter product list, HS code list export India, onion HS 0703, rice HS 1006, coconut HS 0801, spices exporter India",
       },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/products` },
+      { property: "og:image", content: DEFAULT_OG_IMAGE },
+      { property: "og:image:alt", content: "Sheshaan Global export product catalogue" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESC },
+      { name: "twitter:image", content: DEFAULT_OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/products` }],
     scripts: [
@@ -82,26 +85,15 @@ export const Route = createFileRoute("/products/")({
 function ProductsIndex() {
   const [q, setQ] = useState("");
   const [group, setGroup] = useState("All");
-  const [liveCatalog, setLiveCatalog] = useState(CATALOG);
-
-  useEffect(() => {
-    fetch("/api/admin/content")
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error("No live content"))))
-      .then((payload: { content?: Partial<AdminState> | null }) => {
-        if (payload.content)
-          setLiveCatalog(publishedProducts(normalizeAdminState(payload.content)));
-      })
-      .catch(() => undefined);
-  }, []);
 
   const groups = useMemo(
-    () => ["All", ...Array.from(new Set(liveCatalog.map((c) => c.group ?? "Other")))],
-    [liveCatalog],
+    () => ["All", ...Array.from(new Set(CATALOG.map((c) => c.group ?? "Other")))],
+    [],
   );
 
   const filtered = useMemo(() => {
     const needle = q.trim().toLowerCase();
-    return liveCatalog.filter((c) => {
+    return CATALOG.filter((c) => {
       if (group !== "All" && (c.group ?? "Other") !== group) return false;
       if (!needle) return true;
       return (
@@ -110,7 +102,7 @@ function ProductsIndex() {
         c.varieties.join(" ").toLowerCase().includes(needle)
       );
     });
-  }, [q, group, liveCatalog]);
+  }, [q, group]);
 
   return (
     <main className="bg-white">
@@ -145,9 +137,9 @@ function ProductsIndex() {
               Export Product Catalogue <span style={{ color: ORANGE }}>with HS Codes</span>
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">
-              {liveCatalog.length || ALL_PRODUCTS.length} export lines across fresh produce, spices,
-              grains, pulses, nuts and agri commodities — each with its own detail page covering
-              varieties, packing, standards and inquiry options.
+              {ALL_PRODUCTS.length} export lines across fresh produce, spices, grains, pulses, nuts
+              and agri commodities — each with its own detail page covering varieties, packing,
+              standards and inquiry options.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a

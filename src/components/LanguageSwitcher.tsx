@@ -82,11 +82,15 @@ export function LanguageSwitcher() {
   const [open, setOpen] = useState(false);
   const [firstTime, setFirstTime] = useState(false);
   const [current, setCurrent] = useState<string>("en");
-  const [compact, setCompact] = useState(false);
+  const [compact, setCompact] = useState(true);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    injectGoogleTranslate();
+    const runIdle =
+      window.requestIdleCallback ??
+      ((cb: IdleRequestCallback) =>
+        window.setTimeout(() => cb({ didTimeout: false, timeRemaining: () => 0 }), 1800));
+    const idleId = runIdle(() => injectGoogleTranslate());
 
     const stored = localStorage.getItem(STORAGE_KEY);
     const seen = localStorage.getItem(SEEN_KEY);
@@ -105,24 +109,36 @@ export function LanguageSwitcher() {
         setFirstTime(true);
         setOpen(true);
       }, 900);
-      return () => clearTimeout(t);
+      return () => {
+        clearTimeout(t);
+        if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId as number);
+      };
     }
+    return () => {
+      if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId as number);
+    };
   }, []);
 
   // Compact mode after user scrolls — shrinks to icon-only to avoid content overlap
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const onScroll = () => setCompact(window.scrollY > 240);
+    const onScroll = () => setCompact(window.innerWidth < 640 || window.scrollY > 240);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const pick = useCallback((code: string) => {
     try {
       localStorage.setItem(STORAGE_KEY, code);
       localStorage.setItem(SEEN_KEY, "1");
-    } catch {}
+    } catch {
+      // Storage can be unavailable in private browsing or strict privacy modes.
+    }
     setCurrent(code);
     setOpen(false);
     setFirstTime(false);
@@ -137,7 +153,9 @@ export function LanguageSwitcher() {
   const dismiss = useCallback(() => {
     try {
       localStorage.setItem(SEEN_KEY, "1");
-    } catch {}
+    } catch {
+      // Storage can be unavailable in private browsing or strict privacy modes.
+    }
     setOpen(false);
     setFirstTime(false);
   }, []);
@@ -147,7 +165,11 @@ export function LanguageSwitcher() {
   return (
     <>
       {/* Hidden Google Translate mount point */}
-      <div id="google_translate_element" style={{ position: "absolute", left: "-9999px", top: 0 }} aria-hidden="true" />
+      <div
+        id="google_translate_element"
+        style={{ position: "absolute", left: "-9999px", top: 0 }}
+        aria-hidden="true"
+      />
       <style>{`
         .goog-te-banner-frame, .skiptranslate { display: none !important; }
         body { top: 0 !important; }
@@ -198,7 +220,10 @@ export function LanguageSwitcher() {
             className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative px-6 pt-6 pb-4" style={{ background: "linear-gradient(135deg,#0057B8,#003c85)" }}>
+            <div
+              className="relative px-6 pt-6 pb-4"
+              style={{ background: "linear-gradient(135deg,#0057B8,#003c85)" }}
+            >
               <div className="flex items-center gap-3 text-white">
                 <div className="grid h-10 w-10 place-items-center rounded-full bg-white/15">
                   <Globe className="h-5 w-5" />
@@ -240,7 +265,9 @@ export function LanguageSwitcher() {
                     >
                       <span className="text-2xl leading-none">{l.flag}</span>
                       <span className="flex-1">
-                        <span className="block text-sm font-semibold text-slate-900">{l.native}</span>
+                        <span className="block text-sm font-semibold text-slate-900">
+                          {l.native}
+                        </span>
                         <span className="block text-[11px] text-slate-500">{l.name}</span>
                       </span>
                       {active && <Check className="h-4 w-4 text-[#0057B8]" />}
@@ -249,7 +276,8 @@ export function LanguageSwitcher() {
                 })}
               </div>
               <p className="mt-4 px-1 text-[10px] leading-relaxed text-slate-400">
-                Translations are provided by Google Translate for convenience. For contractual matters the English original prevails.
+                Translations are provided by Google Translate for convenience. For contractual
+                matters the English original prevails.
               </p>
             </div>
           </div>

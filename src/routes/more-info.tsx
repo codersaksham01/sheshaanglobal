@@ -1,29 +1,40 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  ArrowRight, Anchor, Plane, Wallet, PackageCheck, FileText,
-  Tag, MessageCircle, Mail, ShieldCheck,
+  ArrowRight,
+  Anchor,
+  Plane,
+  Wallet,
+  PackageCheck,
+  FileText,
+  Tag,
+  MessageCircle,
+  Mail,
+  ShieldCheck,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { BLUE, ORANGE, NAVY, EMAIL, buildWhatsAppUrl } from "@/lib/site";
+import { DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo";
 
-const SITE_URL = "https://global-roots-express.lovable.app";
-const TITLE = "Export Terms & Trade Info — Payment, Incoterms, Ports | Sheshaan Global";
+const TITLE = "Export Terms and Trade Info - Payment, Incoterms, Ports | Sheshaan Global";
 const DESC =
-  "Sheshaan Global export terms: 50–70% advance payment with balance against Bill of Lading, FOB/CIF/CFR/EXW/FCA/DDP Incoterms, shipping from Nhava Sheva, Mundra and Tuticorin, plus private label options.";
+  "Sheshaan Global export terms: 50 to 70% advance payment with balance against Bill of Lading, FOB/CIF/CFR/EXW/FCA/DDP Incoterms, shipping from Nhava Sheva, Mundra and Tuticorin, plus private label options.";
 
 export const Route = createFileRoute("/more-info")({
   head: () => ({
     meta: [
       { title: TITLE },
       { name: "description", content: DESC },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       { property: "og:title", content: TITLE },
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/more-info` },
+      { property: "og:image", content: DEFAULT_OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESC },
+      { name: "twitter:image", content: DEFAULT_OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/more-info` }],
   }),
@@ -44,11 +55,11 @@ const TERMS = [
   },
   {
     Icon: PackageCheck,
-    title: "Minimum Order Quantity",
+    title: "Shipping Options",
     lines: [
-      "MOQ depends on the freight forwarding method chosen for the shipment.",
-      "By air freight we can supply from as little as 1 ton.",
-      "Ocean shipment is recommended for full-container (FCL) volumes.",
+      "Air freight and ocean freight options are planned around product type, destination and delivery timeline.",
+      "Buyer-specific packing, labelling and documentation can be aligned before dispatch.",
+      "Our team recommends the most practical route after reviewing your destination port and product mix.",
     ],
   },
   {
@@ -89,22 +100,38 @@ const TERMS = [
 function MoreInfoPage() {
   return (
     <main className="bg-white">
-      <section className="relative overflow-hidden pb-16 pt-28" style={{ background: `linear-gradient(135deg,${NAVY},#062a55)` }}>
-        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-3xl" style={{ background: ORANGE }} />
+      <section
+        className="relative overflow-hidden pb-16 pt-28"
+        style={{ background: `linear-gradient(135deg,${NAVY},#062a55)` }}
+      >
+        <div
+          className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-3xl"
+          style={{ background: ORANGE }}
+        />
         <div className="mx-auto max-w-7xl px-6">
           <nav aria-label="Breadcrumb" className="mb-6 text-xs text-white/60">
-            <Link to="/" className="hover:text-white">Home</Link>
+            <Link to="/" className="hover:text-white">
+              Home
+            </Link>
             <span className="px-2">/</span>
             <span className="text-white/90">More Info</span>
           </nav>
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
-            <img src={logo} alt="Sheshaan Global logo" className="h-16 w-16 object-contain sg-float" />
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease }}
+          >
+            <img
+              src={logo}
+              alt="Sheshaan Global logo"
+              className="h-16 w-16 object-contain sg-float"
+            />
             <h1 className="mt-5 max-w-3xl font-display text-4xl font-bold leading-tight text-white md:text-5xl">
               Trade Terms & <span style={{ color: ORANGE }}>Export Information</span>
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">
-              Everything a buyer needs before placing the first order — payment structure, minimum order quantity, loading ports,
-              accepted Incoterms and private label options.
+              Everything a buyer needs before placing the first order — payment structure, shipping
+              options, loading ports, accepted Incoterms and private label options.
             </p>
           </motion.div>
         </div>
@@ -121,14 +148,25 @@ function MoreInfoPage() {
               transition={{ duration: 0.6, delay: i * 0.07, ease }}
               className="rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_6px_30px_rgba(4,21,45,0.06)] transition-all hover:-translate-y-1 hover:shadow-[0_16px_44px_rgba(4,21,45,0.12)]"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl text-white" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+              <div
+                className="flex h-12 w-12 items-center justify-center rounded-xl text-white"
+                style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+              >
                 <t.Icon className="h-5 w-5" />
               </div>
-              <h2 className="mt-5 font-display text-xl font-bold" style={{ color: NAVY }}>{t.title}</h2>
+              <h2 className="mt-5 font-display text-xl font-bold" style={{ color: NAVY }}>
+                {t.title}
+              </h2>
               <ul className="mt-3 space-y-2">
                 {t.lines.map((l) => (
-                  <li key={l} className="flex items-start gap-2 text-sm leading-relaxed text-slate-600">
-                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: ORANGE }} />
+                  <li
+                    key={l}
+                    className="flex items-start gap-2 text-sm leading-relaxed text-slate-600"
+                  >
+                    <span
+                      className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full"
+                      style={{ background: ORANGE }}
+                    />
                     {l}
                   </li>
                 ))}
@@ -148,13 +186,16 @@ function MoreInfoPage() {
         >
           <div className="flex flex-wrap items-center justify-between gap-6">
             <div className="max-w-2xl">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl" style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}>
+              <div
+                className="flex h-12 w-12 items-center justify-center rounded-xl"
+                style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
+              >
                 <ShieldCheck className="h-5 w-5" />
               </div>
               <h2 className="mt-5 font-display text-2xl font-bold">Company, Quality & Policies</h2>
               <p className="mt-2 text-sm leading-relaxed text-white/75">
-                Read about our company, the quality control process behind every consignment, our sample policy
-                and our privacy policy.
+                Read about our company, the quality control process behind every consignment, our
+                sample policy and our privacy policy.
               </p>
             </div>
             <Link
@@ -168,13 +209,26 @@ function MoreInfoPage() {
         </motion.div>
 
         <div className="mt-10 flex flex-wrap gap-3">
-          <a href={buildWhatsAppUrl()} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: "linear-gradient(135deg,#25D366,#128C7E)" }}>
+          <a
+            href={buildWhatsAppUrl()}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
+            style={{ background: "linear-gradient(135deg,#25D366,#128C7E)" }}
+          >
             <MessageCircle className="h-4 w-4" /> Discuss terms on WhatsApp
           </a>
-          <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100">
+          <a
+            href={`mailto:${EMAIL}`}
+            className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+          >
             <Mail className="h-4 w-4" /> {EMAIL}
           </a>
-          <Link to="/contact" className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform hover:scale-105"
+            style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+          >
             Send an inquiry <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

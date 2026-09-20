@@ -13,9 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { ScrollProgress } from "../components/ScrollProgress";
-
-const GA_ID = import.meta.env.VITE_GOOGLE_ANALYTICS_ID || "G-HNHHQGFH13";
-const SEARCH_CONSOLE_ID = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION || "";
+import { DEFAULT_KEYWORDS, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -82,31 +80,39 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sheshaan Global — Premium Agricultural Exports From India to 25+ Countries" },
-      { name: "description", content: "IEC & APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue & pricing." },
-      { name: "author", content: "Sheshaan Global" },
+      { title: "Sheshaan Global - Premium Agricultural Exports From India to 25+ Countries" },
+      {
+        name: "description",
+        content:
+          "IEC and APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue and pricing.",
+      },
+      { name: "keywords", content: DEFAULT_KEYWORDS },
+      { name: "author", content: SITE_NAME },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
-      { property: "og:site_name", content: "Sheshaan Global" },
+      { property: "og:site_name", content: SITE_NAME },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_URL + "/" },
+      { property: "og:image", content: DEFAULT_OG_IMAGE },
+      { property: "og:image:alt", content: "Sheshaan Global agricultural export company logo" },
       { property: "og:locale", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: DEFAULT_OG_IMAGE },
       { name: "theme-color", content: "#0057B8" },
-      SEARCH_CONSOLE_ID ? { name: "google-site-verification", content: SEARCH_CONSOLE_ID } : null,
-    ].filter(Boolean),
+      { name: "format-detection", content: "telephone=yes" },
+    ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" },
+      { rel: "dns-prefetch", href: "https://translate.google.com" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap",
+      },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-    ],
-    scripts: [
-      ...(GA_ID ? [
-        { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${GA_ID}` },
-        {
-          children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`,
-        },
-      ] : []),
+      { rel: "icon", href: "/favicon-192.png", type: "image/png", sizes: "192x192" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
     ],
   }),
   shellComponent: RootShell,
@@ -139,6 +145,5 @@ function RootComponent() {
       <Outlet />
       <LanguageSwitcher />
     </QueryClientProvider>
-
   );
 }

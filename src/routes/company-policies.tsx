@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Building2, FlaskConical, Lock, PackageSearch } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { BLUE, ORANGE, NAVY, EMAIL, PHONE } from "@/lib/site";
+import { DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo";
 
-const SITE_URL = "https://global-roots-express.lovable.app";
 const TITLE = "About, Quality Control, Sample & Privacy Policy | Sheshaan Global";
 const DESC =
   "Detailed company profile, quality control process, sample policy and privacy policy of Sheshaan Global, an Indian agricultural exporter shipping to 25+ countries.";
@@ -19,9 +19,11 @@ export const Route = createFileRoute("/company-policies")({
       { property: "og:description", content: DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/company-policies` },
+      { property: "og:image", content: DEFAULT_OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESC },
+      { name: "twitter:image", content: DEFAULT_OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: `${SITE_URL}/company-policies` }],
   }),
@@ -86,18 +88,36 @@ const SECTIONS = [
 function CompanyPoliciesPage() {
   return (
     <main className="bg-white">
-      <section className="relative overflow-hidden pb-14 pt-28" style={{ background: `linear-gradient(135deg,${NAVY},#062a55)` }}>
-        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-3xl" style={{ background: ORANGE }} />
+      <section
+        className="relative overflow-hidden pb-14 pt-28"
+        style={{ background: `linear-gradient(135deg,${NAVY},#062a55)` }}
+      >
+        <div
+          className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-3xl"
+          style={{ background: ORANGE }}
+        />
         <div className="mx-auto max-w-7xl px-6">
           <nav aria-label="Breadcrumb" className="mb-6 text-xs text-white/60">
-            <Link to="/" className="hover:text-white">Home</Link>
+            <Link to="/" className="hover:text-white">
+              Home
+            </Link>
             <span className="px-2">/</span>
-            <Link to="/more-info" className="hover:text-white">More Info</Link>
+            <Link to="/more-info" className="hover:text-white">
+              More Info
+            </Link>
             <span className="px-2">/</span>
             <span className="text-white/90">Company & Policies</span>
           </nav>
-          <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
-            <img src={logo} alt="Sheshaan Global logo" className="h-16 w-16 object-contain sg-float" />
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease }}
+          >
+            <img
+              src={logo}
+              alt="Sheshaan Global logo"
+              className="h-16 w-16 object-contain sg-float"
+            />
             <h1 className="mt-5 max-w-3xl font-display text-4xl font-bold leading-tight text-white md:text-5xl">
               Company, Quality & <span style={{ color: ORANGE }}>Policies</span>
             </h1>
@@ -106,7 +126,11 @@ function CompanyPoliciesPage() {
             </p>
             <div className="mt-7 flex flex-wrap gap-2">
               {SECTIONS.map((s) => (
-                <a key={s.id} href={`#${s.id}`} className="rounded-full border border-white/25 px-4 py-2 text-xs font-semibold text-white/85 transition-colors hover:bg-white/10">
+                <a
+                  key={s.id}
+                  href={`#${s.id}`}
+                  className="rounded-full border border-white/25 px-4 py-2 text-xs font-semibold text-white/85 transition-colors hover:bg-white/10"
+                >
                   {s.title}
                 </a>
               ))}
@@ -127,14 +151,21 @@ function CompanyPoliciesPage() {
               transition={{ duration: 0.6, delay: Math.min(i, 3) * 0.05, ease }}
               className="rounded-2xl border border-slate-200 bg-white p-8 shadow-[0_6px_30px_rgba(4,21,45,0.06)]"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl text-white" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+              <div
+                className="flex h-12 w-12 items-center justify-center rounded-xl text-white"
+                style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+              >
                 <s.Icon className="h-5 w-5" />
               </div>
-              <h2 className="mt-5 font-display text-2xl font-bold" style={{ color: NAVY }}>{s.title}</h2>
+              <h2 className="mt-5 font-display text-2xl font-bold" style={{ color: NAVY }}>
+                {s.title}
+              </h2>
               {s.body && (
                 <div className="mt-4 space-y-3">
                   {s.body.map((p) => (
-                    <p key={p} className="text-sm leading-relaxed text-slate-600">{p}</p>
+                    <p key={p} className="text-sm leading-relaxed text-slate-600">
+                      {p}
+                    </p>
                   ))}
                 </div>
               )}
@@ -142,7 +173,12 @@ function CompanyPoliciesPage() {
                 <ol className="mt-4 space-y-3">
                   {s.list.map((l, n) => (
                     <li key={l} className="flex gap-3 text-sm leading-relaxed text-slate-600">
-                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white" style={{ background: ORANGE }}>{n + 1}</span>
+                      <span
+                        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold text-white"
+                        style={{ background: ORANGE }}
+                      >
+                        {n + 1}
+                      </span>
                       {l}
                     </li>
                   ))}
@@ -153,13 +189,24 @@ function CompanyPoliciesPage() {
         </div>
 
         <div className="mt-12 rounded-2xl border border-slate-200 bg-slate-50 p-7">
-          <h2 className="font-display text-lg font-bold" style={{ color: NAVY }}>Questions about these policies?</h2>
-          <p className="mt-2 text-sm text-slate-600">Write to {EMAIL} or call {PHONE} (Mon–Sat, 9:30 AM – 7:00 PM IST).</p>
+          <h2 className="font-display text-lg font-bold" style={{ color: NAVY }}>
+            Questions about these policies?
+          </h2>
+          <p className="mt-2 text-sm text-slate-600">
+            Write to {EMAIL} or call {PHONE} (Mon–Sat, 9:30 AM – 7:00 PM IST).
+          </p>
           <div className="mt-5 flex flex-wrap gap-3">
-            <Link to="/more-info" className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100">
+            <Link
+              to="/more-info"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100"
+            >
               <ArrowLeft className="h-4 w-4" /> Back to More Info
             </Link>
-            <Link to="/contact" className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105" style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}>
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
+              style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+            >
               Contact us
             </Link>
           </div>

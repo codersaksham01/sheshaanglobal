@@ -1,0 +1,26 @@
+{
+  "name": "Sheshaan Global",
+  "short_name": "Sheshaan",
+  "description": "Indian agricultural exporter of fresh produce, rice, spices, pulses, coconut and agri commodities to 25+ countries.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0057B8",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["business", "food", "productivity"],
+  "lang": "en"
+}

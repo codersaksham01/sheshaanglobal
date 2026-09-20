@@ -1,6 +1,6 @@
 import prodFruits from "@/assets/prod-fruits.jpg";
 import prodVeg from "@/assets/prod-vegetables.jpg";
-import prodFreshOnionsDetail from "@/assets/prod-fresh-onions-detail.jpg";
+import prodFreshOnions from "@/assets/prod-fresh-onions.jpg";
 import prodRice from "@/assets/prod-rice.jpg";
 import prodPulses from "@/assets/prod-pulses.jpg";
 import prodSpices from "@/assets/prod-spices.jpg";
@@ -44,14 +44,11 @@ import prodBlackPepperDetail from "@/assets/prod-black-pepper-detail.jpg";
 export const BLUE = "#0057B8";
 export const ORANGE = "#FF8A00";
 export const NAVY = "#04152D";
-export const SITE_URL = "https://global-roots-express.lovable.app";
 
 export const PHONE = "+91 81499 09546";
 export const PHONE_RAW = "918149909546";
 export const EMAIL = "info@sheshaanglobal.com";
 export const BROCHURE_URL = "/catalogue.pdf";
-export const LINKEDIN_SAKSHAM = "https://www.linkedin.com/in/saksham-singh-ba591638a/";
-export const LINKEDIN_SANA = "https://www.linkedin.com/in/sana-zeba-bakshi/";
 
 export function buildWhatsAppUrl(opts?: {
   category?: string;
@@ -81,7 +78,6 @@ export const MAILTO_URL = `mailto:${EMAIL}?subject=${encodeURIComponent(
 import certGst from "@/assets/cert-gst.png";
 import certIec from "@/assets/cert-iec.png";
 import certCoconut from "@/assets/cert-coconut.jpg";
-import certCompliance from "@/assets/cert-compliance.svg";
 
 export type CertType = "Government" | "Trade" | "Food Safety" | "Quality";
 export type Certificate = {
@@ -167,42 +163,6 @@ export const CERTIFICATES: Certificate[] = [
     img: certIec,
     file: certIec,
   },
-  {
-    id: "iso-22000",
-    name: "ISO 22000",
-    fullName: "Food Safety Management System Certification",
-    label: "Certified",
-    type: "Food Safety",
-    issuer: "Certification Body",
-    categories: ["All"],
-    countries: ["Global"],
-    img: certCompliance,
-    file: "/certificates/iso-22000-sheshaan.pdf",
-  },
-  {
-    id: "haccp",
-    name: "HACCP",
-    fullName: "Hazard Analysis and Critical Control Points Certification",
-    label: "Certified",
-    type: "Food Safety",
-    issuer: "Certification Body",
-    categories: ["All"],
-    countries: ["Global"],
-    img: certCompliance,
-    file: "/certificates/haccp-sheshaan.pdf",
-  },
-  {
-    id: "non-gmo",
-    name: "Non-GMO",
-    fullName: "Non-GMO Product Certification",
-    label: "Certified",
-    type: "Quality",
-    issuer: "Certification Body",
-    categories: ["Premium Rice", "Pulses", "Cereals & Seeds"],
-    countries: ["Global"],
-    img: certCompliance,
-    file: "/certificates/non-gmo-sheshaan.pdf",
-  },
 ];
 
 export const CERT_TYPES: CertType[] = ["Government", "Trade", "Food Safety", "Quality"];
@@ -214,11 +174,11 @@ export const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What certifications do you hold?",
-    a: "We are GST registered, IEC certified (DGFT), APEDA registered, FSSAI compliant, ISO 22000 certified, HACCP certified and Non-GMO certified. Product-specific documentation (Phytosanitary, COO, Health Certificate, Fumigation) is provided per shipment.",
+    a: "We are GST registered, IEC certified (DGFT), APEDA registered and FSSAI compliant. Product-specific documentation (Phytosanitary, COO, Health Certificate, Fumigation) is provided per shipment.",
   },
   {
-    q: "What is the minimum order quantity (MOQ)?",
-    a: "MOQ varies by product and packaging. Most containerised orders start at one 20' FCL. Retail-packed items support smaller LCL trials. Share your requirement on WhatsApp for a tailored quote.",
+    q: "How do I get the right quote for my shipment?",
+    a: "Share your product, destination port, packing preference and target timeline on WhatsApp. Our team will recommend the most practical freight route and send a tailored export quote.",
   },
   {
     q: "Can you handle private-label and custom packaging?",
@@ -281,8 +241,8 @@ export const PRODUCTS: Product[] = [
     hsCode: "0703",
     name: "Fresh Onions",
     tagline: "Export-grade red, pink & white onions",
-    img: prodFreshOnionsDetail,
-    gallery: [prodFreshOnionsDetail, prodVeg, prodChillies],
+    img: prodFreshOnions,
+    gallery: [prodFreshOnions, prodVeg, prodFruits],
     description:
       "Our flagship export — premium Indian onions sourced directly from Nashik, Maharashtra. Uniformly graded, well-cured and packed for long transit, meeting the size, color and pungency standards of Middle East, South-East Asia and European buyers.",
     varieties: ["Red Onion (Nashik)", "Pink Onion", "White Onion", "Rose Onion", "Bangalore Rose"],
@@ -1296,246 +1256,244 @@ export const REGIONS: Region[] = [
       },
     ],
   },
+  ...[
+    [
+      "saudi-arabia",
+      "Saudi Arabia",
+      "Saudi Arabia",
+      "🇸🇦",
+      ["Jeddah Islamic Port", "Dammam King Abdulaziz Port", "Riyadh Dry Port"],
+      "7–12 days to Jeddah",
+      [
+        "fresh-onions",
+        "premium-rice",
+        "green-chillies",
+        "spices-masalas",
+        "fresh-fruits",
+        "coconut-brown-husked",
+      ],
+    ],
+    [
+      "qatar",
+      "Qatar",
+      "Qatar",
+      "🇶🇦",
+      ["Hamad Port", "Doha Port"],
+      "6–10 days to Hamad Port",
+      [
+        "fresh-onions",
+        "green-chillies",
+        "premium-rice",
+        "fresh-vegetables",
+        "spices-masalas",
+        "fresh-fruits",
+      ],
+    ],
+    [
+      "kuwait",
+      "Kuwait",
+      "Kuwait",
+      "🇰🇼",
+      ["Shuwaikh Port", "Shuaiba Port"],
+      "7–11 days to Kuwait",
+      [
+        "fresh-onions",
+        "premium-rice",
+        "green-chillies",
+        "spices-masalas",
+        "pulses-lentils",
+        "fresh-fruits",
+      ],
+    ],
+    [
+      "oman",
+      "Oman",
+      "Oman",
+      "🇴🇲",
+      ["Sohar Port", "Salalah Port", "Muscat"],
+      "5–9 days to Sohar",
+      [
+        "fresh-onions",
+        "coconut-brown-husked",
+        "green-chillies",
+        "premium-rice",
+        "fresh-vegetables",
+        "spices-masalas",
+      ],
+    ],
+    [
+      "bahrain",
+      "Bahrain",
+      "Bahrain",
+      "🇧🇭",
+      ["Khalifa Bin Salman Port", "Mina Salman"],
+      "7–10 days to Bahrain",
+      [
+        "fresh-onions",
+        "green-chillies",
+        "premium-rice",
+        "spices-masalas",
+        "fresh-fruits",
+        "fresh-vegetables",
+      ],
+    ],
+    [
+      "singapore",
+      "Singapore",
+      "Singapore",
+      "🇸🇬",
+      ["Port of Singapore", "Pasir Panjang Terminal"],
+      "8–12 days to Singapore",
+      [
+        "premium-rice",
+        "spices-masalas",
+        "pulses-lentils",
+        "dry-fruits-nuts",
+        "fresh-fruits",
+        "green-chillies",
+      ],
+    ],
+    [
+      "malaysia",
+      "Malaysia",
+      "Malaysia",
+      "🇲🇾",
+      ["Port Klang", "Penang Port", "Tanjung Pelepas"],
+      "9–14 days to Port Klang",
+      [
+        "fresh-onions",
+        "premium-rice",
+        "spices-masalas",
+        "pulses-lentils",
+        "fresh-fruits",
+        "dry-fruits-nuts",
+      ],
+    ],
+    [
+      "bangladesh",
+      "Bangladesh",
+      "Bangladesh",
+      "🇧🇩",
+      ["Chittagong Port", "Mongla Port"],
+      "5–9 days to Chittagong",
+      ["fresh-onions", "premium-rice", "wheat", "spices-masalas", "pulses-lentils", "ginger"],
+    ],
+    [
+      "south-africa",
+      "South Africa",
+      "South Africa",
+      "🇿🇦",
+      ["Durban", "Cape Town", "Port Elizabeth"],
+      "18–25 days to Durban",
+      [
+        "premium-rice",
+        "spices-masalas",
+        "pulses-lentils",
+        "dry-fruits-nuts",
+        "fresh-fruits",
+        "fresh-onions",
+      ],
+    ],
+    [
+      "australia",
+      "Australia",
+      "Australia",
+      "🇦🇺",
+      ["Melbourne", "Sydney", "Brisbane", "Fremantle"],
+      "22–32 days to Australia",
+      [
+        "premium-rice",
+        "spices-masalas",
+        "dry-fruits-nuts",
+        "pulses-lentils",
+        "mango",
+        "fresh-fruits",
+      ],
+    ],
+    [
+      "canada",
+      "Canada",
+      "Canada",
+      "🇨🇦",
+      ["Vancouver", "Toronto", "Montreal"],
+      "28–40 days to Canada",
+      ["premium-rice", "spices-masalas", "pulses-lentils", "dry-fruits-nuts", "cashew", "turmeric"],
+    ],
+    [
+      "netherlands",
+      "Netherlands",
+      "Netherlands",
+      "🇳🇱",
+      ["Rotterdam", "Amsterdam"],
+      "22–28 days to Rotterdam",
+      [
+        "premium-rice",
+        "spices-masalas",
+        "pulses-lentils",
+        "dry-fruits-nuts",
+        "green-chillies",
+        "fresh-fruits",
+      ],
+    ],
+  ].map(([slug, name, short, flag, ports, transitDays, topProducts]) => ({
+    slug: slug as string,
+    name: name as string,
+    short: short as string,
+    flag: flag as string,
+    ports: ports as string[],
+    topProducts: topProducts as string[],
+    incoterms: [
+      `FOB Nhava Sheva`,
+      `CIF ${Array.isArray(ports) ? ports[0] : name}`,
+      `CFR ${Array.isArray(ports) ? ports[0] : name}`,
+    ],
+    transitDays: transitDays as string,
+    keywords: [
+      `Indian exporter to ${name}`,
+      `agricultural products exporter ${name}`,
+      `Indian spices supplier ${name}`,
+      `rice exporter to ${name}`,
+      `onion exporter to ${name}`,
+    ],
+    intro: `Indian agricultural exporter to ${name} supplying rice, spices, fresh produce, pulses and agri commodities with export documentation and buyer-specified packing.`,
+    hero: `Sheshaan Global supports importers in ${name} with export-grade Indian agricultural products, coordinated packing, FOB/CIF/CFR shipment options and shipment documents such as Commercial Invoice, Packing List, Certificate of Origin, Phytosanitary Certificate and Bill of Lading.`,
+    advantages: [
+      {
+        title: "Buyer-specific packing",
+        body: "Bulk, retail-ready and private-label options can be aligned to importer and distributor requirements.",
+      },
+      {
+        title: "Export documentation support",
+        body: "Commercial, origin, phytosanitary, fumigation and health documents are coordinated per shipment.",
+      },
+      {
+        title: "Product range depth",
+        body: "Rice, onions, spices, pulses, fresh produce and dry fruits can be sourced under one export desk.",
+      },
+      {
+        title: "Quotation clarity",
+        body: "FOB, CIF and CFR quotations can include packing, loading port, lead time and document scope.",
+      },
+    ],
+    faqs: [
+      {
+        q: `Do you export agricultural products from India to ${name}?`,
+        a: `Yes. Sheshaan Global supplies Indian agricultural products to ${name} with FOB, CIF and CFR shipment coordination.`,
+      },
+      {
+        q: `Which products can you ship to ${name}?`,
+        a: `Priority products include ${(topProducts as string[]).slice(0, 4).join(", ")} and other catalogue items based on buyer demand.`,
+      },
+      {
+        q: `Which documents are provided for ${name} shipments?`,
+        a: "Commercial Invoice, Packing List, Certificate of Origin, Phytosanitary Certificate, Fumigation Certificate and Bill of Lading are supported; additional documents are arranged where applicable.",
+      },
+    ],
+  })),
 ];
 
 export function getRegionBySlug(slug: string) {
   return REGIONS.find((r) => r.slug === slug);
-}
-
-export type SeoLandingPage = {
-  slug: string;
-  title: string;
-  description: string;
-  keyword: string;
-  productSlug?: string;
-  regionSlug?: string;
-  hero: string;
-  points: string[];
-  faqs: { q: string; a: string }[];
-};
-
-export const SEO_LANDING_PAGES: SeoLandingPage[] = [
-  {
-    slug: "fresh-onion-exporter-india",
-    title: "Fresh Onion Exporter from India | Sheshaan Global",
-    description:
-      "Source export-grade Nashik red onions from India with mesh bag packing, phytosanitary documentation and FOB/CIF quote support.",
-    keyword: "fresh onion exporter from India",
-    productSlug: "fresh-onions",
-    hero: "Sheshaan Global supplies export-grade Indian onions sourced from Nashik and nearby growing belts, cured for transit and packed for wholesale importers, distributors and retail buyers.",
-    points: [
-      "Red, pink and white onion programs",
-      "5 kg, 10 kg, 25 kg and 50 kg mesh bag packing",
-      "FOB Nhava Sheva and CIF destination quotes",
-      "Phytosanitary, fumigation, COO and APEDA documentation",
-    ],
-    faqs: [
-      {
-        q: "Can I get a same-day onion export quote?",
-        a: "Yes. Share quantity, destination port and packing preference through the quote form or WhatsApp for a fast FOB or CIF estimate.",
-      },
-      {
-        q: "Which onion sizes can you supply?",
-        a: "Common export sizes include 35 mm+, 45 mm+, 55 mm+ and buyer-specific grading depending on season and destination market.",
-      },
-    ],
-  },
-  {
-    slug: "green-chilli-exporter-india",
-    title: "Green Chilli Exporter from India | G4, Teja, Byadgi",
-    description:
-      "Export fresh Indian green chillies by air or reefer sea shipment with residue-tested lots and buyer-specific packing.",
-    keyword: "green chilli exporter from India",
-    productSlug: "green-chillies",
-    hero: "We supply vibrant, high-pungency Indian green chillies for Gulf, UK and Asian buyers with pre-cooling, sorting and documentation support.",
-    points: [
-      "G4, Teja, Byadgi and Guntur varieties",
-      "Air cargo and reefer sea options",
-      "Residue-tested lots on request",
-      "Carton and ventilated crate packing",
-    ],
-    faqs: [
-      {
-        q: "Do you export green chillies by air?",
-        a: "Yes. Urgent or high-value green chilli orders can move by air cargo with destination-specific documentation.",
-      },
-      {
-        q: "Can you provide residue reports?",
-        a: "Yes. Residue and quality reports can be arranged for buyers who need market-specific compliance checks.",
-      },
-    ],
-  },
-  {
-    slug: "basmati-rice-exporter-india",
-    title: "Basmati Rice Exporter from India | 1121, 1509, Pusa",
-    description:
-      "Buy aged Basmati and non-Basmati rice from India with private label packing, APEDA documentation and container shipment support.",
-    keyword: "basmati rice exporter from India",
-    productSlug: "premium-rice",
-    hero: "Sheshaan Global exports aged Basmati and non-Basmati rice for distributors, ethnic retailers, HORECA suppliers and private-label brands.",
-    points: [
-      "1121, 1509, Pusa and Sona Masoori options",
-      "5 kg, 10 kg, 25 kg and 50 kg bags",
-      "Private-label bag printing support",
-      "Sortex-cleaned, moisture-controlled lots",
-    ],
-    faqs: [
-      {
-        q: "Do you support private-label rice packing?",
-        a: "Yes. Buyer branding, bag design and market-specific label requirements can be supported for bulk orders.",
-      },
-      {
-        q: "What is the MOQ for rice export?",
-        a: "Most rice orders start with one 20 foot container, with trial options depending on packing and destination.",
-      },
-    ],
-  },
-  {
-    slug: "indian-spices-exporter",
-    title: "Indian Spices Exporter | Turmeric, Cumin, Chillies, Pepper",
-    description:
-      "Source whole and ground Indian spices with steam sterilization, ISO 22000, HACCP and export documentation support.",
-    keyword: "Indian spices exporter",
-    productSlug: "spices-masalas",
-    hero: "We export origin-sourced Indian spices for bulk importers, spice blenders, food processors and private-label retail brands.",
-    points: [
-      "Turmeric, cumin, coriander, chillies and black pepper",
-      "Whole, ground and custom blend options",
-      "Steam sterilization support",
-      "ISO 22000 and HACCP backed compliance",
-    ],
-    faqs: [
-      {
-        q: "Can you supply steam-sterilized spices?",
-        a: "Yes. Steam sterilization can be arranged for markets that require strict microbiological standards.",
-      },
-      {
-        q: "Do you offer retail pouches?",
-        a: "Yes. We support bulk bags, retail pouches and private-label spice programs.",
-      },
-    ],
-  },
-  {
-    slug: "onion-exporter-to-uae",
-    title: "Onion Exporter to UAE | India to Jebel Ali",
-    description:
-      "Export Indian onions to UAE with weekly Nhava Sheva to Jebel Ali shipping, mesh bag packing and full customs documents.",
-    keyword: "onion exporter to UAE",
-    productSlug: "fresh-onions",
-    regionSlug: "uae",
-    hero: "For UAE importers, Sheshaan Global provides regular onion export programs from India to Jebel Ali, Abu Dhabi and Sharjah.",
-    points: [
-      "Weekly shipping windows to Jebel Ali",
-      "Nashik red onion sourcing",
-      "CIF UAE and FOB India pricing",
-      "COO, phytosanitary, fumigation and invoice support",
-    ],
-    faqs: [
-      {
-        q: "How fast is India to UAE onion shipment?",
-        a: "Typical sea transit from Nhava Sheva to Jebel Ali is about 5 to 8 days, depending on vessel schedule.",
-      },
-      {
-        q: "Can you quote CIF Jebel Ali?",
-        a: "Yes. Share quantity and packing preference and we can prepare a CIF Jebel Ali quote.",
-      },
-    ],
-  },
-  {
-    slug: "indian-agri-exporter-to-gulf",
-    title: "Indian Agri Exporter to Gulf Countries | UAE, Saudi, Qatar, Oman",
-    description:
-      "Export onions, chillies, rice, spices and coconuts from India to Gulf markets with FOB/CIF quotation support.",
-    keyword: "Indian agri exporter to Gulf",
-    regionSlug: "uae",
-    hero: "Sheshaan Global supports Gulf importers with reliable Indian agricultural products, fast documentation and flexible packing programs.",
-    points: [
-      "UAE, Saudi Arabia, Qatar, Oman, Kuwait and Bahrain supply focus",
-      "Fresh produce, grains, pulses, spices and coconuts",
-      "English and Arabic label support",
-      "WhatsApp-first quote handling",
-    ],
-    faqs: [
-      {
-        q: "Which Gulf countries do you serve?",
-        a: "We support UAE, Saudi Arabia, Qatar, Oman, Kuwait and Bahrain with FOB and CIF export options.",
-      },
-      {
-        q: "Can I request mixed product containers?",
-        a: "Yes. Mixed container planning can be discussed based on product compatibility and destination rules.",
-      },
-    ],
-  },
-];
-
-export function getSeoLandingPage(slug: string) {
-  return SEO_LANDING_PAGES.find((p) => p.slug === slug);
-}
-
-export type BlogPost = {
-  slug: string;
-  title: string;
-  description: string;
-  date: string;
-  category: string;
-  readTime: string;
-  productSlug?: string;
-  image?: string;
-  imageAlt?: string;
-  body: string[];
-};
-
-export const BLOG_POSTS: BlogPost[] = [
-  {
-    slug: "how-to-import-onions-from-india",
-    title: "How to Import Onions from India",
-    description:
-      "A practical guide for buyers comparing onion grades, packing, documents and shipping terms from Indian exporters.",
-    date: "2026-09-03",
-    category: "Fresh Produce",
-    readTime: "5 min read",
-    productSlug: "fresh-onions",
-    body: [
-      "Start with the destination market and required onion size. UAE and Gulf buyers often request Nashik red onions in 45 mm+ and 55 mm+ grades, while retail programs may need tighter sorting and branded packing.",
-      "Confirm packing before pricing. Mesh bags of 5 kg, 10 kg, 25 kg and 50 kg are common, but the right option depends on your buyer channel, shelf-life target and handling method.",
-      "Ask for the documentation set before shipment: commercial invoice, packing list, certificate of origin, phytosanitary certificate, fumigation certificate and bill of lading.",
-      "For faster pricing, send quantity, destination port, preferred bag size and target shipment week. This helps the exporter quote FOB or CIF without delay.",
-    ],
-  },
-  {
-    slug: "export-documents-required-for-agri-imports",
-    title: "Documents Required for Agricultural Imports from India",
-    description:
-      "The core export documents importers should request for onions, rice, spices, pulses, fruits and vegetables.",
-    date: "2026-09-03",
-    category: "Documentation",
-    readTime: "4 min read",
-    body: [
-      "Agricultural shipments usually need a commercial invoice, packing list, bill of lading, certificate of origin and product-specific certificates.",
-      "Fresh produce commonly requires a phytosanitary certificate and fumigation certificate. Food products may also need health certificates, lab reports or residue reports depending on destination rules.",
-      "Buyers should confirm destination requirements with their customs broker before booking the shipment. This avoids clearance delays and document corrections later.",
-      "Sheshaan Global keeps certification support ready for APEDA, FSSAI, ISO 22000, HACCP and Non-GMO backed shipments where applicable.",
-    ],
-  },
-  {
-    slug: "fob-vs-cif-export-pricing",
-    title: "FOB vs CIF Pricing: What Importers Should Know",
-    description:
-      "A simple explanation of FOB and CIF terms for importers buying agricultural products from India.",
-    date: "2026-09-03",
-    category: "Trade Basics",
-    readTime: "4 min read",
-    body: [
-      "FOB means the exporter quotes product cost up to loading on the vessel at the Indian port. The buyer usually handles ocean freight, insurance and destination clearance.",
-      "CIF includes cost, insurance and freight up to the destination port. It is easier for new buyers because the exporter arranges more of the shipment journey.",
-      "Neither term normally includes destination customs duty, inland transport or local handling unless clearly agreed in writing.",
-      "When requesting a quote, mention whether you need FOB Nhava Sheva, FOB Mundra or CIF to your destination port.",
-    ],
-  },
-];
-
-export function getBlogPost(slug: string) {
-  return BLOG_POSTS.find((p) => p.slug === slug);
 }
 
 // Generic product-level FAQs (falls back per-product on the product page)
@@ -1550,8 +1508,8 @@ export function faqsForProduct(
       a: `Our ${name.toLowerCase()} is sourced from origin regions across India, graded, packed and shipped from Nhava Sheva (JNPT) and Mundra ports to ${countries} worldwide.`,
     },
     {
-      q: `What is the minimum order quantity (MOQ) for ${name}?`,
-      a: `MOQ for ${name.toLowerCase()} typically starts at one 20' FCL (approx. 20 metric tonnes). Smaller LCL trial orders can be arranged for new buyers on request.`,
+      q: `How do I plan a ${name} shipment?`,
+      a: `Share your destination port, packing preference and target timeline for ${name.toLowerCase()}. Our team will suggest the most practical route and prepare a tailored FOB or CIF quote.`,
     },
     {
       q: `Which varieties of ${name} do you supply?`,
