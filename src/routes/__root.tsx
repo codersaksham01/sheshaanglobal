@@ -13,6 +13,7 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { ScrollProgress } from "../components/ScrollProgress";
+import { VisitPopup } from "../components/VisitPopup";
 import { DEFAULT_KEYWORDS, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "../lib/seo";
 
 function NotFoundComponent() {
@@ -144,6 +145,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <LanguageSwitcher />
+      <VisitPopup />
     </QueryClientProvider>
   );
 }
