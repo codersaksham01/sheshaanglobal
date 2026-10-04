@@ -10,11 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as CompanyPoliciesRouteImport } from './routes/company-policies'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ExportProcessRouteImport } from './routes/export-process'
+import { Route as LogisticsRouteImport } from './routes/logistics'
+import { Route as MarketsRouteImport } from './routes/markets'
 import { Route as MoreInfoRouteImport } from './routes/more-info'
+import { Route as PackagingRouteImport } from './routes/packaging'
+import { Route as QualityRouteImport } from './routes/quality'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ExportToRegionRouteImport } from './routes/export-to.$region'
+import { Route as MarketsAfricaRouteImport } from './routes/markets.africa'
+import { Route as MarketsMiddleEastRouteImport } from './routes/markets.middle-east'
+import { Route as MarketsUaeRouteImport } from './routes/markets.uae'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as ProductsSlugExportToRegionRouteImport } from './routes/products.$slug.export-to.$region'
@@ -22,6 +31,11 @@ import { Route as ProductsSlugExportToRegionRouteImport } from './routes/product
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompanyPoliciesRoute = CompanyPoliciesRouteImport.update({
@@ -34,9 +48,34 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExportProcessRoute = ExportProcessRouteImport.update({
+  id: '/export-process',
+  path: '/export-process',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogisticsRoute = LogisticsRouteImport.update({
+  id: '/logistics',
+  path: '/logistics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketsRoute = MarketsRouteImport.update({
+  id: '/markets',
+  path: '/markets',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MoreInfoRoute = MoreInfoRouteImport.update({
   id: '/more-info',
   path: '/more-info',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PackagingRoute = PackagingRouteImport.update({
+  id: '/packaging',
+  path: '/packaging',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QualityRoute = QualityRouteImport.update({
+  id: '/quality',
+  path: '/quality',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -48,6 +87,21 @@ const ExportToRegionRoute = ExportToRegionRouteImport.update({
   id: '/export-to/$region',
   path: '/export-to/$region',
   getParentRoute: () => rootRouteImport,
+} as any)
+const MarketsAfricaRoute = MarketsAfricaRouteImport.update({
+  id: '/africa',
+  path: '/africa',
+  getParentRoute: () => MarketsRoute,
+} as any)
+const MarketsMiddleEastRoute = MarketsMiddleEastRouteImport.update({
+  id: '/middle-east',
+  path: '/middle-east',
+  getParentRoute: () => MarketsRoute,
+} as any)
+const MarketsUaeRoute = MarketsUaeRouteImport.update({
+  id: '/uae',
+  path: '/uae',
+  getParentRoute: () => MarketsRoute,
 } as any)
 const ProductsIndexRoute = ProductsIndexRouteImport.update({
   id: '/products/',
@@ -68,22 +122,40 @@ const ProductsSlugExportToRegionRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
+  '/export-process': typeof ExportProcessRoute
+  '/logistics': typeof LogisticsRoute
+  '/markets': typeof MarketsRouteWithChildren
   '/more-info': typeof MoreInfoRoute
+  '/packaging': typeof PackagingRoute
+  '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/export-to/$region': typeof ExportToRegionRoute
+  '/markets/africa': typeof MarketsAfricaRoute
+  '/markets/middle-east': typeof MarketsMiddleEastRoute
+  '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/products/': typeof ProductsIndexRoute
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
+  '/export-process': typeof ExportProcessRoute
+  '/logistics': typeof LogisticsRoute
+  '/markets': typeof MarketsRouteWithChildren
   '/more-info': typeof MoreInfoRoute
+  '/packaging': typeof PackagingRoute
+  '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/export-to/$region': typeof ExportToRegionRoute
+  '/markets/africa': typeof MarketsAfricaRoute
+  '/markets/middle-east': typeof MarketsMiddleEastRoute
+  '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/products': typeof ProductsIndexRoute
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
@@ -91,11 +163,20 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
+  '/export-process': typeof ExportProcessRoute
+  '/logistics': typeof LogisticsRoute
+  '/markets': typeof MarketsRouteWithChildren
   '/more-info': typeof MoreInfoRoute
+  '/packaging': typeof PackagingRoute
+  '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/export-to/$region': typeof ExportToRegionRoute
+  '/markets/africa': typeof MarketsAfricaRoute
+  '/markets/middle-east': typeof MarketsMiddleEastRoute
+  '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/products/': typeof ProductsIndexRoute
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
@@ -104,33 +185,60 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/company-policies'
     | '/contact'
+    | '/export-process'
+    | '/logistics'
+    | '/markets'
     | '/more-info'
+    | '/packaging'
+    | '/quality'
     | '/sitemap.xml'
     | '/export-to/$region'
+    | '/markets/africa'
+    | '/markets/middle-east'
+    | '/markets/uae'
     | '/products/$slug'
     | '/products/'
     | '/products/$slug/export-to/$region'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/company-policies'
     | '/contact'
+    | '/export-process'
+    | '/logistics'
+    | '/markets'
     | '/more-info'
+    | '/packaging'
+    | '/quality'
     | '/sitemap.xml'
     | '/export-to/$region'
+    | '/markets/africa'
+    | '/markets/middle-east'
+    | '/markets/uae'
     | '/products/$slug'
     | '/products'
     | '/products/$slug/export-to/$region'
   id:
     | '__root__'
     | '/'
+    | '/about'
     | '/company-policies'
     | '/contact'
+    | '/export-process'
+    | '/logistics'
+    | '/markets'
     | '/more-info'
+    | '/packaging'
+    | '/quality'
     | '/sitemap.xml'
     | '/export-to/$region'
+    | '/markets/africa'
+    | '/markets/middle-east'
+    | '/markets/uae'
     | '/products/$slug'
     | '/products/'
     | '/products/$slug/export-to/$region'
@@ -138,9 +246,15 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
   CompanyPoliciesRoute: typeof CompanyPoliciesRoute
   ContactRoute: typeof ContactRoute
+  ExportProcessRoute: typeof ExportProcessRoute
+  LogisticsRoute: typeof LogisticsRoute
+  MarketsRoute: typeof MarketsRouteWithChildren
   MoreInfoRoute: typeof MoreInfoRoute
+  PackagingRoute: typeof PackagingRoute
+  QualityRoute: typeof QualityRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ExportToRegionRoute: typeof ExportToRegionRoute
   ProductsSlugRoute: typeof ProductsSlugRouteWithChildren
@@ -154,6 +268,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/company-policies': {
@@ -170,11 +291,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/export-process': {
+      id: '/export-process'
+      path: '/export-process'
+      fullPath: '/export-process'
+      preLoaderRoute: typeof ExportProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/logistics': {
+      id: '/logistics'
+      path: '/logistics'
+      fullPath: '/logistics'
+      preLoaderRoute: typeof LogisticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markets': {
+      id: '/markets'
+      path: '/markets'
+      fullPath: '/markets'
+      preLoaderRoute: typeof MarketsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/more-info': {
       id: '/more-info'
       path: '/more-info'
       fullPath: '/more-info'
       preLoaderRoute: typeof MoreInfoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/packaging': {
+      id: '/packaging'
+      path: '/packaging'
+      fullPath: '/packaging'
+      preLoaderRoute: typeof PackagingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quality': {
+      id: '/quality'
+      path: '/quality'
+      fullPath: '/quality'
+      preLoaderRoute: typeof QualityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -190,6 +346,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/export-to/$region'
       preLoaderRoute: typeof ExportToRegionRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/markets/africa': {
+      id: '/markets/africa'
+      path: '/africa'
+      fullPath: '/markets/africa'
+      preLoaderRoute: typeof MarketsAfricaRouteImport
+      parentRoute: typeof MarketsRoute
+    }
+    '/markets/middle-east': {
+      id: '/markets/middle-east'
+      path: '/middle-east'
+      fullPath: '/markets/middle-east'
+      preLoaderRoute: typeof MarketsMiddleEastRouteImport
+      parentRoute: typeof MarketsRoute
+    }
+    '/markets/uae': {
+      id: '/markets/uae'
+      path: '/uae'
+      fullPath: '/markets/uae'
+      preLoaderRoute: typeof MarketsUaeRouteImport
+      parentRoute: typeof MarketsRoute
     }
     '/products/': {
       id: '/products/'
@@ -215,6 +392,21 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface MarketsRouteChildren {
+  MarketsAfricaRoute: typeof MarketsAfricaRoute
+  MarketsMiddleEastRoute: typeof MarketsMiddleEastRoute
+  MarketsUaeRoute: typeof MarketsUaeRoute
+}
+
+const MarketsRouteChildren: MarketsRouteChildren = {
+  MarketsAfricaRoute: MarketsAfricaRoute,
+  MarketsMiddleEastRoute: MarketsMiddleEastRoute,
+  MarketsUaeRoute: MarketsUaeRoute,
+}
+
+const MarketsRouteWithChildren =
+  MarketsRoute._addFileChildren(MarketsRouteChildren)
+
 interface ProductsSlugRouteChildren {
   ProductsSlugExportToRegionRoute: typeof ProductsSlugExportToRegionRoute
 }
@@ -229,9 +421,15 @@ const ProductsSlugRouteWithChildren = ProductsSlugRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
   CompanyPoliciesRoute: CompanyPoliciesRoute,
   ContactRoute: ContactRoute,
+  ExportProcessRoute: ExportProcessRoute,
+  LogisticsRoute: LogisticsRoute,
+  MarketsRoute: MarketsRouteWithChildren,
   MoreInfoRoute: MoreInfoRoute,
+  PackagingRoute: PackagingRoute,
+  QualityRoute: QualityRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ExportToRegionRoute: ExportToRegionRoute,
   ProductsSlugRoute: ProductsSlugRouteWithChildren,

@@ -88,6 +88,19 @@ const TITLE = "Contact Sheshaan Global - Export Sales, Trade Exhibitions and Lea
 const DESC =
   "Get in touch with Sheshaan Global. Reach business development, trade exhibition and leadership contacts directly, or send an export inquiry for onions, green chillies, rice, coconut and spices.";
 
+type InquiryForm = {
+  name: string;
+  company: string;
+  email: string;
+  country: string;
+  phone: string;
+  quantity: string;
+  destination: string;
+  packaging: string;
+  targetPrice: string;
+  message: string;
+};
+
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
@@ -141,10 +154,22 @@ const ease = [0.16, 1, 0.3, 1] as const;
 function ContactPage() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [category, setCategory] = useState(PRODUCTS[0]?.name ?? "");
-  const [form, setForm] = useState({ name: "", email: "", company: "", country: "", message: "" });
+  const emptyForm: InquiryForm = {
+    name: "",
+    company: "",
+    email: "",
+    country: "",
+    phone: "",
+    quantity: "",
+    destination: "",
+    packaging: "",
+    targetPrice: "",
+    message: "",
+  };
+  const [form, setForm] = useState<InquiryForm>(emptyForm);
 
   const set =
-    (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+    (k: keyof InquiryForm) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
       setForm((f) => ({ ...f, [k]: e.target.value }));
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -165,7 +190,7 @@ function ContactPage() {
       });
       if (!res.ok) throw new Error(`Formspree responded ${res.status}`);
       setStatus("sent");
-      setForm({ name: "", email: "", company: "", country: "", message: "" });
+      setForm(emptyForm);
       formEl.reset();
     } catch (err) {
       console.error("Contact form submission failed", err);
@@ -448,7 +473,7 @@ function ContactPage() {
                 required
               />
               <Field
-                label="Email"
+                label="Business email"
                 name="email"
                 type="email"
                 value={form.email}
@@ -466,6 +491,45 @@ function ContactPage() {
                 name="country"
                 value={form.country}
                 onChange={set("country")}
+                required
+              />
+              <Field
+                label="WhatsApp / Phone"
+                name="phone"
+                type="tel"
+                value={form.phone}
+                onChange={set("phone")}
+                required
+              />
+              <Field
+                label="Quantity required"
+                name="quantity"
+                value={form.quantity}
+                onChange={set("quantity")}
+                placeholder="e.g. 1 x 40' FCL or 25 MT"
+                required
+              />
+              <Field
+                label="Destination port / country"
+                name="destination"
+                value={form.destination}
+                onChange={set("destination")}
+                placeholder="e.g. Jebel Ali, UAE"
+                required
+              />
+              <Field
+                label="Packaging preference"
+                name="packaging"
+                value={form.packaging}
+                onChange={set("packaging")}
+                placeholder="e.g. 25 kg PP bags"
+              />
+              <Field
+                label="Target price (optional)"
+                name="targetPrice"
+                value={form.targetPrice}
+                onChange={set("targetPrice")}
+                placeholder="Optional"
               />
             </div>
 
@@ -504,7 +568,7 @@ function ContactPage() {
               maxLength={1500}
               value={form.message}
               onChange={set("message")}
-              placeholder="Quantity, packing, destination port, timeline…"
+              placeholder="Tell us product grade, timeline, documents needed, Incoterm preference or any buyer specification."
               className="mt-1.5 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-colors focus:border-[#0057B8]"
             />
 
@@ -547,6 +611,9 @@ function ContactPage() {
                 </p>
               )}
             </div>
+            <p className="mt-4 text-xs leading-relaxed text-slate-500">
+              We use your details only to respond to this trade inquiry and prepare a quotation.
+            </p>
           </form>
         </div>
       </section>
@@ -560,9 +627,10 @@ function Field(props: {
   type?: string;
   value: string;
   required?: boolean;
+  placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  const { label, name, type = "text", value, required, onChange } = props;
+  const { label, name, type = "text", value, required, placeholder, onChange } = props;
   return (
     <div>
       <label
@@ -578,6 +646,7 @@ function Field(props: {
         value={value}
         onChange={onChange}
         required={required}
+        placeholder={placeholder}
         maxLength={120}
         className="mt-1.5 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-colors focus:border-[#0057B8]"
       />
