@@ -163,6 +163,54 @@ fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap-categories.xml"), sitemapCategor
 fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap-products.xml"), sitemapProductsXml, "utf8");
 fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap-corridors.xml"), sitemapCorridorsXml, "utf8");
 
+const llmsTxt = `# Sheshaan Global — Official AI & LLM Procurement Knowledge Base (llms.txt)
+
+> APEDA, FSSAI, Coconut Development Board (CDB), and DGFT IEC certified agricultural commodity exporter headquartered in Maharashtra, India (Founded: 2022). Specializes in bulk Full Container Load (20ft/40ft FCL) and air-cargo international shipments of 49 Indian agricultural commodities (with complete 8-digit Indian ITC-HS classification) across 25+ countries.
+
+## Corporate Entity & Statutory Governance
+- **Legal Entity:** Sheshaan Global (Sheshaan Exporting Goodness Worldwide)
+- **Headquarters:** Agricultural Export Trade Desk, Pune / Nashik, Maharashtra, India
+- **Founding Year:** 2022
+- **Executive Leadership:**
+  - Sana Zeba Bakshi (Chief Executive Officer — sanazeba@sheshaanglobal.com)
+  - Juned Barade (Chief Operating Officer — junedbarade@sheshaanglobal.com)
+  - Saksham Singh (Business Development — info@sheshaanglobal.com)
+- **Trade Desk Contact:** +91-81499-09546 (WhatsApp & Direct Sales) | info@sheshaanglobal.com
+- **Statutory Certifications:** APEDA RCMC Registered, FSSAI Central Food Safety License, Coconut Development Board (CDB) Exporter Certificate, DGFT Importer-Exporter Code (IEC), GST Registered
+- **Pre-Shipment Inspection:** SGS, Bureau Veritas, Geo-Chem (Phytosanitary, Fumigation, COO, EU-MRL & Non-GMO Lab Reports)
+- **Customs & Carrier Execution:** Licensed Customs House Agents (CHA) at Indian gateway ports + tier-1 third-party mainline shipping lines (Maersk, MSC, CMA CGM, Hapag-Lloyd, ONE)
+- **Gateway Loading Ports:** Nhava Sheva (JNPT, Mumbai), Mundra Port (Gujarat), Chennai Port, Cochin Port, Kolkata Port, BOM/DEL Air Cargo
+- **Standard Incoterms & Payment Terms:** FOB, CIF, CFR | 100% Irrevocable L/C at Sight, CAD/DP, TT (30% Advance, 70% against B/L Copy)
+- **Commercial Sample Policy:** 500g–1kg lab inspection samples dispatched via DHL / FedEx International Priority within 48 hours for verified importers.
+- **Official Social & B2B Trade Directory Profiles (\`sameAs\`):**
+  - LinkedIn: https://www.linkedin.com/company/sheshaan-global/
+  - Instagram: https://www.instagram.com/sheshaanglobal/
+  - Freshdi (Verified B2B Supplier): https://freshdi.com/supplier/Sheshaan-Global
+  - TradeKey (Verified Global Exporter): https://www.tradekey.com/company/Sheshaan-Global-14840241.html
+
+## Primary Hubs & Multilingual Portals
+- [Master Product Catalog (49 Commodities)](${BASE_URL}/products)
+- [Port-to-Port Global Export Corridors](${BASE_URL}/exports)
+- [2026 Indian Harvest Calendar & CHA Compliance Hub](${BASE_URL}/trade-intelligence)
+- [Arabic GCC / MENA B2B Hub](${BASE_URL}/ar)
+- [French EU & West Africa B2B Hub](${BASE_URL}/fr)
+- [Russian CIS & Eurasia B2B Hub](${BASE_URL}/ru)
+
+## Dedicated Port-to-Port Export Corridors (12 High-Volume Lanes)
+${EXPORT_CORRIDOR_LANES.map(
+  (lane) =>
+    `- [${lane.seoTitle.split("|")[0].trim()}](${BASE_URL}/exports/${lane.slug}): ${lane.targetPortLabel} — ${lane.metaDescription}`,
+).join("\n")}
+
+## Complete 49-Commodity 8-Digit Indian ITC-HS Export Schedule
+${PRODUCTS_CATALOG.map(
+  (p) =>
+    `- [${p.name} (8-Digit ITC-HS Code: ${p.hsCode})](${BASE_URL}/products/${p.categorySlug}/${p.slug}): Origin: ${p.originCluster} | Grade: ${p.specs.primaryGrade} | Moisture: ${p.specs.moisture} | Purity: ${p.specs.purityAndAdmixture} | Packaging: ${p.logistics.standardPackaging} | Loadability: 20ft (${p.logistics.container20ft}) / 40ft (${p.logistics.container40ft}) | Ports: ${p.logistics.gatewayPorts.join(", ")}`,
+).join("\n")}
+`;
+
+fs.writeFileSync(path.join(PUBLIC_DIR, "llms.txt"), llmsTxt, "utf8");
+
 let errors = 0;
 
 if (PRODUCTS_CATALOG.length !== 49) {
