@@ -1,8 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import {
-  LOCALE_CONFIGS,
-  type SupportedLocaleCode,
-} from "../../data/i18n";
+import { LOCALE_CONFIGS, type SupportedLocaleCode } from "../../data/i18n";
 import { CATEGORIES, PRODUCTS_CATALOG } from "@/lib/empirical-products";
 import { TRADE_CORRIDOR_REGIONS, formatDualWeightUnit } from "../../data/corridors";
 import { buildCorporationSchema } from "../../data/schemas";

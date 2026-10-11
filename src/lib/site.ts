@@ -1052,7 +1052,7 @@ const SITE_SLUG_ALIASES: Record<string, string> = {
   "1121-basmati-rice": "premium-rice",
   "1121-basmati-rice-exporter-india": "premium-rice",
   "fresh-onion-exporter-india": "fresh-onions",
-  "onions": "fresh-onions",
+  onions: "fresh-onions",
   "green-chilli-exporter-india": "green-chillies",
   "mature-coconut": "coconut-brown-husked",
   "semi-husked-coconut-exporter-india": "coconut-brown-husked",
@@ -1621,3 +1621,31 @@ export function faqsForProduct(
     },
   ];
 }
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  category: string;
+  productSlug?: string;
+  image?: string;
+  imageAlt?: string;
+  body: string[];
+}
+
+export interface SeoLandingPage {
+  slug: string;
+  title: string;
+  keyword: string;
+  description: string;
+  hero: string;
+  productSlug?: string;
+  regionSlug?: string;
+  points: string[];
+  faqs: { q: string; a: string }[];
+}
+
+export const BLOG_POSTS: BlogPost[] = [];
+export const SEO_LANDING_PAGES: SeoLandingPage[] = [];

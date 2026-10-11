@@ -1,21 +1,22 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { CorporationJsonLd } from '../components/JsonLd';
-import { RfqModal } from '../components/RfqModal';
-import { SpecSheetDownloadModal } from '../components/SpecSheetDownloadModal';
-import { CATEGORIES } from '../data/products';
+import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { CorporationJsonLd } from "../components/JsonLd";
+import { RfqModal } from "../components/RfqModal";
+import { SpecSheetDownloadModal } from "../components/SpecSheetDownloadModal";
+import { CATEGORIES } from "../data/products";
 
-const BASE_URL = 'https://www.sheshaanglobal.com';
+const BASE_URL = "https://www.sheshaanglobal.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Sheshaan Global | Agricultural Commodity Exporter in India (APEDA, FSSAI & CDB Certified)',
-    template: '%s',
+    default:
+      "Sheshaan Global | Agricultural Commodity Exporter in India (APEDA, FSSAI & CDB Certified)",
+    template: "%s",
   },
   description:
-    'APEDA, FSSAI, and Coconut Development Board (CDB) certified agricultural commodity exporter in Maharashtra, India. Bulk 20ft/40ft FCL supplier of 49 export lines: Nashik red onions, 1121 Basmati rice, Unjha spices, Pollachi coconuts, pulses & dry fruits.',
+    "APEDA, FSSAI, and Coconut Development Board (CDB) certified agricultural commodity exporter in Maharashtra, India. Bulk 20ft/40ft FCL supplier of 49 export lines: Nashik red onions, 1121 Basmati rice, Unjha spices, Pollachi coconuts, pulses & dry fruits.",
   alternates: {
     canonical: BASE_URL,
   },
@@ -25,25 +26,21 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
   openGraph: {
-    title: 'Sheshaan Global | Agricultural Commodity Exporter in India',
+    title: "Sheshaan Global | Agricultural Commodity Exporter in India",
     description:
-      'Direct farm-cluster & packhouse exporter of 49 Indian agricultural commodities (Fresh Vegetables, Fruits, Spices, Basmati Rice, Pulses & Dry Fruits) with SGS pre-shipment inspection.',
+      "Direct farm-cluster & packhouse exporter of 49 Indian agricultural commodities (Fresh Vegetables, Fruits, Spices, Basmati Rice, Pulses & Dry Fruits) with SGS pre-shipment inspection.",
     url: BASE_URL,
-    siteName: 'Sheshaan Global',
-    type: 'website',
+    siteName: "Sheshaan Global",
+    type: "website",
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -62,8 +59,14 @@ export default function RootLayout({
               </span>
             </Link>
 
-            <nav aria-label="Primary Navigation" className="hidden items-center gap-2 text-sm font-medium text-slate-200 lg:flex">
-              <Link href="/" className="whitespace-nowrap rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]">
+            <nav
+              aria-label="Primary Navigation"
+              className="hidden items-center gap-2 text-sm font-medium text-slate-200 lg:flex"
+            >
+              <Link
+                href="/"
+                className="whitespace-nowrap rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]"
+              >
                 Home
               </Link>
 
@@ -73,7 +76,9 @@ export default function RootLayout({
                   className="inline-flex whitespace-nowrap items-center gap-1.5 rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]"
                 >
                   <span>Products</span>
-                  <span className="text-[10px] opacity-75 transition-transform group-hover:rotate-180">▼</span>
+                  <span className="text-[10px] opacity-75 transition-transform group-hover:rotate-180">
+                    ▼
+                  </span>
                 </Link>
                 <div className="invisible absolute left-0 top-full z-50 w-72 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
                   <div className="rounded-2xl border border-slate-700 bg-[#04152D] p-2 shadow-2xl">
@@ -102,7 +107,9 @@ export default function RootLayout({
                   className="inline-flex whitespace-nowrap items-center gap-1.5 rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]"
                 >
                   <span>Global Trade</span>
-                  <span className="text-[10px] opacity-75 transition-transform group-hover:rotate-180">▼</span>
+                  <span className="text-[10px] opacity-75 transition-transform group-hover:rotate-180">
+                    ▼
+                  </span>
                 </Link>
                 <div className="invisible absolute left-0 top-full z-50 w-80 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
                   <div className="rounded-2xl border border-slate-700 bg-[#04152D] p-2 shadow-2xl">
@@ -140,7 +147,10 @@ export default function RootLayout({
                 </div>
               </div>
 
-              <Link href="/trade-intelligence" className="whitespace-nowrap rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]">
+              <Link
+                href="/trade-intelligence"
+                className="whitespace-nowrap rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]"
+              >
                 Trade Intel
               </Link>
             </nav>
@@ -155,7 +165,7 @@ export default function RootLayout({
                 packaging="5kg to 50kg Export Mesh, Jute, PP & Vacuum Packs"
                 container20ft="12 MT - 25 MT per 20ft FCL"
                 container40ft="24 MT - 29 MT per 40ft High-Cube / Reefer FCL"
-                gatewayPorts={['Nhava Sheva (JNPT)', 'Mundra Port', 'Chennai / Cochin']}
+                gatewayPorts={["Nhava Sheva (JNPT)", "Mundra Port", "Chennai / Cochin"]}
                 variant="header"
                 triggerLabel="2026 Catalog"
               />
@@ -183,7 +193,9 @@ export default function RootLayout({
                   SHESHAAN <span className="text-[#FF8A00]">GLOBAL</span>
                 </div>
                 <p className="mt-3 text-xs leading-relaxed text-slate-400">
-                  Premier agricultural commodity exporter headquartered in Maharashtra, India (Founded 2022). Registered with APEDA, FSSAI, DGFT (IEC), and the Coconut Development Board (CDB).
+                  Premier agricultural commodity exporter headquartered in Maharashtra, India
+                  (Founded 2022). Registered with APEDA, FSSAI, DGFT (IEC), and the Coconut
+                  Development Board (CDB).
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2 text-xs">
                   <a
@@ -259,14 +271,17 @@ export default function RootLayout({
                   <li>COO: Juned Barade</li>
                   <li>Business Development: Saksham Singh</li>
                   <li>
-                    Phone / WhatsApp:{' '}
+                    Phone / WhatsApp:{" "}
                     <a href="https://wa.me/918149909546" className="text-[#FF8A00] hover:underline">
                       +91 81499 09546
                     </a>
                   </li>
                   <li>
-                    Email:{' '}
-                    <a href="mailto:info@sheshaanglobal.com" className="text-[#FF8A00] hover:underline">
+                    Email:{" "}
+                    <a
+                      href="mailto:info@sheshaanglobal.com"
+                      className="text-[#FF8A00] hover:underline"
+                    >
                       info@sheshaanglobal.com
                     </a>
                   </li>
@@ -274,7 +289,10 @@ export default function RootLayout({
               </div>
             </div>
             <div className="mt-8 border-t border-slate-800 pt-6 text-xs text-slate-500 flex flex-wrap justify-between gap-4">
-              <span>© {new Date().getFullYear()} Sheshaan Global (Maharashtra, India). All rights reserved.</span>
+              <span>
+                © {new Date().getFullYear()} Sheshaan Global (Maharashtra, India). All rights
+                reserved.
+              </span>
               <span>FOB • CFR • CIF | L/C at Sight • DP/CAD • TT</span>
             </div>
           </div>

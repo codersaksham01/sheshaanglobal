@@ -399,7 +399,8 @@ function ContactPage() {
                 Official Social &amp; B2B Trade Profiles
               </h3>
               <p className="mt-2 text-xs text-slate-500">
-                Connect with Sheshaan Global across our verified corporate channels and international B2B trade directories:
+                Connect with Sheshaan Global across our verified corporate channels and
+                international B2B trade directories:
               </p>
               <div className="mt-4 flex flex-wrap gap-2.5 text-xs font-semibold">
                 <a

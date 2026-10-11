@@ -1,25 +1,25 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { CATEGORIES, PRODUCTS_CATALOG, getProductsByCategory } from '../../data/products';
-import { RfqModal } from '../../components/RfqModal';
+import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { CATEGORIES, PRODUCTS_CATALOG, getProductsByCategory } from "../../data/products";
+import { RfqModal } from "../../components/RfqModal";
 
-const BASE_URL = 'https://www.sheshaanglobal.com';
+const BASE_URL = "https://www.sheshaanglobal.com";
 
 export const metadata: Metadata = {
-  title: 'Agricultural Export Catalog & HS Codes | Sheshaan Global',
+  title: "Agricultural Export Catalog & HS Codes | Sheshaan Global",
   description:
-    'Explore 49 APEDA & FSSAI certified Indian agricultural export commodities with 8-digit HS codes, moisture specs & 20ft/40ft FCL container loadability.',
+    "Explore 49 APEDA & FSSAI certified Indian agricultural export commodities with 8-digit HS codes, moisture specs & 20ft/40ft FCL container loadability.",
   alternates: {
     canonical: `${BASE_URL}/products`,
   },
   openGraph: {
-    title: 'Agricultural Export Catalog & HS Codes | Sheshaan Global',
+    title: "Agricultural Export Catalog & HS Codes | Sheshaan Global",
     description:
-      '49 export-grade Indian commodities: Fresh Vegetables, Fruits, Spices, Basmati Rice, Pulses & Dry Fruits with empirical B2B technical specifications.',
+      "49 export-grade Indian commodities: Fresh Vegetables, Fruits, Spices, Basmati Rice, Pulses & Dry Fruits with empirical B2B technical specifications.",
     url: `${BASE_URL}/products`,
-    siteName: 'Sheshaan Global',
-    type: 'website',
+    siteName: "Sheshaan Global",
+    type: "website",
   },
 };
 
@@ -49,7 +49,11 @@ export default function ProductsCatalogHubPage() {
               Indian Agricultural Export Catalog &amp; Empirical HS Code Directory
             </h1>
             <p className="mt-4 text-base text-slate-300 leading-relaxed">
-              Sheshaan Global supplies 49 export-calibrated agricultural commodities sourced directly from verified Indian origin clusters—including Nashik red onions, Sangli turmeric, Unjha cumin, Pollachi coconuts, Karnal 1121 Basmati rice, and Mithila Phool Makhana. Select any commodity below to inspect full physical/chemical tolerances, 20ft/40ft reefer stuffing capacities, and 12-month harvest calendars.
+              Sheshaan Global supplies 49 export-calibrated agricultural commodities sourced
+              directly from verified Indian origin clusters—including Nashik red onions, Sangli
+              turmeric, Unjha cumin, Pollachi coconuts, Karnal 1121 Basmati rice, and Mithila Phool
+              Makhana. Select any commodity below to inspect full physical/chemical tolerances,
+              20ft/40ft reefer stuffing capacities, and 12-month harvest calendars.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <RfqModal triggerLabel="Request Master FOB / CIF Price List" />
@@ -157,8 +161,12 @@ export default function ProductsCatalogHubPage() {
                         </td>
                         <td className="px-4 py-3.5 text-slate-600">{product.originCluster}</td>
                         <td className="px-4 py-3.5 text-slate-700">{product.specs.primaryGrade}</td>
-                        <td className="px-4 py-3.5 text-slate-700">{product.specs.moistureTolerance}</td>
-                        <td className="px-4 py-3.5 text-slate-700">{product.logistics.container40ft}</td>
+                        <td className="px-4 py-3.5 text-slate-700">
+                          {product.specs.moistureTolerance}
+                        </td>
+                        <td className="px-4 py-3.5 text-slate-700">
+                          {product.logistics.container40ft}
+                        </td>
                         <td className="px-4 py-3.5">
                           <a
                             href={`/products/${product.categorySlug}/${product.slug}`}

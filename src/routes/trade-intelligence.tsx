@@ -11,7 +11,8 @@ import { SITE_URL } from "@/lib/seo";
 export const Route = createFileRoute("/trade-intelligence")({
   head: () => {
     const url = `${SITE_URL}/trade-intelligence`;
-    const TITLE = "Indian Agri Export Intelligence, Crop Calendar & CHA Compliance | Sheshaan Global";
+    const TITLE =
+      "Indian Agri Export Intelligence, Crop Calendar & CHA Compliance | Sheshaan Global";
     const desc =
       "Live 2026 Indian agricultural harvest calendar, APEDA/FSSAI/DGFT export compliance checklist, licensed CHA customs clearance, and third-party shipping line protocols.";
     return {
@@ -53,10 +54,14 @@ function TradeIntelligenceRouteComponent() {
             2026 Indian Agribusiness &amp; Customs Advisory Hub
           </span>
           <h1 className="mt-4 text-3xl font-extrabold tracking-tight sm:text-5xl leading-tight">
-            Indian Agricultural Export Intelligence: Harvest Seasonality, DGFT Compliance &amp; Licensed CHA Execution
+            Indian Agricultural Export Intelligence: Harvest Seasonality, DGFT Compliance &amp;
+            Licensed CHA Execution
           </h1>
           <p className="mt-5 max-w-4xl text-base text-slate-300 leading-relaxed">
-            A procurement intelligence hub for international food importers and wholesale buyers. Review peak harvest windows across all 49 Indian export commodities, statutory APEDA/FSSAI/CDB documentation checklists, and our licensed Customs House Agent (CHA) + third-party shipping line execution protocol.
+            A procurement intelligence hub for international food importers and wholesale buyers.
+            Review peak harvest windows across all 49 Indian export commodities, statutory
+            APEDA/FSSAI/CDB documentation checklists, and our licensed Customs House Agent (CHA) +
+            third-party shipping line execution protocol.
           </p>
         </div>
       </header>
@@ -67,35 +72,41 @@ function TradeIntelligenceRouteComponent() {
             4-Stage Export Clearance via Licensed CHA &amp; Mainline Ocean Carriers
           </h2>
           <p className="mt-2 text-sm text-slate-600">
-            Sheshaan Global executes all customs clearance through licensed Customs House Agents (CHA) at Nhava Sheva (JNPT), Mundra, and Chennai ports and ships via tier-1 third-party container shipping lines (Maersk, MSC, CMA CGM, Hapag-Lloyd, ONE).
+            Sheshaan Global executes all customs clearance through licensed Customs House Agents
+            (CHA) at Nhava Sheva (JNPT), Mundra, and Chennai ports and ships via tier-1 third-party
+            container shipping lines (Maersk, MSC, CMA CGM, Hapag-Lloyd, ONE).
           </p>
           <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4">
             <div className="rounded-2xl border border-slate-200 bg-white p-5">
               <div className="text-xs font-bold text-[#FF8A00]">STAGE 01</div>
               <h3 className="mt-1 font-bold text-slate-900">Farm &amp; Packhouse Grading</h3>
               <p className="mt-2 text-xs text-slate-600">
-                Direct farm-cluster procurement in Maharashtra, Gujarat, Punjab, and Tamil Nadu with Sortex/size calibration.
+                Direct farm-cluster procurement in Maharashtra, Gujarat, Punjab, and Tamil Nadu with
+                Sortex/size calibration.
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-5">
               <div className="text-xs font-bold text-[#FF8A00]">STAGE 02</div>
               <h3 className="mt-1 font-bold text-slate-900">SGS Lab &amp; Phyto Clearance</h3>
               <p className="mt-2 text-xs text-slate-600">
-                Third-party SGS/Bureau Veritas inspection for moisture, EU-MRL residue, and Ministry of Agriculture Phytosanitary certification.
+                Third-party SGS/Bureau Veritas inspection for moisture, EU-MRL residue, and Ministry
+                of Agriculture Phytosanitary certification.
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-5">
               <div className="text-xs font-bold text-[#FF8A00]">STAGE 03</div>
               <h3 className="mt-1 font-bold text-slate-900">Licensed CHA Customs Filing</h3>
               <p className="mt-2 text-xs text-slate-600">
-                ICEGATE Shipping Bill filing, Let Export Order (LEO) customs clearance, and container sealing by our licensed CHA.
+                ICEGATE Shipping Bill filing, Let Export Order (LEO) customs clearance, and
+                container sealing by our licensed CHA.
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-white p-5">
               <div className="text-xs font-bold text-[#FF8A00]">STAGE 04</div>
               <h3 className="mt-1 font-bold text-slate-900">Mainline Vessel Dispatch</h3>
               <p className="mt-2 text-xs text-slate-600">
-                Direct vessel loading on third-party shipping lines with original/telex Bill of Lading and Chamber-attested COO.
+                Direct vessel loading on third-party shipping lines with original/telex Bill of
+                Lading and Chamber-attested COO.
               </p>
             </div>
           </div>

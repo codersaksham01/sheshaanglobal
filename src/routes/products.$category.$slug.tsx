@@ -1,8 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import {
-  getProductByCategoryAndSlug,
-  getProductsByCategory,
-} from "@/lib/empirical-products";
+import { getProductByCategoryAndSlug, getProductsByCategory } from "@/lib/empirical-products";
 import {
   buildB2BFaqs,
   buildCorporationSchema,
@@ -364,9 +361,7 @@ function CommodityCategorySlugPage() {
                   <th className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/60">
                     Harmonized System (HS) Code
                   </th>
-                  <td className="px-6 py-4 font-mono font-bold text-[#0057B8]">
-                    {product.hsCode}
-                  </td>
+                  <td className="px-6 py-4 font-mono font-bold text-[#0057B8]">{product.hsCode}</td>
                 </tr>
                 <tr>
                   <th className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/60">

@@ -62,7 +62,9 @@ function ExportsHubRoutePage() {
                 <h2 className="mt-3 text-lg font-bold text-slate-900">
                   {lane.seoTitle.split("|")[0].trim()}
                 </h2>
-                <p className="mt-2 text-xs leading-relaxed text-slate-600">{lane.metaDescription}</p>
+                <p className="mt-2 text-xs leading-relaxed text-slate-600">
+                  {lane.metaDescription}
+                </p>
               </div>
               <span className="mt-4 inline-flex items-center text-xs font-bold text-emerald-700">
                 View Corridor Specifications →

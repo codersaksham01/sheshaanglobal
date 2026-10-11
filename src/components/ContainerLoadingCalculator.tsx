@@ -297,7 +297,9 @@ export function ContainerLoadingCalculator({
                 <div className="mt-1 text-2xl font-extrabold text-emerald-400">
                   {totalBags.toLocaleString("en-US")}
                 </div>
-                <div className="mt-0.5 text-[11px] text-slate-300">Units @ {bagWeightKg} kg net</div>
+                <div className="mt-0.5 text-[11px] text-slate-300">
+                  Units @ {bagWeightKg} kg net
+                </div>
               </div>
             </div>
             <p className="mt-3 text-xs leading-relaxed text-slate-300">

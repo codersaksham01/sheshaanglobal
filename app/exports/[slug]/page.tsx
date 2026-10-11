@@ -1,28 +1,28 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { getProductBySlugOrLegacy } from '../../../data/products';
+import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getProductBySlugOrLegacy } from "../../../data/products";
 import {
   EXPORT_CORRIDOR_LANES,
   getExportCorridorLaneBySlug,
   getTradeCorridorBySlug,
   formatDualWeightUnit,
   buildCorridorExecutiveSummary,
-} from '../../../data/corridors';
-import { buildHreflangAlternates } from '../../../data/i18n';
+} from "../../../data/corridors";
+import { buildHreflangAlternates } from "../../../data/i18n";
 import {
   buildCorporationSchema,
   buildProductSchema,
   buildProductFaqSchema,
   buildTradeCorridorSchema,
-} from '../../../data/schemas';
-import { ContainerLoadingCalculator } from '../../../components/ContainerLoadingCalculator';
-import { SpecSheetDownloadModal } from '../../../components/SpecSheetDownloadModal';
-import { RfqModal } from '../../../components/RfqModal';
+} from "../../../data/schemas";
+import { ContainerLoadingCalculator } from "../../../components/ContainerLoadingCalculator";
+import { SpecSheetDownloadModal } from "../../../components/SpecSheetDownloadModal";
+import { RfqModal } from "../../../components/RfqModal";
 
-const BASE_URL = 'https://www.sheshaanglobal.com';
-const WHATSAPP_NUMBER = '918149909546';
+const BASE_URL = "https://www.sheshaanglobal.com";
+const WHATSAPP_NUMBER = "918149909546";
 
 interface ExportCorridorPageProps {
   params: Promise<{ slug: string }> | { slug: string };
@@ -37,9 +37,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: ExportCorridorPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: ExportCorridorPageProps): Promise<Metadata> {
   const resolved = await Promise.resolve(params);
   const lane = getExportCorridorLaneBySlug(resolved.slug);
   if (!lane) return {};
@@ -55,8 +53,8 @@ export async function generateMetadata({
       title: lane.seoTitle,
       description: lane.metaDescription,
       url: `${BASE_URL}${path}`,
-      siteName: 'Sheshaan Global',
-      type: 'website',
+      siteName: "Sheshaan Global",
+      type: "website",
       images: product
         ? [
             {
@@ -69,9 +67,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function ExportCorridorLandingPage({
-  params,
-}: ExportCorridorPageProps) {
+export default async function ExportCorridorLandingPage({ params }: ExportCorridorPageProps) {
   const resolved = await Promise.resolve(params);
   const lane = getExportCorridorLaneBySlug(resolved.slug);
 
@@ -92,7 +88,7 @@ export default async function ExportCorridorLandingPage({
   const corridorFaqs = [
     {
       question: `What is the Minimum Order Quantity (MOQ) and transit time for ${product.name} exports to ${lane.targetPortLabel}?`,
-      answer: `Our standard wholesale MOQ is 1 Full Container Load (FCL): ${product.logistics.container40ft} or ${product.logistics.container20ft} (${dualWeight}). Ocean transit from ${product.logistics.gatewayPorts.join(' / ')} to ${lane.targetPortLabel} is ${region.transitTimeFromIndia} via tier-1 third-party container shipping lines.`,
+      answer: `Our standard wholesale MOQ is 1 Full Container Load (FCL): ${product.logistics.container40ft} or ${product.logistics.container20ft} (${dualWeight}). Ocean transit from ${product.logistics.gatewayPorts.join(" / ")} to ${lane.targetPortLabel} is ${region.transitTimeFromIndia} via tier-1 third-party container shipping lines.`,
     },
     {
       question: `Which inspection and customs documents are provided for ${region.shortName} import clearance?`,
@@ -110,13 +106,13 @@ export default async function ExportCorridorLandingPage({
     buildTradeCorridorSchema(product, region),
     buildProductFaqSchema(product, corridorFaqs),
     {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
-        { '@type': 'ListItem', position: 2, name: 'Export Corridors', item: `${BASE_URL}/exports` },
+        { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+        { "@type": "ListItem", position: 2, name: "Export Corridors", item: `${BASE_URL}/exports` },
         {
-          '@type': 'ListItem',
+          "@type": "ListItem",
           position: 3,
           name: lane.seoTitle,
           item: `${BASE_URL}/exports/${lane.slug}`,
@@ -126,11 +122,11 @@ export default async function ExportCorridorLandingPage({
   ];
 
   const directWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Hello Sheshaan Global Export Desk,\nI am requesting a corridor FOB/CIF quotation:\n• Corridor: ${lane.h1Headline}\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Destination Port: ${lane.targetPortLabel}\n• Container Load: ${product.logistics.container40ft}\nPlease share latest pricing and vessel schedule.`
+    `Hello Sheshaan Global Export Desk,\nI am requesting a corridor FOB/CIF quotation:\n• Corridor: ${lane.h1Headline}\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Destination Port: ${lane.targetPortLabel}\n• Container Load: ${product.logistics.container40ft}\nPlease share latest pricing and vessel schedule.`,
   )}`;
 
   const sampleWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Hello Sheshaan Global Sample Desk,\nWe are a verified importer in ${region.shortName} requesting a 48-hour DHL/FedEx commercial sample (500g–1kg) for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}\n• Destination City/Port: ${lane.targetPortLabel}`
+    `Hello Sheshaan Global Sample Desk,\nWe are a verified importer in ${region.shortName} requesting a 48-hour DHL/FedEx commercial sample (500g–1kg) for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}\n• Destination City/Port: ${lane.targetPortLabel}`,
   )}`;
 
   return (
@@ -252,7 +248,8 @@ export default async function ExportCorridorLandingPage({
             DHL / FedEx International Priority Sample Lots
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-slate-700">
-            &ldquo;Commercial 500g–1kg lab inspection samples dispatched via DHL / FedEx International Priority within 48 business hours for verified importers.&rdquo;
+            &ldquo;Commercial 500g–1kg lab inspection samples dispatched via DHL / FedEx
+            International Priority within 48 business hours for verified importers.&rdquo;
           </p>
           <a
             href={sampleWhatsAppUrl}
@@ -274,24 +271,24 @@ export default async function ExportCorridorLandingPage({
           <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[
               {
-                badge: 'SGS',
-                title: 'SGS Inspected',
-                sub: 'Quality, Weight & Stuffing Verification',
+                badge: "SGS",
+                title: "SGS Inspected",
+                sub: "Quality, Weight & Stuffing Verification",
               },
               {
-                badge: 'GEO-CHEM',
-                title: 'Geo-Chem Labs',
-                sub: 'MRL Pesticide & Purity Assay',
+                badge: "GEO-CHEM",
+                title: "Geo-Chem Labs",
+                sub: "MRL Pesticide & Purity Assay",
               },
               {
-                badge: 'BUREAU VERITAS',
-                title: 'Bureau Veritas',
-                sub: 'Pre-Shipment Survey & Seal',
+                badge: "BUREAU VERITAS",
+                title: "Bureau Veritas",
+                sub: "Pre-Shipment Survey & Seal",
               },
               {
-                badge: 'GOVT. PHYTO',
-                title: 'NPPO / APEDA',
-                sub: 'Phytosanitary & Fumigation Cert',
+                badge: "GOVT. PHYTO",
+                title: "NPPO / APEDA",
+                sub: "Phytosanitary & Fumigation Cert",
               },
             ].map((seal) => (
               <div
@@ -319,7 +316,7 @@ export default async function ExportCorridorLandingPage({
             <div className="flex flex-col border-b border-slate-100 pb-2.5 sm:flex-row sm:justify-between">
               <dt className="font-semibold text-slate-600">Indian Ports of Loading</dt>
               <dd className="font-bold text-slate-900">
-                {product.logistics.gatewayPorts.join(' • ')}
+                {product.logistics.gatewayPorts.join(" • ")}
               </dd>
             </div>
             <div className="flex flex-col border-b border-slate-100 pb-2.5 sm:flex-row sm:justify-between">
@@ -396,7 +393,7 @@ export default async function ExportCorridorLandingPage({
               href={`/exports/${item.slug}`}
               className="rounded-xl border border-slate-200 bg-white p-4 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-emerald-500 hover:text-emerald-700"
             >
-              <div>{item.seoTitle.split('|')[0].trim()}</div>
+              <div>{item.seoTitle.split("|")[0].trim()}</div>
               <div className="mt-1 text-xs font-normal text-slate-500">
                 {item.targetPortLabel} →
               </div>

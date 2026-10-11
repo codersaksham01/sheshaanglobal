@@ -1,7 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
-import { CATEGORIES, PRODUCTS_CATALOG, getProductsByCategory } from '../data/products';
-import { RfqModal } from '../components/RfqModal';
+import React from "react";
+import Link from "next/link";
+import { CATEGORIES, PRODUCTS_CATALOG, getProductsByCategory } from "../data/products";
+import { RfqModal } from "../components/RfqModal";
 
 export default function HomePage() {
   return (
@@ -17,7 +17,11 @@ export default function HomePage() {
               Agricultural Commodity Exporter in India: 49 Bulk Export Lines
             </h1>
             <p className="mt-5 text-base sm:text-lg text-slate-300 leading-relaxed">
-              Sheshaan Global is an APEDA, FSSAI, and Coconut Development Board (CDB) registered Indian agricultural exporter headquartered in Maharashtra. We supply 20ft dry and 40ft High Cube reefer Full Container Loads (FCL) of Nashik Red Onions, 1121 Steam Basmati Rice, Unjha Cumin, Sangli Turmeric, Pollachi Mature Coconuts, Pulses, and Mithila Makhana via Nhava Sheva (JNPT) and Mundra Port to 25+ global import corridors.
+              Sheshaan Global is an APEDA, FSSAI, and Coconut Development Board (CDB) registered
+              Indian agricultural exporter headquartered in Maharashtra. We supply 20ft dry and 40ft
+              High Cube reefer Full Container Loads (FCL) of Nashik Red Onions, 1121 Steam Basmati
+              Rice, Unjha Cumin, Sangli Turmeric, Pollachi Mature Coconuts, Pulses, and Mithila
+              Makhana via Nhava Sheva (JNPT) and Mundra Port to 25+ global import corridors.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <RfqModal triggerLabel="Request Instant B2B Export Quote" />
@@ -51,10 +55,7 @@ export default function HomePage() {
               Explore All {PRODUCTS_CATALOG.length} Export Commodities Across 5 Verticals
             </h2>
           </div>
-          <Link
-            href="/products"
-            className="text-sm font-bold text-[#0057B8] hover:underline"
-          >
+          <Link href="/products" className="text-sm font-bold text-[#0057B8] hover:underline">
             View Master 49-Commodity Specification Table →
           </Link>
         </div>
@@ -94,9 +95,7 @@ export default function HomePage() {
                       <span className="text-slate-500">{product.sku}</span>
                     </div>
                     <h4 className="mt-2 font-bold text-slate-900">{product.name}</h4>
-                    <p className="mt-1 text-xs text-slate-600">
-                      Origin: {product.originCluster}
-                    </p>
+                    <p className="mt-1 text-xs text-slate-600">Origin: {product.originCluster}</p>
                     <p className="mt-2 text-xs font-semibold text-slate-800">
                       Grade: {product.specs.primaryGrade}
                     </p>

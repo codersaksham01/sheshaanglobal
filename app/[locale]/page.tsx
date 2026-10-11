@@ -1,18 +1,14 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import {
-  LOCALE_CONFIGS,
-  SupportedLocaleCode,
-  buildHreflangAlternates,
-} from '../../data/i18n';
-import { CATEGORIES, PRODUCTS_CATALOG } from '../../data/products';
-import { TRADE_CORRIDOR_REGIONS, formatDualWeightUnit } from '../../data/corridors';
-import { CorporationJsonLd } from '../../components/JsonLd';
-import { RfqModal } from '../../components/RfqModal';
+import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { LOCALE_CONFIGS, SupportedLocaleCode, buildHreflangAlternates } from "../../data/i18n";
+import { CATEGORIES, PRODUCTS_CATALOG } from "../../data/products";
+import { TRADE_CORRIDOR_REGIONS, formatDualWeightUnit } from "../../data/corridors";
+import { CorporationJsonLd } from "../../components/JsonLd";
+import { RfqModal } from "../../components/RfqModal";
 
-const LOCALIZED_SLUGS: SupportedLocaleCode[] = ['ar', 'fr', 'ru'];
+const LOCALIZED_SLUGS: SupportedLocaleCode[] = ["ar", "fr", "ru"];
 
 interface LocalizedHubProps {
   params: Promise<{ locale: string }> | { locale: string };
@@ -22,12 +18,10 @@ export async function generateStaticParams() {
   return LOCALIZED_SLUGS.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({
-  params,
-}: LocalizedHubProps): Promise<Metadata> {
+export async function generateMetadata({ params }: LocalizedHubProps): Promise<Metadata> {
   const resolved = await Promise.resolve(params);
   const config = LOCALE_CONFIGS[resolved.locale as SupportedLocaleCode];
-  if (!config || config.code === 'en') return {};
+  if (!config || config.code === "en") return {};
 
   return {
     title: config.seoTitle,
@@ -37,19 +31,17 @@ export async function generateMetadata({
       title: config.seoTitle,
       description: config.metaDescription,
       url: `https://www.sheshaanglobal.com/${config.code}`,
-      siteName: 'Sheshaan Global',
-      type: 'website',
+      siteName: "Sheshaan Global",
+      type: "website",
     },
   };
 }
 
-export default async function LocalizedExportHubPage({
-  params,
-}: LocalizedHubProps) {
+export default async function LocalizedExportHubPage({ params }: LocalizedHubProps) {
   const resolved = await Promise.resolve(params);
   const config = LOCALE_CONFIGS[resolved.locale as SupportedLocaleCode];
 
-  if (!config || config.code === 'en') {
+  if (!config || config.code === "en") {
     notFound();
   }
 

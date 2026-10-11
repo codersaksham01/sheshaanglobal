@@ -1,13 +1,13 @@
-import React from 'react';
-import { Metadata } from 'next';
-import { EXPORT_CORRIDOR_LANES } from '../../data/corridors';
-import { buildHreflangAlternates } from '../../data/i18n';
+import React from "react";
+import { Metadata } from "next";
+import { EXPORT_CORRIDOR_LANES } from "../../data/corridors";
+import { buildHreflangAlternates } from "../../data/i18n";
 
 export const metadata: Metadata = {
-  title: 'Global Agricultural Export Corridors from India | Sheshaan Global',
+  title: "Global Agricultural Export Corridors from India | Sheshaan Global",
   description:
-    'Direct agricultural commodity export corridors from Nhava Sheva (JNPT) & Mundra, India to Dubai (Jebel Ali), Saudi Arabia (Dammam), USA (New York), UK & Rotterdam.',
-  alternates: buildHreflangAlternates('/exports'),
+    "Direct agricultural commodity export corridors from Nhava Sheva (JNPT) & Mundra, India to Dubai (Jebel Ali), Saudi Arabia (Dammam), USA (New York), UK & Rotterdam.",
+  alternates: buildHreflangAlternates("/exports"),
 };
 
 export default function ExportsCorridorHubPage() {
@@ -21,7 +21,8 @@ export default function ExportsCorridorHubPage() {
           Dedicated Agricultural Export Corridors from India
         </h1>
         <p className="mt-3 max-w-3xl text-base text-slate-200">
-          Explore destination-specific commodity specifications, container stuffing capacities, import quarantine documentation, and ocean transit schedules for global wholesale buyers.
+          Explore destination-specific commodity specifications, container stuffing capacities,
+          import quarantine documentation, and ocean transit schedules for global wholesale buyers.
         </p>
       </header>
 
@@ -37,11 +38,9 @@ export default function ExportsCorridorHubPage() {
                 {lane.targetPortLabel}
               </span>
               <h2 className="mt-3 text-lg font-bold text-slate-900">
-                {lane.seoTitle.split('|')[0].trim()}
+                {lane.seoTitle.split("|")[0].trim()}
               </h2>
-              <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                {lane.metaDescription}
-              </p>
+              <p className="mt-2 text-xs leading-relaxed text-slate-600">{lane.metaDescription}</p>
             </div>
             <span className="mt-4 inline-flex items-center text-xs font-bold text-emerald-700">
               View Corridor Specifications →

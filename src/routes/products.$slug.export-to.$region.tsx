@@ -1,12 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import {
-  FileText,
-  Mail,
-  MessageCircle,
-  Package,
-  Ship,
-  ShieldCheck,
-} from "lucide-react";
+import { FileText, Mail, MessageCircle, Package, Ship, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import {
@@ -71,7 +64,11 @@ export const Route = createFileRoute("/products/$slug/export-to/$region")({
       flag: corridor!.flag,
       ports: corridor!.dischargePorts,
       topProducts: [],
-      incoterms: ["FOB Nhava Sheva", `CIF ${corridor!.dischargePorts[0]}`, `CFR ${corridor!.dischargePorts[0]}`],
+      incoterms: [
+        "FOB Nhava Sheva",
+        `CIF ${corridor!.dischargePorts[0]}`,
+        `CFR ${corridor!.dischargePorts[0]}`,
+      ],
       transitDays: corridor!.transitTimeFromIndia,
       keywords: [],
       intro: corridor!.chaAndCarrierProtocol,
@@ -230,7 +227,8 @@ function ProductRegionPage() {
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg"
                 style={{ background: "#25D366" }}
               >
-                <MessageCircle className="h-4 w-4" /> Request CIF {region.ports[0]?.split(" (")[0]} Quote
+                <MessageCircle className="h-4 w-4" /> Request CIF {region.ports[0]?.split(" (")[0]}{" "}
+                Quote
               </a>
               <a
                 href={BROCHURE_URL}
@@ -282,12 +280,11 @@ function ProductRegionPage() {
 
         <div className="grid gap-8 lg:grid-cols-2">
           <Panel title={`Technical Specifications & CHA Dispatch for ${product.name}`}>
-            <p>
-              {empirical?.geoExtractBlock ?? product.description}
-            </p>
+            <p>{empirical?.geoExtractBlock ?? product.description}</p>
             {corridor && (
               <p className="mt-4 font-medium text-slate-800">
-                <strong>Customs &amp; Shipping Line Protocol:</strong> {corridor.chaAndCarrierProtocol}
+                <strong>Customs &amp; Shipping Line Protocol:</strong>{" "}
+                {corridor.chaAndCarrierProtocol}
               </p>
             )}
             <ul className="mt-5 space-y-2">

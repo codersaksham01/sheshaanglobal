@@ -1,68 +1,68 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface SpecSheetDownloadModalProps {
   productName?: string;
   hsCode?: string;
   pdfUrl?: string;
   buttonLabel?: string;
-  variant?: 'primary' | 'header' | 'outline';
+  variant?: "primary" | "header" | "outline";
 }
 
-const WHATSAPP_DESK = '918149909546';
+const WHATSAPP_DESK = "918149909546";
 
 export function SpecSheetDownloadModal({
-  productName = '2026 Master Agricultural Export Catalog',
-  hsCode = 'All 49 HS Lines',
-  pdfUrl = '/catalogue.pdf',
-  buttonLabel = 'Download Technical Export Spec Sheet (PDF)',
-  variant = 'primary',
+  productName = "2026 Master Agricultural Export Catalog",
+  hsCode = "All 49 HS Lines",
+  pdfUrl = "/catalogue.pdf",
+  buttonLabel = "Download Technical Export Spec Sheet (PDF)",
+  variant = "primary",
 }: SpecSheetDownloadModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [buyerName, setBuyerName] = useState('');
-  const [buyerWhatsApp, setBuyerWhatsApp] = useState('');
-  const [executiveContact, setExecutiveContact] = useState<'Saksham Singh' | 'Sana Zeba Bakshi'>(
-    'Saksham Singh'
+  const [buyerName, setBuyerName] = useState("");
+  const [buyerWhatsApp, setBuyerWhatsApp] = useState("");
+  const [executiveContact, setExecutiveContact] = useState<"Saksham Singh" | "Sana Zeba Bakshi">(
+    "Saksham Singh",
   );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     // 1. Trigger direct PDF download in browser
-    const anchor = document.createElement('a');
+    const anchor = document.createElement("a");
     anchor.href = pdfUrl;
-    anchor.download = `Sheshaan-Global-${productName.replace(/[^A-Za-z0-9]+/g, '-')}-Spec-Sheet.pdf`;
+    anchor.download = `Sheshaan-Global-${productName.replace(/[^A-Za-z0-9]+/g, "-")}-Spec-Sheet.pdf`;
     document.body.appendChild(anchor);
     anchor.click();
     document.body.removeChild(anchor);
 
     // 2. Route to 24/7 WhatsApp Business Speed-to-Lead desk (+91 81499 09546)
     const msg = [
-      'Hello Sheshaan Global 24/7 Export Desk,',
+      "Hello Sheshaan Global 24/7 Export Desk,",
       `I just downloaded the Technical Export Spec Sheet (PDF) for *${productName}* (HS Code: ${hsCode}).`,
-      '',
+      "",
       `• Buyer Name: ${buyerName.trim()}`,
       `• Buyer WhatsApp: ${buyerWhatsApp.trim()}`,
       `• Requested Trade Desk Contact: ${executiveContact}`,
-      '',
-      'Please share the latest FOB/CIF container pricing and schedule a procurement call.',
-    ].join('\n');
+      "",
+      "Please share the latest FOB/CIF container pricing and schedule a procurement call.",
+    ].join("\n");
 
     window.open(
       `https://wa.me/${WHATSAPP_DESK}?text=${encodeURIComponent(msg)}`,
-      '_blank',
-      'noopener,noreferrer'
+      "_blank",
+      "noopener,noreferrer",
     );
     setIsOpen(false);
   };
 
   const buttonClasses =
-    variant === 'header'
-      ? 'inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-2 text-xs font-bold text-amber-700 transition hover:bg-amber-500 hover:text-slate-950'
-      : variant === 'outline'
-        ? 'inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[#0057B8] bg-white px-5 py-3.5 text-sm font-bold text-[#0057B8] shadow-sm transition hover:bg-slate-50'
-        : 'inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF8A00] px-6 py-3.5 text-sm font-bold text-slate-950 shadow-md transition hover:bg-[#ff991f]';
+    variant === "header"
+      ? "inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-2 text-xs font-bold text-amber-700 transition hover:bg-amber-500 hover:text-slate-950"
+      : variant === "outline"
+        ? "inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[#0057B8] bg-white px-5 py-3.5 text-sm font-bold text-[#0057B8] shadow-sm transition hover:bg-slate-50"
+        : "inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF8A00] px-6 py-3.5 text-sm font-bold text-slate-950 shadow-md transition hover:bg-[#ff991f]";
 
   return (
     <>
@@ -100,7 +100,8 @@ export function SpecSheetDownloadModal({
               Download {productName} Specification Sheet (PDF)
             </h3>
             <p className="mt-1.5 text-xs leading-relaxed text-slate-600">
-              Enter your name and WhatsApp number to immediately download the technical PDF data sheet (HS {hsCode}) and receive live FOB/CIF container pricing on WhatsApp.
+              Enter your name and WhatsApp number to immediately download the technical PDF data
+              sheet (HS {hsCode}) and receive live FOB/CIF container pricing on WhatsApp.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-5 space-y-4">
@@ -151,7 +152,7 @@ export function SpecSheetDownloadModal({
                   id="spec-lead-exec"
                   value={executiveContact}
                   onChange={(e) =>
-                    setExecutiveContact(e.target.value as 'Saksham Singh' | 'Sana Zeba Bakshi')
+                    setExecutiveContact(e.target.value as "Saksham Singh" | "Sana Zeba Bakshi")
                   }
                   className="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-[#0057B8] focus:outline-none"
                 >

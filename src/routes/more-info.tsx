@@ -237,7 +237,8 @@ function MoreInfoPage() {
         title: "Scope of Business",
         category: "Scope & Business",
         badge: "Trade Scope",
-        summary: "Strictly agricultural commodities and related agri-products tailored to buyer requirements.",
+        summary:
+          "Strictly agricultural commodities and related agri-products tailored to buyer requirements.",
         render: () => (
           <div className="space-y-4 text-sm leading-relaxed text-slate-600">
             <p>
@@ -373,8 +374,8 @@ function MoreInfoPage() {
                   <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
                   <span>
                     <strong>Complex or multi-product inquiries:</strong> up to 5 working days for
-                    inquiries involving multiple commodities, special packaging, testing, or
-                    custom documentation.
+                    inquiries involving multiple commodities, special packaging, testing, or custom
+                    documentation.
                   </span>
                 </li>
               </ul>
@@ -411,9 +412,9 @@ function MoreInfoPage() {
               </div>
             </div>
             <p>
-              Agricultural commodity prices, availability, freight, exchange rates, logistics
-              costs, and market conditions may change rapidly. Accordingly, after the quotation
-              validity period expires, the quoted price may be revised without prior notice.
+              Agricultural commodity prices, availability, freight, exchange rates, logistics costs,
+              and market conditions may change rapidly. Accordingly, after the quotation validity
+              period expires, the quoted price may be revised without prior notice.
             </p>
             <p className="text-xs font-medium text-slate-700">
               Buyers are therefore encouraged to confirm orders within the validity period if they
@@ -647,8 +648,8 @@ function MoreInfoPage() {
                   </a>
                 </div>
                 <div className="mt-3 border-t border-amber-200 pt-2 text-[11px] text-slate-500">
-                  <strong>Handles:</strong> Strategic governance, partnership agreements,
-                  long-term buyer contracts & executive approvals.
+                  <strong>Handles:</strong> Strategic governance, partnership agreements, long-term
+                  buyer contracts & executive approvals.
                 </div>
               </div>
             </div>
@@ -747,8 +748,7 @@ function MoreInfoPage() {
                   photographs
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Container & seal
-                  numbers
+                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Container & seal numbers
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" /> Verified draft shipping
@@ -787,8 +787,8 @@ function MoreInfoPage() {
                 Formula for Fastest Response:
               </div>
               <div className="mt-2 font-display text-xs font-medium leading-relaxed text-amber-300 md:text-sm">
-                Product + Quantity/MOQ + Destination Port + Quality/Grade + Packaging + Payment Terms
-                + Required Certifications + Shipment Requirement
+                Product + Quantity/MOQ + Destination Port + Quality/Grade + Packaging + Payment
+                Terms + Required Certifications + Shipment Requirement
               </div>
             </div>
             <p className="text-xs text-slate-500">
@@ -814,8 +814,8 @@ function MoreInfoPage() {
               should be clearly communicated at the inquiry stage.
             </p>
             <p>
-              If the buyer requests product certification, quotation, special documentation,
-              quality specifications, and other requirements simultaneously, additional time may be
+              If the buyer requests product certification, quotation, special documentation, quality
+              specifications, and other requirements simultaneously, additional time may be
               required.
             </p>
             <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-3.5 text-xs text-slate-700">
@@ -902,9 +902,8 @@ function MoreInfoPage() {
               ))}
             </ol>
             <div className="rounded-lg border border-rose-100 bg-rose-50/60 p-3 text-xs text-rose-800">
-              <strong>Notice:</strong> Verbal discussions or preliminary inquiries do not
-              constitute a confirmed purchase order unless formally acknowledged in writing by
-              Sheshaan Global.
+              <strong>Notice:</strong> Verbal discussions or preliminary inquiries do not constitute
+              a confirmed purchase order unless formally acknowledged in writing by Sheshaan Global.
             </div>
           </div>
         ),
@@ -1067,8 +1066,8 @@ function MoreInfoPage() {
               </ul>
             </div>
             <p className="text-xs text-slate-500">
-              We expect the same level of professionalism, punctuality, transparency, and
-              good-faith communication from our buyers and business partners.
+              We expect the same level of professionalism, punctuality, transparency, and good-faith
+              communication from our buyers and business partners.
             </p>
           </div>
         ),
@@ -1284,13 +1283,10 @@ function MoreInfoPage() {
         title: "Website & Administration",
         category: "Contacts & Office",
         badge: "Digital Operations",
-        summary:
-          "Website and digital systems administered by Saksham Singh and the Crixy team.",
+        summary: "Website and digital systems administered by Saksham Singh and the Crixy team.",
         render: () => (
           <div className="space-y-4 text-sm leading-relaxed text-slate-600">
-            <p>
-              The Sheshaan Global website and its digital administration are managed by:
-            </p>
+            <p>The Sheshaan Global website and its digital administration are managed by:</p>
             <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-800">
               <strong className="text-sm">Saksham Singh and the Crixy team.</strong>
               <p className="mt-1 text-slate-600">
@@ -1501,7 +1497,9 @@ function MoreInfoPage() {
                 professional, and ethical business.
               </p>
               <div className="mt-5 border-t border-white/15 pt-4">
-                <p className="text-xs text-white/70">Thank you for your interest in Sheshaan Global.</p>
+                <p className="text-xs text-white/70">
+                  Thank you for your interest in Sheshaan Global.
+                </p>
                 <div className="mt-2 flex items-center justify-between">
                   <div>
                     <div className="font-display text-sm font-bold text-white">{SANA_NAME}</div>
@@ -1718,9 +1716,7 @@ function MoreInfoPage() {
           <div className="mt-5 flex flex-wrap gap-2 border-t border-slate-100 pt-4">
             {categories.map((cat) => {
               const count =
-                cat === "All"
-                  ? sections.length
-                  : sections.filter((s) => s.category === cat).length;
+                cat === "All" ? sections.length : sections.filter((s) => s.category === cat).length;
               const active = selectedCategory === cat;
               return (
                 <button

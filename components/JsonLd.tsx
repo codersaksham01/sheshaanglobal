@@ -1,5 +1,5 @@
-import React from 'react';
-import type { ExportCommodity } from '../data/products';
+import React from "react";
+import type { ExportCommodity } from "../data/products";
 import {
   buildCorporationSchema,
   buildProductSchema,
@@ -10,7 +10,7 @@ import {
   buildRegulatoryAnnouncementSchema,
   buildTradeCorridorSchema,
   buildProductImageObject,
-} from '../data/schemas';
+} from "../data/schemas";
 
 export {
   buildCorporationSchema,

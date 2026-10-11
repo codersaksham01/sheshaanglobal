@@ -1,31 +1,26 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import {
   PRODUCTS_CATALOG,
   getProductByCategoryAndSlug,
   getProductsByCategory,
   ExportCommodity,
-} from '../../../../data/products';
-import {
-  TRADE_CORRIDOR_REGIONS,
-  formatDualWeightUnit,
-} from '../../../../data/corridors';
-import { buildHreflangAlternates } from '../../../../data/i18n';
-import { RfqModal } from '../../../../components/RfqModal';
-import { ProductJsonLd } from '../../../../components/JsonLd';
-import { ContainerLoadingCalculator } from '../../../../components/ContainerLoadingCalculator';
-import { SpecSheetDownloadModal } from '../../../../components/SpecSheetDownloadModal';
+} from "../../../../data/products";
+import { TRADE_CORRIDOR_REGIONS, formatDualWeightUnit } from "../../../../data/corridors";
+import { buildHreflangAlternates } from "../../../../data/i18n";
+import { RfqModal } from "../../../../components/RfqModal";
+import { ProductJsonLd } from "../../../../components/JsonLd";
+import { ContainerLoadingCalculator } from "../../../../components/ContainerLoadingCalculator";
+import { SpecSheetDownloadModal } from "../../../../components/SpecSheetDownloadModal";
 
-const BASE_URL = 'https://www.sheshaanglobal.com';
-const WHATSAPP_NUMBER = '918149909546';
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const BASE_URL = "https://www.sheshaanglobal.com";
+const WHATSAPP_NUMBER = "918149909546";
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 interface ProductLandingPageProps {
-  params:
-    | Promise<{ category: string; slug: string }>
-    | { category: string; slug: string };
+  params: Promise<{ category: string; slug: string }> | { category: string; slug: string };
 }
 
 /**
@@ -42,14 +37,9 @@ export async function generateStaticParams() {
  * Generates high-intent B2B commercial title, meta description with HS codes, origin regions,
  * and ports of loading (Nhava Sheva JNPT / Mundra), canonical tag, hreflang alternates, and OpenGraph metadata.
  */
-export async function generateMetadata({
-  params,
-}: ProductLandingPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: ProductLandingPageProps): Promise<Metadata> {
   const resolvedParams = await Promise.resolve(params);
-  const product = getProductByCategoryAndSlug(
-    resolvedParams.category,
-    resolvedParams.slug
-  );
+  const product = getProductByCategoryAndSlug(resolvedParams.category, resolvedParams.slug);
   if (!product) return {};
 
   const path = `/products/${product.categorySlug}/${product.slug}`;
@@ -63,8 +53,8 @@ export async function generateMetadata({
       title: product.seoTitle,
       description: product.metaDescription,
       url: canonicalUrl,
-      siteName: 'Sheshaan Global',
-      type: 'website',
+      siteName: "Sheshaan Global",
+      type: "website",
       images: [
         {
           url: `${BASE_URL}${product.image}`,
@@ -87,41 +77,36 @@ export function buildB2BFaqs(product: ExportCommodity) {
     },
     {
       question: `What Incoterms and payment terms does Sheshaan Global accept for ${product.name.toLowerCase()}?`,
-      answer: `Sheshaan Global operates under FOB (${product.logistics.gatewayPorts.join(', ')}) and CIF/CFR terms to global destination ports across the GCC, Europe, UK, USA, Africa, and Asia. Accepted payment structures include 100% Irrevocable Letter of Credit (L/C at sight), Documents Against Payment (DP/CAD), or Telegraphic Transfer (TT: 30% advance, 70% against scanned Bill of Lading copy).`,
+      answer: `Sheshaan Global operates under FOB (${product.logistics.gatewayPorts.join(", ")}) and CIF/CFR terms to global destination ports across the GCC, Europe, UK, USA, Africa, and Asia. Accepted payment structures include 100% Irrevocable Letter of Credit (L/C at sight), Documents Against Payment (DP/CAD), or Telegraphic Transfer (TT: 30% advance, 70% against scanned Bill of Lading copy).`,
     },
   ];
 }
 
-export default async function CommodityB2BLandingPage({
-  params,
-}: ProductLandingPageProps) {
+export default async function CommodityB2BLandingPage({ params }: ProductLandingPageProps) {
   const resolvedParams = await Promise.resolve(params);
-  const product = getProductByCategoryAndSlug(
-    resolvedParams.category,
-    resolvedParams.slug
-  );
+  const product = getProductByCategoryAndSlug(resolvedParams.category, resolvedParams.slug);
 
   if (!product) {
     notFound();
   }
 
   const sisterProducts = getProductsByCategory(product.categorySlug).filter(
-    (p) => p.slug !== product.slug
+    (p) => p.slug !== product.slug,
   );
   const faqs = buildB2BFaqs(product);
 
   const directWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Hello Sheshaan Global Export Desk,\nI am requesting an official FOB/CIF quotation for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}\n• Loadability: ${product.logistics.container40ft}\nPlease share current pricing and shipment lead time.`
+    `Hello Sheshaan Global Export Desk,\nI am requesting an official FOB/CIF quotation for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}\n• Loadability: ${product.logistics.container40ft}\nPlease share current pricing and shipment lead time.`,
   )}`;
 
   const sampleDispatchWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Hello Sheshaan Global Sample Desk,\nWe are a verified importer requesting a 48-hour DHL/FedEx commercial sample (500g–1kg) for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}`
+    `Hello Sheshaan Global Sample Desk,\nWe are a verified importer requesting a 48-hour DHL/FedEx commercial sample (500g–1kg) for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}`,
   )}`;
 
   const directEmailQuoteUrl = `mailto:info@sheshaanglobal.com?subject=${encodeURIComponent(
-    `B2B Export RFQ: ${product.name} (HS Code ${product.hsCode})`
+    `B2B Export RFQ: ${product.name} (HS Code ${product.hsCode})`,
   )}&body=${encodeURIComponent(
-    `Hello Sheshaan Global Export Desk,\n\nWe would like to request an official FOB/CIF export quotation for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Preferred Grade/Calibration: ${product.specs.primaryGrade}\n• Container Loadability: ${product.logistics.container40ft}\n• Destination Port & Country:\n• Target Quantity (FCL):\n\nThank you.`
+    `Hello Sheshaan Global Export Desk,\n\nWe would like to request an official FOB/CIF export quotation for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Preferred Grade/Calibration: ${product.specs.primaryGrade}\n• Container Loadability: ${product.logistics.container40ft}\n• Destination Port & Country:\n• Target Quantity (FCL):\n\nThank you.`,
   )}`;
 
   return (
@@ -148,10 +133,7 @@ export default async function CommodityB2BLandingPage({
               </li>
               <li>/</li>
               <li>
-                <Link
-                  href={`/products/${product.categorySlug}`}
-                  className="hover:text-white"
-                >
+                <Link href={`/products/${product.categorySlug}`} className="hover:text-white">
                   {product.categoryName}
                 </Link>
               </li>
@@ -245,7 +227,7 @@ export default async function CommodityB2BLandingPage({
             <div className="lg:col-span-4">
               <div className="rounded-2xl border border-slate-700 bg-slate-900/90 p-6 shadow-2xl">
                 <h2 className="text-xs font-bold uppercase tracking-widest text-[#FF8A00]">
-                   FCL Procurement Snapshot
+                  FCL Procurement Snapshot
                 </h2>
                 <dl className="mt-4 space-y-3 text-sm divide-y divide-slate-800">
                   <div className="pt-2 flex justify-between gap-4">
@@ -300,7 +282,8 @@ export default async function CommodityB2BLandingPage({
               DHL / FedEx International Priority Sample Lots
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-700">
-              &ldquo;Commercial 500g–1kg lab inspection samples dispatched via DHL / FedEx International Priority within 48 business hours for verified importers.&rdquo;
+              &ldquo;Commercial 500g–1kg lab inspection samples dispatched via DHL / FedEx
+              International Priority within 48 business hours for verified importers.&rdquo;
             </p>
             <a
               href={sampleDispatchWhatsAppUrl}
@@ -322,24 +305,24 @@ export default async function CommodityB2BLandingPage({
             <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {[
                 {
-                  badge: 'SGS',
-                  title: 'SGS Inspected',
-                  sub: 'Pre-Shipment Weight & Grade Audit',
+                  badge: "SGS",
+                  title: "SGS Inspected",
+                  sub: "Pre-Shipment Weight & Grade Audit",
                 },
                 {
-                  badge: 'GEO-CHEM',
-                  title: 'Geo-Chem Labs',
-                  sub: 'Pesticide MRL & Purity Assay',
+                  badge: "GEO-CHEM",
+                  title: "Geo-Chem Labs",
+                  sub: "Pesticide MRL & Purity Assay",
                 },
                 {
-                  badge: 'BUREAU VERITAS',
-                  title: 'Bureau Veritas',
-                  sub: 'Container Stuffing & Seal Survey',
+                  badge: "BUREAU VERITAS",
+                  title: "Bureau Veritas",
+                  sub: "Container Stuffing & Seal Survey",
                 },
                 {
-                  badge: 'GOVT. PHYTO',
-                  title: 'NPPO / APEDA',
-                  sub: 'Official Phytosanitary & Fumigation',
+                  badge: "GOVT. PHYTO",
+                  title: "NPPO / APEDA",
+                  sub: "Official Phytosanitary & Fumigation",
                 },
               ].map((seal) => (
                 <div
@@ -397,7 +380,8 @@ export default async function CommodityB2BLandingPage({
               Empirical Technical Specification Data Sheet — {product.name}
             </h2>
             <p className="mt-1 text-sm text-slate-600">
-              Verifiable physical, chemical, and microbiological procurement parameters guaranteed per export lot.
+              Verifiable physical, chemical, and microbiological procurement parameters guaranteed
+              per export lot.
             </p>
           </div>
 
@@ -415,7 +399,7 @@ export default async function CommodityB2BLandingPage({
                     Commodity Name &amp; Commercial Varieties
                   </th>
                   <td className="px-6 py-4 text-slate-700">
-                    <strong>{product.name}</strong> — {product.varieties.join(' • ')}
+                    <strong>{product.name}</strong> — {product.varieties.join(" • ")}
                   </td>
                 </tr>
                 <tr className="hover:bg-slate-50">
@@ -559,7 +543,8 @@ export default async function CommodityB2BLandingPage({
                 Quality Assurance, Lab Testing &amp; Phytosanitary Governance
               </h2>
               <p className="mt-3 text-sm text-slate-300 leading-relaxed">
-                Every consignment of {product.name} undergoes multi-stage pre-shipment verification to satisfy GCC Municipality, EU EFSA, UK BTOM, and US FDA import protocols.
+                Every consignment of {product.name} undergoes multi-stage pre-shipment verification
+                to satisfy GCC Municipality, EU EFSA, UK BTOM, and US FDA import protocols.
               </p>
             </div>
 
@@ -606,8 +591,8 @@ export default async function CommodityB2BLandingPage({
               12-Month Harvest Seasonality &amp; Price Hedging Calendar — {product.name}
             </h2>
             <p className="mt-1 text-sm text-slate-600">
-              Sowing Window: <strong>{product.harvestCalendar.sowingWindow}</strong> | Harvest Window:{' '}
-              <strong>{product.harvestCalendar.harvestWindow}</strong>
+              Sowing Window: <strong>{product.harvestCalendar.sowingWindow}</strong> | Harvest
+              Window: <strong>{product.harvestCalendar.harvestWindow}</strong>
             </p>
           </div>
 
@@ -620,15 +605,15 @@ export default async function CommodityB2BLandingPage({
                   key={month}
                   className={`rounded-xl border p-3 text-center ${
                     isPeak
-                      ? 'border-emerald-500 bg-emerald-50 text-emerald-900'
+                      ? "border-emerald-500 bg-emerald-50 text-emerald-900"
                       : isLean
-                        ? 'border-amber-300 bg-amber-50 text-amber-900'
-                        : 'border-slate-200 bg-slate-50 text-slate-700'
+                        ? "border-amber-300 bg-amber-50 text-amber-900"
+                        : "border-slate-200 bg-slate-50 text-slate-700"
                   }`}
                 >
                   <div className="text-xs font-bold uppercase">{month}</div>
                   <div className="mt-1.5 text-[11px] font-semibold">
-                    {isPeak ? 'Peak Export' : isLean ? 'Lean / Cold Store' : 'Available'}
+                    {isPeak ? "Peak Export" : isLean ? "Lean / Cold Store" : "Available"}
                   </div>
                 </div>
               );
@@ -636,7 +621,7 @@ export default async function CommodityB2BLandingPage({
           </div>
 
           <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-            <strong>Procurement &amp; Price Hedging Advisory:</strong>{' '}
+            <strong>Procurement &amp; Price Hedging Advisory:</strong>{" "}
             {product.harvestCalendar.priceVolatilityNote}
           </div>
         </section>
@@ -669,16 +654,27 @@ export default async function CommodityB2BLandingPage({
                 {product.logistics.gatewayPorts.map((port) => (
                   <li key={port}>• {port}</li>
                 ))}
-                <li>• Direct weekly vessel sailings to Jebel Ali, Dammam, Rotterdam, Felixstowe &amp; Port Klang</li>
+                <li>
+                  • Direct weekly vessel sailings to Jebel Ali, Dammam, Rotterdam, Felixstowe &amp;
+                  Port Klang
+                </li>
               </ul>
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h3 className="text-base font-bold text-slate-900">B2B Payment, Currencies &amp; CHA Dispatch</h3>
+              <h3 className="text-base font-bold text-slate-900">
+                B2B Payment, Currencies &amp; CHA Dispatch
+              </h3>
               <ul className="mt-3 space-y-2 text-sm text-slate-600">
                 <li>• 100% Irrevocable Letter of Credit (L/C at Sight) or 30/70 TT &amp; DP/CAD</li>
-                <li>• Multi-Currency Quotations: <strong>USD, EUR, GBP, AED, SAR</strong> ({formatDualWeightUnit(product.logistics.eligibleQuantityValue)})</li>
-                <li>• Cleared by our <strong>Licensed Customs House Agent (CHA)</strong> &amp; shipped via premier <strong>third-party global shipping lines</strong></li>
+                <li>
+                  • Multi-Currency Quotations: <strong>USD, EUR, GBP, AED, SAR</strong> (
+                  {formatDualWeightUnit(product.logistics.eligibleQuantityValue)})
+                </li>
+                <li>
+                  • Cleared by our <strong>Licensed Customs House Agent (CHA)</strong> &amp; shipped
+                  via premier <strong>third-party global shipping lines</strong>
+                </li>
               </ul>
             </div>
           </div>
@@ -694,7 +690,8 @@ export default async function CommodityB2BLandingPage({
               {product.name} Exporter from India to Global Destination Ports
             </h2>
             <p className="mt-1 text-sm text-slate-600">
-              Select your target import country and discharge port for corridor-specific transit times, customs documentation, and licensed CHA + third-party shipping line execution:
+              Select your target import country and discharge port for corridor-specific transit
+              times, customs documentation, and licensed CHA + third-party shipping line execution:
             </p>
           </div>
 
@@ -715,7 +712,7 @@ export default async function CommodityB2BLandingPage({
                   {product.name} to {region.shortName}
                 </div>
                 <div className="mt-1 text-[11px] text-slate-500">
-                  Port: {region.dischargePorts[0].split(' (')[0]}
+                  Port: {region.dischargePorts[0].split(" (")[0]}
                 </div>
               </Link>
             ))}
@@ -747,7 +744,10 @@ export default async function CommodityB2BLandingPage({
         </section>
 
         {/* RELATED CATEGORY COMMODITIES (INTERNAL LINKING GRAPH) */}
-        <section aria-labelledby="related-commodities-heading" className="border-t border-slate-200 pt-12">
+        <section
+          aria-labelledby="related-commodities-heading"
+          className="border-t border-slate-200 pt-12"
+        >
           <div className="flex items-center justify-between">
             <h2 id="related-commodities-heading" className="text-2xl font-bold text-slate-900">
               Other Export Lines in {product.categoryName}
@@ -772,9 +772,7 @@ export default async function CommodityB2BLandingPage({
                 </div>
                 <div className="mt-1 font-bold text-slate-900">{related.name}</div>
                 <div className="mt-1 text-xs text-slate-500">{related.originCluster}</div>
-                <div className="mt-3 text-xs font-bold text-[#0057B8]">
-                  View Spec Sheet →
-                </div>
+                <div className="mt-3 text-xs font-bold text-[#0057B8]">View Spec Sheet →</div>
               </Link>
             ))}
           </div>

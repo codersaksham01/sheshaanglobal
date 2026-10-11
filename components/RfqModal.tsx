@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { PRODUCTS_CATALOG } from '../data/products';
+import React, { useState } from "react";
+import { PRODUCTS_CATALOG } from "../data/products";
 
-const WHATSAPP_NUMBER = '918149909546';
-const SALES_EMAIL = 'info@sheshaanglobal.com';
+const WHATSAPP_NUMBER = "918149909546";
+const SALES_EMAIL = "info@sheshaanglobal.com";
 
 interface RfqModalProps {
   defaultCommodityName?: string;
@@ -14,45 +14,41 @@ interface RfqModalProps {
 }
 
 export function RfqModal({
-  defaultCommodityName = 'Fresh Red Onion',
-  defaultHsCode = '07031010',
-  triggerLabel = 'Request Instant B2B Export Quote',
-  triggerClassName = 'inline-flex items-center justify-center rounded-full bg-[#FF8A00] px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:bg-[#e07900] focus:outline-none focus:ring-2 focus:ring-[#FF8A00] focus:ring-offset-2',
+  defaultCommodityName = "Fresh Red Onion",
+  defaultHsCode = "07031010",
+  triggerLabel = "Request Instant B2B Export Quote",
+  triggerClassName = "inline-flex items-center justify-center rounded-full bg-[#FF8A00] px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:bg-[#e07900] focus:outline-none focus:ring-2 focus:ring-[#FF8A00] focus:ring-offset-2",
 }: RfqModalProps) {
   // Strictly false on initial render — NEVER opens automatically on page load or timer
   const [isOpen, setIsOpen] = useState(false);
   const [commodity, setCommodity] = useState(defaultCommodityName);
-  const [destinationPort, setDestinationPort] = useState('');
-  const [incoterm, setIncoterm] = useState<'FOB' | 'CIF' | 'CFR'>('CIF');
-  const [containerQuantity, setContainerQuantity] = useState('1 x 40ft High Cube FCL');
-  const [buyerCompany, setBuyerCompany] = useState('');
+  const [destinationPort, setDestinationPort] = useState("");
+  const [incoterm, setIncoterm] = useState<"FOB" | "CIF" | "CFR">("CIF");
+  const [containerQuantity, setContainerQuantity] = useState("1 x 40ft High Cube FCL");
+  const [buyerCompany, setBuyerCompany] = useState("");
 
   const selectedProduct = PRODUCTS_CATALOG.find((p) => p.name === commodity);
   const hsCode = selectedProduct?.hsCode ?? defaultHsCode;
 
   const buildWhatsAppRfqHref = () => {
     const lines = [
-      'Hello Sheshaan Global Export Desk,',
+      "Hello Sheshaan Global Export Desk,",
       `I would like to request a B2B Export Quotation:`,
       `• Commodity: ${commodity} (HS Code: ${hsCode})`,
       `• Volume / MOQ: ${containerQuantity}`,
       `• Incoterms: ${incoterm}`,
-      `• Destination Port / Country: ${destinationPort || 'To be confirmed'}`,
-      buyerCompany ? `• Importing Company: ${buyerCompany}` : '',
-      '',
-      'Please share current FOB/CIF pricing, packing specs, and shipment lead time.',
+      `• Destination Port / Country: ${destinationPort || "To be confirmed"}`,
+      buyerCompany ? `• Importing Company: ${buyerCompany}` : "",
+      "",
+      "Please share current FOB/CIF pricing, packing specs, and shipment lead time.",
     ].filter(Boolean);
 
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
   };
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className={triggerClassName}
-      >
+      <button type="button" onClick={() => setIsOpen(true)} className={triggerClassName}>
         {triggerLabel}
       </button>
 
@@ -82,7 +78,8 @@ export function RfqModal({
                 Request Official FOB / CIF Export Quotation
               </h2>
               <p className="mt-1 text-xs text-slate-300">
-                Direct response from our Maharashtra trade desk (+91 81499 09546) within 4 business hours.
+                Direct response from our Maharashtra trade desk (+91 81499 09546) within 4 business
+                hours.
               </p>
             </div>
 
@@ -117,7 +114,9 @@ export function RfqModal({
                     <option value="1 x 20ft FCL">1 x 20ft FCL</option>
                     <option value="1 x 40ft High Cube FCL">1 x 40ft High Cube FCL</option>
                     <option value="2–5 Containers Monthly">2–5 Containers Monthly</option>
-                    <option value="Air Freight Trial Lot (1–5 MT)">Air Freight Trial Lot (1–5 MT)</option>
+                    <option value="Air Freight Trial Lot (1–5 MT)">
+                      Air Freight Trial Lot (1–5 MT)
+                    </option>
                   </select>
                 </div>
 
@@ -127,7 +126,7 @@ export function RfqModal({
                   </label>
                   <select
                     value={incoterm}
-                    onChange={(e) => setIncoterm(e.target.value as 'FOB' | 'CIF' | 'CFR')}
+                    onChange={(e) => setIncoterm(e.target.value as "FOB" | "CIF" | "CFR")}
                     className="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-[#0057B8] focus:outline-none"
                   >
                     <option value="CIF">CIF (Destination Port)</option>
@@ -177,7 +176,7 @@ export function RfqModal({
                 </a>
                 <a
                   href={`mailto:${SALES_EMAIL}?subject=${encodeURIComponent(
-                    `B2B Export RFQ: ${commodity} (HS ${hsCode})`
+                    `B2B Export RFQ: ${commodity} (HS ${hsCode})`,
                   )}`}
                   className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-3 text-xs font-semibold text-slate-700 hover:bg-slate-100"
                 >

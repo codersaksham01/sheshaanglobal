@@ -90,8 +90,7 @@ export const Route = createFileRoute("/products/$slug")({
     const previewImage = p.gallery[0] || p.img || "/logo.png";
     const img = absoluteUrl(previewImage);
     const primaryVariety = p.varieties[0]?.split("(")[0]?.trim() || "APEDA Certified";
-    const title =
-      emp?.seoTitle ?? `${p.name} Exporter in India | ${primaryVariety} | ${SITE_NAME}`;
+    const title = emp?.seoTitle ?? `${p.name} Exporter in India | ${primaryVariety} | ${SITE_NAME}`;
     const desc =
       emp?.metaDescription ??
       `${p.name} Exporter in India (HS ${p.hsCode ?? "0703"}) sourced from verified Maharashtra & Gujarat clusters (${p.varieties.slice(0, 2).join(", ")}). Shipped via Nhava Sheva JNPT / Mundra in 20ft/40ft FCL. Request FOB/CIF quote.`;
@@ -186,8 +185,7 @@ export const Route = createFileRoute("/products/$slug")({
                 "@type": "PropertyValue",
                 name: "Port of Loading",
                 value:
-                  emp?.logistics.gatewayPorts.join(", ") ??
-                  "Nhava Sheva (JNPT), Mumbai, India",
+                  emp?.logistics.gatewayPorts.join(", ") ?? "Nhava Sheva (JNPT), Mumbai, India",
               },
             ],
           }),
@@ -308,11 +306,11 @@ function ProductPage() {
             </div>
           </Link>
           <div className="flex items-center gap-3">
-            <SpecSheetDownloadModal
-              buttonLabel="2026 Product Catalog (PDF)"
-              variant="header"
-            />
-            <Link to="/products" className="text-sm font-medium text-slate-600 hover:text-[#0057B8]">
+            <SpecSheetDownloadModal buttonLabel="2026 Product Catalog (PDF)" variant="header" />
+            <Link
+              to="/products"
+              className="text-sm font-medium text-slate-600 hover:text-[#0057B8]"
+            >
               ← All products
             </Link>
           </div>
@@ -394,7 +392,8 @@ function ProductPage() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-slate-600">
-            <Sparkles className="h-3.5 w-3.5" style={{ color: ORANGE }} /> APEDA &amp; FSSAI Certified Exporter
+            <Sparkles className="h-3.5 w-3.5" style={{ color: ORANGE }} /> APEDA &amp; FSSAI
+            Certified Exporter
           </div>
           <h1 className="mt-4 font-display text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">
             {empirical?.h1Headline ??
@@ -419,9 +418,7 @@ function ProductPage() {
             </div>
             <div className="mt-1.5 text-sm font-bold text-slate-900">
               Standard Commercial MOQ: 1 x FCL (
-              {empirical?.logistics.container40ft ??
-                `${specs.container} • ~25–29 MT Net Load`}
-              )
+              {empirical?.logistics.container40ft ?? `${specs.container} • ~25–29 MT Net Load`})
             </div>
             <div className="mt-1 text-xs text-slate-600">
               20ft Load: {empirical?.logistics.container20ft ?? "14–25 MT per 20ft FCL"} • Ports of
@@ -431,7 +428,11 @@ function ProductPage() {
 
           <div className="mt-6 grid gap-3 sm:grid-cols-3">
             {[
-              { icon: ClipboardCheck, label: "Inspection", value: "SGS / Geo-Chem / Bureau Veritas" },
+              {
+                icon: ClipboardCheck,
+                label: "Inspection",
+                value: "SGS / Geo-Chem / Bureau Veritas",
+              },
               { icon: Timer, label: "Lead time", value: specs.leadTime },
               { icon: Truck, label: "Mode", value: specs.mode },
             ].map((s) => (
@@ -471,7 +472,8 @@ function ProductPage() {
               className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40"
               style={{ background: "#25D366" }}
             >
-              <MessageCircle className="h-4 w-4" aria-hidden /> Inquire on WhatsApp (+91 81499 09546)
+              <MessageCircle className="h-4 w-4" aria-hidden /> Inquire on WhatsApp (+91 81499
+              09546)
             </a>
             <SpecSheetDownloadModal
               productName={product.name}

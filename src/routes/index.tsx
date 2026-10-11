@@ -220,6 +220,16 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 }
 
 /* ---------- Nav ---------- */
+const NAV_LINKS = [
+  { label: "Home", href: "#home" },
+  { label: "Products", href: "/products" },
+  { label: "Export Corridors", href: "/exports" },
+  { label: "Markets", href: "#markets" },
+  { label: "Certifications", href: "#certs" },
+  { label: "More Info", href: "/more-info" },
+  { label: "Contact Us", href: "/contact" },
+];
+
 interface NavItem {
   label: string;
   href: string;

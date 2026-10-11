@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState } from "react";
 
 export interface CalculatorProductInput {
   name: string;
@@ -12,35 +12,35 @@ export interface CalculatorProductInput {
 }
 
 const BAG_WEIGHT_OPTIONS = [
-  { value: 5, label: '5 kg Mesh Bag / Retail Carton' },
-  { value: 10, label: '10 kg Export Carton / Mesh Bag' },
-  { value: 20, label: '20 kg PP Woven / Leno Bag' },
-  { value: 25, label: '25 kg Commercial Export Bag (Standard)' },
-  { value: 50, label: '50 kg Bulk Wholesale Bag (PP / Jute)' },
+  { value: 5, label: "5 kg Mesh Bag / Retail Carton" },
+  { value: 10, label: "10 kg Export Carton / Mesh Bag" },
+  { value: 20, label: "20 kg PP Woven / Leno Bag" },
+  { value: 25, label: "25 kg Commercial Export Bag (Standard)" },
+  { value: 50, label: "50 kg Bulk Wholesale Bag (PP / Jute)" },
 ];
 
 const CONTAINER_TYPE_OPTIONS = [
   {
-    id: '40ft-reefer',
-    label: '40ft High Cube Reefer FCL (+1°C to +13°C Controlled)',
-    shortLabel: '40ft HC Reefer FCL',
+    id: "40ft-reefer",
+    label: "40ft High Cube Reefer FCL (+1°C to +13°C Controlled)",
+    shortLabel: "40ft HC Reefer FCL",
   },
   {
-    id: '20ft-dry',
-    label: '20ft Standard Dry Container FCL (Heavy Payload)',
-    shortLabel: '20ft Dry FCL',
+    id: "20ft-dry",
+    label: "20ft Standard Dry Container FCL (Heavy Payload)",
+    shortLabel: "20ft Dry FCL",
   },
   {
-    id: '40ft-dry',
-    label: '40ft High Cube Dry Container FCL (67.7 CBM)',
-    shortLabel: '40ft HC Dry FCL',
+    id: "40ft-dry",
+    label: "40ft High Cube Dry Container FCL (67.7 CBM)",
+    shortLabel: "40ft HC Dry FCL",
   },
 ] as const;
 
 const INCOTERM_OPTIONS = [
-  'FOB Nhava Sheva (JNPT) / Mundra',
-  'CIF Destination Port (Cost, Insurance & Freight)',
-  'CFR Destination Port (Cost & Freight)',
+  "FOB Nhava Sheva (JNPT) / Mundra",
+  "CIF Destination Port (Cost, Insurance & Freight)",
+  "CFR Destination Port (Cost & Freight)",
 ];
 
 function parseDefaultMt(rawText: string | undefined, fallback: number): number {
@@ -65,70 +65,63 @@ export function ContainerLoadingCalculator({
   container40ftText?: string;
   defaultBagKg?: number;
 }) {
-  const base20Mt = useMemo(
-    () => parseDefaultMt(container20ftText, 24),
-    [container20ftText]
-  );
-  const base40Mt = useMemo(
-    () => parseDefaultMt(container40ftText, 29),
-    [container40ftText]
-  );
+  const base20Mt = useMemo(() => parseDefaultMt(container20ftText, 24), [container20ftText]);
+  const base40Mt = useMemo(() => parseDefaultMt(container40ftText, 29), [container40ftText]);
   const isFreshReefer = useMemo(
     () =>
       /reefer|onion|chilli|banana|grape|mango|pomegranate|lemon|orange|vegetable|fruit|tomato|potato|okra|garlic|ginger/i.test(
-        `${productName} ${container40ftText ?? ''}`
+        `${productName} ${container40ftText ?? ""}`,
       ),
-    [productName, container40ftText]
+    [productName, container40ftText],
   );
 
   const [containerType, setContainerType] = useState<string>(
-    isFreshReefer ? '40ft-reefer' : '20ft-dry'
+    isFreshReefer ? "40ft-reefer" : "20ft-dry",
   );
   const [bagWeightKg, setBagWeightKg] = useState<number>(defaultBagKg);
   const [fclCount, setFclCount] = useState<number>(1);
   const [incoterm, setIncoterm] = useState<string>(INCOTERM_OPTIONS[0]);
-  const [destinationPort, setDestinationPort] = useState<string>('');
+  const [destinationPort, setDestinationPort] = useState<string>("");
 
   const mtPerContainer = useMemo(() => {
-    if (containerType === '20ft-dry') return base20Mt;
-    if (containerType === '40ft-reefer') return base40Mt;
+    if (containerType === "20ft-dry") return base20Mt;
+    if (containerType === "40ft-reefer") return base40Mt;
     return Math.max(base40Mt, base20Mt);
   }, [containerType, base20Mt, base40Mt]);
 
   const totalMetricTons = useMemo(
     () => Number((mtPerContainer * fclCount).toFixed(2)),
-    [mtPerContainer, fclCount]
+    [mtPerContainer, fclCount],
   );
 
   const totalBags = useMemo(
     () => Math.round((totalMetricTons * 1000) / bagWeightKg),
-    [totalMetricTons, bagWeightKg]
+    [totalMetricTons, bagWeightKg],
   );
 
   const totalLbs = useMemo(
-    () => Math.round(totalMetricTons * 2204.62).toLocaleString('en-US'),
-    [totalMetricTons]
+    () => Math.round(totalMetricTons * 2204.62).toLocaleString("en-US"),
+    [totalMetricTons],
   );
 
   const selectedContainerLabel =
-    CONTAINER_TYPE_OPTIONS.find((c) => c.id === containerType)?.shortLabel ??
-    '40ft FCL';
+    CONTAINER_TYPE_OPTIONS.find((c) => c.id === containerType)?.shortLabel ?? "40ft FCL";
 
   const whatsappRfqUrl = useMemo(() => {
     const lines = [
-      'Hello Sheshaan Global Export Desk,',
+      "Hello Sheshaan Global Export Desk,",
       `I used your Container Loading Calculator and would like an official quotation:`,
       `• Commodity: ${productName} (HS Code: ${hsCode})`,
       `• Container Load: ${fclCount} x ${selectedContainerLabel} (${totalMetricTons} MT Total)`,
-      `• Packaging: ${bagWeightKg} kg Bags/Cartons (${totalBags.toLocaleString('en-US')} units)`,
+      `• Packaging: ${bagWeightKg} kg Bags/Cartons (${totalBags.toLocaleString("en-US")} units)`,
       `• Preferred Incoterm: ${incoterm}`,
       destinationPort.trim()
         ? `• Destination Port: ${destinationPort.trim()}`
-        : '• Destination Port: Please advise transit & freight',
-      '',
-      'Please share current FOB/CIF pricing and technical export specification sheet.',
+        : "• Destination Port: Please advise transit & freight",
+      "",
+      "Please share current FOB/CIF pricing and technical export specification sheet.",
     ];
-    return `https://wa.me/918149909546?text=${encodeURIComponent(lines.join('\n'))}`;
+    return `https://wa.me/918149909546?text=${encodeURIComponent(lines.join("\n"))}`;
   }, [
     productName,
     hsCode,
@@ -144,18 +137,18 @@ export function ContainerLoadingCalculator({
   const emailRfqUrl = useMemo(() => {
     const subject = `Calculated FCL Export RFQ: ${productName} (HS ${hsCode}) — ${totalMetricTons} MT`;
     const body = [
-      'Hello Sheshaan Global Export Desk,',
-      '',
-      'Please provide an official commercial proforma quotation for the following container configuration:',
+      "Hello Sheshaan Global Export Desk,",
+      "",
+      "Please provide an official commercial proforma quotation for the following container configuration:",
       `• Commodity: ${productName} (HS Code: ${hsCode})`,
       `• Container Configuration: ${fclCount} x ${selectedContainerLabel}`,
       `• Net Payload Volume: ${totalMetricTons} Metric Tons (${totalLbs} lbs)`,
-      `• Packaging Specification: ${bagWeightKg} kg units (${totalBags.toLocaleString('en-US')} total bags/cartons)`,
+      `• Packaging Specification: ${bagWeightKg} kg units (${totalBags.toLocaleString("en-US")} total bags/cartons)`,
       `• Incoterms: ${incoterm}`,
-      `• Destination Port: ${destinationPort.trim() || 'To be confirmed'}`,
-      '',
-      'Thank you.',
-    ].join('\n');
+      `• Destination Port: ${destinationPort.trim() || "To be confirmed"}`,
+      "",
+      "Thank you.",
+    ].join("\n");
     return `mailto:info@sheshaanglobal.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }, [
     productName,
@@ -181,11 +174,13 @@ export function ContainerLoadingCalculator({
             Interactive Container Loading &amp; Bag Count Calculator — {productName}
           </h3>
           <p className="mt-1 text-sm text-slate-600">
-            Select your preferred bag/carton weight and container type to compute net Metric Tons (MT), total bag counts, and pre-populate your RFQ.
+            Select your preferred bag/carton weight and container type to compute net Metric Tons
+            (MT), total bag counts, and pre-populate your RFQ.
           </p>
         </div>
         <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-2.5 text-xs font-semibold text-emerald-900">
-          HS Code: <span className="font-mono font-bold">{hsCode}</span> • CHA &amp; Carrier Verified
+          HS Code: <span className="font-mono font-bold">{hsCode}</span> • CHA &amp; Carrier
+          Verified
         </div>
       </div>
 
@@ -303,19 +298,15 @@ export function ContainerLoadingCalculator({
                 <div className="text-[11px] uppercase tracking-wider text-slate-300">
                   Net Metric Tons
                 </div>
-                <div className="mt-1 text-2xl font-extrabold text-white">
-                  {totalMetricTons} MT
-                </div>
-                <div className="mt-0.5 text-[11px] text-slate-300">
-                  ~{totalLbs} lbs
-                </div>
+                <div className="mt-1 text-2xl font-extrabold text-white">{totalMetricTons} MT</div>
+                <div className="mt-0.5 text-[11px] text-slate-300">~{totalLbs} lbs</div>
               </div>
               <div className="rounded-xl bg-white/10 p-3.5">
                 <div className="text-[11px] uppercase tracking-wider text-slate-300">
                   Total Bag / Box Count
                 </div>
                 <div className="mt-1 text-2xl font-extrabold text-emerald-400">
-                  {totalBags.toLocaleString('en-US')}
+                  {totalBags.toLocaleString("en-US")}
                 </div>
                 <div className="mt-0.5 text-[11px] text-slate-300">
                   Units @ {bagWeightKg} kg net
@@ -323,7 +314,9 @@ export function ContainerLoadingCalculator({
               </div>
             </div>
             <p className="mt-3 text-xs leading-relaxed text-slate-300">
-              Stuffing &amp; VGM dock weight certified at Nhava Sheva (JNPT) / Mundra via licensed Customs House Agent (CHA) and tier-1 shipping lines (Maersk, MSC, CMA CGM, Hapag-Lloyd).
+              Stuffing &amp; VGM dock weight certified at Nhava Sheva (JNPT) / Mundra via licensed
+              Customs House Agent (CHA) and tier-1 shipping lines (Maersk, MSC, CMA CGM,
+              Hapag-Lloyd).
             </p>
           </div>
 

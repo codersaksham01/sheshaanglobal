@@ -1,19 +1,12 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import {
-  CATEGORIES,
-  getCategoryBySlug,
-  getProductsByCategory,
-} from '../../../data/products';
-import { RfqModal } from '../../../components/RfqModal';
-import {
-  buildCorporationSchema,
-  buildCategoryCollectionSchema,
-} from '../../../components/JsonLd';
+import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { CATEGORIES, getCategoryBySlug, getProductsByCategory } from "../../../data/products";
+import { RfqModal } from "../../../components/RfqModal";
+import { buildCorporationSchema, buildCategoryCollectionSchema } from "../../../components/JsonLd";
 
-const BASE_URL = 'https://www.sheshaanglobal.com';
+const BASE_URL = "https://www.sheshaanglobal.com";
 
 interface CategoryPageProps {
   params: Promise<{ category: string }> | { category: string };
@@ -42,8 +35,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       title: category.seoTitle,
       description: category.metaDescription,
       url: canonicalUrl,
-      siteName: 'Sheshaan Global',
-      type: 'website',
+      siteName: "Sheshaan Global",
+      type: "website",
     },
   };
 }
@@ -106,7 +99,7 @@ export default async function CategoryHubPage({ params }: CategoryPageProps) {
             />
             <a
               href={`https://wa.me/918149909546?text=${encodeURIComponent(
-                `Hello Sheshaan Global Export Desk, I am inquiring about bulk ${category.name} export shipments from India. Please share FOB/CIF rates.`
+                `Hello Sheshaan Global Export Desk, I am inquiring about bulk ${category.name} export shipments from India. Please share FOB/CIF rates.`,
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -124,7 +117,9 @@ export default async function CategoryHubPage({ params }: CategoryPageProps) {
           {category.name} Empirical Export Specification Matrix
         </h2>
         <p className="mt-2 text-sm text-slate-600">
-          Compare Harmonized System (HS) codes, Indian geographic origin hubs, primary calibration standards, and Full Container Load (FCL) capacities across all {commodities.length} export lines.
+          Compare Harmonized System (HS) codes, Indian geographic origin hubs, primary calibration
+          standards, and Full Container Load (FCL) capacities across all {commodities.length} export
+          lines.
         </p>
 
         <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
@@ -204,9 +199,7 @@ export default async function CategoryHubPage({ params }: CategoryPageProps) {
                 <p className="mt-2 text-xs font-semibold text-slate-500">
                   Origin: {item.originCluster}
                 </p>
-                <p className="mt-3 text-sm text-slate-600 line-clamp-3">
-                  {item.executiveSummary}
-                </p>
+                <p className="mt-3 text-sm text-slate-600 line-clamp-3">{item.executiveSummary}</p>
                 <ul className="mt-4 space-y-1 text-xs text-slate-700">
                   <li>
                     <strong>Calibration:</strong> {item.specs.primaryGrade}
@@ -226,9 +219,7 @@ export default async function CategoryHubPage({ params }: CategoryPageProps) {
                 >
                   View Specifications →
                 </a>
-                <span className="text-[11px] text-slate-400">
-                  {item.logistics.gatewayPorts[0]}
-                </span>
+                <span className="text-[11px] text-slate-400">{item.logistics.gatewayPorts[0]}</span>
               </div>
             </article>
           ))}

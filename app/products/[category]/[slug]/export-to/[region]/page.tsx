@@ -1,29 +1,26 @@
-import React from 'react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import {
-  PRODUCTS_CATALOG,
-  getProductByCategoryAndSlug,
-} from '../../../../../../data/products';
+import React from "react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { PRODUCTS_CATALOG, getProductByCategoryAndSlug } from "../../../../../../data/products";
 import {
   TRADE_CORRIDOR_REGIONS,
   getTradeCorridorBySlug,
   buildCorridorExecutiveSummary,
   formatDualWeightUnit,
-} from '../../../../../../data/corridors';
-import { buildHreflangAlternates } from '../../../../../../data/i18n';
+} from "../../../../../../data/corridors";
+import { buildHreflangAlternates } from "../../../../../../data/i18n";
 import {
   JsonLd,
   buildCorporationSchema,
   buildProductSchema,
   buildTradeCorridorSchema,
   buildExportClearanceHowToSchema,
-} from '../../../../../../components/JsonLd';
-import { RfqModal } from '../../../../../../components/RfqModal';
+} from "../../../../../../components/JsonLd";
+import { RfqModal } from "../../../../../../components/RfqModal";
 
-const BASE_URL = 'https://www.sheshaanglobal.com';
-const WHATSAPP_NUMBER = '918149909546';
+const BASE_URL = "https://www.sheshaanglobal.com";
+const WHATSAPP_NUMBER = "918149909546";
 
 interface CorridorPageProps {
   params:
@@ -40,13 +37,11 @@ export async function generateStaticParams() {
       category: product.categorySlug,
       slug: product.slug,
       region: region.slug,
-    }))
+    })),
   );
 }
 
-export async function generateMetadata({
-  params,
-}: CorridorPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: CorridorPageProps): Promise<Metadata> {
   const resolved = await Promise.resolve(params);
   const product = getProductByCategoryAndSlug(resolved.category, resolved.slug);
   const region = getTradeCorridorBySlug(resolved.region);
@@ -54,7 +49,10 @@ export async function generateMetadata({
 
   const path = `/products/${product.categorySlug}/${product.slug}/export-to/${region.slug}`;
   const rawTitle = `${product.name} Exporter to ${region.shortName} | HS ${product.hsCode}`;
-  const title = rawTitle.length <= 60 ? rawTitle : `${product.name} Exporter to ${region.shortName}`.slice(0, 60);
+  const title =
+    rawTitle.length <= 60
+      ? rawTitle
+      : `${product.name} Exporter to ${region.shortName}`.slice(0, 60);
   const rawDesc = `Bulk ${product.name} (HS ${product.hsCode}) exporter from India to ${region.dischargePorts[0]}. ${product.logistics.container40ft}, CHA customs & SGS certified.`;
   const description = rawDesc.length <= 155 ? rawDesc : `${rawDesc.slice(0, 152)}...`;
 
@@ -66,15 +64,13 @@ export async function generateMetadata({
       title,
       description,
       url: `${BASE_URL}${path}`,
-      siteName: 'Sheshaan Global',
-      type: 'website',
+      siteName: "Sheshaan Global",
+      type: "website",
     },
   };
 }
 
-export default async function CommodityTradeCorridorPage({
-  params,
-}: CorridorPageProps) {
+export default async function CommodityTradeCorridorPage({ params }: CorridorPageProps) {
   const resolved = await Promise.resolve(params);
   const product = getProductByCategoryAndSlug(resolved.category, resolved.slug);
   const region = getTradeCorridorBySlug(resolved.region);
@@ -87,33 +83,33 @@ export default async function CommodityTradeCorridorPage({
   const dualWeight = formatDualWeightUnit(product.logistics.eligibleQuantityValue);
 
   const directWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Hello Sheshaan Global Export Desk,\nI am requesting a FOB/CIF quotation for:\n• Trade Corridor: India to ${region.name} (${region.dischargePorts[0]})\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}\n• Container Load: ${product.logistics.container40ft}\nPlease share current pricing and vessel transit schedule.`
+    `Hello Sheshaan Global Export Desk,\nI am requesting a FOB/CIF quotation for:\n• Trade Corridor: India to ${region.name} (${region.dischargePorts[0]})\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}\n• Container Load: ${product.logistics.container40ft}\nPlease share current pricing and vessel transit schedule.`,
   )}`;
 
   const directEmailQuoteUrl = `mailto:info@sheshaanglobal.com?subject=${encodeURIComponent(
-    `B2B Export Quote: ${product.name} (HS ${product.hsCode}) to ${region.shortName}`
+    `B2B Export Quote: ${product.name} (HS ${product.hsCode}) to ${region.shortName}`,
   )}`;
 
   const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
-      { '@type': 'ListItem', position: 2, name: 'Products', item: `${BASE_URL}/products` },
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Products", item: `${BASE_URL}/products` },
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 3,
         name: product.categoryName,
         item: `${BASE_URL}/products/${product.categorySlug}`,
       },
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 4,
         name: product.name,
         item: `${BASE_URL}/products/${product.categorySlug}/${product.slug}`,
       },
       {
-        '@type': 'ListItem',
+        "@type": "ListItem",
         position: 5,
         name: `Export to ${region.shortName}`,
         item: `${BASE_URL}/products/${product.categorySlug}/${product.slug}/export-to/${region.slug}`,
@@ -176,7 +172,7 @@ export default async function CommodityTradeCorridorPage({
               ITC-HS Code: {product.hsCode}
             </span>
             <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-300">
-              Currencies: {region.preferredCurrencies.join(' / ')} • Units: {dualWeight}
+              Currencies: {region.preferredCurrencies.join(" / ")} • Units: {dualWeight}
             </span>
           </div>
 
@@ -192,7 +188,7 @@ export default async function CommodityTradeCorridorPage({
             <RfqModal
               defaultCommodityName={`${product.name} (Export to ${region.shortName})`}
               defaultHsCode={product.hsCode}
-              triggerLabel={`Request CIF ${region.dischargePorts[0].split(' (')[0]} Quote`}
+              triggerLabel={`Request CIF ${region.dischargePorts[0].split(" (")[0]} Quote`}
             />
             <a
               href={directWhatsAppUrl}
@@ -221,7 +217,8 @@ export default async function CommodityTradeCorridorPage({
             </h2>
             <p className="mt-2 text-lg font-bold text-slate-900">{product.originCluster}</p>
             <p className="mt-2 text-sm text-slate-600">
-              Loaded at <strong>{product.logistics.gatewayPorts.join(' / ')}</strong> with licensed CHA (Customs House Agent) Let Export Order (LEO) clearance.
+              Loaded at <strong>{product.logistics.gatewayPorts.join(" / ")}</strong> with licensed
+              CHA (Customs House Agent) Let Export Order (LEO) clearance.
             </p>
           </div>
 
@@ -230,10 +227,11 @@ export default async function CommodityTradeCorridorPage({
               Destination Discharge Ports ({region.shortName})
             </h2>
             <p className="mt-2 text-lg font-bold text-slate-900">
-              {region.dischargePorts.join(' • ')}
+              {region.dischargePorts.join(" • ")}
             </p>
             <p className="mt-2 text-sm text-slate-600">
-              <strong>Transit Time:</strong> {region.transitTimeFromIndia} via third-party mainline ocean carriers.
+              <strong>Transit Time:</strong> {region.transitTimeFromIndia} via third-party mainline
+              ocean carriers.
             </p>
           </div>
 
@@ -283,7 +281,7 @@ export default async function CommodityTradeCorridorPage({
                 href={`/products/${product.categorySlug}/${product.slug}/export-to/${other.slug}`}
                 className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold text-slate-800 hover:border-[#0057B8] hover:text-[#0057B8]"
               >
-                {other.flag} Export to {other.shortName} ({other.dischargePorts[0].split(' (')[0]})
+                {other.flag} Export to {other.shortName} ({other.dischargePorts[0].split(" (")[0]})
               </Link>
             ))}
           </div>
