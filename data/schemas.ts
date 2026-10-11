@@ -77,6 +77,12 @@ export function buildCorporationSchema() {
         jobTitle: 'Chief Operating Officer',
         email: 'junedbarade@sheshaanglobal.com',
       },
+      {
+        '@type': 'Person',
+        name: 'Saksham Singh',
+        jobTitle: 'Business Development',
+        email: 'info@sheshaanglobal.com',
+      },
     ],
     hasCredential: [
       {

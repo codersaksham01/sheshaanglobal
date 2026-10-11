@@ -1,6 +1,6 @@
 import { MetadataRoute } from 'next';
 import { CATEGORIES, PRODUCTS_CATALOG } from '../data/products';
-import { TRADE_CORRIDOR_REGIONS } from '../data/corridors';
+import { EXPORT_CORRIDOR_LANES, TRADE_CORRIDOR_REGIONS } from '../data/corridors';
 import { buildHreflangAlternates } from '../data/i18n';
 
 const BASE_URL = 'https://www.sheshaanglobal.com';
@@ -35,6 +35,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${BASE_URL}/products`,
+      lastModified: LAST_MODIFIED,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${BASE_URL}/exports`,
       lastModified: LAST_MODIFIED,
       changeFrequency: 'weekly',
       priority: 0.95,
@@ -103,6 +109,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
+  const dedicatedExportLaneRoutes: MetadataRoute.Sitemap = EXPORT_CORRIDOR_LANES.map((lane) => ({
+    url: `${BASE_URL}/exports/${lane.slug}`,
+    lastModified: LAST_MODIFIED,
+    changeFrequency: 'weekly',
+    priority: 0.92,
+  }));
+
   const corridorRoutes: MetadataRoute.Sitemap = PRODUCTS_CATALOG.flatMap((product) =>
     TRADE_CORRIDOR_REGIONS.map((region) => ({
       url: `${BASE_URL}/products/${product.categorySlug}/${product.slug}/export-to/${region.slug}`,
@@ -112,5 +125,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }))
   );
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...corridorRoutes];
+  return [
+    ...staticRoutes,
+    ...categoryRoutes,
+    ...productRoutes,
+    ...dedicatedExportLaneRoutes,
+    ...corridorRoutes,
+  ];
 }

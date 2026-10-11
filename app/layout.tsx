@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { CorporationJsonLd } from '../components/JsonLd';
 import { RfqModal } from '../components/RfqModal';
+import { SpecSheetDownloadModal } from '../components/SpecSheetDownloadModal';
 import { CATEGORIES } from '../data/products';
 
 const BASE_URL = 'https://www.sheshaanglobal.com';
@@ -61,9 +62,12 @@ export default function RootLayout({
               </span>
             </Link>
 
-            <nav aria-label="Primary Navigation" className="hidden items-center gap-6 text-sm font-medium text-slate-200 lg:flex">
+            <nav aria-label="Primary Navigation" className="hidden items-center gap-5 text-sm font-medium text-slate-200 lg:flex">
               <Link href="/products" className="hover:text-[#FF8A00]">
                 49-Commodity Catalog
+              </Link>
+              <Link href="/exports" className="hover:text-[#FF8A00]">
+                Export Corridors
               </Link>
               {CATEGORIES.map((category) => (
                 <Link
@@ -76,7 +80,20 @@ export default function RootLayout({
               ))}
             </nav>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
+              <SpecSheetDownloadModal
+                commodityName="2026 Master Agricultural Export Catalog (49 Commodities)"
+                hsCode="0703-1211"
+                originCluster="Nashik, Unjha, Sangli, Pollachi, Karnal & Mithila, India"
+                primaryGrade="APEDA, FSSAI & CDB Export Calibrated"
+                moistureTolerance="Commodity-Specific SGS Tolerances"
+                packaging="5kg to 50kg Export Mesh, Jute, PP & Vacuum Packs"
+                container20ft="12 MT - 25 MT per 20ft FCL"
+                container40ft="24 MT - 29 MT per 40ft High-Cube / Reefer FCL"
+                gatewayPorts={['Nhava Sheva (JNPT)', 'Mundra Port', 'Chennai / Cochin']}
+                variant="header"
+                triggerLabel="2026 Product Catalog"
+              />
               <a
                 href="https://wa.me/918149909546"
                 target="_blank"
@@ -161,6 +178,11 @@ export default function RootLayout({
                   <li>• Mundra &amp; Kandla Ports, Gujarat</li>
                   <li>• Chennai, Cochin &amp; Tuticorin Ports</li>
                   <li>• SGS, Bureau Veritas &amp; Geo-Chem Inspection</li>
+                  <li>
+                    <Link href="/exports" className="text-[#FF8A00] hover:underline">
+                      → Explore Global Trade Corridors
+                    </Link>
+                  </li>
                 </ul>
               </div>
               <div>
@@ -170,6 +192,7 @@ export default function RootLayout({
                 <ul className="mt-3 space-y-2 text-xs text-slate-300">
                   <li>CEO: Sana Zeba Bakshi</li>
                   <li>COO: Juned Barade</li>
+                  <li>Business Development: Saksham Singh</li>
                   <li>
                     Phone / WhatsApp:{' '}
                     <a href="https://wa.me/918149909546" className="text-[#FF8A00] hover:underline">

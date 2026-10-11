@@ -12,6 +12,8 @@ import {
 } from "../../data/schemas";
 import { absoluteUrl, SITE_URL } from "@/lib/seo";
 import { RfqModal } from "../../components/RfqModal";
+import { ContainerLoadingCalculator } from "@/components/ContainerLoadingCalculator";
+import { SpecSheetDownloadModal } from "@/components/SpecSheetDownloadModal";
 
 const WHATSAPP_NUMBER = "918149909546";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -94,6 +96,10 @@ function CommodityCategorySlugPage() {
     `Hello Sheshaan Global Export Desk,\nI am requesting an official FOB/CIF quotation for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}\n• Loadability: ${product.logistics.container40ft}\nPlease share current pricing and shipment lead time.`,
   )}`;
 
+  const sampleDispatchWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    `Hello Sheshaan Global Sample Desk,\nWe are a verified importer requesting a 48-hour DHL/FedEx commercial sample (500g–1kg) for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}`,
+  )}`;
+
   const directEmailQuoteUrl = `mailto:info@sheshaanglobal.com?subject=${encodeURIComponent(
     `B2B Export RFQ: ${product.name} (HS Code ${product.hsCode})`,
   )}&body=${encodeURIComponent(
@@ -146,7 +152,39 @@ function CommodityCategorySlugPage() {
                 {product.executiveSummary}
               </p>
 
+              <div className="mt-6 grid gap-3 rounded-2xl border border-amber-400/30 bg-amber-500/10 p-4 sm:grid-cols-3">
+                <div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-amber-300">
+                    Wholesale Commercial MOQ
+                  </div>
+                  <div className="mt-1 text-sm font-bold text-white">
+                    1 x FCL ({product.logistics.container40ft})
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-amber-300">
+                    20ft / 40ft Stuffing Load
+                  </div>
+                  <div className="mt-1 text-sm font-bold text-white">
+                    {product.logistics.container20ft} | {product.logistics.container40ft}
+                  </div>
+                </div>
+                <div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-amber-300">
+                    Gateway Loading Ports
+                  </div>
+                  <div className="mt-1 text-sm font-bold text-emerald-300">
+                    Nhava Sheva (JNPT) / Mundra
+                  </div>
+                </div>
+              </div>
+
               <div className="mt-8 flex flex-wrap items-center gap-4">
+                <SpecSheetDownloadModal
+                  productName={product.name}
+                  hsCode={product.hsCode}
+                  buttonLabel="Download Technical Export Spec Sheet (PDF)"
+                />
                 <RfqModal
                   defaultCommodityName={product.name}
                   defaultHsCode={product.hsCode}
@@ -211,6 +249,79 @@ function CommodityCategorySlugPage() {
       </header>
 
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 space-y-16">
+        <section className="grid gap-6 lg:grid-cols-12">
+          <div className="rounded-2xl border-2 border-emerald-500/40 bg-emerald-50/70 p-6 lg:col-span-5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+              ✓ 48-Hour Sample Dispatch Policy
+            </div>
+            <h2 className="mt-3 text-lg font-bold text-slate-900">
+              DHL / FedEx International Priority Sample Lots
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              &ldquo;Commercial 500g–1kg lab inspection samples dispatched via DHL / FedEx
+              International Priority within 48 business hours for verified importers.&rdquo;
+            </p>
+            <a
+              href={sampleDispatchWhatsAppUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-emerald-800"
+            >
+              Request 500g–1kg DHL/FedEx Sample Lot →
+            </a>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-7">
+            <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
+              Third-Party Quality Inspection &amp; Quarantine Seals
+            </div>
+            <h2 className="mt-1 text-lg font-bold text-slate-900">
+              Mandatory Pre-Shipment Verification &amp; Phytosanitary Clearance
+            </h2>
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {[
+                {
+                  badge: "SGS",
+                  title: "SGS Inspected",
+                  sub: "Pre-Shipment Weight & Grade Audit",
+                },
+                {
+                  badge: "GEO-CHEM",
+                  title: "Geo-Chem Labs",
+                  sub: "Pesticide MRL & Purity Assay",
+                },
+                {
+                  badge: "BUREAU VERITAS",
+                  title: "Bureau Veritas",
+                  sub: "Container Stuffing & Seal Survey",
+                },
+                {
+                  badge: "GOVT. PHYTO",
+                  title: "NPPO / APEDA",
+                  sub: "Official Phytosanitary & Fumigation",
+                },
+              ].map((seal) => (
+                <div
+                  key={seal.badge}
+                  className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center"
+                >
+                  <div className="inline-block rounded-md bg-slate-900 px-2.5 py-1 text-[10px] font-extrabold tracking-wider text-amber-400">
+                    {seal.badge}
+                  </div>
+                  <div className="mt-2 text-xs font-bold text-slate-900">{seal.title}</div>
+                  <div className="mt-0.5 text-[11px] leading-snug text-slate-600">{seal.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <ContainerLoadingCalculator
+          productName={product.name}
+          hsCode={product.hsCode}
+          container20ftText={product.logistics.container20ft}
+          container40ftText={product.logistics.container40ft}
+        />
         <section className="rounded-2xl border-l-4 border-[#0057B8] bg-slate-50 p-6 sm:p-8 shadow-sm">
           <div className="flex items-center justify-between flex-wrap gap-2">
             <span className="text-xs font-bold uppercase tracking-widest text-[#0057B8]">

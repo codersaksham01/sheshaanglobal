@@ -186,15 +186,16 @@ function ProductsIndex() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: Math.min(i, 5) * 0.06, ease }}
             >
-              <Link
-                to="/products/$slug"
-                params={{ slug: p.slug }}
+              <a
+                href={`/products/${p.slug}`}
                 className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_6px_30px_rgba(4,21,45,0.06)] transition-all hover:-translate-y-1 hover:shadow-[0_16px_44px_rgba(4,21,45,0.14)]"
               >
                 <div className="relative h-44 overflow-hidden">
                   <img
                     src={p.img}
-                    alt={`${p.name} export from India`}
+                    alt={`${p.name} Exporter in India — Bulk Supply`}
+                    width={480}
+                    height={320}
                     loading="lazy"
                     decoding="async"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -217,11 +218,11 @@ function ProductsIndex() {
                     className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold"
                     style={{ color: BLUE }}
                   >
-                    View details{" "}
+                    View Specifications{" "}
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>
-              </Link>
+              </a>
             </motion.div>
           ))}
         </div>
@@ -273,17 +274,18 @@ function ProductsIndex() {
 
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filtered.map((p) => (
-              <Link
+              <a
                 key={p.slug}
-                to="/products/$slug"
-                params={{ slug: p.slug }}
+                href={`/products/${p.slug}`}
                 className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#0057B8]/40 hover:shadow-[0_14px_36px_rgba(4,21,45,0.1)]"
               >
                 <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
                   {p.img ? (
                     <img
                       src={p.img}
-                      alt={`${p.name} export product`}
+                      alt={`${p.name} Exporter in India — HS ${p.hsCode}`}
+                      width={400}
+                      height={300}
                       loading="lazy"
                       decoding="async"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -323,11 +325,11 @@ function ProductsIndex() {
                     className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold"
                     style={{ color: BLUE }}
                   >
-                    Open product page{" "}
+                    View Specifications{" "}
                     <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                   </span>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
 

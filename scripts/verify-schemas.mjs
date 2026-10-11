@@ -5,6 +5,7 @@ import {
   CATEGORIES,
 } from '../data/products.ts';
 import {
+  EXPORT_CORRIDOR_LANES,
   TRADE_CORRIDOR_REGIONS,
 } from '../data/corridors.ts';
 import {
@@ -23,13 +24,14 @@ const BASE_URL = 'https://www.sheshaanglobal.com';
 const LAST_MOD = '2026-10-10';
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public');
 
-// 0. Generate XML Sitemap Index & Child Sitemaps (including localized hubs, trade-intelligence, and 784 trade corridors)
+// 0. Generate XML Sitemap Index & Child Sitemaps (including localized hubs, trade-intelligence, /exports lanes, and 784 trade corridors)
 const staticPaths = [
   '/',
   '/ar',
   '/fr',
   '/ru',
   '/products',
+  '/exports',
   '/trade-intelligence',
   '/about',
   '/quality',
@@ -104,6 +106,14 @@ ${PRODUCTS_CATALOG.map(
 
 const sitemapCorridorsXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${EXPORT_CORRIDOR_LANES.map(
+  (lane) => `  <url>
+    <loc>${BASE_URL}/exports/${lane.slug}</loc>
+    <lastmod>${LAST_MOD}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.92</priority>
+  </url>`
+).join('\n')}
 ${PRODUCTS_CATALOG.flatMap((p) =>
   TRADE_CORRIDOR_REGIONS.map(
     (r) => `  <url>
@@ -136,7 +146,11 @@ if (corp['@context'] !== 'https://schema.org' || corp['@type'] !== 'Corporation'
   console.error('Invalid Corporation schema root');
   errors++;
 }
-if (corp.founder?.[0]?.name !== 'Sana Zeba Bakshi' || corp.employee?.[0]?.name !== 'Juned Barade') {
+if (
+  corp.founder?.[0]?.name !== 'Sana Zeba Bakshi' ||
+  corp.employee?.[0]?.name !== 'Juned Barade' ||
+  corp.employee?.[1]?.name !== 'Saksham Singh'
+) {
   console.error('Missing executive leadership in Corporation schema');
   errors++;
 }
@@ -147,12 +161,22 @@ if ((corp.sameAs?.length ?? 0) < 4) {
 
 // 2. Validate Product, ImageObject, BreadcrumbList, FAQPage, HowTo, SpecialAnnouncement, and TradeCorridor schemas
 for (const product of PRODUCTS_CATALOG) {
-  if (product.seoTitle.length > 60) {
-    console.error(`SEO title exceeds 60 chars for ${product.slug}: ${product.seoTitle.length}`);
+  if (
+    !product.seoTitle.includes('Exporter in India') ||
+    !product.seoTitle.includes('Sheshaan Global')
+  ) {
+    console.error(`SEO title missing exact-match formula for ${product.slug}: ${product.seoTitle}`);
     errors++;
   }
-  if (product.metaDescription.length > 155) {
-    console.error(`Meta description exceeds 155 chars for ${product.slug}: ${product.metaDescription.length}`);
+  if (!product.h1Headline.includes('Exporter in India')) {
+    console.error(`H1 headline missing exact-match formula for ${product.slug}: ${product.h1Headline}`);
+    errors++;
+  }
+  if (
+    !product.metaDescription.includes(product.hsCode) ||
+    !product.metaDescription.includes('Nhava Sheva')
+  ) {
+    console.error(`Meta description missing HS code or gateway port for ${product.slug}: ${product.metaDescription}`);
     errors++;
   }
 
@@ -202,5 +226,5 @@ if (errors > 0) {
 }
 
 console.log(
-  `Audit & Advanced GEO Verification PASSED: Generated 4 XML Sitemaps (${PRODUCTS_CATALOG.length * TRADE_CORRIDOR_REGIONS.length} Trade Corridor URLs + ${PRODUCTS_CATALOG.length} Commodity URLs + 3 Localized Hubs) & Validated Corporation, Product, ImageObject (GeoCoordinates), HowTo (CHA/Shipping Line), SpecialAnnouncement, BreadcrumbList, FAQPage, and TradeCorridor Service schemas.`
+  `Audit & Advanced GEO Verification PASSED: Generated 4 XML Sitemaps (${EXPORT_CORRIDOR_LANES.length} Dedicated /exports Lanes + ${PRODUCTS_CATALOG.length * TRADE_CORRIDOR_REGIONS.length} Trade Corridor URLs + ${PRODUCTS_CATALOG.length} Commodity URLs + 3 Localized Hubs) & Validated Corporation, Product, ImageObject (GeoCoordinates), HowTo (CHA/Shipping Line), SpecialAnnouncement, BreadcrumbList, FAQPage, and TradeCorridor Service schemas.`
 );

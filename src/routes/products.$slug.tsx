@@ -50,6 +50,8 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { ContainerLoadingCalculator } from "@/components/ContainerLoadingCalculator";
+import { SpecSheetDownloadModal } from "@/components/SpecSheetDownloadModal";
 
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
@@ -87,10 +89,12 @@ export const Route = createFileRoute("/products/$slug")({
     const url = `${SITE_URL}/products/${params.slug}`;
     const previewImage = p.gallery[0] || p.img || "/logo.png";
     const img = absoluteUrl(previewImage);
-    const title = emp?.seoTitle ?? `${p.name} Exporter in India | ${SITE_NAME}`;
+    const primaryVariety = p.varieties[0]?.split("(")[0]?.trim() || "APEDA Certified";
+    const title =
+      emp?.seoTitle ?? `${p.name} Exporter in India | ${primaryVariety} | ${SITE_NAME}`;
     const desc =
       emp?.metaDescription ??
-      `${p.tagline}. Export-grade ${p.name.toLowerCase()} from India with packing options, standards, certifications and direct inquiry. Sheshaan Global ships to 25+ countries.`;
+      `${p.name} Exporter in India (HS ${p.hsCode ?? "0703"}) sourced from verified Maharashtra & Gujarat clusters (${p.varieties.slice(0, 2).join(", ")}). Shipped via Nhava Sheva JNPT / Mundra in 20ft/40ft FCL. Request FOB/CIF quote.`;
     return {
       meta: [
         { title },
@@ -303,9 +307,15 @@ function ProductPage() {
               </div>
             </div>
           </Link>
-          <Link to="/" className="text-sm font-medium text-slate-600 hover:text-[#0057B8]">
-            ← All products
-          </Link>
+          <div className="flex items-center gap-3">
+            <SpecSheetDownloadModal
+              buttonLabel="2026 Product Catalog (PDF)"
+              variant="header"
+            />
+            <Link to="/products" className="text-sm font-medium text-slate-600 hover:text-[#0057B8]">
+              ← All products
+            </Link>
+          </div>
         </div>
       </header>
 
@@ -338,7 +348,7 @@ function ProductPage() {
             {product.gallery[active] ? (
               <img
                 src={product.gallery[active]}
-                alt={`${product.name} export product from India`}
+                alt={`${product.name} Exporter in India — ${empirical?.originCluster ?? "Bulk Supply"}`}
                 width={900}
                 height={900}
                 loading={active === 0 ? "eager" : "lazy"}
@@ -364,7 +374,7 @@ function ProductPage() {
                 >
                   <img
                     src={g}
-                    alt={`${product.name} gallery ${i + 1}`}
+                    alt={`${product.name} Exporter in India gallery ${i + 1}`}
                     width={180}
                     height={180}
                     loading="lazy"
@@ -384,10 +394,11 @@ function ProductPage() {
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-slate-600">
-            <Sparkles className="h-3.5 w-3.5" style={{ color: ORANGE }} /> Export Grade
+            <Sparkles className="h-3.5 w-3.5" style={{ color: ORANGE }} /> APEDA &amp; FSSAI Certified Exporter
           </div>
           <h1 className="mt-4 font-display text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">
-            {empirical?.h1Headline ?? `${product.name} Exporter in India`}
+            {empirical?.h1Headline ??
+              `${product.name} Exporter in India | ${product.varieties[0] ?? "Bulk Supply"} | Sheshaan Global: APEDA Certified Bulk Supplier`}
           </h1>
           <p className="mt-3 text-lg" style={{ color: ORANGE }}>
             {product.tagline}
@@ -401,9 +412,26 @@ function ProductPage() {
             {empirical?.executiveSummary ?? product.description}
           </p>
 
-          <div className="mt-7 grid gap-3 sm:grid-cols-3">
+          {/* Institutional Wholesale MOQ & Container Loadability Callout */}
+          <div className="mt-6 rounded-2xl border-2 border-amber-400/50 bg-amber-50/70 p-4">
+            <div className="text-[11px] font-bold uppercase tracking-widest text-amber-900">
+              Institutional Wholesale MOQ &amp; Container Loadability
+            </div>
+            <div className="mt-1.5 text-sm font-bold text-slate-900">
+              Standard Commercial MOQ: 1 x FCL (
+              {empirical?.logistics.container40ft ??
+                `${specs.container} • ~25–29 MT Net Load`}
+              )
+            </div>
+            <div className="mt-1 text-xs text-slate-600">
+              20ft Load: {empirical?.logistics.container20ft ?? "14–25 MT per 20ft FCL"} • Ports of
+              Loading: Nhava Sheva (JNPT), Mumbai &amp; Mundra Port, Gujarat
+            </div>
+          </div>
+
+          <div className="mt-6 grid gap-3 sm:grid-cols-3">
             {[
-              { icon: ClipboardCheck, label: "Inspection", value: specs.inspection },
+              { icon: ClipboardCheck, label: "Inspection", value: "SGS / Geo-Chem / Bureau Veritas" },
               { icon: Timer, label: "Lead time", value: specs.leadTime },
               { icon: Truck, label: "Mode", value: specs.mode },
             ].map((s) => (
@@ -443,8 +471,14 @@ function ProductPage() {
               className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#25D366]/40"
               style={{ background: "#25D366" }}
             >
-              <MessageCircle className="h-4 w-4" aria-hidden /> Inquire on WhatsApp
+              <MessageCircle className="h-4 w-4" aria-hidden /> Inquire on WhatsApp (+91 81499 09546)
             </a>
+            <SpecSheetDownloadModal
+              productName={product.name}
+              hsCode={empirical?.hsCode ?? product.hsCode ?? "0703"}
+              pdfUrl={brochureUrl}
+              buttonLabel="Download Technical Export Spec Sheet (PDF)"
+            />
             <button
               type="button"
               onClick={() => {
@@ -456,14 +490,6 @@ function ProductPage() {
             >
               <Eye className="h-4 w-4" aria-hidden /> Preview Brochure
             </button>
-            <a
-              href={brochureUrl}
-              download={brochureName}
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-[#FF8A00]/40"
-              style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
-            >
-              <Download className="h-4 w-4" aria-hidden /> Download {product.name} Brochure
-            </a>
             <a
               href={MAILTO_URL}
               className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-6 py-3.5 text-sm font-semibold text-slate-800 shadow-sm transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057B8]"
@@ -523,6 +549,86 @@ function ProductPage() {
             </DialogContent>
           </Dialog>
         </motion.div>
+      </section>
+
+      {/* B2B CRO Trust Block: 48-Hour Sample Dispatch Badge + Third-Party Quality Seals + Container Loading Calculator */}
+      <section className="mx-auto max-w-7xl space-y-8 px-6 pb-12">
+        <div className="grid gap-6 lg:grid-cols-12">
+          <div className="rounded-3xl border-2 border-emerald-500/40 bg-emerald-50/70 p-6 lg:col-span-5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
+              ✓ Verified 48-Hour Sample Dispatch Policy
+            </div>
+            <h2 className="mt-3 font-display text-lg font-bold text-slate-900">
+              DHL / FedEx International Priority Sample Lots
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              &ldquo;Commercial 500g–1kg lab inspection samples dispatched via DHL / FedEx
+              International Priority within 48 business hours for verified importers.&rdquo;
+            </p>
+            <a
+              href={buildWhatsAppUrl({
+                category: `${product.name} (500g–1kg DHL/FedEx Sample Request)`,
+                message: `We are a verified importer requesting a 48-hour commercial evaluation sample for ${product.name} (HS ${empirical?.hsCode ?? product.hsCode ?? "0703"}).`,
+              })}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-emerald-800"
+            >
+              Request 500g–1kg DHL/FedEx Evaluation Sample →
+            </a>
+          </div>
+
+          <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-7">
+            <div className="text-xs font-bold uppercase tracking-widest text-slate-500">
+              Third-Party Quality Inspection &amp; Quarantine Seals
+            </div>
+            <h2 className="mt-1 font-display text-lg font-bold text-slate-900">
+              Mandatory Pre-Shipment Verification &amp; Phytosanitary Clearance
+            </h2>
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {[
+                {
+                  badge: "SGS",
+                  title: "SGS Inspected",
+                  sub: "Pre-Shipment Weight & Grade Audit",
+                },
+                {
+                  badge: "GEO-CHEM",
+                  title: "Geo-Chem Labs",
+                  sub: "Pesticide MRL & Purity Assay",
+                },
+                {
+                  badge: "BUREAU VERITAS",
+                  title: "Bureau Veritas",
+                  sub: "Container Stuffing & Seal Survey",
+                },
+                {
+                  badge: "GOVT. PHYTO",
+                  title: "NPPO / APEDA",
+                  sub: "Official Phytosanitary & Fumigation",
+                },
+              ].map((seal) => (
+                <div
+                  key={seal.badge}
+                  className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 text-center"
+                >
+                  <div className="inline-block rounded-md bg-slate-900 px-2.5 py-1 text-[10px] font-extrabold tracking-wider text-amber-400">
+                    {seal.badge}
+                  </div>
+                  <div className="mt-2 text-xs font-bold text-slate-900">{seal.title}</div>
+                  <div className="mt-0.5 text-[11px] leading-snug text-slate-600">{seal.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <ContainerLoadingCalculator
+          productName={product.name}
+          hsCode={empirical?.hsCode ?? product.hsCode ?? "0703"}
+          container20ftText={empirical?.logistics.container20ft}
+          container40ftText={empirical?.logistics.container40ft}
+        />
       </section>
 
       {/* Premium product intelligence */}

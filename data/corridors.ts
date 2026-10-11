@@ -350,3 +350,154 @@ export function buildCorridorExecutiveSummary(
 ): string {
   return `Sheshaan Global is an APEDA, FSSAI, and CDB certified ${product.name.toLowerCase()} exporter from India to ${region.name}, supplying wholesale importers with ${product.specs.primaryGrade} (ITC-HS Code ${product.hsCode}) sourced directly from ${product.originCluster}. Every consignment is cleared at ${product.logistics.gatewayPorts[0]} by our licensed Customs House Agent (CHA) and shipped via premier third-party international shipping lines to ${region.dischargePorts.join(', ')} (${region.transitTimeFromIndia}). Shipments are packed in ${product.logistics.standardPackaging}, loading ${product.logistics.container40ft} (${formatDualWeightUnit(product.logistics.eligibleQuantityValue)}) under ${product.logistics.transitClimateControl}, and include full ${region.importAuthority} compliance documentation under FOB, CFR, and CIF Incoterms (${region.preferredCurrencies.join('/')} settlement via L/C at sight, DP/CAD, or 30/70 TT).`;
 }
+
+export interface DedicatedExportLane {
+  slug: string;
+  productSlug: string;
+  regionSlug: string;
+  targetPortLabel: string;
+  targetBuyerSegment: string;
+  seoTitle: string;
+  h1Headline: string;
+  metaDescription: string;
+}
+
+export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
+  {
+    slug: 'fresh-onion-exporter-india-to-dubai-uae',
+    productSlug: 'fresh-onion-exporter-india',
+    regionSlug: 'uae',
+    targetPortLabel: 'Jebel Ali Port, Dubai & Khalifa Port, UAE',
+    targetBuyerSegment: 'Al Aweer Central Fruit & Vegetable Market Wholesalers & GCC Hypermarkets',
+    seoTitle: 'Fresh Onion Exporter India to Dubai UAE | Jebel Ali | Sheshaan Global',
+    h1Headline: 'Fresh Red Onion Exporter from India to Dubai (Jebel Ali), UAE | Nashik 55mm+ Bulk Reefer Supply',
+    metaDescription:
+      'APEDA-certified Fresh Red Onion Exporter from India to Dubai, UAE (HS 07031010). Nashik 45mm–55mm+ onions, 29 MT/40ft reefer via Nhava Sheva JNPT / Mundra to Jebel Ali in 3–5 days.',
+  },
+  {
+    slug: '1121-basmati-rice-exporter-to-saudi-arabia-dammam',
+    productSlug: '1121-basmati-rice-exporter-india',
+    regionSlug: 'saudi-arabia',
+    targetPortLabel: 'King Abdulaziz Port (Dammam) & Jeddah Islamic Port, Saudi Arabia',
+    targetBuyerSegment: 'GCC Rice Importers, Private-Label Distributors & HORECA Catering Chains',
+    seoTitle: '1121 Basmati Rice Exporter to Saudi Arabia Dammam | Sheshaan Global',
+    h1Headline: '1121 Basmati Rice Exporter from India to Saudi Arabia (Dammam & Jeddah) | 8.35mm+ Steam & Golden Sella',
+    metaDescription:
+      'SFDA-compliant 1121 Basmati Rice Exporter from India to Dammam & Jeddah, Saudi Arabia (HS 10063020). Karnal 8.35mm+ aged rice, 25 MT/20ft FCL via Mundra / Nhava Sheva JNPT.',
+  },
+  {
+    slug: 'spices-exporter-to-usa-new-york',
+    productSlug: 'cumin-seeds-exporter-india',
+    regionSlug: 'usa',
+    targetPortLabel: 'Port of New York & New Jersey (Newark), Houston & Los Angeles, USA',
+    targetBuyerSegment: 'US Food Processing Houses, ASTA Spice Millers & Wholesale Importers',
+    seoTitle: 'Spices Exporter from India to USA New York | ASTA Clean | Sheshaan Global',
+    h1Headline: 'Indian Spices & Cumin Seeds Exporter to USA (New York / Newark) | ASTA Clean & Steam-Sterilized',
+    metaDescription:
+      'US FDA & ASTA-compliant Indian Spices Exporter to New York, USA (HS 09093129 / 091030). Unjha 99.5% sortex cumin, turmeric & chilli via Mundra / Nhava Sheva JNPT.',
+  },
+  {
+    slug: 'cumin-seeds-exporter-to-usa-new-york',
+    productSlug: 'cumin-seeds-exporter-india',
+    regionSlug: 'usa',
+    targetPortLabel: 'Port of New York & New Jersey (Newark), USA',
+    targetBuyerSegment: 'US Food Processing Houses, Seasoning Manufacturers & Bulk Spice Importers',
+    seoTitle: 'Cumin Seeds Exporter to USA New York | Unjha 99% | Sheshaan Global',
+    h1Headline: 'Cumin Seeds (Jeera) Exporter from India to USA (New York) | Unjha 99.5% Sortex ASTA Grade',
+    metaDescription:
+      'Bulk Unjha Cumin Seeds Exporter from India to New York, USA (HS 09093129). ASTA cleanliness, ETO-free steam sterilized, 27 MT/40ft FCL via Mundra / Nhava Sheva JNPT.',
+  },
+  {
+    slug: 'mature-coconut-exporter-to-uk-rotterdam',
+    productSlug: 'semi-husked-coconut-exporter-india',
+    regionSlug: 'uk',
+    targetPortLabel: 'Port of Felixstowe (UK) & Port of Rotterdam (Netherlands / EU)',
+    targetBuyerSegment: 'UK & European Retail Supermarkets, Ethnic Cash-and-Carry & Produce Distributors',
+    seoTitle: 'Mature Coconut Exporter to UK & Rotterdam | Pollachi CDB | Sheshaan Global',
+    h1Headline: 'Mature Semi-Husked Coconut Exporter from India to UK (Felixstowe) & Rotterdam | Pollachi CDB Certified',
+    metaDescription:
+      'CDB-registered Pollachi Mature Semi-Husked Coconut Exporter from India to UK & Rotterdam (HS 08011910). 550g–650g export grade, 27 MT/40ft HC via Nhava Sheva JNPT / Tuticorin.',
+  },
+  {
+    slug: 'green-chilli-exporter-india-to-doha-qatar',
+    productSlug: 'green-chilli-exporter-india',
+    regionSlug: 'qatar',
+    targetPortLabel: 'Hamad Port & Doha International Air Cargo (DOH), Qatar',
+    targetBuyerSegment: 'Qatar Central Market Wholesalers & Supermarket Chains',
+    seoTitle: 'Green Chilli Exporter India to Doha Qatar | G4 Bulk | Sheshaan Global',
+    h1Headline: 'Fresh G4 Green Chilli Exporter from India to Doha, Qatar | Pre-Cooled Reefer & Air Cargo Supply',
+    metaDescription:
+      'APEDA-registered G4 Green Chilli Exporter from India to Doha, Qatar (HS 07096010). Sourced from Nashik & Vapi, 3.8kg/4kg cartons via Nhava Sheva JNPT & Mumbai Air Cargo.',
+  },
+  {
+    slug: 'turmeric-finger-exporter-india-to-europe-rotterdam',
+    productSlug: 'turmeric-finger-exporter-india',
+    regionSlug: 'netherlands',
+    targetPortLabel: 'Port of Rotterdam (Netherlands) & Hamburg (Germany)',
+    targetBuyerSegment: 'European Spice Extractors, Curcumin Processors & Bulk Ingredient Traders',
+    seoTitle: 'Turmeric Finger Exporter India to Rotterdam EU | 5% Curcumin | Sheshaan Global',
+    h1Headline: 'Turmeric Finger Exporter from India to Rotterdam & Europe | Salem & Sangli Double-Polished Bulk FCL',
+    metaDescription:
+      'EU-MRL compliant Turmeric Finger Exporter from India to Rotterdam, Netherlands (HS 09103020). Sangli & Salem 3.5%–5.5% curcumin, 27 MT/40ft FCL via Nhava Sheva JNPT / Mundra.',
+  },
+  {
+    slug: 'g9-banana-exporter-india-to-oman-sohar',
+    productSlug: 'g9-cavendish-banana-exporter-india',
+    regionSlug: 'oman',
+    targetPortLabel: 'Sohar Port & Port of Salalah, Sultanate of Oman',
+    targetBuyerSegment: 'Mawaleh Central Fruit Market Importers & Ripening Chambers',
+    seoTitle: 'G9 Cavendish Banana Exporter India to Oman Sohar | Sheshaan Global',
+    h1Headline: 'G9 Cavendish Banana Exporter from India to Sohar & Muscat, Oman | 13.5kg Vacuum-Packed Reefer FCL',
+    metaDescription:
+      'APEDA-certified G9 Cavendish Banana Exporter from India to Sohar, Oman (HS 08039010). Solapur & Jalgaon Class-I hands, 20.8 MT (1,540 boxes) per 40ft HC Reefer via Nhava Sheva JNPT.',
+  },
+  {
+    slug: 'pomegranate-exporter-india-to-dubai-uae',
+    productSlug: 'pomegranate-exporter-india',
+    regionSlug: 'uae',
+    targetPortLabel: 'Jebel Ali Port (Dubai) & Dubai Air Cargo, UAE',
+    targetBuyerSegment: 'GCC Fresh Fruit Distributors & Retail Supermarket Chains',
+    seoTitle: 'Bhagwa Pomegranate Exporter India to Dubai UAE | Sheshaan Global',
+    h1Headline: 'Fresh Bhagwa Pomegranate Exporter from India to Dubai, UAE | Solapur & Nashik Super-Bhagwa Grade',
+    metaDescription:
+      'GlobalGAP & APEDA certified Bhagwa Pomegranate Exporter from India to Dubai, UAE (HS 08109010). 250g–350g+ ruby fruits in 3.5kg cartons via Nhava Sheva JNPT to Jebel Ali.',
+  },
+  {
+    slug: 'cashew-kernels-exporter-india-to-usa-new-york',
+    productSlug: 'cashew-kernels-exporter-india',
+    regionSlug: 'usa',
+    targetPortLabel: 'Port of New York / Newark & Los Angeles, USA',
+    targetBuyerSegment: 'US Nut Roasters, Snack Brands & Confectionery Manufacturers',
+    seoTitle: 'Cashew Kernels W240 W320 Exporter India to USA | Sheshaan Global',
+    h1Headline: 'Whole White Cashew Kernels (W180/W240/W320) Exporter from India to USA | AFI Grade Vacuum Packs',
+    metaDescription:
+      'AFI-grade Indian Cashew Kernels Exporter to USA (HS 08013220). W180, W240 & W320 whole white kernels from Kollam & Mangalore, 16 MT/20ft FCL via Nhava Sheva JNPT / Cochin.',
+  },
+  {
+    slug: 'makhana-exporter-india-to-uk-felixstowe',
+    productSlug: 'phool-makhana-exporter-india',
+    regionSlug: 'uk',
+    targetPortLabel: 'Port of Felixstowe & London Gateway, United Kingdom',
+    targetBuyerSegment: 'UK Healthy Snack Brands, Superfood Importers & Private-Label Retailers',
+    seoTitle: 'Phool Makhana Fox Nuts Exporter India to UK | 5+ Suta | Sheshaan Global',
+    h1Headline: 'Mithila Phool Makhana (Fox Nuts) Exporter from India to UK | 5+ & 6+ Suta Handpicked Superfood Grade',
+    metaDescription:
+      'FSSAI & APEDA certified Phool Makhana (Fox Nuts) Exporter from Bihar, India to UK (HS 08109090). 16mm–22mm+ handpicked lava makhana shipped via Nhava Sheva JNPT.',
+  },
+  {
+    slug: 'refined-sugar-exporter-india-to-africa-durban',
+    productSlug: 'refined-sugar-exporter-india',
+    regionSlug: 'south-africa',
+    targetPortLabel: 'Port of Durban & Cape Town (South Africa) / Mombasa (East Africa)',
+    targetBuyerSegment: 'African Commodity Trading Houses, Beverage Bottlers & Food Distributors',
+    seoTitle: 'ICUMSA 45 S30 Sugar Exporter India to Africa | 27 MT FCL | Sheshaan Global',
+    h1Headline: 'Indian ICUMSA 45 & S30 White Crystal Sugar Exporter to Africa | Maharashtra Mill-Direct 50kg PP Bags',
+    metaDescription:
+      'Bulk Indian Sugar Exporter to Africa (HS 17019990). ICUMSA 45, S30 & M30 white crystal sugar from Maharashtra mills, 27 MT/20ft heavy FCL via Nhava Sheva JNPT / Mundra.',
+  },
+];
+
+export function getExportCorridorLaneBySlug(slug: string): DedicatedExportLane | undefined {
+  return EXPORT_CORRIDOR_LANES.find((lane) => lane.slug === slug);
+}
+

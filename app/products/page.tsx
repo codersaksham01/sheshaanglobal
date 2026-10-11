@@ -145,12 +145,12 @@ export default function ProductsCatalogHubPage() {
                     {items.map((product) => (
                       <tr key={product.sku} className="hover:bg-slate-50">
                         <td className="px-4 py-3.5 font-bold text-slate-900">
-                          <Link
+                          <a
                             href={`/products/${product.categorySlug}/${product.slug}`}
                             className="text-[#0057B8] hover:underline"
                           >
                             {product.name}
-                          </Link>
+                          </a>
                         </td>
                         <td className="px-4 py-3.5 font-mono text-xs font-semibold text-slate-700">
                           {product.hsCode}
@@ -160,12 +160,12 @@ export default function ProductsCatalogHubPage() {
                         <td className="px-4 py-3.5 text-slate-700">{product.specs.moistureTolerance}</td>
                         <td className="px-4 py-3.5 text-slate-700">{product.logistics.container40ft}</td>
                         <td className="px-4 py-3.5">
-                          <Link
+                          <a
                             href={`/products/${product.categorySlug}/${product.slug}`}
                             className="inline-flex items-center rounded-full bg-[#0057B8]/10 px-3 py-1 text-xs font-bold text-[#0057B8] hover:bg-[#0057B8] hover:text-white"
                           >
-                            View Specs →
-                          </Link>
+                            View Specifications →
+                          </a>
                         </td>
                       </tr>
                     ))}

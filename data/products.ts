@@ -1910,11 +1910,28 @@ const CATEGORY_MAP = new Map<CategorySlug, ProductCategory>(
   CATEGORIES.map((cat) => [cat.slug, cat])
 );
 
-function clampMetaText(text: string, maxLen: number): string {
-  if (text.length <= maxLen) return text;
-  const trimmed = text.slice(0, maxLen - 1);
-  const lastSpace = trimmed.lastIndexOf(' ');
-  return `${(lastSpace > maxLen - 25 ? trimmed.slice(0, lastSpace) : trimmed).replace(/[.,;:\s]+$/, '')}.`;
+function buildExactMatchTitle(seed: RawCommoditySeed): string {
+  if (seed.slug === 'fresh-onion-exporter-india') {
+    return 'Fresh Onion Exporter in India | Nashik Red Onions | Sheshaan Global';
+  }
+  const regionShort = seed.originCluster.split(',')[0].split('/')[0].trim();
+  const varietyShort = seed.varieties[0]?.split('(')[0]?.trim() || regionShort;
+  const modifier = varietyShort.length <= 22 ? varietyShort : regionShort;
+  return `${seed.name} Exporter in India | ${modifier} | Sheshaan Global`;
+}
+
+function buildExactMatchH1(seed: RawCommoditySeed): string {
+  const regionShort = seed.originCluster.split(',')[0].split('/')[0].trim();
+  const varietyShort = seed.varieties[0]?.split('(')[0]?.trim() || regionShort;
+  if (seed.slug === 'fresh-onion-exporter-india') {
+    return 'Fresh Red Onion Exporter in India: APEDA Certified Bulk Supplier | Nashik Red Onions | Sheshaan Global';
+  }
+  return `${seed.name} Exporter in India | ${varietyShort} | Sheshaan Global: APEDA Certified Bulk Supplier`;
+}
+
+function buildRichMetaDescription(seed: RawCommoditySeed): string {
+  const originShort = seed.originCluster.split('/')[0].trim();
+  return `${seed.name} Exporter in India (HS ${seed.hsCode}) from ${originShort}. ${seed.primaryGrade}, ${seed.container40ft}, shipped via Nhava Sheva JNPT / Mundra. Request FOB/CIF quote.`;
 }
 
 export const PRODUCTS_CATALOG: ExportCommodity[] = RAW_COMMODITIES.map((seed) => {
@@ -1929,9 +1946,9 @@ export const PRODUCTS_CATALOG: ExportCommodity[] = RAW_COMMODITIES.map((seed) =>
     hsCode: seed.hsCode,
     primaryKeyword: seed.primaryKeyword,
     monthlySearchVolume: seed.monthlySearchVolume,
-    seoTitle: clampMetaText(seed.seoTitle, 60),
-    metaDescription: clampMetaText(seed.metaDescription, 155),
-    h1Headline: seed.h1Headline,
+    seoTitle: buildExactMatchTitle(seed),
+    metaDescription: buildRichMetaDescription(seed),
+    h1Headline: buildExactMatchH1(seed),
     originCluster: seed.originCluster,
     varieties: seed.varieties,
     certifications: seed.certifications ?? [
@@ -1939,7 +1956,7 @@ export const PRODUCTS_CATALOG: ExportCommodity[] = RAW_COMMODITIES.map((seed) =>
       'FSSAI Central License',
       'DGFT IEC Certified',
       'Phytosanitary & Fumigation Certified',
-      'SGS / Geo-Chem Inspection Optional',
+      'SGS / Geo-Chem / Bureau Veritas Inspection',
     ],
     image: seed.image,
     specs: {
@@ -1975,6 +1992,55 @@ export const PRODUCTS_CATALOG: ExportCommodity[] = RAW_COMMODITIES.map((seed) =>
   };
 });
 
+const SLUG_ALIAS_MAP: Record<string, string> = {
+  'fresh-onions': 'fresh-onion-exporter-india',
+  'onions': 'fresh-onion-exporter-india',
+  'red-onion': 'fresh-onion-exporter-india',
+  'green-chillies': 'green-chilli-exporter-india',
+  'basmati-rice': '1121-basmati-rice-exporter-india',
+  'premium-rice': '1121-basmati-rice-exporter-india',
+  'rice': '1121-basmati-rice-exporter-india',
+  'coconut-brown-husked': 'semi-husked-coconut-exporter-india',
+  'mature-coconut': 'semi-husked-coconut-exporter-india',
+  'coconut': 'semi-husked-coconut-exporter-india',
+  'cumin': 'cumin-seeds-exporter-india',
+  'cumin-seeds': 'cumin-seeds-exporter-india',
+  'turmeric': 'turmeric-finger-exporter-india',
+  'dried-red-chillies': 'dried-red-chilli-exporter-india',
+  'sugar': 'refined-sugar-exporter-india',
+  'peanuts': 'peanuts-groundnut-exporter-india',
+  'makhana-raw': 'phool-makhana-exporter-india',
+  'makhana-processed': 'phool-makhana-exporter-india',
+  'dal-split-pulses': 'toor-dal-exporter-india',
+  'pulses-lentils': 'toor-dal-exporter-india',
+  'cashew': 'cashew-kernels-exporter-india',
+  'dry-fruits-nuts': 'cashew-kernels-exporter-india',
+  'pomegranate': 'pomegranate-exporter-india',
+  'dehydrated-onion-garlic': 'dehydrated-onion-exporter-india',
+  'potatoes': 'fresh-potato-exporter-india',
+  'okra-drumsticks': 'fresh-okra-exporter-india',
+  'g9-banana': 'g9-cavendish-banana-exporter-india',
+  'grapes': 'fresh-table-grapes-exporter-india',
+  'tomatoes': 'fresh-tomato-exporter-india',
+  'mango': 'alphonso-kesar-mango-exporter-india',
+  'fresh-fruits': 'alphonso-kesar-mango-exporter-india',
+  'fresh-vegetables': 'fresh-onion-exporter-india',
+  'other-vegetables': 'mixed-vegetables-exporter-india',
+  'coriander': 'coriander-seeds-exporter-india',
+  'spices-masalas': 'cumin-seeds-exporter-india',
+  'soyabean': 'non-gmo-soyabean-exporter-india',
+  'lemon': 'fresh-lemon-lime-exporter-india',
+  'oranges': 'nagpur-mandarin-orange-exporter-india',
+  'chickpeas': 'kabuli-chickpeas-exporter-india',
+  'wheat': 'milling-wheat-exporter-india',
+  'fenugreek': 'fenugreek-seeds-exporter-india',
+  'cardamom': 'green-cardamom-exporter-india',
+  'maize-corn': 'yellow-maize-corn-exporter-india',
+  'ginger': 'fresh-ginger-exporter-india',
+  'garlic': 'fresh-garlic-exporter-india',
+  'black-pepper': 'black-pepper-exporter-india',
+};
+
 export function getCategoryBySlug(categorySlug: string): ProductCategory | undefined {
   return CATEGORIES.find((cat) => cat.slug === categorySlug);
 }
@@ -1987,13 +2053,19 @@ export function getProductByCategoryAndSlug(
   categorySlug: string,
   slug: string
 ): ExportCommodity | undefined {
+  const mappedSlug = SLUG_ALIAS_MAP[slug] ?? slug;
   return PRODUCTS_CATALOG.find(
-    (product) => product.categorySlug === categorySlug && product.slug === slug
+    (product) =>
+      product.categorySlug === categorySlug &&
+      (product.slug === slug || product.slug === mappedSlug || product.legacySlug === slug)
   );
 }
 
 export function getProductBySlugOrLegacy(slug: string): ExportCommodity | undefined {
+  const mappedSlug = SLUG_ALIAS_MAP[slug] ?? slug;
   return PRODUCTS_CATALOG.find(
-    (product) => product.slug === slug || product.legacySlug === slug
+    (product) =>
+      product.slug === slug || product.slug === mappedSlug || product.legacySlug === slug
   );
 }
+

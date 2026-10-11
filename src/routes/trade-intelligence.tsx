@@ -11,15 +11,15 @@ import { SITE_URL } from "@/lib/seo";
 export const Route = createFileRoute("/trade-intelligence")({
   head: () => {
     const url = `${SITE_URL}/trade-intelligence`;
-    const title = "Indian Agri Export Intelligence, Crop Calendar & CHA Compliance | Sheshaan Global";
+    const TITLE = "Indian Agri Export Intelligence, Crop Calendar & CHA Compliance | Sheshaan Global";
     const desc =
       "Live 2026 Indian agricultural harvest calendar, APEDA/FSSAI/DGFT export compliance checklist, licensed CHA customs clearance, and third-party shipping line protocols.";
     return {
       meta: [
-        { title },
+        { title: TITLE },
         { name: "description", content: desc },
         { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
-        { property: "og:title", content: title },
+        { property: "og:title", content: TITLE },
         { property: "og:description", content: desc },
         { property: "og:type", content: "website" },
         { property: "og:url", content: url },

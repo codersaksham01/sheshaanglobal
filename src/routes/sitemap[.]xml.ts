@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { ALL_PRODUCTS, REGIONS } from "@/lib/site";
 import { CATEGORIES, PRODUCTS_CATALOG } from "@/lib/empirical-products";
+import { EXPORT_CORRIDOR_LANES } from "../../data/corridors";
 import { absoluteUrl, SITE_UPDATED, SITE_URL } from "@/lib/seo";
 
 interface SitemapEntry {
@@ -21,6 +22,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/ar", changefreq: "weekly", priority: "0.95" },
           { path: "/fr", changefreq: "weekly", priority: "0.95" },
           { path: "/ru", changefreq: "weekly", priority: "0.95" },
+          { path: "/exports", changefreq: "weekly", priority: "0.95" },
           { path: "/trade-intelligence", changefreq: "weekly", priority: "0.9" },
           { path: "/about", changefreq: "monthly", priority: "0.7" },
           { path: "/contact", changefreq: "yearly", priority: "0.7" },
@@ -34,6 +36,11 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/markets/africa", changefreq: "monthly", priority: "0.65" },
           { path: "/markets/uae", changefreq: "monthly", priority: "0.7" },
           { path: "/markets/middle-east", changefreq: "monthly", priority: "0.7" },
+          ...EXPORT_CORRIDOR_LANES.map((lane) => ({
+            path: `/exports/${lane.slug}`,
+            changefreq: "weekly" as const,
+            priority: "0.92",
+          })),
           ...CATEGORIES.map((c) => ({
             path: `/products/${c.slug}`,
             changefreq: "weekly" as const,
@@ -99,8 +106,8 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         return new Response(xml, {
           headers: {
-            "Content-Type": "application/xml",
-            "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
+            "Content-Type": "application/xml; charset=utf-8",
+            "Cache-Control": "public, max-age=3600, s-maxage=86400",
           },
         });
       },

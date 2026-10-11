@@ -71,6 +71,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import { SpecSheetDownloadModal } from "@/components/SpecSheetDownloadModal";
 
 const HOME_OG_IMAGE =
   "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/151163a4-b0a4-4618-870c-3036bf272bc4/id-preview-9f783eb1--1c1a3479-b063-4556-a6ca-26b03b90f481.lovable.app-1784225780475.png";
@@ -221,6 +222,7 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Products", href: "/products" },
+  { label: "Export Corridors", href: "/exports" },
   { label: "Markets", href: "#markets" },
   { label: "Certifications", href: "#certs" },
   { label: "More Info", href: "/more-info" },
@@ -266,7 +268,7 @@ function Nav() {
             </div>
           </div>
         </a>
-        <nav className="hidden items-center gap-7 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
@@ -277,13 +279,16 @@ function Nav() {
             </a>
           ))}
         </nav>
-        <a
-          href="/contact"
-          className="hidden items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105 lg:inline-flex"
-          style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
-        >
-          Get In Touch <ArrowRight className="h-4 w-4" />
-        </a>
+        <div className="hidden items-center gap-3 lg:flex">
+          <SpecSheetDownloadModal buttonLabel="2026 Product Catalog" variant="header" />
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
+            style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+          >
+            Get In Touch <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
         <button className="lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
@@ -624,15 +629,14 @@ function Products() {
               transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
               className="w-[220px] flex-shrink-0 snap-start sm:w-[240px]"
             >
-              <Link
-                to="/products/$slug"
-                params={{ slug: p.slug }}
+              <a
+                href={`/products/${p.slug}`}
                 className="group relative block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-2 hover:shadow-2xl"
               >
                 <div className="aspect-square overflow-hidden">
                   <img
                     src={p.img}
-                    alt={p.name}
+                    alt={`${p.name} Exporter in India — Bulk Supply`}
                     width={480}
                     height={480}
                     loading="lazy"
@@ -645,7 +649,7 @@ function Products() {
                       {p.name}
                     </div>
                     <div className="mt-0.5 text-[10px] uppercase tracking-wider text-slate-500">
-                      View details
+                      View Specifications
                     </div>
                   </div>
                   <div
@@ -655,7 +659,7 @@ function Products() {
                     <ChevronRight className="h-4 w-4" />
                   </div>
                 </div>
-              </Link>
+              </a>
             </motion.div>
           ))}
         </div>

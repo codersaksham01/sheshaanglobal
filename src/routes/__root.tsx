@@ -18,19 +18,44 @@ import { DEFAULT_KEYWORDS, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "../lib/
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-16">
+      <div className="max-w-xl rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
+        <p className="text-xs font-bold uppercase tracking-widest text-primary">
+          404 • Export Dossier Route Not Found
         </p>
-        <div className="mt-6">
+        <h1 className="mt-3 text-3xl font-extrabold text-foreground sm:text-4xl">
+          Looking for an Indian Agricultural Export Specification?
+        </h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          The page you requested may have moved to our 49-Commodity HS Code Directory or our
+          Port-to-Port Global Export Corridors.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <a
+            href="/products"
+            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2.5 text-xs font-bold text-primary-foreground transition-colors hover:bg-primary/90"
+          >
+            Browse 49-Commodity Catalog →
+          </a>
+          <a
+            href="/exports"
+            className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2.5 text-xs font-bold text-foreground transition-colors hover:bg-accent"
+          >
+            Explore Export Corridors
+          </a>
+          <a
+            href="https://wa.me/918149909546"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-md bg-[#25D366] px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-[#1da851]"
+          >
+            WhatsApp (+91 81499 09546)
+          </a>
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center rounded-md border border-border bg-background px-4 py-2.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
-            Go home
+            Go Home
           </Link>
         </div>
       </div>

@@ -247,6 +247,12 @@ export const ORGANIZATION_JSONLD = {
       jobTitle: "Chief Operating Officer",
       email: "junedbarade@sheshaanglobal.com",
     },
+    {
+      "@type": "Person",
+      name: "Saksham Singh",
+      jobTitle: "Business Development",
+      email: "info@sheshaanglobal.com",
+    },
   ],
   hasCredential: [
     {
@@ -1041,8 +1047,22 @@ export const CATALOG: Product[] = CATALOG_SEEDS.map((c) => {
 /** Flagship categories first, then the full HS-code catalogue. */
 export const ALL_PRODUCTS: Product[] = [...PRODUCTS, ...CATALOG];
 
+const SITE_SLUG_ALIASES: Record<string, string> = {
+  "basmati-rice": "premium-rice",
+  "1121-basmati-rice": "premium-rice",
+  "1121-basmati-rice-exporter-india": "premium-rice",
+  "fresh-onion-exporter-india": "fresh-onions",
+  "onions": "fresh-onions",
+  "green-chilli-exporter-india": "green-chillies",
+  "mature-coconut": "coconut-brown-husked",
+  "semi-husked-coconut-exporter-india": "coconut-brown-husked",
+  "cumin-seeds": "cumin",
+  "cumin-seeds-exporter-india": "cumin",
+};
+
 export function getProductBySlug(slug: string) {
-  return ALL_PRODUCTS.find((p) => p.slug === slug);
+  const mapped = SITE_SLUG_ALIASES[slug] ?? slug;
+  return ALL_PRODUCTS.find((p) => p.slug === slug || p.slug === mapped);
 }
 
 /** Countries with map coordinates (0-100% of world map image). */

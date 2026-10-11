@@ -145,12 +145,12 @@ export default async function CategoryHubPage({ params }: CategoryPageProps) {
               {commodities.map((item) => (
                 <tr key={item.sku} className="hover:bg-slate-50">
                   <td className="px-4 py-4 font-bold text-slate-900">
-                    <Link
+                    <a
                       href={`/products/${item.categorySlug}/${item.slug}`}
                       className="text-[#0057B8] hover:underline"
                     >
                       {item.name}
-                    </Link>
+                    </a>
                   </td>
                   <td className="px-4 py-4 font-mono text-xs font-semibold text-slate-700">
                     {item.hsCode}
@@ -163,12 +163,12 @@ export default async function CategoryHubPage({ params }: CategoryPageProps) {
                     {item.logistics.container40ft}
                   </td>
                   <td className="px-4 py-4">
-                    <Link
+                    <a
                       href={`/products/${item.categorySlug}/${item.slug}`}
                       className="inline-flex items-center rounded-full bg-[#0057B8] px-3.5 py-1.5 text-xs font-bold text-white hover:bg-[#003c85]"
                     >
-                      Open Spec Sheet →
-                    </Link>
+                      View Specifications →
+                    </a>
                   </td>
                 </tr>
               ))}
@@ -194,12 +194,12 @@ export default async function CategoryHubPage({ params }: CategoryPageProps) {
                   <span className="text-slate-500">SKU: {item.sku}</span>
                 </div>
                 <h3 className="mt-3 text-lg font-bold text-slate-900">
-                  <Link
+                  <a
                     href={`/products/${item.categorySlug}/${item.slug}`}
                     className="hover:text-[#0057B8]"
                   >
                     {item.h1Headline}
-                  </Link>
+                  </a>
                 </h3>
                 <p className="mt-2 text-xs font-semibold text-slate-500">
                   Origin: {item.originCluster}
@@ -220,12 +220,12 @@ export default async function CategoryHubPage({ params }: CategoryPageProps) {
                 </ul>
               </div>
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <Link
+                <a
                   href={`/products/${item.categorySlug}/${item.slug}`}
                   className="text-xs font-bold uppercase tracking-wider text-[#0057B8] hover:underline"
                 >
-                  Full Technical Specs →
-                </Link>
+                  View Specifications →
+                </a>
                 <span className="text-[11px] text-slate-400">
                   {item.logistics.gatewayPorts[0]}
                 </span>
