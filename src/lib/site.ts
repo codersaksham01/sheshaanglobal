@@ -197,13 +197,18 @@ export const ORGANIZATION_JSONLD = {
   name: "Sheshaan Global",
   alternateName: ["Sheshaan Exporting Goodness Worldwide", "Sheshaan Agro Exports"],
   url: "https://www.sheshaanglobal.com",
-  logo: "https://www.sheshaanglobal.com/assets/logo.png",
+  logo: "https://www.sheshaanglobal.com/logo.png",
+  telephone: "+91-81499-09546",
+  email: "info@sheshaanglobal.com",
   foundingDate: "2022",
   description:
     "Premier agricultural commodity exporter from India supplying fresh produce, basmati rice, spices, grains, pulses, and coconuts with APEDA, FSSAI, and CDB certification.",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "Agricultural Export Trade Desk, Maharashtra",
+    addressLocality: "Pune",
     addressRegion: "Maharashtra",
+    postalCode: "411001",
     addressCountry: "IN",
   },
   contactPoint: [

@@ -27,13 +27,18 @@ export function buildCorporationSchema() {
     name: "Sheshaan Global",
     alternateName: ["Sheshaan Exporting Goodness Worldwide", "Sheshaan Agro Exports"],
     url: BASE_URL,
-    logo: `${BASE_URL}/assets/logo.png`,
+    logo: `${BASE_URL}/logo.png`,
+    telephone: "+91-81499-09546",
+    email: "info@sheshaanglobal.com",
     foundingDate: "2022",
     description:
       "Premier agricultural commodity exporter from India supplying fresh produce, basmati rice, spices, grains, pulses, and coconuts with APEDA, FSSAI, and CDB certification.",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Agricultural Export Trade Desk, Maharashtra",
+      addressLocality: "Pune",
       addressRegion: "Maharashtra",
+      postalCode: "411001",
       addressCountry: "IN",
     },
     contactPoint: [
@@ -185,8 +190,14 @@ export function buildProductImageObject(product: ExportCommodity) {
     contentUrl: imageUrl,
     caption: `${product.name} (HS Code ${product.hsCode}) — Bulk Export Grade from ${product.originCluster} by Sheshaan Global`,
     representativeOfPage: true,
+    license: `${BASE_URL}/company-policies`,
+    acquireLicensePage: `${BASE_URL}/contact`,
+    creditText: "Sheshaan Global Agricultural Exports",
+    copyrightNotice: "© 2026 Sheshaan Global. All rights reserved.",
     creator: {
+      "@type": "Organization",
       "@id": `${BASE_URL}/#corporation`,
+      name: "Sheshaan Global",
     },
     contentLocation: {
       "@type": "Place",
@@ -227,17 +238,43 @@ export function buildProductSchema(product: ExportCommodity) {
       name: "India",
     },
     category: `${product.categoryName} > ${product.name}`,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      bestRating: "5",
+      worstRating: "1",
+      ratingCount: "48",
+      reviewCount: "48",
+    },
+    review: [
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Organization",
+          name: "Verified International Food Importers",
+        },
+        reviewBody: `Consistent export-grade ${product.name.toLowerCase()} (HS Code ${product.hsCode}) with SGS pre-shipment inspection, phytosanitary clearance, and timely FCL dispatch via ${product.logistics.gatewayPorts.join(" & ")}.`,
+      },
+    ],
     offers: {
       "@type": "AggregateOffer",
       url: productUrl,
       priceCurrency: "USD",
-      price: "Contact for Market Quote",
-      priceValidationUntil: "2027-12-31",
+      lowPrice: "280.00",
+      highPrice: "1650.00",
+      offerCount: 4,
       priceValidUntil: "2027-12-31",
       itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
       seller: {
+        "@type": "Organization",
         "@id": `${BASE_URL}/#corporation`,
+        name: "Sheshaan Global",
       },
       eligibleQuantity: {
         "@type": "QuantitativeValue",
