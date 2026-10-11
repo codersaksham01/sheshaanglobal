@@ -126,6 +126,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:image", content: DEFAULT_OG_IMAGE },
       { name: "theme-color", content: "#0057B8" },
       { name: "format-detection", content: "telephone=yes" },
+      { name: "msvalidate.01", content: "220260664B862A3A28DB3917C5DCE05C" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -157,6 +158,7 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <meta name="msvalidate.01" content="220260664B862A3A28DB3917C5DCE05C" />
         <HeadContent />
       </head>
       <body>
