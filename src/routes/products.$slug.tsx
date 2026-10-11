@@ -24,7 +24,6 @@ import {
   Truck,
   Warehouse,
 } from "lucide-react";
-import logo from "@/assets/logo.png";
 import {
   BLUE,
   ORANGE,
@@ -291,32 +290,6 @@ function ProductPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
-      {/* Slim header */}
-      <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Sheshaan Global" className="h-9 w-9 object-contain" />
-            <div className="leading-tight">
-              <div className="font-display text-base font-bold" style={{ color: BLUE }}>
-                SHESHAAN
-              </div>
-              <div className="text-[9px] font-semibold tracking-[0.2em]" style={{ color: ORANGE }}>
-                EXPORTING GOODNESS
-              </div>
-            </div>
-          </Link>
-          <div className="flex items-center gap-3">
-            <SpecSheetDownloadModal buttonLabel="2026 Product Catalog (PDF)" variant="header" />
-            <Link
-              to="/products"
-              className="text-sm font-medium text-slate-600 hover:text-[#0057B8]"
-            >
-              ← All products
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* Breadcrumb */}
       <div className="mx-auto max-w-7xl px-6 pt-8">
         <div className="flex items-center gap-2 text-xs text-slate-500">
