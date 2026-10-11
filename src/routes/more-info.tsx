@@ -1518,7 +1518,7 @@ function MoreInfoPage() {
         ),
       },
     ],
-    [],
+    [copiedKey],
   );
 
   /* Filter sections by search and category */

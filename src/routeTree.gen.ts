@@ -32,6 +32,7 @@ import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
 import { Route as ProductsCategorySlugRouteImport } from './routes/products.$category.$slug'
 import { Route as ProductsSlugExportToRegionRouteImport } from './routes/products.$slug.export-to.$region'
+import { Route as ProductsCategorySlugExportToRegionRouteImport } from './routes/products.$category.$slug.export-to.$region'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -149,6 +150,12 @@ const ProductsSlugExportToRegionRoute =
     path: '/export-to/$region',
     getParentRoute: () => ProductsSlugRoute,
   } as any)
+const ProductsCategorySlugExportToRegionRoute =
+  ProductsCategorySlugExportToRegionRouteImport.update({
+    id: '/export-to/$region',
+    path: '/export-to/$region',
+    getParentRoute: () => ProductsCategorySlugRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -172,8 +179,9 @@ export interface FileRoutesByFullPath {
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/exports/': typeof ExportsIndexRoute
   '/products/': typeof ProductsIndexRoute
-  '/products/$category/$slug': typeof ProductsCategorySlugRoute
+  '/products/$category/$slug': typeof ProductsCategorySlugRouteWithChildren
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
+  '/products/$category/$slug/export-to/$region': typeof ProductsCategorySlugExportToRegionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -197,8 +205,9 @@ export interface FileRoutesByTo {
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/exports': typeof ExportsIndexRoute
   '/products': typeof ProductsIndexRoute
-  '/products/$category/$slug': typeof ProductsCategorySlugRoute
+  '/products/$category/$slug': typeof ProductsCategorySlugRouteWithChildren
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
+  '/products/$category/$slug/export-to/$region': typeof ProductsCategorySlugExportToRegionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -223,8 +232,9 @@ export interface FileRoutesById {
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/exports/': typeof ExportsIndexRoute
   '/products/': typeof ProductsIndexRoute
-  '/products/$category/$slug': typeof ProductsCategorySlugRoute
+  '/products/$category/$slug': typeof ProductsCategorySlugRouteWithChildren
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
+  '/products/$category/$slug/export-to/$region': typeof ProductsCategorySlugExportToRegionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -252,6 +262,7 @@ export interface FileRouteTypes {
     | '/products/'
     | '/products/$category/$slug'
     | '/products/$slug/export-to/$region'
+    | '/products/$category/$slug/export-to/$region'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -277,6 +288,7 @@ export interface FileRouteTypes {
     | '/products'
     | '/products/$category/$slug'
     | '/products/$slug/export-to/$region'
+    | '/products/$category/$slug/export-to/$region'
   id:
     | '__root__'
     | '/'
@@ -302,6 +314,7 @@ export interface FileRouteTypes {
     | '/products/'
     | '/products/$category/$slug'
     | '/products/$slug/export-to/$region'
+    | '/products/$category/$slug/export-to/$region'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -323,7 +336,7 @@ export interface RootRouteChildren {
   ProductsSlugRoute: typeof ProductsSlugRouteWithChildren
   ExportsIndexRoute: typeof ExportsIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
-  ProductsCategorySlugRoute: typeof ProductsCategorySlugRoute
+  ProductsCategorySlugRoute: typeof ProductsCategorySlugRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -489,6 +502,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsSlugExportToRegionRouteImport
       parentRoute: typeof ProductsSlugRoute
     }
+    '/products/$category/$slug/export-to/$region': {
+      id: '/products/$category/$slug/export-to/$region'
+      path: '/export-to/$region'
+      fullPath: '/products/$category/$slug/export-to/$region'
+      preLoaderRoute: typeof ProductsCategorySlugExportToRegionRouteImport
+      parentRoute: typeof ProductsCategorySlugRoute
+    }
   }
 }
 
@@ -519,6 +539,18 @@ const ProductsSlugRouteWithChildren = ProductsSlugRoute._addFileChildren(
   ProductsSlugRouteChildren,
 )
 
+interface ProductsCategorySlugRouteChildren {
+  ProductsCategorySlugExportToRegionRoute: typeof ProductsCategorySlugExportToRegionRoute
+}
+
+const ProductsCategorySlugRouteChildren: ProductsCategorySlugRouteChildren = {
+  ProductsCategorySlugExportToRegionRoute:
+    ProductsCategorySlugExportToRegionRoute,
+}
+
+const ProductsCategorySlugRouteWithChildren =
+  ProductsCategorySlugRoute._addFileChildren(ProductsCategorySlugRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRoute: LocaleRoute,
@@ -538,7 +570,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProductsSlugRoute: ProductsSlugRouteWithChildren,
   ExportsIndexRoute: ExportsIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
-  ProductsCategorySlugRoute: ProductsCategorySlugRoute,
+  ProductsCategorySlugRoute: ProductsCategorySlugRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

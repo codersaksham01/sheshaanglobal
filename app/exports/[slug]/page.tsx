@@ -232,7 +232,8 @@ export default async function ExportCorridorLandingPage({ params }: ExportCorrid
             buttonLabel="Download Technical Export Spec Sheet (PDF)"
           />
           <RfqModal
-            defaultCommodity={`${product.name} to ${region.shortName} (HS ${product.hsCode})`}
+            defaultCommodityName={`${product.name} to ${region.shortName}`}
+            defaultHsCode={product.hsCode}
             triggerLabel={`Request CIF ${region.shortName} Quote`}
           />
         </div>

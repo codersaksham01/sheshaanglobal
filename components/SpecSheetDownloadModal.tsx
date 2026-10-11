@@ -4,21 +4,35 @@ import React, { useState } from "react";
 
 interface SpecSheetDownloadModalProps {
   productName?: string;
+  commodityName?: string;
   hsCode?: string;
+  originCluster?: string;
+  primaryGrade?: string;
+  moistureTolerance?: string;
+  packaging?: string;
+  container20ft?: string;
+  container40ft?: string;
+  gatewayPorts?: string[];
   pdfUrl?: string;
   buttonLabel?: string;
+  triggerLabel?: string;
   variant?: "primary" | "header" | "outline";
 }
 
 const WHATSAPP_DESK = "918149909546";
 
 export function SpecSheetDownloadModal({
-  productName = "2026 Master Agricultural Export Catalog",
+  productName: rawProductName,
+  commodityName,
   hsCode = "All 49 HS Lines",
   pdfUrl = "/catalogue.pdf",
-  buttonLabel = "Download Technical Export Spec Sheet (PDF)",
+  buttonLabel: rawButtonLabel,
+  triggerLabel,
   variant = "primary",
 }: SpecSheetDownloadModalProps) {
+  const productName = rawProductName ?? commodityName ?? "2026 Master Agricultural Export Catalog";
+  const buttonLabel =
+    rawButtonLabel ?? triggerLabel ?? "Download Technical Export Spec Sheet (PDF)";
   const [isOpen, setIsOpen] = useState(false);
   const [buyerName, setBuyerName] = useState("");
   const [buyerWhatsApp, setBuyerWhatsApp] = useState("");

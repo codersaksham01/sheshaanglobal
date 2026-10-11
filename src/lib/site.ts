@@ -1047,22 +1047,54 @@ export const CATALOG: Product[] = CATALOG_SEEDS.map((c) => {
 /** Flagship categories first, then the full HS-code catalogue. */
 export const ALL_PRODUCTS: Product[] = [...PRODUCTS, ...CATALOG];
 
+import { getProductBySlugOrLegacy } from "@/lib/empirical-products";
+
 const SITE_SLUG_ALIASES: Record<string, string> = {
+  spices: "spices-masalas",
+  "grains-pulses": "pulses-lentils",
+  "dry-fruits": "dry-fruits-nuts",
   "basmati-rice": "premium-rice",
   "1121-basmati-rice": "premium-rice",
   "1121-basmati-rice-exporter-india": "premium-rice",
+  "basmati-rice-exporter-india": "premium-rice",
   "fresh-onion-exporter-india": "fresh-onions",
   onions: "fresh-onions",
   "green-chilli-exporter-india": "green-chillies",
   "mature-coconut": "coconut-brown-husked",
+  "mature-coconut-exporter-india": "coconut-brown-husked",
   "semi-husked-coconut-exporter-india": "coconut-brown-husked",
   "cumin-seeds": "cumin",
   "cumin-seeds-exporter-india": "cumin",
 };
 
-export function getProductBySlug(slug: string) {
+export function getProductBySlug(slug: string): Product | undefined {
   const mapped = SITE_SLUG_ALIASES[slug] ?? slug;
-  return ALL_PRODUCTS.find((p) => p.slug === slug || p.slug === mapped);
+  const direct = ALL_PRODUCTS.find((p) => p.slug === slug || p.slug === mapped);
+  if (direct) return direct;
+
+  const empirical = getProductBySlugOrLegacy(slug);
+  if (!empirical) return undefined;
+
+  const byLegacy = empirical.legacySlug
+    ? ALL_PRODUCTS.find((p) => p.slug === empirical.legacySlug)
+    : undefined;
+  if (byLegacy) return byLegacy;
+
+  return {
+    slug: empirical.slug,
+    name: empirical.name,
+    hsCode: empirical.hsCode,
+    tagline: empirical.h1Headline,
+    img: empirical.image,
+    gallery: [empirical.image],
+    description: empirical.executiveSummary,
+    varieties: empirical.varieties,
+    packing: [empirical.logistics.standardPackaging],
+    standards: empirical.certifications,
+    brochure: BROCHURE_URL,
+    brochureName: `Sheshaan-Global-${empirical.slug}.pdf`,
+    group: empirical.categoryName,
+  };
 }
 
 /** Countries with map coordinates (0-100% of world map image). */
@@ -1588,8 +1620,16 @@ export const REGIONS: Region[] = [
   })),
 ];
 
+const REGION_SLUG_ALIASES: Record<string, string> = {
+  "uae-dubai": "uae",
+  "united-kingdom": "uk",
+  "european-union": "europe",
+  "russia-cis": "russia",
+};
+
 export function getRegionBySlug(slug: string) {
-  return REGIONS.find((r) => r.slug === slug);
+  const mapped = REGION_SLUG_ALIASES[slug] ?? slug;
+  return REGIONS.find((r) => r.slug === slug || r.slug === mapped);
 }
 
 // Generic product-level FAQs (falls back per-product on the product page)
