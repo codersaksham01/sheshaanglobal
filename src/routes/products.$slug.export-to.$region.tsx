@@ -1,6 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import {
-  ArrowRight,
   FileText,
   Mail,
   MessageCircle,
@@ -17,36 +16,127 @@ import {
   MAILTO_URL,
   NAVY,
   ORANGE,
+  ORGANIZATION_JSONLD,
   buildWhatsAppUrl,
   getProductBySlug,
   getRegionBySlug,
   type Product,
   type Region,
 } from "@/lib/site";
+import { getProductBySlugOrLegacy, type ExportCommodity } from "@/lib/empirical-products";
+import {
+  getTradeCorridorBySlug,
+  formatDualWeightUnit,
+  TRADE_CORRIDOR_REGIONS,
+  type TradeCorridorRegion,
+} from "../../data/corridors";
+import {
+  buildExportClearanceHowToSchema,
+  buildProductSchema,
+  buildTradeCorridorSchema,
+} from "../../data/schemas";
 import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export const Route = createFileRoute("/products/$slug/export-to/$region")({
   loader: ({ params }) => {
-    const product = getProductBySlug(params.slug);
+    const empirical = getProductBySlugOrLegacy(params.slug);
+    const legacyProduct =
+      getProductBySlug(params.slug) ??
+      (empirical ? getProductBySlug(empirical.legacySlug ?? "") : undefined);
     const region = getRegionBySlug(params.region);
-    if (!product || !region) throw notFound();
-    return { product, region };
+    const corridor = getTradeCorridorBySlug(params.region);
+
+    if ((!legacyProduct && !empirical) || (!region && !corridor)) {
+      throw notFound();
+    }
+
+    const product: Product = legacyProduct ?? {
+      slug: empirical!.slug,
+      name: empirical!.name,
+      hsCode: empirical!.hsCode,
+      tagline: empirical!.h1Headline,
+      img: empirical!.image,
+      gallery: [empirical!.image],
+      description: empirical!.executiveSummary,
+      varieties: empirical!.varieties,
+      packing: [empirical!.logistics.standardPackaging],
+      standards: empirical!.certifications,
+      group: empirical!.categoryName,
+    };
+
+    const resolvedRegion: Region = region ?? {
+      slug: corridor!.slug,
+      name: corridor!.name,
+      short: corridor!.shortName,
+      flag: corridor!.flag,
+      ports: corridor!.dischargePorts,
+      topProducts: [],
+      incoterms: ["FOB Nhava Sheva", `CIF ${corridor!.dischargePorts[0]}`, `CFR ${corridor!.dischargePorts[0]}`],
+      transitDays: corridor!.transitTimeFromIndia,
+      keywords: [],
+      intro: corridor!.chaAndCarrierProtocol,
+      hero: corridor!.chaAndCarrierProtocol,
+      advantages: [],
+      faqs: [],
+    };
+
+    return { product, region: resolvedRegion, empirical, corridor };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData)
       return { meta: [{ title: "Export page not found" }, { name: "robots", content: "noindex" }] };
-    const { product, region } = loaderData;
+    const { product, region, empirical, corridor } = loaderData;
     const url = `${SITE_URL}/products/${params.slug}/export-to/${params.region}`;
-    const title = `${product.name} Exporter to ${region.name} - ${SITE_NAME}`;
-    const desc = `Import ${product.name.toLowerCase()} from India to ${region.name}. HS code ${product.hsCode ?? "available on request"}, packing, documents, ports, Incoterms and quotation support from Sheshaan Global.`;
+    const hsCode = empirical?.hsCode ?? product.hsCode ?? "Available";
+    const title = `${product.name} Exporter to ${region.short} (HS ${hsCode}) | ${SITE_NAME}`;
+    const desc = `Bulk ${product.name.toLowerCase()} (HS Code ${hsCode}) exporter from India to ${region.ports[0] ?? region.name}. ${empirical ? empirical.logistics.container40ft : "20ft/40ft FCL"}, licensed CHA customs clearance & third-party shipping lines.`;
     const img = absoluteUrl(product.img || product.gallery[0] || "/logo.png");
+
+    const scripts: Array<{ type: string; children: string }> = [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(ORGANIZATION_JSONLD),
+      },
+    ];
+
+    if (empirical && corridor) {
+      scripts.push(
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(buildProductSchema(empirical)),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(buildTradeCorridorSchema(empirical, corridor)),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(buildExportClearanceHowToSchema(empirical)),
+        },
+      );
+    } else {
+      scripts.push({
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: `${product.name} export from India to ${region.name}`,
+          provider: { "@id": "https://www.sheshaanglobal.com/#corporation" },
+          areaServed: { "@type": "Country", name: region.name },
+          serviceType: "Agricultural product export supply & CHA clearance",
+          description: desc,
+          url,
+        }),
+      });
+    }
+
     return {
       meta: [
         { title },
         { name: "description", content: desc },
         {
           name: "keywords",
-          content: `${product.name} exporter to ${region.name}, ${product.name} supplier ${region.short}, Indian ${product.name} export, HS ${product.hsCode ?? ""}`,
+          content: `${product.name} exporter to ${region.name}, ${product.name} supplier ${region.short}, Indian ${product.name} export to ${region.ports[0] ?? region.name}, HS ${hsCode}`,
         },
         { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
         { property: "og:title", content: title },
@@ -60,45 +150,27 @@ export const Route = createFileRoute("/products/$slug/export-to/$region")({
         { name: "twitter:image", content: img },
       ],
       links: [{ rel: "canonical", href: url }],
-      scripts: [
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            name: `${product.name} export from India to ${region.name}`,
-            provider: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-            areaServed: { "@type": "Country", name: region.name },
-            serviceType: "Agricultural product export supply",
-            description: desc,
-            url,
-            hasOfferCatalog: {
-              "@type": "OfferCatalog",
-              name: `${product.name} export offer`,
-              itemListElement: product.packing.map((packing) => ({
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Product",
-                  name: product.name,
-                  sku: product.hsCode ? `HS-${product.hsCode}` : undefined,
-                },
-                description: packing,
-              })),
-            },
-          }),
-        },
-      ],
+      scripts,
     };
   },
   component: ProductRegionPage,
 });
 
 function ProductRegionPage() {
-  const { product, region } = Route.useLoaderData() as { product: Product; region: Region };
+  const { product, region, empirical, corridor } = Route.useLoaderData() as {
+    product: Product;
+    region: Region;
+    empirical?: ExportCommodity;
+    corridor?: TradeCorridorRegion;
+  };
   const waUrl = buildWhatsAppUrl({
     category: `${product.name} to ${region.name}`,
-    message: `Please share FOB/CIF pricing for ${product.name} to ${region.ports[0] ?? region.name}.`,
+    message: `Please share FOB/CIF pricing for ${product.name} (HS ${empirical?.hsCode ?? product.hsCode ?? ""}) to ${region.ports[0] ?? region.name}.`,
   });
+
+  const dualWeight = empirical
+    ? formatDualWeightUnit(empirical.logistics.eligibleQuantityValue)
+    : "20ft / 40ft FCL";
 
   return (
     <main className="min-h-screen bg-white text-slate-900">
@@ -121,19 +193,34 @@ function ProductRegionPage() {
                 {product.name}
               </Link>
               <span className="px-2">/</span>
-              <span>{region.short}</span>
+              <span>Export to {region.short}</span>
             </nav>
-            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em]">
-              <span>{region.flag}</span> Product + market export page
+            <div className="mt-8 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.2em]">
+                <span>{region.flag}</span> India → {region.short} Corridor
+              </span>
+              {empirical && (
+                <span className="rounded-full bg-[#FF8A00] px-3.5 py-1.5 text-xs font-bold text-white">
+                  HS Code: {empirical.hsCode}
+                </span>
+              )}
+              {corridor && (
+                <span className="rounded-full border border-emerald-400/40 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-300">
+                  Currencies: {corridor.preferredCurrencies.join(" / ")} • Load: {dualWeight}
+                </span>
+              )}
             </div>
             <h1 className="mt-5 max-w-4xl font-display text-4xl font-bold leading-tight sm:text-5xl">
-              {product.name} exporter from India to{" "}
+              {product.name} Exporter from India to{" "}
               <span style={{ color: ORANGE }}>{region.name}</span>
             </h1>
-            <p className="mt-5 max-w-2xl text-white/75">
-              Sheshaan Global supplies export-grade {product.name.toLowerCase()} to {region.short}{" "}
-              buyers with packing, documents, Incoterms and port coordination handled by our export
-              desk.
+            <p className="mt-5 max-w-2xl text-white/80 leading-relaxed">
+              Sheshaan Global supplies export-grade {product.name.toLowerCase()} (ITC-HS{" "}
+              {empirical?.hsCode ?? product.hsCode ?? "Certified"}) from{" "}
+              {empirical?.originCluster ?? "Maharashtra & Gujarat, India"} to{" "}
+              {region.ports.join(", ")}. All consignments are cleared at Indian gateway ports by our
+              licensed Customs House Agent (CHA) and shipped via premier third-party global ocean
+              shipping lines under FOB, CFR, and CIF Incoterms.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
@@ -143,14 +230,14 @@ function ProductRegionPage() {
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg"
                 style={{ background: "#25D366" }}
               >
-                <MessageCircle className="h-4 w-4" /> Request CIF quote
+                <MessageCircle className="h-4 w-4" /> Request CIF {region.ports[0]?.split(" (")[0]} Quote
               </a>
               <a
                 href={BROCHURE_URL}
                 download
                 className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"
               >
-                <FileText className="h-4 w-4" /> Download catalogue
+                <FileText className="h-4 w-4" /> Download Catalogue
               </a>
               <a
                 href={MAILTO_URL}
@@ -163,7 +250,7 @@ function ProductRegionPage() {
           <div className="overflow-hidden rounded-3xl border border-white/15 bg-white/10 p-3 shadow-2xl">
             <img
               src={product.img || product.gallery[0]}
-              alt={`${product.name} export to ${region.name}`}
+              alt={`${product.name} export from India to ${region.name}`}
               width={720}
               height={540}
               loading="eager"
@@ -174,40 +261,75 @@ function ProductRegionPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16">
+      <section className="mx-auto max-w-7xl px-6 py-16 space-y-12">
         <div className="grid gap-6 md:grid-cols-3">
-          <Fact icon={Package} label="HS Code" value={product.hsCode ?? "On request"} />
-          <Fact icon={Ship} label="Key Ports" value={region.ports.slice(0, 2).join(", ")} />
+          <Fact
+            icon={Package}
+            label="ITC-HS Code & Net FCL Load"
+            value={`HS ${empirical?.hsCode ?? product.hsCode ?? "Certified"} • ${dualWeight}`}
+          />
+          <Fact
+            icon={Ship}
+            label={`Discharge Ports (${region.short})`}
+            value={`${region.ports.slice(0, 2).join(", ")} (${region.transitDays})`}
+          />
           <Fact
             icon={ShieldCheck}
-            label="Incoterms"
-            value={region.incoterms.slice(0, 3).join(", ")}
+            label="CHA & Import Governance"
+            value={corridor?.importAuthority ?? region.incoterms.slice(0, 3).join(", ")}
           />
         </div>
-        <div className="mt-10 grid gap-8 lg:grid-cols-2">
-          <Panel title={`Why import ${product.name} from India`}>
-            <p>{product.description}</p>
+
+        <div className="grid gap-8 lg:grid-cols-2">
+          <Panel title={`Technical Specifications & CHA Dispatch for ${product.name}`}>
+            <p>
+              {empirical?.geoExtractBlock ?? product.description}
+            </p>
+            {corridor && (
+              <p className="mt-4 font-medium text-slate-800">
+                <strong>Customs &amp; Shipping Line Protocol:</strong> {corridor.chaAndCarrierProtocol}
+              </p>
+            )}
             <ul className="mt-5 space-y-2">
               {product.standards.map((s) => (
-                <li key={s}>- {s}</li>
+                <li key={s}>✓ {s}</li>
               ))}
             </ul>
           </Panel>
-          <Panel title={`Documents for ${region.short} buyers`}>
-            <ul className="space-y-2">
-              {[
-                "Commercial Invoice",
-                "Packing List",
-                "Certificate of Origin",
-                "Phytosanitary Certificate",
-                "Fumigation Certificate",
-                "Bill of Lading",
-                "Health Certificate where applicable",
-              ].map((d) => (
-                <li key={d}>- {d}</li>
+          <Panel title={`Mandatory Clearance Dossier for ${region.short} Importers`}>
+            <ul className="space-y-2.5">
+              {(
+                corridor?.customsDocuments ?? [
+                  "Commercial Invoice & Packing List",
+                  "Certificate of Origin (Chamber Attested)",
+                  "Phytosanitary Certificate (Ministry of Agriculture, Govt. of India)",
+                  "Fumigation Certificate (Methyl Bromide / Phosphine)",
+                  "Ocean Bill of Lading (Issued by Third-Party Shipping Line)",
+                  "SGS / Geo-Chem / Bureau Veritas Pre-Shipment Inspection Certificate",
+                ]
+              ).map((d) => (
+                <li key={d}>✓ {d}</li>
               ))}
             </ul>
           </Panel>
+        </div>
+
+        <div className="border-t border-slate-200 pt-10">
+          <h2 className="font-display text-xl font-bold text-slate-900">
+            Explore Other Export Destinations for {product.name}
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-2.5">
+            {TRADE_CORRIDOR_REGIONS.filter((r) => r.slug !== region.slug).map((other) => (
+              <Link
+                key={other.slug}
+                to="/products/$slug/export-to/$region"
+                params={{ slug: product.slug, region: other.slug }}
+                className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-xs font-semibold text-slate-800 hover:border-[#0057B8] hover:text-[#0057B8]"
+              >
+                {other.flag} Export to {other.shortName}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </main>
@@ -219,7 +341,7 @@ function Fact({ icon: Icon, label, value }: { icon: LucideIcon; label: string; v
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
       <Icon className="h-6 w-6" style={{ color: BLUE }} />
       <div className="mt-3 text-xs font-bold uppercase tracking-widest text-slate-400">{label}</div>
-      <div className="mt-1 font-display text-lg font-bold text-slate-900">{value}</div>
+      <div className="mt-1 font-display text-base font-bold text-slate-900">{value}</div>
     </div>
   );
 }

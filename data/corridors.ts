@@ -1,0 +1,352 @@
+import type { ExportCommodity } from './products.ts';
+
+export interface TradeCorridorRegion {
+  slug: string;
+  name: string;
+  shortName: string;
+  isoCode: string;
+  flag: string;
+  dischargePorts: string[];
+  transitTimeFromIndia: string;
+  importAuthority: string;
+  preferredCurrencies: string[];
+  unitSystemNote: string;
+  chaAndCarrierProtocol: string;
+  customsDocuments: string[];
+}
+
+export const TRADE_CORRIDOR_REGIONS: TradeCorridorRegion[] = [
+  {
+    slug: 'uae',
+    name: 'United Arab Emirates (Dubai & Abu Dhabi)',
+    shortName: 'UAE / Dubai',
+    isoCode: 'AE',
+    flag: '🇦🇪',
+    dischargePorts: ['Jebel Ali Port (Dubai)', 'Khalifa Port (Abu Dhabi)', 'Sharjah Port (Khorfakkan)', 'Dubai Airport (DXB Air Cargo)'],
+    transitTimeFromIndia: '3–5 Days Ocean Transit from Nhava Sheva (JNPT) / Mundra',
+    importAuthority: 'UAE MOCCAE & Dubai Municipality Food Import Re-Export System (FIRS / Montaji)',
+    preferredCurrencies: ['USD', 'AED'],
+    unitSystemNote: 'Metric Tons (MT) & 5kg–50kg GCC Standard Wholesale Packs',
+    chaAndCarrierProtocol:
+      'Cleared at Nhava Sheva (JNPT) and Mundra by our licensed Customs House Agent (CHA) with direct fast-track vessel bookings on third-party mainline carriers (Maersk, MSC, CMA CGM, Hapag-Lloyd) to Jebel Ali.',
+    customsDocuments: [
+      'UAE Embassy / Chamber Attested Certificate of Origin (COO)',
+      'Ministry of Agriculture Phytosanitary Certificate',
+      'Fumigation & Health Certificate for Dubai Municipality FIRS',
+      'Commercial Invoice, Packing List & Original/Telex Bill of Lading',
+      'SGS / Geo-Chem Pre-Shipment Inspection Report',
+    ],
+  },
+  {
+    slug: 'saudi-arabia',
+    name: 'Saudi Arabia (Dammam, Jeddah & Riyadh)',
+    shortName: 'Saudi Arabia',
+    isoCode: 'SA',
+    flag: '🇸🇦',
+    dischargePorts: ['King Abdulaziz Port (Dammam)', 'Jeddah Islamic Port', 'Riyadh Dry Port'],
+    transitTimeFromIndia: '6–10 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'Saudi Food & Drug Authority (SFDA) & FASAH Customs Clearance Platform',
+    preferredCurrencies: ['USD', 'SAR'],
+    unitSystemNote: 'Metric Tons (MT) with Arabic/English bilingual labeling support',
+    chaAndCarrierProtocol:
+      'Executed through licensed Indian CHA customs brokerage with direct Red Sea (Jeddah) and Arabian Gulf (Dammam) sailings via leading third-party container shipping lines.',
+    customsDocuments: [
+      'SFDA Compliant Certificate of Analysis & Pesticide Residue Report',
+      'Phytosanitary Certificate (Govt. of India)',
+      'Chamber of Commerce Attested Certificate of Origin',
+      'Fumigation Certificate & Non-GMO Declaration',
+      'FASAH-Ready Commercial Invoice, Packing List & Bill of Lading',
+    ],
+  },
+  {
+    slug: 'qatar',
+    name: 'Qatar (Hamad Port & Doha)',
+    shortName: 'Qatar',
+    isoCode: 'QA',
+    flag: '🇶🇦',
+    dischargePorts: ['Hamad Port (Mesaieed)', 'Doha Port', 'Hamad International Air Cargo (DOH)'],
+    transitTimeFromIndia: '5–8 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'Qatar Ministry of Public Health (MOPH — Watheq Food Safety System)',
+    preferredCurrencies: ['USD', 'QAR'],
+    unitSystemNote: 'Metric Tons (MT) & Al-abbra / Central Market Wholesale Packs',
+    chaAndCarrierProtocol:
+      'Full CHA customs filing at Indian gateway ports paired with weekly direct and transshipment reefer/dry slots on premier third-party shipping lines into Hamad Port.',
+    customsDocuments: [
+      'Qatar MOPH Watheq Health & Phytosanitary Documentation',
+      'Certificate of Origin (COO)',
+      'Fumigation Certificate & SGS Quality Report',
+      'Commercial Invoice, Packing List & Ocean Bill of Lading',
+    ],
+  },
+  {
+    slug: 'kuwait',
+    name: 'Kuwait (Shuwaikh & Shuaiba)',
+    shortName: 'Kuwait',
+    isoCode: 'KW',
+    flag: '🇰🇼',
+    dischargePorts: ['Shuwaikh Port', 'Shuaiba Port'],
+    transitTimeFromIndia: '6–10 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'Public Authority for Food and Nutrition (PAFN), State of Kuwait',
+    preferredCurrencies: ['USD', 'KWD'],
+    unitSystemNote: 'Metric Tons (MT) & Al-Furdah Wholesale Market Standard Bags',
+    chaAndCarrierProtocol:
+      'Coordinated via licensed CHA export clearance in India and third-party ocean carriers providing dedicated reefer plug-in priority to Shuwaikh Port.',
+    customsDocuments: [
+      'Kuwait PAFN Compliant Health & Phytosanitary Certificates',
+      'Attested Certificate of Origin (COO)',
+      'Fumigation Certificate & Third-Party Lab Report',
+      'Commercial Invoice, Packing List & Bill of Lading',
+    ],
+  },
+  {
+    slug: 'oman',
+    name: 'Oman (Sohar, Salalah & Muscat)',
+    shortName: 'Oman',
+    isoCode: 'OM',
+    flag: '🇴🇲',
+    dischargePorts: ['Sohar Port', 'Port of Salalah', 'Muscat (MCT Air Cargo)'],
+    transitTimeFromIndia: '4–7 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'Oman Ministry of Agriculture, Fisheries and Water Resources & Bayan Customs',
+    preferredCurrencies: ['USD', 'OMR'],
+    unitSystemNote: 'Metric Tons (MT) & Mawaleh Central Market Wholesale Specifications',
+    chaAndCarrierProtocol:
+      'Short-sea transit managed through our appointed CHA at Nhava Sheva/Mundra and direct third-party liner vessels calling Sohar and Salalah.',
+    customsDocuments: [
+      'Oman Bayan System Phytosanitary & Agricultural Import Clearance Docs',
+      'Certificate of Origin (COO) & Fumigation Certificate',
+      'Commercial Invoice, Packing List & Bill of Lading',
+    ],
+  },
+  {
+    slug: 'bahrain',
+    name: 'Bahrain (Khalifa Bin Salman Port)',
+    shortName: 'Bahrain',
+    isoCode: 'BH',
+    flag: '🇧🇭',
+    dischargePorts: ['Khalifa Bin Salman Port (KBSP)', 'Bahrain International Air Cargo'],
+    transitTimeFromIndia: '6–9 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'Bahrain Ministry of Municipalities & Agriculture and Public Health Directorate',
+    preferredCurrencies: ['USD', 'BHD'],
+    unitSystemNote: 'Metric Tons (MT) & Retail/Wholesale Pack Calibrations',
+    chaAndCarrierProtocol:
+      'Seamless Indian port customs clearance via licensed CHA and reliable third-party container line bookings into Khalifa Bin Salman Port.',
+    customsDocuments: [
+      'Phytosanitary Certificate & Health Certificate',
+      'Certificate of Origin (COO) & Fumigation Certificate',
+      'Commercial Invoice, Packing List & Bill of Lading',
+    ],
+  },
+  {
+    slug: 'eu',
+    name: 'European Union (Rotterdam, Hamburg & Antwerp)',
+    shortName: 'European Union',
+    isoCode: 'EU',
+    flag: '🇪🇺',
+    dischargePorts: ['Port of Rotterdam (NL)', 'Port of Hamburg (DE)', 'Port of Antwerp-Bruges (BE)', 'Le Havre (FR)', 'Valencia (ES)'],
+    transitTimeFromIndia: '20–26 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'European Food Safety Authority (EFSA) & EU TRACES NT (CHED-PP / CHED-D)',
+    preferredCurrencies: ['USD', 'EUR'],
+    unitSystemNote: 'Metric Tons (MT) & Euro-Palletized ISPM-15 Configurations',
+    chaAndCarrierProtocol:
+      'Handled by APEDA-experienced CHA teams in India alongside top-tier third-party European liner services (Maersk, MSC, Hapag-Lloyd, CMA CGM) into Rotterdam, Hamburg, and Antwerp.',
+    customsDocuments: [
+      'EU TRACES NT Pre-Notification & Phytosanitary Certificate',
+      'EU-MRL Pesticide Residue & EC 1881/2006 Mycotoxin/Aflatoxin NABL Lab Report',
+      'ETO-Free Steam Sterilization Certificate (for Spices & Herbs)',
+      'REX / Certificate of Origin, Fumigation & ISPM-15 Pallet Certificate',
+    ],
+  },
+  {
+    slug: 'netherlands',
+    name: 'Netherlands (Port of Rotterdam & Amsterdam)',
+    shortName: 'Netherlands',
+    isoCode: 'NL',
+    flag: '🇳🇱',
+    dischargePorts: ['Port of Rotterdam (Maasvlakte)', 'Amsterdam Port', 'Schiphol Air Cargo (AMS)'],
+    transitTimeFromIndia: '21–26 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'Netherlands Food and Consumer Product Safety Authority (NVWA)',
+    preferredCurrencies: ['USD', 'EUR'],
+    unitSystemNote: 'Metric Tons (MT) — 800x1200mm Euro-Palletized FCL',
+    chaAndCarrierProtocol:
+      'Cleared at Indian origin ports by our dedicated CHA and shipped via mainline third-party ocean carriers directly into Rotterdam (Europe’s primary agri-commodity hub).',
+    customsDocuments: [
+      'NVWA & EU TRACES NT CHED-PP Phytosanitary Dossier',
+      'Eurofins / SGS EU-MRL & Aflatoxin Compliance Certificate',
+      'Certificate of Origin, Commercial Invoice, Packing List & Bill of Lading',
+    ],
+  },
+  {
+    slug: 'uk',
+    name: 'United Kingdom (Felixstowe, Southampton & London Gateway)',
+    shortName: 'United Kingdom',
+    isoCode: 'GB',
+    flag: '🇬🇧',
+    dischargePorts: ['Port of Felixstowe', 'London Gateway', 'Port of Southampton', 'Liverpool Port', 'London Heathrow (LHR Air Cargo)'],
+    transitTimeFromIndia: '22–28 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'UK Border Target Operating Model (BTOM — IPAFFS CHED-PP) & UK FSA',
+    preferredCurrencies: ['USD', 'GBP'],
+    unitSystemNote: 'Metric Tons (MT) & UK Wholesale / Cash-and-Carry Retail Packs',
+    chaAndCarrierProtocol:
+      'Export customs and APEDA phyto clearance managed by our licensed CHA in India, paired with direct UK port calls on third-party container shipping lines.',
+    customsDocuments: [
+      'UK BTOM IPAFFS CHED-PP Pre-Notification & Defra Phytosanitary Certificate',
+      'UK MRL Residue & Aflatoxin Analytical Lab Certificate',
+      'Certificate of Origin (DCTS / Chamber Attested)',
+      'Commercial Invoice, Packing List & Ocean Bill of Lading',
+    ],
+  },
+  {
+    slug: 'usa',
+    name: 'United States (New York, Los Angeles & Houston)',
+    shortName: 'USA',
+    isoCode: 'US',
+    flag: '🇺🇸',
+    dischargePorts: ['Port of New York & New Jersey (Newark)', 'Port of Los Angeles / Long Beach', 'Port of Houston', 'Savannah Port'],
+    transitTimeFromIndia: '24–32 Days (US East Coast) / 30–38 Days (US West Coast)',
+    importAuthority: 'US FDA (FSMA FSVP & Prior Notice) & USDA APHIS Plant Protection and Quarantine',
+    preferredCurrencies: ['USD'],
+    unitSystemNote: 'Metric Tons (MT) with US Pounds (Lbs) & Hundredweight (CWT) dual-unit labeling',
+    chaAndCarrierProtocol:
+      'Full Indian CHA export customs clearance, US ISF (10+2) data transmission, and third-party mainline vessel bookings to US East, Gulf, and West Coast ports.',
+    customsDocuments: [
+      'US FDA Prior Notice Confirmation & FSVP Supplier Verification File',
+      'USDA APHIS Phytosanitary & Fumigation Certificates',
+      'ASTA Cleanliness & Microbiological / Salmonella-Free Lab Report',
+      'Importer Security Filing (ISF 10+2), COO, Invoice, Packing List & B/L',
+    ],
+  },
+  {
+    slug: 'canada',
+    name: 'Canada (Vancouver, Montreal & Toronto)',
+    shortName: 'Canada',
+    isoCode: 'CA',
+    flag: '🇨🇦',
+    dischargePorts: ['Port of Vancouver', 'Port of Montreal', 'Halifax Port', 'Toronto Inland ICD'],
+    transitTimeFromIndia: '26–36 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'Canadian Food Inspection Agency (CFIA — Safe Food for Canadians Regulations)',
+    preferredCurrencies: ['USD', 'CAD'],
+    unitSystemNote: 'Metric Tons (MT) & Bilingual English/French Packaging Support',
+    chaAndCarrierProtocol:
+      'Origin customs clearance executed by our licensed CHA in India with third-party ocean carrier routing to Montreal and Vancouver.',
+    customsDocuments: [
+      'CFIA Compliant Phytosanitary Certificate & SFCR Traceability Record',
+      'Bilingual Labeling / Bulk Specification Sheet & Lab CoA',
+      'Certificate of Origin, Fumigation Certificate, Invoice & B/L',
+    ],
+  },
+  {
+    slug: 'singapore',
+    name: 'Singapore (PSA Singapore & Pasir Panjang)',
+    shortName: 'Singapore',
+    isoCode: 'SG',
+    flag: '🇸🇬',
+    dischargePorts: ['Port of Singapore (PSA Tuas / Pasir Panjang)', 'Changi Airfreight Centre (SIN)'],
+    transitTimeFromIndia: '7–11 Days Ocean Transit from Chennai / Nhava Sheva / Mundra',
+    importAuthority: 'Singapore Food Agency (SFA — TradeNet Import Permit)',
+    preferredCurrencies: ['USD', 'SGD'],
+    unitSystemNote: 'Metric Tons (MT) & Pasir Panjang Wholesale Centre Calibrations',
+    chaAndCarrierProtocol:
+      'Rapid East and West Coast Indian CHA clearance connected to high-frequency third-party feeder and mainline vessels into PSA Singapore.',
+    customsDocuments: [
+      'SFA TradeNet Compliant Phytosanitary & Health Certificate',
+      'AIFTA Preferential Certificate of Origin (Form AI)',
+      'Fumigation Certificate, Commercial Invoice, Packing List & B/L',
+    ],
+  },
+  {
+    slug: 'malaysia',
+    name: 'Malaysia (Port Klang, Penang & Tanjung Pelepas)',
+    shortName: 'Malaysia',
+    isoCode: 'MY',
+    flag: '🇲🇾',
+    dischargePorts: ['Port Klang (Northport / Westports)', 'Penang Port', 'Port of Tanjung Pelepas'],
+    transitTimeFromIndia: '8–12 Days Ocean Transit from Chennai / Nhava Sheva / Mundra',
+    importAuthority: 'Malaysian Quarantine and Inspection Services (MAQIS) & DOA Malaysia',
+    preferredCurrencies: ['USD', 'MYR'],
+    unitSystemNote: 'Metric Tons (MT) & Rose/Red Onion / Spice Bag Calibrations',
+    chaAndCarrierProtocol:
+      'Handled via licensed CHA teams at Chennai, Nhava Sheva, and Mundra with direct third-party container shipping lines calling Port Klang and Penang.',
+    customsDocuments: [
+      'MAQIS Import Permit Matching Phytosanitary Certificate',
+      'ASEAN-India FTA Certificate of Origin (Form AI)',
+      'Fumigation Certificate, Commercial Invoice, Packing List & B/L',
+    ],
+  },
+  {
+    slug: 'bangladesh',
+    name: 'Bangladesh (Chittagong & Mongla Port)',
+    shortName: 'Bangladesh',
+    isoCode: 'BD',
+    flag: '🇧🇩',
+    dischargePorts: ['Chittagong Port (Chattogram)', 'Mongla Port', 'Benapole / Petrapole Land Customs'],
+    transitTimeFromIndia: '5–8 Days Ocean / Coastal Transit',
+    importAuthority: 'Plant Quarantine Wing (Department of Agricultural Extension, Bangladesh) & BSTI',
+    preferredCurrencies: ['USD'],
+    unitSystemNote: 'Metric Tons (MT) — 100% L/C at Sight Supported',
+    chaAndCarrierProtocol:
+      'Coordinated by experienced CHA customs agents in India with coastal feeder vessels and third-party container lines serving Chittagong and Mongla.',
+    customsDocuments: [
+      'SAFTA Certificate of Origin & Phytosanitary Certificate',
+      'SGS / Bureau Veritas Pre-Shipment Quantity & Quality Certificate',
+      'L/C Compliant Commercial Invoice, Packing List, Fumigation & B/L',
+    ],
+  },
+  {
+    slug: 'south-africa',
+    name: 'South Africa (Durban, Cape Town & Coega)',
+    shortName: 'South Africa',
+    isoCode: 'ZA',
+    flag: '🇿🇦',
+    dischargePorts: ['Port of Durban', 'Port of Cape Town', 'Port Elizabeth / Ngqura'],
+    transitTimeFromIndia: '16–24 Days Ocean Transit from Nhava Sheva / Mundra',
+    importAuthority: 'DALRRD Plant Health & South African Revenue Service (SARS)',
+    preferredCurrencies: ['USD', 'ZAR'],
+    unitSystemNote: 'Metric Tons (MT) — 20ft Heavy FCL Rice, Spices & Pulses',
+    chaAndCarrierProtocol:
+      'Indian export customs cleared by our licensed CHA and shipped via third-party Indian Ocean liner services directly into Durban and Cape Town.',
+    customsDocuments: [
+      'DALRRD Import Permit Aligned Phytosanitary Certificate',
+      'Non-GMO & Fumigation Certificate (Methyl Bromide / Phosphine)',
+      'Certificate of Origin, Commercial Invoice, Packing List & B/L',
+    ],
+  },
+  {
+    slug: 'australia',
+    name: 'Australia (Melbourne, Sydney, Brisbane & Fremantle)',
+    shortName: 'Australia',
+    isoCode: 'AU',
+    flag: '🇦🇺',
+    dischargePorts: ['Port of Melbourne', 'Port of Sydney (Port Botany)', 'Port of Brisbane', 'Fremantle Port'],
+    transitTimeFromIndia: '20–28 Days Ocean Transit from Nhava Sheva / Mundra / Chennai',
+    importAuthority: 'Australian Department of Agriculture, Fisheries and Forestry (DAFF — BICON Biosecurity)',
+    preferredCurrencies: ['USD', 'AUD'],
+    unitSystemNote: 'Metric Tons (MT) — Strict Biosecurity & AFAS Fumigation Compliance',
+    chaAndCarrierProtocol:
+      'Executed by AFAS-experienced CHA customs brokers in India alongside third-party container carriers servicing Sydney, Melbourne, and Brisbane.',
+    customsDocuments: [
+      'DAFF BICON Compliant Phytosanitary Certificate & Manufacturer Declaration',
+      'AFAS Approved Methyl Bromide Fumigation & FCL Packing Declaration (ISPM-15)',
+      'ECTA Preferential Certificate of Origin (India-Australia ECTA)',
+      'Commercial Invoice, Packing List & Bill of Lading',
+    ],
+  },
+];
+
+export function getTradeCorridorBySlug(slug: string): TradeCorridorRegion | undefined {
+  return TRADE_CORRIDOR_REGIONS.find((region) => region.slug === slug);
+}
+
+export function formatDualWeightUnit(eligibleMtString: string): string {
+  const numericMt = parseFloat(eligibleMtString);
+  if (Number.isNaN(numericMt)) return `${eligibleMtString} MT`;
+  const lbs = Math.round(numericMt * 2204.62).toLocaleString('en-US');
+  const cwt = Math.round(numericMt * 22.0462).toLocaleString('en-US');
+  return `${numericMt} MT (~${lbs} lbs / ${cwt} US CWT)`;
+}
+
+export function buildCorridorExecutiveSummary(
+  product: ExportCommodity,
+  region: TradeCorridorRegion
+): string {
+  return `Sheshaan Global is an APEDA, FSSAI, and CDB certified ${product.name.toLowerCase()} exporter from India to ${region.name}, supplying wholesale importers with ${product.specs.primaryGrade} (ITC-HS Code ${product.hsCode}) sourced directly from ${product.originCluster}. Every consignment is cleared at ${product.logistics.gatewayPorts[0]} by our licensed Customs House Agent (CHA) and shipped via premier third-party international shipping lines to ${region.dischargePorts.join(', ')} (${region.transitTimeFromIndia}). Shipments are packed in ${product.logistics.standardPackaging}, loading ${product.logistics.container40ft} (${formatDualWeightUnit(product.logistics.eligibleQuantityValue)}) under ${product.logistics.transitClimateControl}, and include full ${region.importAuthority} compliance documentation under FOB, CFR, and CIF Incoterms (${region.preferredCurrencies.join('/')} settlement via L/C at sight, DP/CAD, or 30/70 TT).`;
+}

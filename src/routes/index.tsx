@@ -1572,14 +1572,14 @@ function BuyerProof() {
 }
 
 function LeadCapturePopup() {
+  // Automatic timer disabled to prevent intrusive interstitial penalty; opened only via user action
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState(PRODUCTS[0]?.name ?? "Fresh Onions");
   const [country, setCountry] = useState("");
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (localStorage.getItem("sg_lead_popup_closed_v1")) return;
-    const t = setTimeout(() => setOpen(true), 7000);
-    return () => clearTimeout(t);
+    const handleOpenRfq = () => setOpen(true);
+    window.addEventListener("sheshaan:open-rfq", handleOpenRfq);
+    return () => window.removeEventListener("sheshaan:open-rfq", handleOpenRfq);
   }, []);
   const close = () => {
     localStorage.setItem("sg_lead_popup_closed_v1", "1");
@@ -1719,6 +1719,40 @@ function Footer() {
           <p className="mt-4 text-sm text-white/60">
             Premium agricultural exports from India to the world.
           </p>
+          <div className="mt-4 flex flex-wrap gap-2 text-xs">
+            <a
+              href="https://www.linkedin.com/company/sheshaan-global/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-[#FF8A00] hover:text-white"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://www.instagram.com/sheshaanglobal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-[#FF8A00] hover:text-white"
+            >
+              Instagram
+            </a>
+            <a
+              href="https://freshdi.com/supplier/Sheshaan-Global"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-[#FF8A00] hover:text-white"
+            >
+              Freshdi
+            </a>
+            <a
+              href="https://www.tradekey.com/company/Sheshaan-Global-14840241.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-[#FF8A00] hover:text-white"
+            >
+              TradeKey
+            </a>
+          </div>
         </div>
         <div>
           <div

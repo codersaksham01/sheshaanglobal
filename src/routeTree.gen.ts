@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as CompanyPoliciesRouteImport } from './routes/company-policies'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -20,17 +21,24 @@ import { Route as MoreInfoRouteImport } from './routes/more-info'
 import { Route as PackagingRouteImport } from './routes/packaging'
 import { Route as QualityRouteImport } from './routes/quality'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TradeIntelligenceRouteImport } from './routes/trade-intelligence'
 import { Route as ExportToRegionRouteImport } from './routes/export-to.$region'
 import { Route as MarketsAfricaRouteImport } from './routes/markets.africa'
 import { Route as MarketsMiddleEastRouteImport } from './routes/markets.middle-east'
 import { Route as MarketsUaeRouteImport } from './routes/markets.uae'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as ProductsCategorySlugRouteImport } from './routes/products.$category.$slug'
 import { Route as ProductsSlugExportToRegionRouteImport } from './routes/products.$slug.export-to.$region'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocaleRoute = LocaleRouteImport.update({
+  id: '/$locale',
+  path: '/$locale',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -83,6 +91,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TradeIntelligenceRoute = TradeIntelligenceRouteImport.update({
+  id: '/trade-intelligence',
+  path: '/trade-intelligence',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExportToRegionRoute = ExportToRegionRouteImport.update({
   id: '/export-to/$region',
   path: '/export-to/$region',
@@ -113,6 +126,11 @@ const ProductsSlugRoute = ProductsSlugRouteImport.update({
   path: '/products/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsCategorySlugRoute = ProductsCategorySlugRouteImport.update({
+  id: '/products/$category/$slug',
+  path: '/products/$category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsSlugExportToRegionRoute =
   ProductsSlugExportToRegionRouteImport.update({
     id: '/export-to/$region',
@@ -122,6 +140,7 @@ const ProductsSlugExportToRegionRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRoute
   '/about': typeof AboutRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
@@ -132,16 +151,19 @@ export interface FileRoutesByFullPath {
   '/packaging': typeof PackagingRoute
   '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trade-intelligence': typeof TradeIntelligenceRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/markets/africa': typeof MarketsAfricaRoute
   '/markets/middle-east': typeof MarketsMiddleEastRoute
   '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/products/': typeof ProductsIndexRoute
+  '/products/$category/$slug': typeof ProductsCategorySlugRoute
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRoute
   '/about': typeof AboutRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
@@ -152,17 +174,20 @@ export interface FileRoutesByTo {
   '/packaging': typeof PackagingRoute
   '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trade-intelligence': typeof TradeIntelligenceRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/markets/africa': typeof MarketsAfricaRoute
   '/markets/middle-east': typeof MarketsMiddleEastRoute
   '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/products': typeof ProductsIndexRoute
+  '/products/$category/$slug': typeof ProductsCategorySlugRoute
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$locale': typeof LocaleRoute
   '/about': typeof AboutRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
@@ -173,18 +198,21 @@ export interface FileRoutesById {
   '/packaging': typeof PackagingRoute
   '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trade-intelligence': typeof TradeIntelligenceRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/markets/africa': typeof MarketsAfricaRoute
   '/markets/middle-east': typeof MarketsMiddleEastRoute
   '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
   '/products/': typeof ProductsIndexRoute
+  '/products/$category/$slug': typeof ProductsCategorySlugRoute
   '/products/$slug/export-to/$region': typeof ProductsSlugExportToRegionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$locale'
     | '/about'
     | '/company-policies'
     | '/contact'
@@ -195,16 +223,19 @@ export interface FileRouteTypes {
     | '/packaging'
     | '/quality'
     | '/sitemap.xml'
+    | '/trade-intelligence'
     | '/export-to/$region'
     | '/markets/africa'
     | '/markets/middle-east'
     | '/markets/uae'
     | '/products/$slug'
     | '/products/'
+    | '/products/$category/$slug'
     | '/products/$slug/export-to/$region'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$locale'
     | '/about'
     | '/company-policies'
     | '/contact'
@@ -215,16 +246,19 @@ export interface FileRouteTypes {
     | '/packaging'
     | '/quality'
     | '/sitemap.xml'
+    | '/trade-intelligence'
     | '/export-to/$region'
     | '/markets/africa'
     | '/markets/middle-east'
     | '/markets/uae'
     | '/products/$slug'
     | '/products'
+    | '/products/$category/$slug'
     | '/products/$slug/export-to/$region'
   id:
     | '__root__'
     | '/'
+    | '/$locale'
     | '/about'
     | '/company-policies'
     | '/contact'
@@ -235,17 +269,20 @@ export interface FileRouteTypes {
     | '/packaging'
     | '/quality'
     | '/sitemap.xml'
+    | '/trade-intelligence'
     | '/export-to/$region'
     | '/markets/africa'
     | '/markets/middle-east'
     | '/markets/uae'
     | '/products/$slug'
     | '/products/'
+    | '/products/$category/$slug'
     | '/products/$slug/export-to/$region'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LocaleRoute: typeof LocaleRoute
   AboutRoute: typeof AboutRoute
   CompanyPoliciesRoute: typeof CompanyPoliciesRoute
   ContactRoute: typeof ContactRoute
@@ -256,9 +293,11 @@ export interface RootRouteChildren {
   PackagingRoute: typeof PackagingRoute
   QualityRoute: typeof QualityRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TradeIntelligenceRoute: typeof TradeIntelligenceRoute
   ExportToRegionRoute: typeof ExportToRegionRoute
   ProductsSlugRoute: typeof ProductsSlugRouteWithChildren
   ProductsIndexRoute: typeof ProductsIndexRoute
+  ProductsCategorySlugRoute: typeof ProductsCategorySlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -268,6 +307,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$locale': {
+      id: '/$locale'
+      path: '/$locale'
+      fullPath: '/$locale'
+      preLoaderRoute: typeof LocaleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -340,6 +386,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trade-intelligence': {
+      id: '/trade-intelligence'
+      path: '/trade-intelligence'
+      fullPath: '/trade-intelligence'
+      preLoaderRoute: typeof TradeIntelligenceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/export-to/$region': {
       id: '/export-to/$region'
       path: '/export-to/$region'
@@ -382,6 +435,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/$category/$slug': {
+      id: '/products/$category/$slug'
+      path: '/products/$category/$slug'
+      fullPath: '/products/$category/$slug'
+      preLoaderRoute: typeof ProductsCategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/$slug/export-to/$region': {
       id: '/products/$slug/export-to/$region'
       path: '/export-to/$region'
@@ -421,6 +481,7 @@ const ProductsSlugRouteWithChildren = ProductsSlugRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LocaleRoute: LocaleRoute,
   AboutRoute: AboutRoute,
   CompanyPoliciesRoute: CompanyPoliciesRoute,
   ContactRoute: ContactRoute,
@@ -431,9 +492,11 @@ const rootRouteChildren: RootRouteChildren = {
   PackagingRoute: PackagingRoute,
   QualityRoute: QualityRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TradeIntelligenceRoute: TradeIntelligenceRoute,
   ExportToRegionRoute: ExportToRegionRoute,
   ProductsSlugRoute: ProductsSlugRouteWithChildren,
   ProductsIndexRoute: ProductsIndexRoute,
+  ProductsCategorySlugRoute: ProductsCategorySlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -393,6 +393,49 @@ function ContactPage() {
                 Browse our products <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-white p-7 shadow-[0_6px_30px_rgba(4,21,45,0.06)]">
+              <h3 className="font-display text-lg font-bold" style={{ color: NAVY }}>
+                Official Social &amp; B2B Trade Profiles
+              </h3>
+              <p className="mt-2 text-xs text-slate-500">
+                Connect with Sheshaan Global across our verified corporate channels and international B2B trade directories:
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2.5 text-xs font-semibold">
+                <a
+                  href="https://www.linkedin.com/company/sheshaan-global/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-slate-800 transition hover:border-[#0057B8] hover:text-[#0057B8]"
+                >
+                  LinkedIn Profile ↗
+                </a>
+                <a
+                  href="https://www.instagram.com/sheshaanglobal/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-slate-800 transition hover:border-[#0057B8] hover:text-[#0057B8]"
+                >
+                  Instagram (@sheshaanglobal) ↗
+                </a>
+                <a
+                  href="https://freshdi.com/supplier/Sheshaan-Global"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-slate-800 transition hover:border-[#0057B8] hover:text-[#0057B8]"
+                >
+                  Freshdi Supplier Profile ↗
+                </a>
+                <a
+                  href="https://www.tradekey.com/company/Sheshaan-Global-14840241.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-slate-800 transition hover:border-[#0057B8] hover:text-[#0057B8]"
+                >
+                  TradeKey Verified Exporter ↗
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 

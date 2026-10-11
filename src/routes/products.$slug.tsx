@@ -35,11 +35,13 @@ import {
   MAILTO_URL,
   PRODUCTS,
   REGIONS,
+  ORGANIZATION_JSONLD,
   getProductBySlug,
   buildWhatsAppUrl,
   faqsForProduct,
   type Product,
 } from "@/lib/site";
+import { getProductBySlugOrLegacy, type ExportCommodity } from "@/lib/empirical-products";
 import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/seo";
 import {
   Dialog,
@@ -51,9 +53,25 @@ import {
 
 export const Route = createFileRoute("/products/$slug")({
   loader: ({ params }) => {
-    const product = getProductBySlug(params.slug);
-    if (!product) throw notFound();
-    return { product };
+    const empirical = getProductBySlugOrLegacy(params.slug);
+    const product =
+      getProductBySlug(params.slug) ??
+      (empirical ? getProductBySlug(empirical.legacySlug ?? "") : undefined);
+    if (!product && !empirical) throw notFound();
+    const resolvedProduct: Product = product ?? {
+      slug: empirical!.slug,
+      name: empirical!.name,
+      hsCode: empirical!.hsCode,
+      tagline: empirical!.h1Headline,
+      img: empirical!.image,
+      gallery: [empirical!.image],
+      description: empirical!.executiveSummary,
+      varieties: empirical!.varieties,
+      packing: [empirical!.logistics.standardPackaging],
+      standards: empirical!.certifications,
+      group: empirical!.categoryName,
+    };
+    return { product: resolvedProduct, empirical };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
@@ -65,11 +83,14 @@ export const Route = createFileRoute("/products/$slug")({
       };
     }
     const p = loaderData.product;
+    const emp = loaderData.empirical;
     const url = `${SITE_URL}/products/${params.slug}`;
     const previewImage = p.gallery[0] || p.img || "/logo.png";
     const img = absoluteUrl(previewImage);
-    const title = `${p.name} Exporter from India - ${SITE_NAME}`;
-    const desc = `${p.tagline}. Export-grade ${p.name.toLowerCase()} from India with packing options, standards, certifications and direct inquiry. Sheshaan Global ships to 25+ countries.`;
+    const title = emp?.seoTitle ?? `${p.name} Exporter in India | ${SITE_NAME}`;
+    const desc =
+      emp?.metaDescription ??
+      `${p.tagline}. Export-grade ${p.name.toLowerCase()} from India with packing options, standards, certifications and direct inquiry. Sheshaan Global ships to 25+ countries.`;
     return {
       meta: [
         { title },
@@ -97,31 +118,73 @@ export const Route = createFileRoute("/products/$slug")({
       scripts: [
         {
           type: "application/ld+json",
+          children: JSON.stringify(ORGANIZATION_JSONLD),
+        },
+        {
+          type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Product",
-            name: p.name,
-            description: p.description,
-            ...(p.hsCode ? { sku: `HS-${p.hsCode}` } : {}),
+            "@id": `${url}/#product`,
+            name: `Export Grade ${emp?.name ?? p.name}`,
+            description: emp?.executiveSummary ?? p.description,
+            sku: emp?.sku ?? (p.hsCode ? `HS-${p.hsCode}` : p.slug),
+            mpn: emp?.hsCode ?? p.hsCode ?? "",
             image: (p.gallery.length ? p.gallery : [p.img || "/logo.png"]).map((g) =>
               absoluteUrl(g),
             ),
-            category: p.name,
+            category: emp ? `${emp.categoryName} > ${emp.name}` : p.name,
             brand: { "@type": "Brand", name: SITE_NAME },
-            manufacturer: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-            audience: {
-              "@type": "BusinessAudience",
-              audienceType: "Importers, wholesalers, distributors and retail buyers",
-            },
-            potentialAction: {
-              "@type": "QuoteAction",
-              target: absoluteUrl(`/contact?product=${encodeURIComponent(p.name)}`),
-              name: `Request ${p.name} export quotation`,
+            countryOfOrigin: { "@type": "Country", name: "India" },
+            offers: {
+              "@type": "AggregateOffer",
+              priceCurrency: "USD",
+              price: "Contact for Market Quote",
+              priceValidationUntil: "2027-12-31",
+              itemCondition: "https://schema.org/NewCondition",
+              availability: "https://schema.org/InStock",
+              seller: { "@id": "https://www.sheshaanglobal.com/#corporation" },
+              eligibleQuantity: {
+                "@type": "QuantitativeValue",
+                value: emp?.logistics.eligibleQuantityValue ?? "25",
+                unitCode: "TNE",
+                unitText:
+                  emp?.logistics.eligibleQuantityUnitText ?? "Metric Tons (1 x 20ft/40ft FCL)",
+              },
             },
             additionalProperty: [
-              { "@type": "PropertyValue", name: "Varieties", value: p.varieties.join(", ") },
-              { "@type": "PropertyValue", name: "Packing", value: p.packing.join(", ") },
-              { "@type": "PropertyValue", name: "Standards", value: p.standards.join(", ") },
+              {
+                "@type": "PropertyValue",
+                name: "HS Code",
+                value: emp?.hsCode ?? p.hsCode ?? "",
+              },
+              {
+                "@type": "PropertyValue",
+                name: "Variety",
+                value: (emp?.varieties ?? p.varieties).join(" / "),
+              },
+              {
+                "@type": "PropertyValue",
+                name: "Calibrated Size",
+                value: emp?.specs.primaryGrade ?? "Export Grade",
+              },
+              {
+                "@type": "PropertyValue",
+                name: "Packaging",
+                value: emp?.logistics.standardPackaging ?? p.packing.join(", "),
+              },
+              {
+                "@type": "PropertyValue",
+                name: "Loading Capacity",
+                value: emp?.logistics.container40ft ?? "25-29 MT per FCL",
+              },
+              {
+                "@type": "PropertyValue",
+                name: "Port of Loading",
+                value:
+                  emp?.logistics.gatewayPorts.join(", ") ??
+                  "Nhava Sheva (JNPT), Mumbai, India",
+              },
             ],
           }),
         },
@@ -133,7 +196,17 @@ export const Route = createFileRoute("/products/$slug")({
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL + "/" },
               { "@type": "ListItem", position: 2, name: "Products", item: SITE_URL + "/products" },
-              { "@type": "ListItem", position: 3, name: p.name, item: url },
+              ...(emp
+                ? [
+                    {
+                      "@type": "ListItem",
+                      position: 3,
+                      name: emp.categoryName,
+                      item: `${SITE_URL}/products/${emp.categorySlug}`,
+                    },
+                    { "@type": "ListItem", position: 4, name: emp.name, item: url },
+                  ]
+                : [{ "@type": "ListItem", position: 3, name: p.name, item: url }]),
             ],
           }),
         },
@@ -172,7 +245,10 @@ export const Route = createFileRoute("/products/$slug")({
 });
 
 function ProductPage() {
-  const { product } = Route.useLoaderData() as { product: Product };
+  const { product, empirical } = Route.useLoaderData() as {
+    product: Product;
+    empirical?: ExportCommodity;
+  };
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [active, setActive] = useState(0);
   const [activeTab, setActiveTab] = useState<"overview" | "packing" | "documents" | "markets">(
@@ -310,18 +386,20 @@ function ProductPage() {
           <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-slate-600">
             <Sparkles className="h-3.5 w-3.5" style={{ color: ORANGE }} /> Export Grade
           </div>
-          <h1 className="mt-4 font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
-            {product.name}
+          <h1 className="mt-4 font-display text-3xl font-bold leading-tight text-slate-900 sm:text-4xl">
+            {empirical?.h1Headline ?? `${product.name} Exporter in India`}
           </h1>
           <p className="mt-3 text-lg" style={{ color: ORANGE }}>
             {product.tagline}
           </p>
-          {product.hsCode && (
+          {(empirical?.hsCode || product.hsCode) && (
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold text-slate-700">
-              HS Code <span style={{ color: ORANGE }}>{product.hsCode}</span>
+              HS Code <span style={{ color: ORANGE }}>{empirical?.hsCode ?? product.hsCode}</span>
             </div>
           )}
-          <p className="mt-6 text-slate-600">{product.description}</p>
+          <p className="mt-6 text-slate-600">
+            {empirical?.executiveSummary ?? product.description}
+          </p>
 
           <div className="mt-7 grid gap-3 sm:grid-cols-3">
             {[
@@ -667,6 +745,9 @@ function ProductPage() {
         </div>
       </section>
 
+      {/* Empirical B2B Specification Sheet, Container Matrix, Harvest Calendar & GEO Block */}
+      {empirical && <EmpiricalB2BWireframeSection empirical={empirical} />}
+
       {/* Related */}
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="flex items-end justify-between">
@@ -842,4 +923,170 @@ function getProductSpecs(product: Product) {
       ? "Product dependent, handled for export transit"
       : "6-12 months when stored correctly",
   };
+}
+
+const CALENDAR_MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+function EmpiricalB2BWireframeSection({ empirical }: { empirical: ExportCommodity }) {
+  return (
+    <section className="border-b border-slate-200 bg-white py-16">
+      <div className="mx-auto max-w-7xl space-y-12 px-6">
+        {/* Protocol 3: High Information-Gain Text Block for AI Answer Engines */}
+        <div className="rounded-3xl border-l-4 border-[#0057B8] bg-slate-50 p-6 sm:p-8">
+          <div className="text-xs font-bold uppercase tracking-widest text-[#0057B8]">
+            Verified Export Trade Dossier • APEDA &amp; FSSAI Registered
+          </div>
+          <h2 className="mt-2 font-display text-2xl font-bold text-slate-900">
+            Executive Export Summary: {empirical.name} (HS {empirical.hsCode})
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:text-base">
+            {empirical.geoExtractBlock}
+          </p>
+        </div>
+
+        {/* Empirical Technical Specification Data Sheet Table */}
+        <div>
+          <div className="text-xs font-bold uppercase tracking-widest" style={{ color: ORANGE }}>
+            Laboratory &amp; Physical Calibration Parameters
+          </div>
+          <h2 className="mt-2 font-display text-3xl font-bold text-slate-900">
+            Empirical Technical Specification Data Sheet — {empirical.name}
+          </h2>
+          <div className="mt-6 overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-sm">
+            <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+              <thead className="bg-slate-900 text-xs font-bold uppercase tracking-wider text-white">
+                <tr>
+                  <th className="w-1/3 px-6 py-4">Technical Parameter</th>
+                  <th className="px-6 py-4">Export Specification Benchmark</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    Harmonized System (HS) Code
+                  </th>
+                  <td className="px-6 py-3.5 font-mono font-bold text-[#0057B8]">
+                    {empirical.hsCode}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    Origin Cluster
+                  </th>
+                  <td className="px-6 py-3.5 text-slate-700">{empirical.originCluster}</td>
+                </tr>
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    Primary Grade / Calibration
+                  </th>
+                  <td className="px-6 py-3.5 font-semibold text-slate-900">
+                    {empirical.specs.primaryGrade}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    Moisture Tolerance
+                  </th>
+                  <td className="px-6 py-3.5 text-slate-700">
+                    {empirical.specs.moistureTolerance}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    Purity / Admixture
+                  </th>
+                  <td className="px-6 py-3.5 text-slate-700">{empirical.specs.purityAdmixture}</td>
+                </tr>
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    Broken / Defect Tolerance
+                  </th>
+                  <td className="px-6 py-3.5 text-slate-700">
+                    {empirical.specs.brokenOrDefectLimit}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    20ft / 40ft FCL Stuffing Capacity
+                  </th>
+                  <td className="px-6 py-3.5 font-semibold text-slate-900">
+                    {empirical.logistics.container20ft} | {empirical.logistics.container40ft}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    Transit Climate Control
+                  </th>
+                  <td className="px-6 py-3.5 text-slate-700">
+                    {empirical.logistics.transitClimateControl}
+                  </td>
+                </tr>
+                <tr>
+                  <th className="bg-slate-50/70 px-6 py-3.5 font-semibold text-slate-900">
+                    Gateway Export Ports
+                  </th>
+                  <td className="px-6 py-3.5 text-slate-700">
+                    {empirical.logistics.gatewayPorts.join(" • ")}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* 12-Month Harvest Seasonality Calendar */}
+        <div>
+          <div className="text-xs font-bold uppercase tracking-widest" style={{ color: ORANGE }}>
+            Crop Year &amp; Procurement Timing
+          </div>
+          <h2 className="mt-2 font-display text-2xl font-bold text-slate-900">
+            12-Month Harvest Seasonality &amp; Availability Calendar
+          </h2>
+          <p className="mt-1 text-sm text-slate-600">
+            Sowing: <strong>{empirical.harvestCalendar.sowingWindow}</strong> | Harvest:{" "}
+            <strong>{empirical.harvestCalendar.harvestWindow}</strong>
+          </p>
+          <div className="mt-4 grid grid-cols-3 gap-2.5 sm:grid-cols-6 lg:grid-cols-12">
+            {CALENDAR_MONTHS.map((m) => {
+              const isPeak = empirical.harvestCalendar.peakExportMonths.includes(m);
+              const isLean = empirical.harvestCalendar.leanMonths.includes(m);
+              return (
+                <div
+                  key={m}
+                  className={`rounded-xl border p-3 text-center ${
+                    isPeak
+                      ? "border-emerald-500 bg-emerald-50 text-emerald-900"
+                      : isLean
+                        ? "border-amber-300 bg-amber-50 text-amber-900"
+                        : "border-slate-200 bg-slate-50 text-slate-700"
+                  }`}
+                >
+                  <div className="text-xs font-bold uppercase">{m}</div>
+                  <div className="mt-1 text-[10px] font-semibold">
+                    {isPeak ? "Peak Export" : isLean ? "Lean" : "Available"}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <p className="mt-3 text-xs text-slate-600">
+            <strong>Price Hedging Advisory:</strong> {empirical.harvestCalendar.priceVolatilityNote}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
 }

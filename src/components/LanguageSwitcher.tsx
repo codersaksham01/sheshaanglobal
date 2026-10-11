@@ -93,7 +93,6 @@ export function LanguageSwitcher() {
     const idleId = runIdle(() => injectGoogleTranslate());
 
     const stored = localStorage.getItem(STORAGE_KEY);
-    const seen = localStorage.getItem(SEEN_KEY);
     if (stored) setCurrent(stored);
 
     // Apply stored language on load (in case cookie was cleared)
@@ -104,16 +103,7 @@ export function LanguageSwitcher() {
       }
     }
 
-    if (!seen) {
-      const t = setTimeout(() => {
-        setFirstTime(true);
-        setOpen(true);
-      }, 900);
-      return () => {
-        clearTimeout(t);
-        if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId as number);
-      };
-    }
+    // Automatic language popup disabled to prevent intrusive interstitial penalty (opens strictly via user click)
     return () => {
       if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId as number);
     };

@@ -1,7 +1,7 @@
-export const SITE_URL = "https://global-roots-express.lovable.app";
+export const SITE_URL = "https://www.sheshaanglobal.com";
 export const SITE_NAME = "Sheshaan Global";
-export const SITE_UPDATED = "2026-09-20";
-export const DEFAULT_OG_IMAGE = "https://global-roots-express.lovable.app/logo.png";
+export const SITE_UPDATED = "2026-10-10";
+export const DEFAULT_OG_IMAGE = "https://www.sheshaanglobal.com/logo.png";
 
 export function absoluteUrl(path = "/") {
   if (path.startsWith("http://") || path.startsWith("https://")) return path;

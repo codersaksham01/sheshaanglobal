@@ -1,9 +1,36 @@
+# Production robots.txt for Sheshaan Global (https://www.sheshaanglobal.com)
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*?*price=
+Disallow: /*?*filter=
 
-Sitemap: https://global-roots-express.lovable.app/sitemap.xml
-Host: https://global-roots-express.lovable.app
+# Explicit Authorization for Web Search Spiders
+User-agent: Googlebot
+Allow: /
 
-# AI and search discovery
-Allow: /llms.txt
-Allow: /catalogue.pdf
+User-agent: Bingbot
+Allow: /
+
+# Explicit Authorization for Generative AI Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+# Dynamic Sitemap Reference
+Sitemap: https://www.sheshaanglobal.com/sitemap-index.xml
+Sitemap: https://www.sheshaanglobal.com/sitemap.xml

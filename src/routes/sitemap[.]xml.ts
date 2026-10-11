@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { ALL_PRODUCTS, REGIONS } from "@/lib/site";
+import { CATEGORIES, PRODUCTS_CATALOG } from "@/lib/empirical-products";
 import { absoluteUrl, SITE_UPDATED, SITE_URL } from "@/lib/seo";
 
 interface SitemapEntry {
@@ -17,9 +18,13 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/ar", changefreq: "weekly", priority: "0.95" },
+          { path: "/fr", changefreq: "weekly", priority: "0.95" },
+          { path: "/ru", changefreq: "weekly", priority: "0.95" },
+          { path: "/trade-intelligence", changefreq: "weekly", priority: "0.9" },
           { path: "/about", changefreq: "monthly", priority: "0.7" },
           { path: "/contact", changefreq: "yearly", priority: "0.7" },
-          { path: "/products", changefreq: "weekly", priority: "0.9" },
+          { path: "/products", changefreq: "weekly", priority: "0.95" },
           { path: "/more-info", changefreq: "yearly", priority: "0.6" },
           { path: "/export-process", changefreq: "monthly", priority: "0.75" },
           { path: "/quality", changefreq: "monthly", priority: "0.7" },
@@ -29,6 +34,27 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/markets/africa", changefreq: "monthly", priority: "0.65" },
           { path: "/markets/uae", changefreq: "monthly", priority: "0.7" },
           { path: "/markets/middle-east", changefreq: "monthly", priority: "0.7" },
+          ...CATEGORIES.map((c) => ({
+            path: `/products/${c.slug}`,
+            changefreq: "weekly" as const,
+            priority: "0.9",
+          })),
+          ...PRODUCTS_CATALOG.map((p) => ({
+            path: `/products/${p.categorySlug}/${p.slug}`,
+            changefreq: "weekly" as const,
+            priority: "0.9",
+            image: p.image,
+            imageTitle: `${p.name} Exporter in India (HS Code ${p.hsCode})`,
+          })),
+          ...PRODUCTS_CATALOG.flatMap((p) =>
+            REGIONS.map((r) => ({
+              path: `/products/${p.slug}/export-to/${r.slug}`,
+              changefreq: "monthly" as const,
+              priority: "0.8",
+              image: p.image,
+              imageTitle: `${p.name} Exporter from India to ${r.name} (HS ${p.hsCode})`,
+            })),
+          ),
           ...REGIONS.map((r) => ({
             path: `/export-to/${r.slug}`,
             changefreq: "monthly" as const,
@@ -41,20 +67,6 @@ export const Route = createFileRoute("/sitemap.xml")({
             image: p.img || p.gallery[0],
             imageTitle: `${p.name} exporter from India`,
           })),
-          ...REGIONS.flatMap((r) =>
-            r.topProducts.map((slug) => {
-              const product = ALL_PRODUCTS.find((p) => p.slug === slug);
-              return {
-                path: `/products/${slug}/export-to/${r.slug}`,
-                changefreq: "monthly" as const,
-                priority: "0.75",
-                image: product?.img || product?.gallery[0],
-                imageTitle: product
-                  ? `${product.name} exporter to ${r.name}`
-                  : `Indian exporter to ${r.name}`,
-              };
-            }),
-          ),
         ];
 
         const urls = entries.map((e) =>

@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Globe2 } from "lucide-react";
 import { BLUE, ORANGE, NAVY, REGIONS } from "@/lib/site";
 import { DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo";
@@ -25,9 +25,6 @@ export const Route = createFileRoute("/markets")({
 });
 
 function MarketsPage() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  if (pathname !== "/markets") return <Outlet />;
-
   return (
     <main className="bg-white">
       <section

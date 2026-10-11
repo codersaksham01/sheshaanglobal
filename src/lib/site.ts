@@ -192,30 +192,106 @@ export const FAQS: { q: string; a: string }[] = [
 
 export const ORGANIZATION_JSONLD = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "Corporation",
+  "@id": "https://www.sheshaanglobal.com/#corporation",
   name: "Sheshaan Global",
-  legalName: "Sheshaan Global",
-  url: "/",
-  logo: "/logo.png",
-  description:
-    "IEC-certified Indian exporter of fresh onions, green chillies, premium rice, coconut and agricultural commodities to 25+ countries worldwide.",
+  alternateName: ["Sheshaan Exporting Goodness Worldwide", "Sheshaan Agro Exports"],
+  url: "https://www.sheshaanglobal.com",
+  logo: "https://www.sheshaanglobal.com/assets/logo.png",
   foundingDate: "2022",
-  founder: { "@type": "Person", name: "Sana Zeba Siraj Bakshi" },
+  description:
+    "Premier agricultural commodity exporter from India supplying fresh produce, basmati rice, spices, grains, pulses, and coconuts with APEDA, FSSAI, and CDB certification.",
   address: {
     "@type": "PostalAddress",
     addressRegion: "Maharashtra",
     addressCountry: "IN",
   },
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: `+${PHONE_RAW}`,
-    email: EMAIL,
-    contactType: "sales",
-    areaServed: "Worldwide",
-    availableLanguage: ["English", "Hindi"],
-  },
-  sameAs: [],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+91-81499-09546",
+      contactType: "sales",
+      email: "info@sheshaanglobal.com",
+      areaServed: [
+        "AE",
+        "SA",
+        "KW",
+        "QA",
+        "OM",
+        "BH",
+        "SG",
+        "MY",
+        "VN",
+        "FR",
+        "NL",
+        "DE",
+        "GB",
+        "US",
+        "ZA",
+      ],
+      availableLanguage: ["English", "Hindi", "Marathi", "Arabic"],
+    },
+  ],
+  founder: [
+    {
+      "@type": "Person",
+      name: "Sana Zeba Bakshi",
+      jobTitle: "Chief Executive Officer",
+      email: "sanazeba@sheshaanglobal.com",
+    },
+  ],
+  employee: [
+    {
+      "@type": "Person",
+      name: "Juned Barade",
+      jobTitle: "Chief Operating Officer",
+      email: "junedbarade@sheshaanglobal.com",
+    },
+  ],
+  hasCredential: [
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "APEDA Export Registration",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "FSSAI Central Food Safety License",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "Coconut Development Board Exporter Certificate",
+    },
+  ],
+  sameAs: [
+    "https://www.linkedin.com/company/sheshaan-global/",
+    "https://www.instagram.com/sheshaanglobal/",
+    "https://freshdi.com/supplier/Sheshaan-Global",
+    "https://www.tradekey.com/company/Sheshaan-Global-14840241.html",
+  ],
 };
+
+export const SOCIAL_AND_TRADE_PROFILES = [
+  {
+    name: "LinkedIn",
+    label: "Sheshaan Global on LinkedIn",
+    url: "https://www.linkedin.com/company/sheshaan-global/",
+  },
+  {
+    name: "Instagram",
+    label: "@sheshaanglobal on Instagram",
+    url: "https://www.instagram.com/sheshaanglobal/",
+  },
+  {
+    name: "Freshdi",
+    label: "Verified Supplier on Freshdi",
+    url: "https://freshdi.com/supplier/Sheshaan-Global",
+  },
+  {
+    name: "TradeKey",
+    label: "Verified Exporter on TradeKey",
+    url: "https://www.tradekey.com/company/Sheshaan-Global-14840241.html",
+  },
+] as const;
 
 export type Product = {
   slug: string;

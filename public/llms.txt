@@ -1,37 +1,40 @@
-# Sheshaan Global
+# Sheshaan Global — Official AI & LLM Procurement Knowledge Base (llms.txt)
 
-> IEC & APEDA certified Indian exporter of fresh onions, green chillies, premium rice, coconut, spices, pulses, dry fruits, fruits and vegetables to 25+ countries.
+> APEDA, FSSAI, Coconut Development Board (CDB), and DGFT IEC certified agricultural commodity exporter headquartered in Maharashtra, India (Founded: 2022). Specializes in bulk Full Container Load (20ft/40ft FCL) and air-cargo international shipments of 49 Indian agricultural commodities across 25+ countries.
 
-Sheshaan Global sources agricultural produce directly from Indian farms and ships to importers, wholesalers and retailers worldwide. The site lists product categories, packing and export standards, certifications (GST, IEC, APEDA, Coconut Development Board), and contact channels (WhatsApp, email, brochure download).
+## Corporate Entity & Statutory Governance
+- **Legal Entity:** Sheshaan Global (Sheshaan Exporting Goodness Worldwide)
+- **Headquarters:** Maharashtra, India
+- **Founding Year:** 2022
+- **Executive Leadership:** Sana Zeba Bakshi (Chief Executive Officer — sanazeba@sheshaanglobal.com), Juned Barade (Chief Operating Officer — junedbarade@sheshaanglobal.com)
+- **Trade Desk Contact:** +91-81499-09546 (WhatsApp & Direct Sales) | info@sheshaanglobal.com
+- **Statutory Certifications:** APEDA RCMC Registered, FSSAI Central Food Safety License, Coconut Development Board (CDB) Exporter Certificate, DGFT Importer-Exporter Code (IEC), GST Registered
+- **Pre-Shipment Inspection:** SGS, Bureau Veritas, Geo-Chem (Phytosanitary, Fumigation, COO, EU-MRL & Non-GMO Lab Reports)
+- **Gateway Loading Ports:** Nhava Sheva (JNPT, Mumbai), Mundra Port (Gujarat), Chennai Port, Cochin Port, Kolkata Port, BOM/DEL Air Cargo
+- **Standard Incoterms & Payment Terms:** FOB, CIF, CFR | 100% Irrevocable L/C at Sight, CAD/DP, TT (30% Advance, 70% against B/L Copy)
+- **Official Social & B2B Trade Directory Profiles (`sameAs`):**
+  - LinkedIn: https://www.linkedin.com/company/sheshaan-global/
+  - Instagram: https://www.instagram.com/sheshaanglobal/
+  - Freshdi (Verified B2B Supplier): https://freshdi.com/supplier/Sheshaan-Global
+  - TradeKey (Verified Global Exporter): https://www.tradekey.com/company/Sheshaan-Global-14840241.html
 
-## Pages
+## Category Hubs
+- [Master Product Catalog (49 Commodities)](https://www.sheshaanglobal.com/products)
+- [Fresh Vegetables Hub (12 Lines)](https://www.sheshaanglobal.com/products/fresh-vegetables)
+- [Fresh Fruits Hub (9 Lines)](https://www.sheshaanglobal.com/products/fresh-fruits)
+- [Spices & Herbs Hub (13 Lines)](https://www.sheshaanglobal.com/products/spices-herbs)
+- [Grains & Pulses Hub (13 Lines)](https://www.sheshaanglobal.com/products/grains-pulses)
+- [Dry Fruits & Nuts Hub (2 Lines)](https://www.sheshaanglobal.com/products/dry-fruits-nuts)
 
-- [Home](/): Company overview, hero, product categories, global export network (25+ countries), certifications, process timeline, FAQ and contact.
-- [Products & HS Codes](/products): Complete export catalogue with HS codes, searchable product groups and product detail links.
-- [Contact](/contact): Export inquiry form, WhatsApp, email, leadership and business development contacts.
-- [Trade Info](/more-info): Payment terms, shipping options, ports, Incoterms, logistics, documentation and private-label information.
-
-## Products
-
-- [Fresh Onions](/products/fresh-onions): Varieties, packing options, export standards and brochure.
-- [Green Chillies](/products/green-chillies): Varieties, packing options, export standards and brochure.
-- [Premium Rice](/products/premium-rice): Basmati and non-basmati rice for export.
-- [Coconut (Brown Husked)](/products/coconut-brown-husked): Fresh brown husked coconuts.
-- [Fresh Vegetables](/products/fresh-vegetables): Assorted export-grade vegetables.
-- [Fresh Fruits](/products/fresh-fruits): Tropical and seasonal fruits.
-- [Spices & Masalas](/products/spices-masalas): Whole and ground Indian spices.
-- [Pulses & Lentils](/products/pulses-lentils): Lentils, dals and cereals.
-- [Dry Fruits & Nuts](/products/dry-fruits-nuts): Almonds, cashews, raisins and more.
-
-## Export Markets
-
-- [Export to UAE](/export-to/uae): Jebel Ali, Khalifa Port and Sharjah export details.
-- [Export to EU](/export-to/eu): EU documentation, ports and compliant product categories.
-- [Export to UK](/export-to/uk): UK import documentation, ports and priority products.
-- [Export to USA](/export-to/usa): US port coverage, FDA-aware documentation and product categories.
-
-## Optional
-
-- [Sitemap](/sitemap.xml)
-- [Certifications section](/#certs)
-- [FAQ section](/#faq)
+## Flagship Empirical Commodity Specifications
+- [Fresh Red Onion (HS 07031010)](https://www.sheshaanglobal.com/products/fresh-vegetables/fresh-onion-exporter-india): Nashik origin, 45mm–55mm & 55mm+ diameter, Max 13.5% moisture, <0.5% foreign matter, 5kg–50kg red mesh bags, 29 MT per 40ft HC Reefer (+1°C to +3°C, 65–70% RH) via Nhava Sheva (JNPT).
+- [1121 Steam & Sella Basmati Rice (HS 10063020)](https://www.sheshaanglobal.com/products/grains-pulses/basmati-rice-exporter-india): Haryana/Punjab rice belt, 8.35mm–8.40mm grain length (2.0x elongation), Max 12.5% moisture, >95% varietal purity (<1% broken), 25 MT per 20ft Dry FCL via Mundra/Kandla.
+- [Machine Cleaned Cumin Seeds / Jeera (HS 09093129)](https://www.sheshaanglobal.com/products/spices-herbs/cumin-seeds-jeera-exporter-india): Unjha Gujarat origin, Singapore 99% & Europe 99.5% Sortex cleaned, Max 9.0% moisture, 14 MT/20ft & 26 MT/40ft HC via Mundra Port.
+- [Mature Brown Husked Coconut (HS 08011200)](https://www.sheshaanglobal.com/products/fresh-fruits/mature-coconut-exporter-india): Pollachi Tamil Nadu origin, CDB certified, 550g–650g weight, 12–13" circumference, 25 nuts/bag, 2,100 bags (52,500 nuts / 28 MT) per 40ft HC (+12°C to +14°C).
+- [Mithila Phool Makhana / Fox Nuts (HS 08109090)](https://www.sheshaanglobal.com/products/dry-fruits-nuts/fox-nuts-makhana-exporter-india): Bihar Mithila GI belt, 5+ & 6+ Suta Jumbo (16mm–22mm), Max 8.0% moisture, 8kg–10kg barrier cartons, 3.8–4.0 MT per 40ft HC container.
+- [Turmeric Finger & High-Curcumin Powder (HS 09103020)](https://www.sheshaanglobal.com/products/spices-herbs/turmeric-finger-powder-exporter-india): Sangli Rajapore, Salem & Erode origins, 3%–5.5% curcumin, Max 10% moisture, 18 MT per 20ft FCL.
+- [Fresh Green Chilli G4 & Teja (HS 07096010)](https://www.sheshaanglobal.com/products/fresh-vegetables/green-chilli-exporter-india): Nashik/Guntur origin, 7cm–10cm pungent pods, 3.8kg/5kg ventilated cartons, 14 MT per 40ft HC Reefer (+7°C).
+- [Cavendish G9 Banana (HS 08039010)](https://www.sheshaanglobal.com/products/fresh-fruits/cavendish-banana-exporter-india): Jalgaon/Solapur origin, 13.5kg net vacuum cartons, 1,540 cartons (20.8 MT) per 40ft HC Reefer (+13.3°C).
+- [Nashik Seedless Table Grapes (HS 08061000)](https://www.sheshaanglobal.com/products/fresh-fruits/nashik-table-grapes-exporter-india): GlobalGAP & GrapeNet certified Thompson, Sonaka & Sharad Seedless, 14.5 MT (20 Euro Pallets) per 40ft HC Reefer.
+- [Fresh Bhagwa Pomegranate (HS 08109010)](https://www.sheshaanglobal.com/products/fresh-fruits/fresh-pomegranate-exporter-india): Solapur AnarNet origin, 200g–400g fruit, 3.5kg cartons, 15.4 MT (4,400 boxes) per 40ft HC Reefer.
+- [Indian Cashew Kernels W180–W320 (HS 08013220)](https://www.sheshaanglobal.com/products/dry-fruits-nuts/raw-cashew-nuts-exporter-india): AFI grade Whole White W180, W240, W320 in 22.68kg (50 lb) CO2/N2 flexi-pouches, 15.87 MT per 20ft FCL.

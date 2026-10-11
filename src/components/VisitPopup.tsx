@@ -11,16 +11,8 @@ function isPageRefresh() {
 }
 
 export function VisitPopup() {
+  // Automatic on-load interstitial disabled to comply with Google Page Experience & Core Web Vitals
   const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    const shouldShowPopup =
-      isPageRefresh() || sessionStorage.getItem(POPUP_DISMISSED_KEY) !== "true";
-
-    if (shouldShowPopup) {
-      setIsOpen(true);
-    }
-  }, []);
 
   useEffect(() => {
     if (!isOpen) {
@@ -58,7 +50,7 @@ export function VisitPopup() {
       <div className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-white shadow-2xl ring-1 ring-white/20">
         <button
           aria-label="Close popup"
-          className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-lg font-semibold leading-none text-slate-900 shadow-lg ring-1 ring-slate-200 hover:bg-slate-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-orange"
+          className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-2xl font-semibold leading-none text-slate-900 shadow-lg ring-1 ring-slate-200 hover:bg-slate-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-brand-orange"
           onClick={closePopup}
           type="button"
         >
