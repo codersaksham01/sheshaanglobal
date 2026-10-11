@@ -380,8 +380,23 @@ export const TRADE_CORRIDOR_REGIONS: TradeCorridorRegion[] = [
   },
 ];
 
+const CORRIDOR_REGION_ALIASES: Record<string, string> = {
+  "uae-dubai": "uae",
+  "middle-east": "uae",
+  "united-kingdom": "uk",
+  "european-union": "eu",
+  europe: "eu",
+  "russia-cis": "eu",
+  russia: "eu",
+  africa: "south-africa",
+  "southeast-asia": "singapore",
+  vietnam: "singapore",
+  iraq: "uae",
+};
+
 export function getTradeCorridorBySlug(slug: string): TradeCorridorRegion | undefined {
-  return TRADE_CORRIDOR_REGIONS.find((region) => region.slug === slug);
+  const mapped = CORRIDOR_REGION_ALIASES[slug] ?? slug;
+  return TRADE_CORRIDOR_REGIONS.find((region) => region.slug === slug || region.slug === mapped);
 }
 
 export function formatDualWeightUnit(eligibleMtString: string): string {
@@ -425,7 +440,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "1121-basmati-rice-exporter-to-saudi-arabia-dammam",
-    productSlug: "1121-basmati-rice-exporter-india",
+    productSlug: "basmati-rice-exporter-india",
     regionSlug: "saudi-arabia",
     targetPortLabel: "King Abdulaziz Port (Dammam) & Jeddah Islamic Port, Saudi Arabia",
     targetBuyerSegment: "GCC Rice Importers, Private-Label Distributors & HORECA Catering Chains",
@@ -437,7 +452,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "spices-exporter-to-usa-new-york",
-    productSlug: "cumin-seeds-exporter-india",
+    productSlug: "cumin-seeds-jeera-exporter-india",
     regionSlug: "usa",
     targetPortLabel: "Port of New York & New Jersey (Newark), Houston & Los Angeles, USA",
     targetBuyerSegment: "US Food Processing Houses, ASTA Spice Millers & Wholesale Importers",
@@ -449,7 +464,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "cumin-seeds-exporter-to-usa-new-york",
-    productSlug: "cumin-seeds-exporter-india",
+    productSlug: "cumin-seeds-jeera-exporter-india",
     regionSlug: "usa",
     targetPortLabel: "Port of New York & New Jersey (Newark), USA",
     targetBuyerSegment: "US Food Processing Houses, Seasoning Manufacturers & Bulk Spice Importers",
@@ -461,7 +476,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "mature-coconut-exporter-to-uk-rotterdam",
-    productSlug: "semi-husked-coconut-exporter-india",
+    productSlug: "mature-coconut-exporter-india",
     regionSlug: "uk",
     targetPortLabel: "Port of Felixstowe (UK) & Port of Rotterdam (Netherlands / EU)",
     targetBuyerSegment:
@@ -486,7 +501,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "turmeric-finger-exporter-india-to-europe-rotterdam",
-    productSlug: "turmeric-finger-exporter-india",
+    productSlug: "turmeric-finger-powder-exporter-india",
     regionSlug: "netherlands",
     targetPortLabel: "Port of Rotterdam (Netherlands) & Hamburg (Germany)",
     targetBuyerSegment: "European Spice Extractors, Curcumin Processors & Bulk Ingredient Traders",
@@ -498,7 +513,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "g9-banana-exporter-india-to-oman-sohar",
-    productSlug: "g9-cavendish-banana-exporter-india",
+    productSlug: "cavendish-banana-exporter-india",
     regionSlug: "oman",
     targetPortLabel: "Sohar Port & Port of Salalah, Sultanate of Oman",
     targetBuyerSegment: "Mawaleh Central Fruit Market Importers & Ripening Chambers",
@@ -510,7 +525,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "pomegranate-exporter-india-to-dubai-uae",
-    productSlug: "pomegranate-exporter-india",
+    productSlug: "fresh-pomegranate-exporter-india",
     regionSlug: "uae",
     targetPortLabel: "Jebel Ali Port (Dubai) & Dubai Air Cargo, UAE",
     targetBuyerSegment: "GCC Fresh Fruit Distributors & Retail Supermarket Chains",
@@ -522,7 +537,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "cashew-kernels-exporter-india-to-usa-new-york",
-    productSlug: "cashew-kernels-exporter-india",
+    productSlug: "raw-cashew-nuts-exporter-india",
     regionSlug: "usa",
     targetPortLabel: "Port of New York / Newark & Los Angeles, USA",
     targetBuyerSegment: "US Nut Roasters, Snack Brands & Confectionery Manufacturers",
@@ -534,7 +549,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "makhana-exporter-india-to-uk-felixstowe",
-    productSlug: "phool-makhana-exporter-india",
+    productSlug: "fox-nuts-makhana-exporter-india",
     regionSlug: "uk",
     targetPortLabel: "Port of Felixstowe & London Gateway, United Kingdom",
     targetBuyerSegment: "UK Healthy Snack Brands, Superfood Importers & Private-Label Retailers",
@@ -546,7 +561,7 @@ export const EXPORT_CORRIDOR_LANES: DedicatedExportLane[] = [
   },
   {
     slug: "refined-sugar-exporter-india-to-africa-durban",
-    productSlug: "refined-sugar-exporter-india",
+    productSlug: "icumsa-refined-sugar-exporter-india",
     regionSlug: "south-africa",
     targetPortLabel: "Port of Durban & Cape Town (South Africa) / Mombasa (East Africa)",
     targetBuyerSegment: "African Commodity Trading Houses, Beverage Bottlers & Food Distributors",

@@ -34,7 +34,7 @@ export const SITE_NAV_MENU: NavItem[] = [
       {
         label: "Whole & Ground Spices",
         sub: "Unjha Cumin, Sangli Turmeric & Cardamom",
-        href: "/products/spices/cumin-seeds-exporter-india",
+        href: "/products/spices-herbs/cumin-seeds-jeera-exporter-india",
       },
       {
         label: "Fresh Fruits & Coconuts",
@@ -44,7 +44,7 @@ export const SITE_NAV_MENU: NavItem[] = [
       {
         label: "Dry Fruits & Makhana",
         sub: "Cashews, Raisins & Mithila Fox Nuts",
-        href: "/products/dry-fruits/fox-nuts-makhana-exporter-india",
+        href: "/products/dry-fruits-nuts/fox-nuts-makhana-exporter-india",
       },
     ],
   },
@@ -148,9 +148,7 @@ export function SiteNavbar() {
   return (
     <header
       className={`sticky inset-x-0 top-0 z-50 border-b border-slate-200/70 transition-all ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-lg shadow-[0_2px_20px_rgba(0,0,0,0.06)]"
-          : "bg-white"
+        scrolled ? "bg-white/95 backdrop-blur-lg shadow-[0_2px_20px_rgba(0,0,0,0.06)]" : "bg-white"
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-6">
@@ -251,7 +249,9 @@ export function SiteNavbar() {
                     <span>{item.label}</span>
                     <ChevronDown
                       className={`h-4 w-4 transition-transform ${
-                        mobileExpanded === item.label ? "rotate-180 text-[#0057B8]" : "text-slate-400"
+                        mobileExpanded === item.label
+                          ? "rotate-180 text-[#0057B8]"
+                          : "text-slate-400"
                       }`}
                     />
                   </button>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { PRODUCTS_CATALOG } from "../data/products";
+import { PRODUCTS_CATALOG } from "@/lib/empirical-products";
 
 const WHATSAPP_NUMBER = "918149909546";
 const SALES_EMAIL = "info@sheshaanglobal.com";
@@ -96,8 +96,8 @@ export function RfqModal({
                   Request Official FOB / CIF Export Quotation
                 </h2>
                 <p className="mt-1 text-xs text-slate-300">
-                  Direct response from our Maharashtra trade desk (+91 81499 09546) within 4 business
-                  hours.
+                  Direct response from our Maharashtra trade desk (+91 81499 09546) within 4
+                  business hours.
                 </p>
               </div>
 

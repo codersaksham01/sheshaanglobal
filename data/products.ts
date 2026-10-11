@@ -2394,72 +2394,121 @@ export const PRODUCTS_CATALOG: ExportCommodity[] = RAW_COMMODITIES.map((seed) =>
   };
 });
 
+const CATEGORY_SLUG_ALIASES: Record<string, CategorySlug> = {
+  spices: "spices-herbs",
+  "spices-masalas": "spices-herbs",
+  "dry-fruits": "dry-fruits-nuts",
+  "pulses-lentils": "grains-pulses",
+};
+
 const SLUG_ALIAS_MAP: Record<string, string> = {
   "fresh-onions": "fresh-onion-exporter-india",
   onions: "fresh-onion-exporter-india",
   "red-onion": "fresh-onion-exporter-india",
   "green-chillies": "green-chilli-exporter-india",
-  "basmati-rice": "1121-basmati-rice-exporter-india",
-  "premium-rice": "1121-basmati-rice-exporter-india",
-  rice: "1121-basmati-rice-exporter-india",
-  "coconut-brown-husked": "semi-husked-coconut-exporter-india",
-  "mature-coconut": "semi-husked-coconut-exporter-india",
-  coconut: "semi-husked-coconut-exporter-india",
-  cumin: "cumin-seeds-exporter-india",
-  "cumin-seeds": "cumin-seeds-exporter-india",
-  turmeric: "turmeric-finger-exporter-india",
+  "basmati-rice": "basmati-rice-exporter-india",
+  "1121-basmati-rice-exporter-india": "basmati-rice-exporter-india",
+  "premium-rice": "basmati-rice-exporter-india",
+  rice: "basmati-rice-exporter-india",
+  "coconut-brown-husked": "mature-coconut-exporter-india",
+  "semi-husked-coconut-exporter-india": "mature-coconut-exporter-india",
+  "mature-coconut": "mature-coconut-exporter-india",
+  coconut: "mature-coconut-exporter-india",
+  cumin: "cumin-seeds-jeera-exporter-india",
+  "cumin-seeds": "cumin-seeds-jeera-exporter-india",
+  "cumin-seeds-exporter-india": "cumin-seeds-jeera-exporter-india",
+  turmeric: "turmeric-finger-powder-exporter-india",
+  "turmeric-finger-exporter-india": "turmeric-finger-powder-exporter-india",
   "dried-red-chillies": "dried-red-chilli-exporter-india",
-  sugar: "refined-sugar-exporter-india",
-  peanuts: "peanuts-groundnut-exporter-india",
-  "makhana-raw": "phool-makhana-exporter-india",
-  "makhana-processed": "phool-makhana-exporter-india",
-  "dal-split-pulses": "toor-dal-exporter-india",
-  "pulses-lentils": "toor-dal-exporter-india",
-  cashew: "cashew-kernels-exporter-india",
-  "dry-fruits-nuts": "cashew-kernels-exporter-india",
-  pomegranate: "pomegranate-exporter-india",
-  "dehydrated-onion-garlic": "dehydrated-onion-exporter-india",
-  potatoes: "fresh-potato-exporter-india",
-  "okra-drumsticks": "fresh-okra-exporter-india",
-  "g9-banana": "g9-cavendish-banana-exporter-india",
-  grapes: "fresh-table-grapes-exporter-india",
+  sugar: "icumsa-refined-sugar-exporter-india",
+  "refined-sugar-exporter-india": "icumsa-refined-sugar-exporter-india",
+  peanuts: "export-grade-peanuts-groundnuts-exporter-india",
+  "peanuts-groundnut-exporter-india": "export-grade-peanuts-groundnuts-exporter-india",
+  "makhana-raw": "fox-nuts-makhana-exporter-india",
+  "makhana-processed": "fox-nuts-makhana-exporter-india",
+  "phool-makhana-exporter-india": "fox-nuts-makhana-exporter-india",
+  "dal-split-pulses": "split-pulses-dal-exporter-india",
+  "toor-dal-exporter-india": "split-pulses-dal-exporter-india",
+  "pulses-lentils": "split-pulses-dal-exporter-india",
+  "grains-pulses": "basmati-rice-exporter-india",
+  cashew: "raw-cashew-nuts-exporter-india",
+  "cashew-kernels-exporter-india": "raw-cashew-nuts-exporter-india",
+  "dry-fruits-nuts": "raw-cashew-nuts-exporter-india",
+  "dry-fruits": "raw-cashew-nuts-exporter-india",
+  pomegranate: "fresh-pomegranate-exporter-india",
+  "pomegranate-exporter-india": "fresh-pomegranate-exporter-india",
+  "dehydrated-onion-garlic": "dehydrated-onion-garlic-exporter-india",
+  "dehydrated-onion-exporter-india": "dehydrated-onion-garlic-exporter-india",
+  potatoes: "potato-exporter-india",
+  "fresh-potato-exporter-india": "potato-exporter-india",
+  "okra-drumsticks": "fresh-okra-lady-finger-exporter-india",
+  "fresh-okra-exporter-india": "fresh-okra-lady-finger-exporter-india",
+  "g9-banana": "cavendish-banana-exporter-india",
+  "g9-cavendish-banana-exporter-india": "cavendish-banana-exporter-india",
+  grapes: "nashik-table-grapes-exporter-india",
+  "fresh-table-grapes-exporter-india": "nashik-table-grapes-exporter-india",
   tomatoes: "fresh-tomato-exporter-india",
-  mango: "alphonso-kesar-mango-exporter-india",
-  "fresh-fruits": "alphonso-kesar-mango-exporter-india",
+  mango: "alphonso-mango-exporter-india",
+  "alphonso-kesar-mango-exporter-india": "alphonso-mango-exporter-india",
+  "fresh-fruits": "alphonso-mango-exporter-india",
   "fresh-vegetables": "fresh-onion-exporter-india",
-  "other-vegetables": "mixed-vegetables-exporter-india",
-  coriander: "coriander-seeds-exporter-india",
-  "spices-masalas": "cumin-seeds-exporter-india",
+  "other-vegetables": "mixed-fresh-vegetables-exporter-india",
+  "mixed-vegetables-exporter-india": "mixed-fresh-vegetables-exporter-india",
+  coriander: "coriander-seeds-dhania-exporter-india",
+  "coriander-seeds-exporter-india": "coriander-seeds-dhania-exporter-india",
+  "spices-masalas": "cumin-seeds-jeera-exporter-india",
+  "spices-herbs": "cumin-seeds-jeera-exporter-india",
+  spices: "cumin-seeds-jeera-exporter-india",
   soyabean: "non-gmo-soyabean-exporter-india",
   lemon: "fresh-lemon-lime-exporter-india",
-  oranges: "nagpur-mandarin-orange-exporter-india",
+  oranges: "nagpur-orange-mandarin-exporter-india",
+  "nagpur-mandarin-orange-exporter-india": "nagpur-orange-mandarin-exporter-india",
   chickpeas: "kabuli-chickpeas-exporter-india",
   wheat: "milling-wheat-exporter-india",
-  fenugreek: "fenugreek-seeds-exporter-india",
+  fenugreek: "fenugreek-seeds-methi-exporter-india",
+  "fenugreek-seeds-exporter-india": "fenugreek-seeds-methi-exporter-india",
   cardamom: "green-cardamom-exporter-india",
   "maize-corn": "yellow-maize-corn-exporter-india",
-  ginger: "fresh-ginger-exporter-india",
+  ginger: "fresh-dried-ginger-exporter-india",
+  "fresh-ginger-exporter-india": "fresh-dried-ginger-exporter-india",
   garlic: "fresh-garlic-exporter-india",
   "black-pepper": "black-pepper-exporter-india",
+  tea: "indian-tea-exporter-india",
+  coffee: "indian-coffee-beans-exporter-india",
+  tamarind: "tamarind-exporter-india",
+  mustard: "mustard-seeds-meal-exporter-india",
+  "guar-gum": "guar-gum-powder-splits-exporter-india",
+  "cluster-beans": "cluster-beans-guar-exporter-india",
+  "green-peppercorn": "green-peppercorn-exporter-india",
+  "curry-leaves": "curry-leaves-exporter-india",
+  jaggery: "natural-jaggery-gur-exporter-india",
+  "cow-dung": "organic-cow-dung-manure-exporter-india",
 };
 
 export function getCategoryBySlug(categorySlug: string): ProductCategory | undefined {
-  return CATEGORIES.find((cat) => cat.slug === categorySlug);
+  const mapped = CATEGORY_SLUG_ALIASES[categorySlug] ?? categorySlug;
+  return CATEGORIES.find((cat) => cat.slug === categorySlug || cat.slug === mapped);
 }
 
 export function getProductsByCategory(categorySlug: string): ExportCommodity[] {
-  return PRODUCTS_CATALOG.filter((product) => product.categorySlug === categorySlug);
+  const mapped = CATEGORY_SLUG_ALIASES[categorySlug] ?? categorySlug;
+  return PRODUCTS_CATALOG.filter(
+    (product) => product.categorySlug === categorySlug || product.categorySlug === mapped,
+  );
 }
 
 export function getProductByCategoryAndSlug(
   categorySlug: string,
   slug: string,
 ): ExportCommodity | undefined {
+  const mappedCategory = CATEGORY_SLUG_ALIASES[categorySlug] ?? categorySlug;
   const mappedSlug = SLUG_ALIAS_MAP[slug] ?? slug;
-  return PRODUCTS_CATALOG.find(
-    (product) =>
-      product.categorySlug === categorySlug &&
-      (product.slug === slug || product.slug === mappedSlug || product.legacySlug === slug),
+  return (
+    PRODUCTS_CATALOG.find(
+      (product) =>
+        (product.categorySlug === categorySlug || product.categorySlug === mappedCategory) &&
+        (product.slug === slug || product.slug === mappedSlug || product.legacySlug === slug),
+    ) ?? getProductBySlugOrLegacy(slug)
   );
 }
 

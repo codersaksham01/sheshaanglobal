@@ -1065,6 +1065,7 @@ const SITE_SLUG_ALIASES: Record<string, string> = {
   "semi-husked-coconut-exporter-india": "coconut-brown-husked",
   "cumin-seeds": "cumin",
   "cumin-seeds-exporter-india": "cumin",
+  "cumin-seeds-jeera-exporter-india": "cumin",
 };
 
 export function getProductBySlug(slug: string): Product | undefined {
@@ -1622,9 +1623,16 @@ export const REGIONS: Region[] = [
 
 const REGION_SLUG_ALIASES: Record<string, string> = {
   "uae-dubai": "uae",
+  "middle-east": "uae",
   "united-kingdom": "uk",
-  "european-union": "europe",
-  "russia-cis": "russia",
+  "european-union": "eu",
+  europe: "eu",
+  "russia-cis": "eu",
+  russia: "eu",
+  africa: "south-africa",
+  "southeast-asia": "singapore",
+  vietnam: "singapore",
+  iraq: "uae",
 };
 
 export function getRegionBySlug(slug: string) {
