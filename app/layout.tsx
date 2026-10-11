@@ -62,25 +62,90 @@ export default function RootLayout({
               </span>
             </Link>
 
-            <nav aria-label="Primary Navigation" className="hidden items-center gap-5 text-sm font-medium text-slate-200 lg:flex">
-              <Link href="/products" className="hover:text-[#FF8A00]">
-                49-Commodity Catalog
+            <nav aria-label="Primary Navigation" className="hidden items-center gap-2 text-sm font-medium text-slate-200 lg:flex">
+              <Link href="/" className="whitespace-nowrap rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]">
+                Home
               </Link>
-              <Link href="/exports" className="hover:text-[#FF8A00]">
-                Export Corridors
-              </Link>
-              {CATEGORIES.map((category) => (
+
+              <div className="group relative">
                 <Link
-                  key={category.slug}
-                  href={`/products/${category.slug}`}
-                  className="hover:text-[#FF8A00]"
+                  href="/products"
+                  className="inline-flex whitespace-nowrap items-center gap-1.5 rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]"
                 >
-                  {category.name}
+                  <span>Products</span>
+                  <span className="text-[10px] opacity-75 transition-transform group-hover:rotate-180">▼</span>
                 </Link>
-              ))}
+                <div className="invisible absolute left-0 top-full z-50 w-72 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                  <div className="rounded-2xl border border-slate-700 bg-[#04152D] p-2 shadow-2xl">
+                    <Link
+                      href="/products"
+                      className="block rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#FF8A00] hover:bg-white/10"
+                    >
+                      All 49 Commodities &amp; HS Codes →
+                    </Link>
+                    {CATEGORIES.map((category) => (
+                      <Link
+                        key={category.slug}
+                        href={`/products/${category.slug}`}
+                        className="block rounded-xl px-3.5 py-2 text-xs text-slate-200 hover:bg-white/10 hover:text-white"
+                      >
+                        {category.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="group relative">
+                <Link
+                  href="/exports"
+                  className="inline-flex whitespace-nowrap items-center gap-1.5 rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]"
+                >
+                  <span>Global Trade</span>
+                  <span className="text-[10px] opacity-75 transition-transform group-hover:rotate-180">▼</span>
+                </Link>
+                <div className="invisible absolute left-0 top-full z-50 w-80 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100">
+                  <div className="rounded-2xl border border-slate-700 bg-[#04152D] p-2 shadow-2xl">
+                    <Link
+                      href="/exports"
+                      className="block rounded-xl px-3.5 py-2.5 text-xs font-bold text-[#FF8A00] hover:bg-white/10"
+                    >
+                      All Port-to-Port Export Corridors →
+                    </Link>
+                    <Link
+                      href="/exports/fresh-onion-exporter-india-to-dubai-uae"
+                      className="block rounded-xl px-3.5 py-2 text-xs text-slate-200 hover:bg-white/10 hover:text-white"
+                    >
+                      India → Dubai / UAE (Jebel Ali)
+                    </Link>
+                    <Link
+                      href="/exports/1121-basmati-rice-exporter-to-saudi-arabia-dammam"
+                      className="block rounded-xl px-3.5 py-2 text-xs text-slate-200 hover:bg-white/10 hover:text-white"
+                    >
+                      India → Saudi Arabia (Dammam)
+                    </Link>
+                    <Link
+                      href="/exports/spices-exporter-to-usa-new-york"
+                      className="block rounded-xl px-3.5 py-2 text-xs text-slate-200 hover:bg-white/10 hover:text-white"
+                    >
+                      India → USA (New York / NJ)
+                    </Link>
+                    <Link
+                      href="/exports/mature-coconut-exporter-to-uk-rotterdam"
+                      className="block rounded-xl px-3.5 py-2 text-xs text-slate-200 hover:bg-white/10 hover:text-white"
+                    >
+                      India → UK &amp; Rotterdam (EU)
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              <Link href="/trade-intelligence" className="whitespace-nowrap rounded-full px-3.5 py-2 hover:bg-white/10 hover:text-[#FF8A00]">
+                Trade Intel
+              </Link>
             </nav>
 
-            <div className="flex items-center gap-2.5">
+            <div className="flex shrink-0 items-center gap-2.5">
               <SpecSheetDownloadModal
                 commodityName="2026 Master Agricultural Export Catalog (49 Commodities)"
                 hsCode="0703-1211"
@@ -92,18 +157,18 @@ export default function RootLayout({
                 container40ft="24 MT - 29 MT per 40ft High-Cube / Reefer FCL"
                 gatewayPorts={['Nhava Sheva (JNPT)', 'Mundra Port', 'Chennai / Cochin']}
                 variant="header"
-                triggerLabel="2026 Product Catalog"
+                triggerLabel="2026 Catalog"
               />
               <a
                 href="https://wa.me/918149909546"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden rounded-full bg-[#25D366] px-4 py-2 text-xs font-bold text-white transition hover:bg-[#1da851] sm:inline-flex"
+                className="hidden shrink-0 whitespace-nowrap rounded-full bg-[#25D366] px-4 py-2 text-xs font-bold text-white transition hover:bg-[#1da851] sm:inline-flex"
               >
-                WhatsApp (+91 81499 09546)
+                WhatsApp
               </a>
               {/* Strictly user-initiated RFQ modal — zero automatic popups on load */}
-              <RfqModal triggerLabel="Request Export Price List" />
+              <RfqModal triggerLabel="Request Quote" />
             </div>
           </div>
         </header>

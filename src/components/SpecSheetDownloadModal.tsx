@@ -55,10 +55,10 @@ export function SpecSheetDownloadModal({
 
   const buttonClasses =
     variant === "header"
-      ? "inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-2 text-xs font-bold text-amber-700 transition hover:bg-amber-500 hover:text-slate-950"
+      ? "inline-flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-2.5 text-xs font-bold text-amber-800 transition hover:bg-amber-500 hover:text-slate-950"
       : variant === "outline"
-        ? "inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#0057B8] bg-white px-6 py-3.5 text-sm font-semibold text-[#0057B8] shadow-sm transition hover:bg-slate-50"
-        : "inline-flex items-center justify-center gap-2 rounded-full bg-[#FF8A00] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105";
+        ? "inline-flex shrink-0 whitespace-nowrap items-center justify-center gap-2 rounded-full border-2 border-[#0057B8] bg-white px-6 py-3.5 text-sm font-semibold text-[#0057B8] shadow-sm transition hover:bg-slate-50"
+        : "inline-flex shrink-0 whitespace-nowrap items-center justify-center gap-2 rounded-full bg-[#FF8A00] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105";
 
   return (
     <>
