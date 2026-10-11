@@ -60,6 +60,8 @@ import {
   FAQS,
   REGIONS,
   ORGANIZATION_JSONLD,
+  LOCAL_BUSINESS_JSONLD,
+  SOCIAL_AND_TRADE_PROFILES,
   type Certificate,
 } from "@/lib/site";
 import { absoluteUrl, DEFAULT_KEYWORDS, SITE_NAME, SITE_URL } from "@/lib/seo";
@@ -75,10 +77,12 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 const HOME_OG_IMAGE =
   "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/151163a4-b0a4-4618-870c-3036bf272bc4/id-preview-9f783eb1--1c1a3479-b063-4556-a6ca-26b03b90f481.lovable.app-1784225780475.png";
 
+const HOME_PAGE_TITLE = "Sheshaan Global | Indian Agricultural Produce Exporter";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sheshaan Global - Premium Agricultural Exports From India to 25+ Countries" },
+      { title: HOME_PAGE_TITLE },
       {
         name: "description",
         content:
@@ -88,7 +92,7 @@ export const Route = createFileRoute("/")({
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
       {
         property: "og:title",
-        content: "Sheshaan Global - Premium Agricultural Exports From India to 25+ Countries",
+        content: HOME_PAGE_TITLE,
       },
       {
         property: "og:description",
@@ -102,7 +106,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:card", content: "summary_large_image" },
       {
         name: "twitter:title",
-        content: "Sheshaan Global - Premium Agricultural Exports From India to 25+ Countries",
+        content: HOME_PAGE_TITLE,
       },
       {
         name: "twitter:description",
@@ -119,6 +123,26 @@ export const Route = createFileRoute("/")({
       {
         type: "application/ld+json",
         children: JSON.stringify(ORGANIZATION_JSONLD),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(LOCAL_BUSINESS_JSONLD),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "@id": `${SITE_URL}/#webpage`,
+          url: `${SITE_URL}/`,
+          name: HOME_PAGE_TITLE,
+          description:
+            "IEC and APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries.",
+          speakable: {
+            "@type": "SpeakableSpecification",
+            cssSelector: ["#hero-title", "#hero-description", "#about-summary"],
+          },
+        }),
       },
       {
         type: "application/ld+json",
@@ -245,12 +269,11 @@ function Hero() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden"
-      style={{ background: `linear-gradient(180deg, ${NAVY} 0%, #072b5a 100%)` }}
+      className="relative overflow-hidden bg-gradient-to-b from-[#04152D] to-[#072b5a]"
     >
       <motion.img
         src={heroGlobe}
-        alt="Global export network"
+        alt="Sheshaan Global - Indian Agricultural Exporter Connecting India to Global Markets"
         className="absolute inset-0 h-full w-full object-cover opacity-65"
         width={1600}
         height={1000}
@@ -260,12 +283,7 @@ function Hero() {
         animate={reduced ? undefined : { scale: 1 }}
         transition={{ duration: 1.6, ease: EASE }}
       />
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(90deg, ${NAVY}f4 0%, ${NAVY}c5 48%, ${NAVY}44 100%)`,
-        }}
-      />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#04152Df4] via-[#04152Dc5] to-[#04152D44]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent,rgba(4,21,45,0.35))]" />
 
       <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-20 pt-12 sm:pb-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:pt-24">
@@ -276,32 +294,43 @@ function Hero() {
           className="max-w-2xl text-white"
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: ORANGE }} />
-            Trusted Global Exporter
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />
+            Leading Indian Agricultural Exporter
           </div>
-          <h1 className="font-display text-[2.05rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+          <h1
+            id="hero-title"
+            className="font-display text-[2.05rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+          >
+            <span className="block text-xl font-bold uppercase tracking-wider text-amber-400 sm:text-2xl lg:text-3xl mb-3">
+              Indian Agricultural Exporter
+            </span>
             CONNECTING INDIA&apos;S
             <br />
             AGRICULTURAL EXCELLENCE
             <br />
-            TO <span style={{ color: ORANGE }}>GLOBAL MARKETS</span>
+            TO <span className="text-brand-orange">GLOBAL MARKETS</span>
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-            Sheshaan Global supplies fresh produce, rice, spices, pulses and agri commodities with
-            disciplined sourcing, export documentation and shipment coordination.
+          <p
+            id="hero-description"
+            className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg"
+          >
+            Sheshaan Global is an APEDA, IEC and FSSAI certified Indian agricultural exporter
+            supplying fresh produce, premium basmati rice, spices, pulses and agro commodities to
+            25+ countries worldwide with disciplined farm sourcing, phytosanitary inspection, and
+            scheduled ocean freight coordination.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <a
               href="#products"
-              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
-              style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}
+              aria-label="Explore Agricultural Export Products and HS Codes"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-[#0070e0] px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
             >
               Explore Products <ArrowRight className="h-4 w-4" />
             </a>
             <a
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
-              style={{ background: `linear-gradient(135deg,${ORANGE},#ff6a00)` }}
+              aria-label="Submit an Indian Agricultural Export Inquiry"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-orange to-[#ff6a00] px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
             >
               Export Inquiry <ArrowRight className="h-4 w-4" />
             </a>
@@ -316,7 +345,7 @@ function Hero() {
                 transition={{ delay: 0.4 + i * 0.1, ease: EASE }}
                 className="rounded-2xl border border-white/15 bg-white/[0.07] px-4 py-4 backdrop-blur-md"
               >
-                <s.icon className="mb-2 h-5 w-5" style={{ color: ORANGE }} />
+                <s.icon className="mb-2 h-5 w-5 text-brand-orange" />
                 <div className="font-display text-2xl font-bold text-white">{s.n}</div>
                 <div className="text-[11px] uppercase tracking-wider text-white/70">{s.l}</div>
               </motion.div>
@@ -346,7 +375,10 @@ function Hero() {
             <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-white/10">
               <img
                 src={worldMap}
-                alt="Export destination map"
+                alt="Indian agricultural export shipping lanes to Middle East, Europe, and Asia"
+                width={600}
+                height={300}
+                loading="lazy"
                 className="h-56 w-full object-cover opacity-80"
               />
             </div>
@@ -360,10 +392,7 @@ function Hero() {
                   transition={{ delay: 0.55 + i * 0.12, ease: EASE }}
                   className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.08] p-3"
                 >
-                  <div
-                    className="grid h-11 w-11 place-items-center rounded-2xl"
-                    style={{ background: `${ORANGE}22`, color: ORANGE }}
-                  >
+                  <div className="grid h-11 w-11 place-items-center rounded-2xl bg-brand-orange/20 text-brand-orange">
                     <card.icon className="h-5 w-5" />
                   </div>
                   <div className="min-w-0">
@@ -396,26 +425,39 @@ function About() {
     <section id="about" className="bg-slate-50 py-24">
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2">
         <motion.div {...fadeUp} viewport={{ once: true, margin: "-80px" }}>
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
+          <div className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">
             About Sheshaan Global
           </div>
           <h2 className="mt-4 font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
             Delivering Value From
             <br />
-            Our Farms to <span style={{ color: ORANGE }}>The World</span>
+            Our Farms to <span className="text-brand-orange">The World</span>
           </h2>
-          <p className="mt-6 max-w-lg text-slate-600">
-            Founded in 2022, Sheshaan Global is committed to providing the finest agricultural
-            products from India to international markets with trust, transparency, and unmatched
-            quality.
-          </p>
+          <div
+            id="about-summary"
+            className="mt-6 space-y-4 text-slate-600 leading-relaxed text-sm sm:text-base"
+          >
+            <p>
+              Founded in 2022 and operating from Maharashtra, India,{" "}
+              <strong>Sheshaan Global</strong> is an accredited{" "}
+              <strong>Indian agricultural exporter</strong> providing institutional B2B buyers with
+              premium farm produce, basmati and non-basmati rice, spices, pulses, and oilseeds
+              across 25+ countries worldwide.
+            </p>
+            <p>
+              By bridging regional Indian harvesting belts—including Nashik (onions), Guntur
+              (chillies), Pollachi (coconuts), and Punjab (basmati)—directly to international trade
+              corridors, we guarantee competitive FOB and CIF terms, authenticated phytosanitary
+              inspection, and reliable cold chain management through JNPT and Mundra ports.
+            </p>
+          </div>
           <div className="mt-8 flex flex-wrap gap-3">
             {["IEC Certified", "GST Registered", "APEDA Certified", "FSSAI Certified"].map((c) => (
               <div
                 key={c}
                 className="rounded-xl border border-slate-200 bg-white px-5 py-3 shadow-sm"
               >
-                <div className="font-display text-sm font-bold" style={{ color: BLUE }}>
+                <div className="font-display text-sm font-bold text-brand-blue">
                   {c.split(" ")[0]}
                 </div>
                 <div className="text-[10px] uppercase tracking-wider text-slate-500">
@@ -425,11 +467,11 @@ function About() {
             ))}
           </div>
           <a
-            href="/contact"
-            className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
-            style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+            href="/about"
+            aria-label="Learn more about Sheshaan Global agricultural export operations"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-[#003c85] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
           >
-            Know More About Us <ArrowRight className="h-4 w-4" />
+            Learn About Our Export Operations <ArrowRight className="h-4 w-4" />
           </a>
         </motion.div>
 
@@ -443,7 +485,7 @@ function About() {
           >
             <img
               src={farmExport}
-              alt="Farm to export"
+              alt="Direct Indian farm sourcing and quality inspection for agricultural exports"
               width={1024}
               height={1024}
               loading="lazy"
@@ -776,13 +818,185 @@ function TradeJourney() {
               transition={{ delay: 0.12 + i * 0.08, ease: EASE }}
               className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
             >
-              <item.icon className="mt-1 h-5 w-5 shrink-0" style={{ color: ORANGE }} />
+              <item.icon className="mt-1 h-5 w-5 shrink-0 text-brand-orange" />
               <div>
-                <div className="font-display text-sm font-bold">{item.label}</div>
+                <div className="font-display text-sm font-bold text-slate-900">{item.label}</div>
                 <p className="mt-1 text-xs leading-relaxed text-slate-500">{item.text}</p>
               </div>
             </motion.div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- Comprehensive Agricultural Export Commodity Directory ---------- */
+function AgriCommodityDirectory() {
+  const categories = [
+    {
+      title: "Fresh Onions & Vegetables Exporter",
+      hs: "HS 0703 / 0709 / 0701",
+      origins: "Nashik, Pune, Sangli (Maharashtra)",
+      description:
+        "As an experienced Indian agricultural exporter, Sheshaan Global supplies export-grade Nashik Red Onions (sizes 45mm+, 50mm+, 55mm+ in red mesh bags), Fresh G4 and Teja Green Chillies (pre-cooled, air & sea freight), Cavendish Bananas, and seasonal Indian vegetables compliant with GCC and EU maximum residue limits (MRL).",
+      highlights: [
+        "Controlled Reefer +0.5°C to +4°C",
+        "Sortex Graded",
+        "APEDA Packhouse Inspected",
+      ],
+      link: "/products/fresh-onions",
+      linkText: "Explore Indian Onion Export Specifications →",
+    },
+    {
+      title: "Indian Basmati & Non-Basmati Rice",
+      hs: "HS 1006.30",
+      origins: "Haryana, Punjab, Telangana, Chhattisgarh",
+      description:
+        "Direct mill supply of Authentic 1121 Sella Basmati Rice, 1509 Golden Sella, Traditional Basmati, and bulk Non-Basmati varieties including IR64 Parboiled, Sona Masoori, PR11, and Swarna. Custom packing in 5kg, 10kg, 20kg, 25kg, and 50kg BOPP, PP, and non-woven master bags for private labels.",
+      highlights: ["Average Grain Length up to 8.4mm", "Moisture < 12.5%", "Silky Sortex Cleaned"],
+      link: "/products/rice",
+      linkText: "Explore Indian Rice Export Varieties & Packing →",
+    },
+    {
+      title: "Pure Indian Spices & Salem Turmeric",
+      hs: "HS 0904 / 0909 / 0910",
+      origins: "Salem (Tamil Nadu), Guntur (Andhra), Unjha (Gujarat)",
+      description:
+        "High-curcumin Salem Turmeric fingers and powder (curcumin 3.5%–5%), machine-cleaned Cumin seeds (Singapore 99% / 99.5% purity), Stemless Guntur Dried Red Chillies (heat value 25,000–45,000 SHU), Malabar Black Pepper (GL 500–550 g/l), and Coriander seeds packed for international spice grinders.",
+      highlights: ["Purity 99.5%+", "Steam Sterilized", "Aflatoxin & Pesticide Tested"],
+      link: "/products/spices",
+      linkText: "Explore Indian Spices & Turmeric Export Data →",
+    },
+    {
+      title: "Pollachi Brown Coconuts & Agro Commodities",
+      hs: "HS 0801.19 / 0713",
+      origins: "Pollachi (Tamil Nadu), Mysore (Karnataka)",
+      description:
+        "Direct plantation sourcing of mature semi-husked Brown Coconuts (550g–650g / 650g+ in 25-nut PP bags), Desiccated Coconut Powder, Makhana (Fox Nuts), Kabuli Chickpeas (9mm–12mm), and export pulses. Supported by CDB registration and containerized sea freight across the Middle East and Europe.",
+      highlights: ["CDB Certified", "Transit Shelf Life 45+ Days", "20FT / 40FT FCL Shipping"],
+      link: "/products/coconut",
+      linkText: "Explore Coconut & Commodity Export Guidelines →",
+    },
+  ];
+
+  const tradePorts = [
+    {
+      port: "Nhava Sheva (JNPT) - INNSA",
+      lane: "Primary gateway for West & South India produce",
+      details:
+        "Direct weekly vessel services to Jebel Ali (4-5 days), Dammam (6-7 days), Jeddah (9-10 days), and Rotterdam (18-22 days).",
+    },
+    {
+      port: "Mundra Port - INMUN",
+      lane: "Strategic gateway for North & Western agro belts",
+      details:
+        "High-capacity reefer plug points and rapid customs clearance for rice, cumin, pulses, and onion shipments to worldwide ports.",
+    },
+  ];
+
+  return (
+    <section className="bg-slate-50 py-20 border-t border-slate-200">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="max-w-3xl">
+          <div className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">
+            Comprehensive Export Capabilities
+          </div>
+          <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
+            Indian Agricultural Exporter Commodities & Port Logistics
+          </h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-600">
+            Sheshaan Global operates dedicated agricultural procurement desks across key Indian
+            harvest belts. Every container is processed through standardized quality gates,
+            temperature-mapped cold logistics, and compliant export documentation for institutional
+            buyers worldwide.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {categories.map((c) => (
+            <article
+              key={c.title}
+              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <h3 className="font-display text-lg font-bold text-slate-900">{c.title}</h3>
+                <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-brand-blue">
+                  {c.hs}
+                </span>
+              </div>
+              <div className="mt-3 text-xs font-semibold text-brand-orange">
+                Origin Belts: {c.origins}
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.description}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {c.highlights.map((h) => (
+                  <span
+                    key={h}
+                    className="rounded-lg bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700"
+                  >
+                    ✓ {h}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-100">
+                <a
+                  href={c.link}
+                  aria-label={c.linkText}
+                  className="text-xs font-bold text-brand-blue hover:text-brand-orange transition-colors"
+                >
+                  {c.linkText}
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <div className="mt-12 rounded-3xl bg-brand-navy p-8 text-white">
+          <div className="grid gap-8 lg:grid-cols-2 items-center">
+            <div>
+              <div className="text-xs font-bold uppercase tracking-[0.24em] text-brand-orange">
+                Ocean Freight & Port Operations
+              </div>
+              <h3 className="mt-2 font-display text-2xl font-bold">
+                Jawaharlal Nehru Port (JNPT) & Mundra Port Loading
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/80">
+                Consignments are loaded at JNPT (Nhava Sheva, INNSA) and Mundra (INMUN) ports on
+                scheduled weekly sailings. Perishables travel in advanced Micro-Micro reefer
+                containers maintaining continuous temperature and humidity logs, ensuring optimal
+                farm freshness upon arrival at Jebel Ali, Dammam, Rotterdam, or Port Klang.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="/export-process"
+                  aria-label="View complete 6-stage Indian agricultural export process"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-slate-900 hover:bg-slate-100 transition-colors"
+                >
+                  View 6-Stage Export Process →
+                </a>
+                <a
+                  href="/contact"
+                  aria-label="Request FOB or CIF shipping rates from JNPT and Mundra"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-brand-orange px-5 py-2.5 text-xs font-bold text-white hover:bg-brand-orange/90 transition-colors"
+                >
+                  Request FOB / CIF Freight Quote →
+                </a>
+              </div>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-1">
+              {tradePorts.map((item) => (
+                <div
+                  key={item.port}
+                  className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm"
+                >
+                  <h4 className="text-sm font-bold text-amber-300">{item.port}</h4>
+                  <div className="mt-1 text-xs font-semibold text-white/90">{item.lane}</div>
+                  <p className="mt-1 text-xs leading-relaxed text-white/70">{item.details}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1437,18 +1651,16 @@ function BuyerProof() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
-            <div
-              className="text-xs font-bold uppercase tracking-[0.28em]"
-              style={{ color: ORANGE }}
-            >
+            <div className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">
               Buyer Confidence
             </div>
             <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
               Built for serious import buyers
             </h2>
             <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Instead of fake client logos, this section shows the real buyer categories the website
-              is built to serve.
+              Sheshaan Global partners directly with international institutional buyers, wholesale
+              importers, supermarket distributors, and food processing companies across the GCC,
+              Europe, Southeast Asia, and Africa.
             </p>
             <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {segments.map((s) => (
@@ -1611,21 +1823,23 @@ function MobileStickyCTA() {
           href={WHATSAPP_URL}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center justify-center gap-1 rounded-full bg-[#25D366] px-3 py-2 text-xs font-bold text-white"
+          aria-label="Chat with Sheshaan Global on WhatsApp"
+          className="inline-flex items-center justify-center gap-1 rounded-full bg-[#25D366] px-3 py-2 text-xs font-bold text-white shadow-sm"
         >
           <MessageCircle className="h-4 w-4" /> WhatsApp
         </a>
         <a
           href="/contact"
-          className="inline-flex items-center justify-center gap-1 rounded-full px-3 py-2 text-xs font-bold text-white"
-          style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
+          aria-label="Request an Indian agricultural export quote"
+          className="inline-flex items-center justify-center gap-1 rounded-full bg-gradient-to-r from-brand-blue to-[#003c85] px-3 py-2 text-xs font-bold text-white shadow-sm"
         >
-          <Mail className="h-4 w-4" /> Quote
+          <Mail className="h-4 w-4" /> Request Quote
         </a>
         <a
           href={BROCHURE_URL}
           download
-          className="inline-flex items-center justify-center gap-1 rounded-full border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700"
+          aria-label="Download Sheshaan Global agricultural export catalogue PDF"
+          className="inline-flex items-center justify-center gap-1 rounded-full border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50"
         >
           <Download className="h-4 w-4" /> Catalogue
         </a>
@@ -1637,67 +1851,45 @@ function MobileStickyCTA() {
 /* ---------- Footer ---------- */
 function Footer() {
   return (
-    <footer className="py-14 text-white" style={{ background: NAVY }}>
+    <footer className="py-14 text-white bg-brand-navy">
       <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">
             <img
               src={logo}
-              alt="Sheshaan Global"
+              alt="Sheshaan Global - Exporting Goodness Worldwide Logo"
+              width={48}
+              height={48}
               className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]"
             />
             <div>
-              <div className="font-display text-lg font-bold" style={{ color: "#fff" }}>
-                SHESHAAN
-              </div>
-              <div className="text-[9px] font-semibold tracking-[0.2em]" style={{ color: ORANGE }}>
+              <div className="font-display text-lg font-bold text-white">SHESHAAN</div>
+              <div className="text-[9px] font-semibold tracking-[0.2em] text-brand-orange">
                 EXPORTING GOODNESS WORLDWIDE
               </div>
             </div>
           </div>
-          <p className="mt-4 text-sm text-white/60">
-            Premium agricultural exports from India to the world.
+          <p className="mt-4 text-sm text-white/70 leading-relaxed">
+            Leading Indian agricultural exporter supplying farm produce, basmati rice, spices,
+            coconuts and agro commodities to 25+ countries worldwide.
           </p>
           <div className="mt-4 flex flex-wrap gap-2 text-xs">
-            <a
-              href="https://www.linkedin.com/company/sheshaan-global/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-[#FF8A00] hover:text-white"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://www.instagram.com/sheshaanglobal/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-[#FF8A00] hover:text-white"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://freshdi.com/supplier/Sheshaan-Global"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-[#FF8A00] hover:text-white"
-            >
-              Freshdi
-            </a>
-            <a
-              href="https://www.tradekey.com/company/Sheshaan-Global-14840241.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-[#FF8A00] hover:text-white"
-            >
-              TradeKey
-            </a>
+            {SOCIAL_AND_TRADE_PROFILES.map((p) => (
+              <a
+                key={p.name}
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={p.label}
+                className="rounded-full border border-white/15 bg-white/5 px-3 py-1.5 font-semibold text-white/85 transition hover:border-brand-orange hover:text-white"
+              >
+                {p.name}
+              </a>
+            ))}
           </div>
         </div>
         <div>
-          <div
-            className="font-display text-sm font-semibold uppercase tracking-widest"
-            style={{ color: ORANGE }}
-          >
+          <div className="font-display text-sm font-semibold uppercase tracking-widest text-brand-orange">
             Explore
           </div>
           <div className="mt-4 space-y-2">
@@ -1705,7 +1897,8 @@ function Footer() {
               <a
                 key={l.href}
                 href={l.href}
-                className="block text-sm text-white/70 hover:text-white"
+                aria-label={`Navigate to ${l.label}`}
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 {l.label}
               </a>
@@ -1713,11 +1906,8 @@ function Footer() {
           </div>
         </div>
         <div>
-          <div
-            className="font-display text-sm font-semibold uppercase tracking-widest"
-            style={{ color: ORANGE }}
-          >
-            Products
+          <div className="font-display text-sm font-semibold uppercase tracking-widest text-brand-orange">
+            Agricultural Products
           </div>
           <div className="mt-4 space-y-2">
             {PRODUCTS.map((p) => (
@@ -1725,7 +1915,8 @@ function Footer() {
                 key={p.slug}
                 to="/products/$slug"
                 params={{ slug: p.slug }}
-                className="block text-sm text-white/70 hover:text-white"
+                aria-label={`${p.name} Indian export specifications`}
+                className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 {p.name}
               </Link>
@@ -1733,27 +1924,51 @@ function Footer() {
           </div>
         </div>
         <div>
-          <div
-            className="font-display text-sm font-semibold uppercase tracking-widest"
-            style={{ color: ORANGE }}
-          >
-            Contact
+          <div className="font-display text-sm font-semibold uppercase tracking-widest text-brand-orange">
+            Head Office & Trade Desk
           </div>
-          <div className="mt-4 space-y-3 text-sm text-white/70">
+          <address className="not-italic mt-4 space-y-3 text-sm text-white/70">
             <div className="flex items-start gap-2">
-              <MapPin className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> Maharashtra, India
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
+              <span>
+                <strong className="block font-semibold text-white">Sheshaan Global</strong>
+                Agricultural Export Trade Desk, Camp,
+                <br />
+                Pune, Maharashtra 411001, India
+              </span>
             </div>
-            <a href={`tel:${PHONE_RAW}`} className="flex items-start gap-2 hover:text-white">
-              <Phone className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {PHONE}
+            <a
+              href={`tel:${PHONE_RAW}`}
+              aria-label={`Call Sheshaan Global at ${PHONE}`}
+              className="flex items-start gap-2 hover:text-white transition-colors"
+            >
+              <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
+              <span>{PHONE}</span>
             </a>
-            <a href={`mailto:${EMAIL}`} className="flex items-start gap-2 hover:text-white">
-              <Mail className="mt-0.5 h-4 w-4" style={{ color: ORANGE }} /> {EMAIL}
+            <a
+              href={`mailto:${EMAIL}`}
+              aria-label="Email Sheshaan Global Trade Desk"
+              className="flex items-start gap-2 hover:text-white transition-colors"
+            >
+              <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand-orange" />
+              <span className="select-all">info&#64;sheshaanglobal&#46;com</span>
             </a>
-          </div>
+          </address>
         </div>
       </div>
-      <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 px-6 pt-6 text-center text-xs text-white/50">
-        © {new Date().getFullYear()} Sheshaan Global. All rights reserved.
+      <div className="mx-auto mt-10 max-w-7xl border-t border-white/10 px-6 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
+        <div>
+          © {new Date().getFullYear()} Sheshaan Global. IEC & APEDA Certified Indian Exporter. All
+          rights reserved.
+        </div>
+        <div className="flex gap-4">
+          <Link to="/company-policies" className="hover:text-white transition-colors">
+            Company Policies & Terms
+          </Link>
+          <Link to="/contact" className="hover:text-white transition-colors">
+            Export Inquiry Desk
+          </Link>
+        </div>
       </div>
     </footer>
   );
@@ -1976,25 +2191,19 @@ function FAQ() {
                 >
                   <span>{f.q}</span>
                   <ChevronRight
-                    className={`h-5 w-5 flex-shrink-0 transition-transform ${isOpen ? "rotate-90" : ""}`}
-                    style={{ color: ORANGE }}
+                    className={`h-5 w-5 flex-shrink-0 transition-transform ${isOpen ? "rotate-90 text-brand-orange" : "text-slate-400"}`}
                     aria-hidden
                   />
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      id={`faq-panel-${i}`}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: EASE }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-5 text-sm text-slate-600">{f.a}</div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <div
+                  id={`faq-panel-${i}`}
+                  className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                    isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+                  }`}
+                  aria-hidden={!isOpen}
+                >
+                  <div className="px-6 pb-5 text-sm leading-relaxed text-slate-600">{f.a}</div>
+                </div>
               </div>
             );
           })}
@@ -2015,6 +2224,7 @@ function Home() {
         <TrustDashboard />
         <Products />
         <TradeJourney />
+        <AgriCommodityDirectory />
         <Markets />
         <RegionsStrip />
         <Certifications />

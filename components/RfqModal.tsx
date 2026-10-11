@@ -96,8 +96,8 @@ export function RfqModal({
                   Request Official FOB / CIF Export Quotation
                 </h2>
                 <p className="mt-1 text-xs text-slate-300">
-                  Direct response from our Maharashtra trade desk (+91 81499 09546) within 4 business
-                  hours.
+                  Direct response from our Maharashtra trade desk (+91 81499 09546) within 4
+                  business hours.
                 </p>
               </div>
 

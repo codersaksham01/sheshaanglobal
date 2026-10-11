@@ -107,7 +107,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sheshaan Global - Premium Agricultural Exports From India to 25+ Countries" },
+      { title: "Sheshaan Global | Indian Agricultural Produce Exporter" },
       {
         name: "description",
         content:

@@ -152,17 +152,23 @@ export function SiteNavbar() {
       }`}
     >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-6">
-        <a href="/" className="flex shrink-0 items-center gap-3">
+        <a
+          href="/"
+          aria-label="Sheshaan Global - Indian Agricultural Exporter Home"
+          className="flex shrink-0 items-center gap-3"
+        >
           <img
             src={logo}
-            alt="Sheshaan Global"
+            alt="Sheshaan Global - Indian Agricultural Exporter Logo"
+            width={48}
+            height={48}
             className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]"
           />
           <div className="leading-tight">
-            <div className="font-display text-xl font-bold tracking-tight" style={{ color: BLUE }}>
+            <div className="font-display text-xl font-bold tracking-tight text-brand-blue">
               SHESHAAN
             </div>
-            <div className="text-[9px] font-semibold tracking-[0.22em]" style={{ color: ORANGE }}>
+            <div className="text-[9px] font-semibold tracking-[0.22em] text-brand-orange">
               EXPORTING GOODNESS WORLDWIDE
             </div>
           </div>

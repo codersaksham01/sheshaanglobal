@@ -47,6 +47,27 @@ function isH3SwallowedErrorBody(body: string): boolean {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const url = new URL(request.url);
+      const proto =
+        request.headers.get("x-forwarded-proto") ||
+        (url.protocol ? url.protocol.replace(":", "") : "https");
+
+      // Redirect non-SSL HTTP requests to HTTPS with 301 Permanent Redirect
+      if (
+        proto === "http" &&
+        !url.hostname.includes("localhost") &&
+        !url.hostname.includes("127.0.0.1")
+      ) {
+        url.protocol = "https:";
+        return new Response(null, {
+          status: 301,
+          headers: {
+            Location: url.toString(),
+            "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+          },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
