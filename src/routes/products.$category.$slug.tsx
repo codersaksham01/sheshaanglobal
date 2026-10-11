@@ -93,8 +93,8 @@ function CommodityCategorySlugPage() {
     `Hello Sheshaan Global Export Desk,\nI am requesting an official FOB/CIF quotation for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}\n• Loadability: ${product.logistics.container40ft}\nPlease share current pricing and shipment lead time.`,
   )}`;
 
-  const sampleDispatchWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-    `Hello Sheshaan Global Sample Desk,\nWe are a verified importer requesting a 48-hour DHL/FedEx commercial sample (500g–1kg) for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}`,
+  const lotInspectionWhatsAppUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+    `Hello Sheshaan Global Export Desk,\nPlease share current harvest lot photos, Lab Certificate of Analysis (COA), and FCL quotation for:\n• Commodity: ${product.name} (HS Code: ${product.hsCode})\n• Grade: ${product.specs.primaryGrade}`,
   )}`;
 
   const directEmailQuoteUrl = `mailto:info@sheshaanglobal.com?subject=${encodeURIComponent(
@@ -249,22 +249,23 @@ function CommodityCategorySlugPage() {
         <section className="grid gap-6 lg:grid-cols-12">
           <div className="rounded-2xl border-2 border-emerald-500/40 bg-emerald-50/70 p-6 lg:col-span-5">
             <div className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
-              ✓ 48-Hour Sample Dispatch Policy
+              ✓ Live Packhouse Video &amp; COA Verification
             </div>
             <h2 className="mt-3 text-lg font-bold text-slate-900">
-              DHL / FedEx International Priority Sample Lots
+              Live Grading Video, Lab COA &amp; Stuffing Proof
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-700">
-              &ldquo;Commercial 500g–1kg lab inspection samples dispatched via DHL / FedEx
-              International Priority within 48 business hours for verified importers.&rdquo;
+              &ldquo;Every commercial shipment is backed by live packhouse grading video, NABL/SGS
+              Certificate of Analysis (moisture, residue &amp; purity), and timestamped container
+              sealing photographs.&rdquo;
             </p>
             <a
-              href={sampleDispatchWhatsAppUrl}
+              href={lotInspectionWhatsAppUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-emerald-800"
             >
-              Request 500g–1kg DHL/FedEx Sample Lot →
+              Request Current Lot Photos &amp; Lab COA →
             </a>
           </div>
 

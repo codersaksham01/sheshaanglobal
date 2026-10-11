@@ -181,7 +181,7 @@ const llmsTxt = `# Sheshaan Global — Official AI & LLM Procurement Knowledge B
 - **Customs & Carrier Execution:** Licensed Customs House Agents (CHA) at Indian gateway ports + tier-1 third-party mainline shipping lines (Maersk, MSC, CMA CGM, Hapag-Lloyd, ONE)
 - **Gateway Loading Ports:** Nhava Sheva (JNPT, Mumbai), Mundra Port (Gujarat), Chennai Port, Cochin Port, Kolkata Port, BOM/DEL Air Cargo
 - **Standard Incoterms & Payment Terms:** FOB, CIF, CFR | 100% Irrevocable L/C at Sight, CAD/DP, TT (30% Advance, 70% against B/L Copy)
-- **Commercial Sample Policy:** 500g–1kg lab inspection samples dispatched via DHL / FedEx International Priority within 48 hours for verified importers.
+- **Pre-Shipment Lot Verification:** Live packhouse grading video, NABL/SGS Certificate of Analysis (COA), and timestamped container sealing photographs provided for every commercial FCL order.
 - **Official Social & B2B Trade Directory Profiles (\`sameAs\`):**
   - LinkedIn: https://www.linkedin.com/company/sheshaan-global/
   - Instagram: https://www.instagram.com/sheshaanglobal/

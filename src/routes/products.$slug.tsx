@@ -556,30 +556,31 @@ function ProductPage() {
         </motion.div>
       </section>
 
-      {/* B2B CRO Trust Block: 48-Hour Sample Dispatch Badge + Third-Party Quality Seals + Container Loading Calculator */}
+      {/* B2B CRO Trust Block: Live Packhouse Video & COA Verification + Third-Party Quality Seals + Container Loading Calculator */}
       <section className="mx-auto max-w-7xl space-y-8 px-6 pb-12">
         <div className="grid gap-6 lg:grid-cols-12">
           <div className="rounded-3xl border-2 border-emerald-500/40 bg-emerald-50/70 p-6 lg:col-span-5">
             <div className="inline-flex items-center gap-2 rounded-full bg-emerald-700 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white">
-              ✓ Verified 48-Hour Sample Dispatch Policy
+              ✓ Live Packhouse Video &amp; COA Verification
             </div>
             <h2 className="mt-3 font-display text-lg font-bold text-slate-900">
-              DHL / FedEx International Priority Sample Lots
+              Live Grading Video, Lab COA &amp; Stuffing Proof
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-700">
-              &ldquo;Commercial 500g–1kg lab inspection samples dispatched via DHL / FedEx
-              International Priority within 48 business hours for verified importers.&rdquo;
+              &ldquo;Every commercial shipment is backed by live packhouse grading video, NABL/SGS
+              Certificate of Analysis (moisture, residue &amp; purity), and timestamped container
+              sealing photographs.&rdquo;
             </p>
             <a
               href={buildWhatsAppUrl({
-                category: `${product.name} (500g–1kg DHL/FedEx Sample Request)`,
-                message: `We are a verified importer requesting a 48-hour commercial evaluation sample for ${product.name} (HS ${empirical?.hsCode ?? product.hsCode ?? "0703"}).`,
+                category: `${product.name} (Lot Photos, COA & FCL Quote)`,
+                message: `Please share current harvest lot photos, Certificate of Analysis (COA), and FOB/CIF FCL quotation for ${product.name} (HS ${empirical?.hsCode ?? product.hsCode ?? "0703"}).`,
               })}
               target="_blank"
               rel="noreferrer"
               className="mt-4 inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-emerald-800"
             >
-              Request 500g–1kg DHL/FedEx Evaluation Sample →
+              Request Current Lot Photos &amp; Lab COA →
             </a>
           </div>
 
