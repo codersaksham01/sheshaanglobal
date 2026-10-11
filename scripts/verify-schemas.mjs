@@ -33,7 +33,13 @@ const staticPaths = [
   "/logistics",
   "/export-process",
   "/markets",
+  "/markets/uae",
+  "/markets/middle-east",
+  "/markets/africa",
+  "/more-info",
+  "/company-policies",
   "/contact",
+  ...TRADE_CORRIDOR_REGIONS.map((r) => `/export-to/${r.slug}`),
 ];
 
 const sitemapIndexXml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -62,7 +68,7 @@ const sitemapStaticXml = `<?xml version="1.0" encoding="UTF-8"?>
 ${staticPaths
   .map(
     (p) => `  <url>
-    <loc>${BASE_URL}${p === "/" ? "" : p}</loc>
+    <loc>${BASE_URL}${p}</loc>
     <lastmod>${LAST_MOD}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${p === "/" ? "1.0" : "0.90"}</priority>
@@ -121,6 +127,36 @@ ${PRODUCTS_CATALOG.flatMap((p) =>
 </urlset>
 `;
 
+const allUniqueUrls = Array.from(
+  new Set([
+    ...staticPaths.map((p) => `${BASE_URL}${p}`),
+    ...CATEGORIES.map((c) => `${BASE_URL}/products/${c.slug}`),
+    ...PRODUCTS_CATALOG.map((p) => `${BASE_URL}/products/${p.categorySlug}/${p.slug}`),
+    ...EXPORT_CORRIDOR_LANES.map((lane) => `${BASE_URL}/exports/${lane.slug}`),
+    ...PRODUCTS_CATALOG.flatMap((p) =>
+      TRADE_CORRIDOR_REGIONS.map(
+        (r) => `${BASE_URL}/products/${p.categorySlug}/${p.slug}/export-to/${r.slug}`,
+      ),
+    ),
+  ]),
+);
+
+const masterSitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${allUniqueUrls
+  .map(
+    (loc) => `  <url>
+    <loc>${loc}</loc>
+    <lastmod>${LAST_MOD}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>${loc === `${BASE_URL}/` ? "1.0" : "0.90"}</priority>
+  </url>`,
+  )
+  .join("\n")}
+</urlset>
+`;
+
+fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap.xml"), masterSitemapXml, "utf8");
 fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap-index.xml"), sitemapIndexXml, "utf8");
 fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap-static.xml"), sitemapStaticXml, "utf8");
 fs.writeFileSync(path.join(PUBLIC_DIR, "sitemap-categories.xml"), sitemapCategoriesXml, "utf8");

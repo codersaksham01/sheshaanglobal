@@ -5,17 +5,21 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
-Disallow: /*?*price=
-Disallow: /*?*filter=
 
 # Explicit Authorization for Web Search Spiders
 User-agent: Googlebot
 Allow: /
 
+User-agent: Googlebot-Image
+Allow: /
+
 User-agent: Bingbot
 Allow: /
 
-# Explicit Authorization for Generative AI Crawlers
+# Explicit Authorization for Generative AI Crawlers (ChatGPT Search, Perplexity, Claude, Gemini)
+User-agent: OAI-SearchBot
+Allow: /
+
 User-agent: GPTBot
 Allow: /
 
@@ -28,9 +32,16 @@ Allow: /
 User-agent: ClaudeBot
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
 User-agent: Google-Extended
 Allow: /
 
-# Dynamic Sitemap Reference
-Sitemap: https://www.sheshaanglobal.com/sitemap-index.xml
+# Sitemaps
 Sitemap: https://www.sheshaanglobal.com/sitemap.xml
+Sitemap: https://www.sheshaanglobal.com/sitemap-index.xml
+Sitemap: https://www.sheshaanglobal.com/sitemap-static.xml
+Sitemap: https://www.sheshaanglobal.com/sitemap-categories.xml
+Sitemap: https://www.sheshaanglobal.com/sitemap-products.xml
+Sitemap: https://www.sheshaanglobal.com/sitemap-corridors.xml
