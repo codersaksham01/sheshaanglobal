@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 interface SpecSheetDownloadModalProps {
   productName?: string;
@@ -38,6 +39,23 @@ export function SpecSheetDownloadModal({
     "Saksham Singh",
   );
 
+  useEffect(() => {
+    if (!isOpen || typeof document === "undefined") return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -74,34 +92,28 @@ export function SpecSheetDownloadModal({
         ? "inline-flex shrink-0 whitespace-nowrap items-center justify-center gap-2 rounded-full border-2 border-[#0057B8] bg-white px-6 py-3.5 text-sm font-semibold text-[#0057B8] shadow-sm transition hover:bg-slate-50"
         : "inline-flex shrink-0 whitespace-nowrap items-center justify-center gap-2 rounded-full bg-[#FF8A00] px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105";
 
-  return (
-    <>
-      <button
-        type="button"
-        onClick={() => setIsOpen(true)}
-        className={buttonClasses}
-        aria-haspopup="dialog"
-        aria-expanded={isOpen}
-      >
-        <span>📄 {buttonLabel}</span>
-      </button>
-
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 p-4 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="spec-sheet-modal-title"
-        >
-          <div className="relative w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 text-slate-900 shadow-2xl sm:p-7">
-            <button
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
-              aria-label="Close specification download modal"
+  const modalContent =
+    isOpen && typeof document !== "undefined"
+      ? createPortal(
+          <div
+            className="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto bg-slate-950/75 p-4 backdrop-blur-sm"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="spec-sheet-modal-title"
+            onClick={() => setIsOpen(false)}
+          >
+            <div
+              className="relative my-auto max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl border border-slate-200 bg-white p-6 text-slate-900 shadow-2xl sm:p-7"
+              onClick={(e) => e.stopPropagation()}
             >
-              ✕
-            </button>
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                className="absolute right-4 top-4 rounded-full p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+                aria-label="Close specification download modal"
+              >
+                ✕
+              </button>
 
             <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-amber-900">
               Instant PDF Spec Sheet + 24/7 Speed-to-Lead
@@ -196,10 +208,26 @@ export function SpecSheetDownloadModal({
                   </a>
                 </div>
               </div>
-            </form>
-          </div>
-        </div>
-      )}
+              </form>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => setIsOpen(true)}
+        className={buttonClasses}
+        aria-haspopup="dialog"
+        aria-expanded={isOpen}
+      >
+        <span>📄 {buttonLabel}</span>
+      </button>
+      {modalContent}
     </>
   );
 }
+

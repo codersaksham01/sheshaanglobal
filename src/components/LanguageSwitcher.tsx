@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { Globe, X, Check } from "lucide-react";
 
 export type Lang = {
@@ -150,7 +151,102 @@ export function LanguageSwitcher() {
     setFirstTime(false);
   }, []);
 
+  useEffect(() => {
+    if (!open || typeof document === "undefined") return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") dismiss();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open, dismiss]);
+
   const activeLang = LANGUAGES.find((l) => l.code === current) ?? LANGUAGES[0];
+
+  const modalNode =
+    open && typeof document !== "undefined"
+      ? createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="lang-modal-title"
+            className="notranslate fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto bg-slate-950/60 p-4 backdrop-blur-sm"
+            translate="no"
+            onClick={dismiss}
+          >
+            <div
+              className="relative my-auto w-full max-w-lg overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div
+                className="relative px-6 pt-6 pb-4"
+                style={{ background: "linear-gradient(135deg,#0057B8,#003c85)" }}
+              >
+                <div className="flex items-center gap-3 text-white">
+                  <div className="grid h-10 w-10 place-items-center rounded-full bg-white/15">
+                    <Globe className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 id="lang-modal-title" className="font-bold text-lg leading-tight">
+                      {firstTime ? "Welcome to Sheshaan Global" : "Choose your language"}
+                    </h2>
+                    <p className="text-xs text-white/85">
+                      {firstTime
+                        ? "Select your language — we'll remember it for next time."
+                        : "Your choice is saved on this device."}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={dismiss}
+                  aria-label="Close"
+                  className="absolute right-3 top-3 rounded-full p-1.5 text-white/80 hover:bg-white/10 hover:text-white"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+              <div className="max-h-[60vh] overflow-y-auto p-4">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {LANGUAGES.map((l) => {
+                    const active = l.code === current;
+                    return (
+                      <button
+                        key={l.code}
+                        type="button"
+                        onClick={() => pick(l.code)}
+                        className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all ${
+                          active
+                            ? "border-[#0057B8] bg-[#0057B8]/5"
+                            : "border-slate-200 bg-white hover:border-[#0057B8]/40 hover:bg-slate-50"
+                        }`}
+                      >
+                        <span className="text-2xl leading-none">{l.flag}</span>
+                        <span className="flex-1">
+                          <span className="block text-sm font-semibold text-slate-900">
+                            {l.native}
+                          </span>
+                          <span className="block text-[11px] text-slate-500">{l.name}</span>
+                        </span>
+                        {active && <Check className="h-4 w-4 text-[#0057B8]" />}
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="mt-4 px-1 text-[10px] leading-relaxed text-slate-400">
+                  Translations are provided by Google Translate for convenience. For contractual
+                  matters the English original prevails.
+                </p>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null;
 
   return (
     <>
@@ -169,10 +265,9 @@ export function LanguageSwitcher() {
 
       {/*
         Floating language pill.
-        - Sits at bottom-right, ABOVE the MessageFab (which uses bottom-6 z-50).
+        - Sits at bottom-right, cleanly ABOVE the MessageFab (which uses bottom-6 right-6).
         - Uses safe-area-inset for iOS notch / home indicator.
         - Shrinks to icon-only after scroll to avoid overlapping content on small screens.
-        - z-[55] keeps it under the modal (z-[100]) but visible above the FAB stack.
       */}
       <button
         type="button"
@@ -180,11 +275,11 @@ export function LanguageSwitcher() {
         aria-label={`Change language — current: ${activeLang.name}`}
         title={`Language: ${activeLang.name}`}
         className={`notranslate fixed z-[55] inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 font-semibold text-slate-700 shadow-lg backdrop-blur transition-all hover:border-[#0057B8] hover:text-[#0057B8] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0057B8]/30 ${
-          compact ? "h-10 w-10 justify-center p-0" : "px-3 py-2 text-xs"
+          compact ? "h-11 w-11 justify-center p-0" : "px-3.5 py-2 text-xs"
         }`}
         style={{
-          right: "max(1rem, env(safe-area-inset-right))",
-          bottom: `calc(max(1.25rem, env(safe-area-inset-bottom)) + 4.5rem)`,
+          right: "max(1.75rem, env(safe-area-inset-right))",
+          bottom: `calc(max(1.5rem, env(safe-area-inset-bottom)) + 5.25rem)`,
         }}
         translate="no"
       >
@@ -197,82 +292,7 @@ export function LanguageSwitcher() {
         )}
       </button>
 
-      {open && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="lang-modal-title"
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-sm notranslate"
-          translate="no"
-          onClick={dismiss}
-        >
-          <div
-            className="relative w-full max-w-lg overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div
-              className="relative px-6 pt-6 pb-4"
-              style={{ background: "linear-gradient(135deg,#0057B8,#003c85)" }}
-            >
-              <div className="flex items-center gap-3 text-white">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-white/15">
-                  <Globe className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 id="lang-modal-title" className="font-bold text-lg leading-tight">
-                    {firstTime ? "Welcome to Sheshaan Global" : "Choose your language"}
-                  </h2>
-                  <p className="text-xs text-white/85">
-                    {firstTime
-                      ? "Select your language — we'll remember it for next time."
-                      : "Your choice is saved on this device."}
-                  </p>
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={dismiss}
-                aria-label="Close"
-                className="absolute right-3 top-3 rounded-full p-1.5 text-white/80 hover:bg-white/10 hover:text-white"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            </div>
-            <div className="max-h-[60vh] overflow-y-auto p-4">
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {LANGUAGES.map((l) => {
-                  const active = l.code === current;
-                  return (
-                    <button
-                      key={l.code}
-                      type="button"
-                      onClick={() => pick(l.code)}
-                      className={`flex items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition-all ${
-                        active
-                          ? "border-[#0057B8] bg-[#0057B8]/5"
-                          : "border-slate-200 bg-white hover:border-[#0057B8]/40 hover:bg-slate-50"
-                      }`}
-                    >
-                      <span className="text-2xl leading-none">{l.flag}</span>
-                      <span className="flex-1">
-                        <span className="block text-sm font-semibold text-slate-900">
-                          {l.native}
-                        </span>
-                        <span className="block text-[11px] text-slate-500">{l.name}</span>
-                      </span>
-                      {active && <Check className="h-4 w-4 text-[#0057B8]" />}
-                    </button>
-                  );
-                })}
-              </div>
-              <p className="mt-4 px-1 text-[10px] leading-relaxed text-slate-400">
-                Translations are provided by Google Translate for convenience. For contractual
-                matters the English original prevails.
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      {modalNode}
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   Globe2,
   Package,
@@ -394,8 +395,8 @@ function Nav() {
                   <ChevronDown className="h-4 w-4 text-slate-400 transition-transform duration-200 group-hover:rotate-180 group-hover:text-[#0057B8]" />
                 </a>
 
-                {/* Hover Dropdown Panel */}
-                <div className="invisible absolute left-0 top-full z-50 w-80 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 translate-y-1">
+                {/* Hover / Focus Dropdown Panel */}
+                <div className="invisible absolute left-0 top-full z-50 w-80 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 translate-y-1">
                   <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-2 shadow-[0_20px_50px_rgba(4,21,45,0.16)] ring-1 ring-black/5">
                     {item.children.map((subItem) => (
                       <a
@@ -1774,27 +1775,46 @@ function LeadCapturePopup() {
   const [open, setOpen] = useState(false);
   const [product, setProduct] = useState(PRODUCTS[0]?.name ?? "Fresh Onions");
   const [country, setCountry] = useState("");
+  const close = () => {
+    localStorage.setItem("sg_lead_popup_closed_v1", "1");
+    setOpen(false);
+  };
   useEffect(() => {
     const handleOpenRfq = () => setOpen(true);
     window.addEventListener("sheshaan:open-rfq", handleOpenRfq);
     return () => window.removeEventListener("sheshaan:open-rfq", handleOpenRfq);
   }, []);
-  const close = () => {
-    localStorage.setItem("sg_lead_popup_closed_v1", "1");
-    setOpen(false);
-  };
-  if (!open) return null;
+  useEffect(() => {
+    if (!open || typeof document === "undefined") return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+  if (!open || typeof document === "undefined") return null;
   const href = buildWhatsAppUrl({
     category: product,
     country,
     message: "Please share the latest export price list and packing options.",
   });
-  return (
-    <div className="fixed inset-0 z-[90] grid place-items-center bg-slate-950/55 p-4 backdrop-blur-sm">
+  return createPortal(
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center overflow-y-auto bg-slate-950/55 p-4 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      onClick={close}
+    >
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        className="w-full max-w-lg overflow-hidden rounded-3xl bg-white shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+        className="my-auto max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-3xl bg-white shadow-2xl"
       >
         <div
           className="relative p-6 text-white"
@@ -1858,7 +1878,8 @@ function LeadCapturePopup() {
           </div>
         </div>
       </motion.div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
@@ -2099,7 +2120,7 @@ function MessageFab() {
   }, [open]);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div className="fixed bottom-20 right-6 z-50 flex flex-col items-end gap-3 md:bottom-6">
       <AnimatePresence>
         {open && (
           <motion.div
