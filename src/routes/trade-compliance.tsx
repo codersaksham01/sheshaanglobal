@@ -11,6 +11,7 @@ import {
   Award,
   Microscope,
 } from "lucide-react";
+import { StatutoryComplianceInspector } from "@/components/StatutoryComplianceInspector";
 import {
   BLUE,
   ORANGE,
@@ -187,6 +188,11 @@ function TradeCompliancePage() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Interactive Statutory Compliance & Certificate Inspector */}
+        <section>
+          <StatutoryComplianceInspector />
         </section>
 
         {/* FAQs */}

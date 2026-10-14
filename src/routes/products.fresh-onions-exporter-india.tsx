@@ -17,7 +17,12 @@ import {
   Clock,
   Layers,
   ChevronDown,
+  Copy,
+  Check,
 } from "lucide-react";
+import { toast } from "sonner";
+import { ContainerLoadingCalculator } from "@/components/ContainerLoadingCalculator";
+import { SeasonalCropRadar } from "@/components/SeasonalCropRadar";
 import {
   BLUE,
   ORANGE,
@@ -132,6 +137,7 @@ function FreshOnionsProductPage() {
   const [rfqPort, setRfqPort] = useState("Jebel Ali (UAE)");
   const [rfqQty, setRfqQty] = useState("29 MT (1x40ft FCL)");
   const [rfqIncoterm, setRfqIncoterm] = useState("CIF");
+  const [copiedHs, setCopiedHs] = useState(false);
 
   const waUrl = buildWhatsAppUrl({
     category: "Fresh Red Onions (Nashik Origin)",
@@ -241,7 +247,24 @@ function FreshOnionsProductPage() {
                 <tbody className="divide-y divide-slate-200">
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Harmonized Tariff (HS Code)</th>
-                    <td className="px-6 py-4 font-mono font-medium text-blue-900">07031010 (Fresh Onions)</td>
+                    <td className="px-6 py-4 font-mono font-medium text-blue-900">
+                      <div className="flex items-center justify-between">
+                        <span>07031010 (Fresh Onions)</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText("07031010");
+                            setCopiedHs(true);
+                            toast.success("Copied HS Code 07031010 to clipboard!");
+                            setTimeout(() => setCopiedHs(false), 2000);
+                          }}
+                          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-sans text-slate-600 hover:bg-slate-50"
+                        >
+                          {copiedHs ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+                          <span>{copiedHs ? "Copied" : "Copy HS"}</span>
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Geographical Origin</th>
@@ -293,6 +316,17 @@ function FreshOnionsProductPage() {
               </table>
             </div>
           </div>
+        </section>
+
+        {/* Section: Interactive Container Load & Packing Spec Calculator */}
+        <section>
+          <ContainerLoadingCalculator
+            productName="Fresh Red Onions (Nashik Origin)"
+            hsCode="07031010"
+            container20ftText="14.5 MT Reefer"
+            container40ftText="29 MT Reefer"
+            defaultBagKg={25}
+          />
         </section>
 
         {/* Section: Agricultural Context & E-E-A-T Sourcing Cycles */}
@@ -362,6 +396,11 @@ function FreshOnionsProductPage() {
               </ul>
             </div>
           </div>
+        </section>
+
+        {/* Section: Live Harvest & Mandi Seasonal Availability Radar */}
+        <section>
+          <SeasonalCropRadar />
         </section>
 
         {/* Section: Packhouse Workflow & Quality Assurance */}

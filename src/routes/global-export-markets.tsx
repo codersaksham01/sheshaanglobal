@@ -11,6 +11,7 @@ import {
   Anchor,
   Clock,
 } from "lucide-react";
+import { OceanTransitMatrix } from "@/components/OceanTransitMatrix";
 import {
   BLUE,
   ORANGE,
@@ -189,6 +190,11 @@ function GlobalExportMarketsPage() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* Interactive Ocean Transit & Route Matrix */}
+        <section>
+          <OceanTransitMatrix />
         </section>
 
         {/* FAQs */}

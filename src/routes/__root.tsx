@@ -15,6 +15,7 @@ import { LanguageSwitcher } from "../components/LanguageSwitcher";
 import { ScrollProgress } from "../components/ScrollProgress";
 import { SiteNavbar } from "../components/SiteNavbar";
 import { VisitPopup } from "../components/VisitPopup";
+import { Toaster } from "../components/ui/sonner";
 import { DEFAULT_KEYWORDS, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "../lib/seo";
 import { ORGANIZATION_JSONLD } from "../lib/site";
 
@@ -187,6 +188,7 @@ function RootComponent() {
       <Outlet />
       <LanguageSwitcher />
       <VisitPopup />
+      <Toaster position="top-right" richColors />
     </QueryClientProvider>
   );
 }

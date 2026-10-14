@@ -11,7 +11,11 @@ import {
   Phone,
   ArrowRight,
   ChevronDown,
+  Copy,
+  Check,
 } from "lucide-react";
+import { toast } from "sonner";
+import { ContainerLoadingCalculator } from "@/components/ContainerLoadingCalculator";
 import {
   ORGANIZATION_JSONLD,
   buildFaqPageSchema,
@@ -113,6 +117,7 @@ export const Route = createFileRoute("/products/indian-basmati-rice")({
 
 function BasmatiRicePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [copiedHs, setCopiedHs] = useState(false);
   const waUrl = buildWhatsAppUrl({
     category: "Indian Basmati Rice (1121 & 1509)",
     message: "Inquiry for Bulk Indian Basmati Rice Export: Looking for 1121/1509 Steam/Sella rice. Please share current FOB Mundra / CIF quotes and packaging options.",
@@ -185,23 +190,60 @@ function BasmatiRicePage() {
                 <tbody className="divide-y divide-slate-200">
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">HS Code</th>
-                    <td className="px-6 py-4 font-mono">10063020 (Basmati Rice, Semi-milled or wholly milled)</td>
+                    <td className="px-6 py-4 font-mono font-medium text-blue-900">
+                      <div className="flex items-center justify-between">
+                        <span>10063020 (Basmati Rice, Semi-milled or wholly milled)</span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText("10063020");
+                            setCopiedHs(true);
+                            toast.success("Copied HS Code 10063020 to clipboard!");
+                            setTimeout(() => setCopiedHs(false), 2000);
+                          }}
+                          className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs font-sans text-slate-600 hover:bg-slate-50"
+                        >
+                          {copiedHs ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+                          <span>{copiedHs ? "Copied" : "Copy HS"}</span>
+                        </button>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Varieties Offered</th>
-                    <td className="px-6 py-4">1121 Basmati, 1509 Basmati, 1401, Sugandha, Pusa, Traditional Aged</td>
+                    <td className="px-6 py-4">1121 Basmati (Steam / Sella), 1509 Basmati, Sugandha, Pusa, Traditional Aged</td>
                   </tr>
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Average Grain Length (AGL)</th>
-                    <td className="px-6 py-4">8.35 mm to 8.45 mm before cooking; elongates to 18–22 mm cooked</td>
+                    <td className="px-6 py-4 font-medium">8.35 mm to 8.40 mm before cooking; elongates to 18.0 mm – 24.0 mm cooked</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Elongation Ratio</th>
+                    <td className="px-6 py-4 font-semibold text-emerald-800">2.2x to 2.5x Length Expansion Upon Cooking</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Sortex Optical Purity</th>
+                    <td className="px-6 py-4 font-semibold text-slate-900">95.0% Minimum Guaranteed Purity (Double Sortexed)</td>
                   </tr>
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Moisture Content</th>
-                    <td className="px-6 py-4">&lt; 12.5% Maximum</td>
+                    <td className="px-6 py-4">&lt; 12.0% Maximum (Hermetically Silo Cured)</td>
                   </tr>
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Broken Percentage</th>
-                    <td className="px-6 py-4">&lt; 1.0% to &lt; 2.0% Maximum (Sortex cleaned)</td>
+                    <td className="px-6 py-4">&lt; 1.0% Maximum (Steam &amp; Sella) | &lt; 2.0% Maximum (Raw)</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Damaged / Discolored Grains</th>
+                    <td className="px-6 py-4">&lt; 0.5% Maximum | Paddy Grains: Nil</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Natural Aroma Compound</th>
+                    <td className="px-6 py-4">High 2-Acetyl-1-pyrroline (2-AP) natural fragrance profile</td>
+                  </tr>
+                  <tr>
+                    <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Maturation &amp; Aging</th>
+                    <td className="px-6 py-4">12 to 24 Months naturally aged in temperature-controlled warehouses</td>
                   </tr>
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Packaging</th>
@@ -209,7 +251,7 @@ function BasmatiRicePage() {
                   </tr>
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Container Load</th>
-                    <td className="px-6 py-4 font-semibold text-slate-900">25 to 26 Metric Tons per 20ft Dry Box Container</td>
+                    <td className="px-6 py-4 font-semibold text-slate-900">25 to 26 Metric Tons per 20ft Dry Box Container (Heavy Payload)</td>
                   </tr>
                   <tr>
                     <th scope="row" className="px-6 py-4 font-semibold text-slate-900 bg-slate-50/50">Dispatch Ports</th>
@@ -219,6 +261,17 @@ function BasmatiRicePage() {
               </table>
             </div>
           </div>
+        </section>
+
+        {/* Section: Interactive Container Load & Packing Spec Calculator */}
+        <section>
+          <ContainerLoadingCalculator
+            productName="Indian Basmati Rice (1121 & 1509)"
+            hsCode="10063020"
+            container20ftText="26 MT Dry FCL"
+            container40ftText="28 MT Dry FCL"
+            defaultBagKg={25}
+          />
         </section>
 
         {/* FAQs */}
