@@ -2396,7 +2396,6 @@ function Home() {
         <About />
         <TrustDashboard />
         <Products />
-        <ProcurementUtilitiesSection />
         <TradeJourney />
         <SeasonalRadarSection />
         <AgriCommodityDirectory />
@@ -2409,6 +2408,7 @@ function Home() {
         <BuyerProof />
         <TradeDelegationSection />
         <FAQ />
+        <ProcurementUtilitiesSection />
       </main>
       <Footer />
       <MessageFab />
