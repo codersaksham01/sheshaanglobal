@@ -73,6 +73,14 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import { HeroSection } from "@/components/home/HeroSection";
+import { CommodityDossiers } from "@/components/home/CommodityDossiers";
+import { ReeferColdChainRadar } from "@/components/home/ReeferColdChainRadar";
+import { InstitutionalTrustVault } from "@/components/home/InstitutionalTrustVault";
+import { InteractiveContainerCalculator } from "@/components/home/InteractiveContainerCalculator";
+import { ExecutiveLeadershipSection } from "@/components/home/ExecutiveLeadershipSection";
+import { InstitutionalFaq } from "@/components/home/InstitutionalFaq";
+import { InstitutionalFooter } from "@/components/home/InstitutionalFooter";
 
 const HOME_OG_IMAGE =
   "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/151163a4-b0a4-4618-870c-3036bf272bc4/id-preview-9f783eb1--1c1a3479-b063-4556-a6ca-26b03b90f481.lovable.app-1784225780475.png";
@@ -896,16 +904,16 @@ function AgriCommodityDirectory() {
   ];
 
   return (
-    <section className="bg-slate-50 py-20 border-t border-slate-200">
-      <div className="mx-auto max-w-7xl px-6">
+    <section className="bg-[#FBFBFA] py-20 border-t border-[#091E16]/10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="max-w-3xl">
-          <div className="text-xs font-bold uppercase tracking-[0.28em] text-brand-orange">
+          <div className="inline-flex items-center gap-2 rounded border border-[#C59B27]/40 bg-[#F5F3EF] px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-widest text-[#A67C1E]">
             Comprehensive Export Capabilities
           </div>
-          <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
-            Indian Agricultural Exporter Commodities & Port Logistics
+          <h2 className="mt-3 font-serif text-3xl font-bold tracking-tight text-[#091E16] sm:text-4xl">
+            Indian Agricultural Exporter Commodities &amp; Port Logistics
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-slate-600">
+          <p className="mt-3 text-sm sm:text-base leading-relaxed text-[#3D4843]">
             Sheshaan Global operates dedicated agricultural procurement desks across key Indian
             harvest belts. Every container is processed through standardized quality gates,
             temperature-mapped cold logistics, and compliant export documentation for institutional
@@ -917,33 +925,33 @@ function AgriCommodityDirectory() {
           {categories.map((c) => (
             <article
               key={c.title}
-              className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow"
+              className="rounded-xl border border-[#091E16]/10 bg-white p-6 shadow-sm hover:border-[#C59B27] transition-all"
             >
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
-                <h3 className="font-display text-lg font-bold text-slate-900">{c.title}</h3>
-                <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-brand-blue">
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#091E16]/08 pb-3">
+                <h3 className="font-serif text-lg font-bold text-[#091E16]">{c.title}</h3>
+                <span className="rounded bg-[#091E16] px-2.5 py-0.5 text-xs font-mono font-bold text-[#E4BC4A]">
                   {c.hs}
                 </span>
               </div>
-              <div className="mt-3 text-xs font-semibold text-brand-orange">
+              <div className="mt-3 text-xs font-mono font-semibold text-[#8C2D19]">
                 Origin Belts: {c.origins}
               </div>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{c.description}</p>
+              <p className="mt-2 text-xs sm:text-sm leading-relaxed text-[#3D4843]">{c.description}</p>
               <div className="mt-4 flex flex-wrap gap-2">
                 {c.highlights.map((h) => (
                   <span
                     key={h}
-                    className="rounded-lg bg-slate-100 px-2.5 py-1 text-[11px] font-medium text-slate-700"
+                    className="rounded bg-[#F5F3EF] border border-[#091E16]/06 px-2.5 py-1 text-[11px] font-mono font-medium text-[#091E16]"
                   >
                     ✓ {h}
                   </span>
                 ))}
               </div>
-              <div className="mt-4 pt-3 border-t border-slate-100">
+              <div className="mt-4 pt-3 border-t border-[#091E16]/08">
                 <a
                   href={c.link}
                   aria-label={c.linkText}
-                  className="text-xs font-bold text-brand-blue hover:text-brand-orange transition-colors"
+                  className="font-mono text-xs font-bold text-[#091E16] hover:text-[#C59B27] transition-colors"
                 >
                   {c.linkText}
                 </a>
@@ -952,16 +960,16 @@ function AgriCommodityDirectory() {
           ))}
         </div>
 
-        <div className="mt-12 rounded-3xl bg-brand-navy p-8 text-white">
+        <div className="mt-12 rounded-2xl border border-[#C59B27]/30 bg-[#091E16] p-8 text-[#FBFBFA]">
           <div className="grid gap-8 lg:grid-cols-2 items-center">
             <div>
-              <div className="text-xs font-bold uppercase tracking-[0.24em] text-brand-orange">
-                Ocean Freight & Port Operations
+              <div className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#E4BC4A]">
+                Ocean Freight &amp; Port Operations
               </div>
-              <h3 className="mt-2 font-display text-2xl font-bold">
-                Jawaharlal Nehru Port (JNPT) & Mundra Port Loading
+              <h3 className="mt-2 font-serif text-2xl font-bold text-[#FBFBFA]">
+                Jawaharlal Nehru Port (JNPT) &amp; Mundra Port Loading
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-white/80">
+              <p className="mt-3 text-xs sm:text-sm leading-relaxed text-[#FBFBFA]/80">
                 Consignments are loaded at JNPT (Nhava Sheva, INNSA) and Mundra (INMUN) ports on
                 scheduled weekly sailings. Perishables travel in advanced Micro-Micro reefer
                 containers maintaining continuous temperature and humidity logs, ensuring optimal
@@ -971,14 +979,14 @@ function AgriCommodityDirectory() {
                 <a
                   href="/export-process"
                   aria-label="View complete 6-stage Indian agricultural export process"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-slate-900 hover:bg-slate-100 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-[#C59B27]/40 bg-white/10 px-5 py-2.5 text-xs font-mono font-bold text-[#FBFBFA] hover:bg-white/15 transition-colors"
                 >
                   View 6-Stage Export Process →
                 </a>
                 <a
                   href="/contact"
                   aria-label="Request FOB or CIF shipping rates from JNPT and Mundra"
-                  className="inline-flex items-center gap-1.5 rounded-full bg-brand-orange px-5 py-2.5 text-xs font-bold text-white hover:bg-brand-orange/90 transition-colors"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#C59B27] to-[#A67C1E] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-[#091E16] hover:brightness-110 transition-all shadow-md"
                 >
                   Request FOB / CIF Freight Quote →
                 </a>
@@ -988,11 +996,11 @@ function AgriCommodityDirectory() {
               {tradePorts.map((item) => (
                 <div
                   key={item.port}
-                  className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm"
+                  className="rounded-xl border border-white/10 bg-[#05130E] p-4 font-mono text-xs"
                 >
-                  <h4 className="text-sm font-bold text-amber-300">{item.port}</h4>
-                  <div className="mt-1 text-xs font-semibold text-white/90">{item.lane}</div>
-                  <p className="mt-1 text-xs leading-relaxed text-white/70">{item.details}</p>
+                  <h4 className="text-sm font-bold text-[#E4BC4A]">{item.port}</h4>
+                  <div className="mt-1 text-xs font-semibold text-emerald-400">{item.lane}</div>
+                  <p className="mt-1 text-xs leading-relaxed text-[#FBFBFA]/70">{item.details}</p>
                 </div>
               ))}
             </div>
@@ -1817,31 +1825,31 @@ function LeadCapturePopup() {
 
 function MobileStickyCTA() {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-3 py-2 shadow-[0_-10px_30px_rgba(4,21,45,0.12)] backdrop-blur md:hidden">
+    <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[#C59B27]/30 bg-[#091E16]/95 px-3 py-2.5 shadow-[0_-10px_30px_rgba(5,19,14,0.6)] backdrop-blur-md md:hidden font-mono">
       <div className="grid grid-cols-3 gap-2">
         <a
           href={WHATSAPP_URL}
           target="_blank"
           rel="noreferrer"
           aria-label="Chat with Sheshaan Global on WhatsApp"
-          className="inline-flex items-center justify-center gap-1 rounded-full bg-[#25D366] px-3 py-2 text-xs font-bold text-white shadow-sm"
+          className="inline-flex items-center justify-center gap-1 rounded-lg bg-[#25D366] px-2 py-2 text-xs font-bold text-slate-950 shadow-sm"
         >
           <MessageCircle className="h-4 w-4" /> WhatsApp
         </a>
         <a
           href="/contact"
           aria-label="Request an Indian agricultural export quote"
-          className="inline-flex items-center justify-center gap-1 rounded-full bg-gradient-to-r from-brand-blue to-[#003c85] px-3 py-2 text-xs font-bold text-white shadow-sm"
+          className="inline-flex items-center justify-center gap-1 rounded-lg bg-gradient-to-r from-[#C59B27] to-[#A67C1E] px-2 py-2 text-xs font-bold text-[#091E16] shadow-sm uppercase tracking-wider"
         >
-          <Mail className="h-4 w-4" /> Request Quote
+          <Mail className="h-4 w-4" /> Trade RFQ
         </a>
         <a
           href={BROCHURE_URL}
           download
           aria-label="Download Sheshaan Global agricultural export catalogue PDF"
-          className="inline-flex items-center justify-center gap-1 rounded-full border border-slate-300 px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50"
+          className="inline-flex items-center justify-center gap-1 rounded-lg border border-[#C59B27]/40 bg-white/10 px-2 py-2 text-xs font-semibold text-[#FBFBFA] hover:bg-white/20"
         >
-          <Download className="h-4 w-4" /> Catalogue
+          <Download className="h-4 w-4 text-[#C59B27]" /> Catalog
         </a>
       </div>
     </div>
@@ -2216,23 +2224,37 @@ function FAQ() {
 /* ---------- Page ---------- */
 function Home() {
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900">
+    <div className="min-h-screen bg-[#FBFBFA] font-sans text-[#111816]">
       <LoadingScreen />
       <main id="main">
-        <Hero />
-        <About />
-        <TrustDashboard />
-        <Products />
-        <TradeJourney />
+        {/* Step 3.2: Homepage Hero Section & Live Export Terminal Card & Quick RFQ Bar */}
+        <HeroSection />
+
+        {/* Step 3.3: Commodity Specification Dossiers (Master Trade Ledger Rows) */}
+        <CommodityDossiers />
+
+        {/* Step 3.4: Interactive Reefer Cold-Chain & Port Route Radar */}
+        <ReeferColdChainRadar />
+
+        {/* Step 3.5: The Compliance & Trust Vault */}
+        <InstitutionalTrustVault />
+
+        {/* Step 3.6: Interactive B2B Container Load & RFQ Calculator */}
+        <InteractiveContainerCalculator />
+
+        {/* Step 3.7: Executive Leadership & Trade Delegation Presence */}
+        <ExecutiveLeadershipSection />
+
+        {/* Comprehensive 49-Commodity Directory & Ocean Freight Port Operations */}
         <AgriCommodityDirectory />
+
+        {/* Global Market Destination Ports */}
         <Markets />
-        <RegionsStrip />
-        <Certifications />
-        <WhyUs />
-        <BuyerProof />
-        <FAQ />
+
+        {/* Institutional Technical FAQ */}
+        <InstitutionalFaq />
       </main>
-      <Footer />
+      <InstitutionalFooter />
       <MessageFab />
       <LeadCapturePopup />
       <MobileStickyCTA />

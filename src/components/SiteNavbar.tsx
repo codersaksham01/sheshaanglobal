@@ -1,291 +1,408 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  Menu,
+  X,
+  Phone,
+  Mail,
+  Ship,
+  Globe2,
+  ShieldCheck,
+  FileText,
+  BadgeCheck,
+} from "lucide-react";
 import logo from "@/assets/logo.png";
 import { SpecSheetDownloadModal } from "@/components/SpecSheetDownloadModal";
-import { BLUE, ORANGE } from "@/lib/site";
+import { RfqModal } from "@/components/RfqModal";
 
-interface NavItem {
+interface NavGroup {
   label: string;
   href: string;
-  children?: { label: string; sub?: string; href: string }[];
+  columns?: {
+    heading: string;
+    items: {
+      label: string;
+      sub?: string;
+      href: string;
+      hsCode?: string;
+      badge?: string;
+    }[];
+  }[];
 }
 
-export const SITE_NAV_MENU: NavItem[] = [
-  { label: "Home", href: "/" },
+export const INSTITUTIONAL_NAV_MENU: NavGroup[] = [
   {
-    label: "Products",
+    label: "Commodity Directory",
     href: "/products",
-    children: [
+    columns: [
       {
-        label: "Fresh Nashik Red Onions",
-        sub: "APEDA Certified 45–55mm & 55–65mm (HS 07031010)",
-        href: "/products/fresh-onions-exporter-india",
+        heading: "Fresh Produce & Perishables",
+        items: [
+          {
+            label: "Fresh Nashik Red Onions",
+            sub: "APEDA Certified 45–55mm & 55–65mm FCL Reefer",
+            href: "/products/fresh-onions-exporter-india",
+            hsCode: "HS 07031010",
+            badge: "Primary Crop",
+          },
+          {
+            label: "G4 & Teja Green Chillies",
+            sub: "Pre-Cooled Cold Chain 4kg/5kg Cartons",
+            href: "/products/green-chillies-exporter",
+            hsCode: "HS 07096010",
+          },
+          {
+            label: "Pollachi Mature Coconuts",
+            sub: "Semi-Husked Brown Coconuts (CDB Verified)",
+            href: "/products/coconut-exporter-india",
+            hsCode: "HS 08011200",
+          },
+        ],
       },
       {
-        label: "G4 & Teja Green Chillies",
-        sub: "Pre-Cooled Cold Chain 4kg/5kg (HS 07096010)",
-        href: "/products/green-chillies-exporter",
+        heading: "Grains & Whole Spices",
+        items: [
+          {
+            label: "Indian Basmati Rice (1121 & 1509)",
+            sub: "Aged Steam & Parboiled Sella 8.35mm+",
+            href: "/products/indian-basmati-rice",
+            hsCode: "HS 10063020",
+          },
+          {
+            label: "Export Whole & Ground Spices",
+            sub: "Unjha Cumin, Sangli Turmeric, Guntur Chilli",
+            href: "/products/spices-masalas-exporter",
+            hsCode: "HS 0904/0909",
+          },
+          {
+            label: "Sortex Pulses & Chickpeas",
+            sub: "Kabuli Chickpeas (75-80 count), Toor Dal",
+            href: "/products/pulses-lentils-exporter",
+            hsCode: "HS 07132000",
+          },
+        ],
       },
       {
-        label: "Indian Basmati Rice (1121 & 1509)",
-        sub: "Aged Steam & Parboiled Sella (HS 10063020)",
-        href: "/products/indian-basmati-rice",
-      },
-      {
-        label: "Pollachi Mature Coconuts",
-        sub: "Semi-Husked Brown Coconuts CDB Certified",
-        href: "/products/coconut-exporter-india",
-      },
-      {
-        label: "Whole & Ground Spices",
-        sub: "Unjha Cumin, Sangli Turmeric, Guntur Chilli",
-        href: "/products/spices-masalas-exporter",
-      },
-      {
-        label: "Sortex Pulses & Lentils",
-        sub: "Kabuli Chickpeas, Toor Dal & Lentils",
-        href: "/products/pulses-lentils-exporter",
-      },
-      {
-        label: "All 49 Export Commodities & HS Codes",
-        sub: "Complete B2B Export Directory",
-        href: "/products",
+        heading: "Master Catalog & Directory",
+        items: [
+          {
+            label: "All 49 Export Commodities & HS Codes",
+            sub: "Complete B2B agricultural export matrix with loading metrics",
+            href: "/products",
+            badge: "49 HS Codes",
+          },
+          {
+            label: "Agricultural Exports India (Pillar Hub)",
+            sub: "Institutional farm-gate sourcing & packhouse compliance",
+            href: "/agricultural-exports-india",
+          },
+        ],
       },
     ],
   },
   {
-    label: "Global Trade",
+    label: "Global Trade Corridors",
     href: "/global-export-markets",
-    children: [
+    columns: [
       {
-        label: "Agricultural Exports India (Pillar)",
-        sub: "APEDA Sourcing & Cold-Chain Shipping",
-        href: "/agricultural-exports-india",
+        heading: "Middle East & GCC Corridors",
+        items: [
+          {
+            label: "Export to UAE (Dubai / Jebel Ali)",
+            sub: "3.5 Days Express Transit from JNPT / Nhava Sheva",
+            href: "/markets/export-to-uae",
+            badge: "3.5 Days Fast Lane",
+          },
+          {
+            label: "Export to Saudi Arabia (Jeddah / Dammam)",
+            sub: "SFDA & SABER Compliant Basmati & Produce",
+            href: "/markets/export-to-saudi-arabia",
+          },
+        ],
       },
       {
-        label: "Global Export Markets (25+ Countries)",
-        sub: "Shipping Lanes, Ports & Transit Times",
-        href: "/global-export-markets",
+        heading: "Europe & Southeast Asia",
+        items: [
+          {
+            label: "Export to UK & Europe (Felixstowe / Rotterdam)",
+            sub: "EU-MRL & Aflatoxin Certified Cold-Chain Reefers",
+            href: "/markets/export-to-uk-europe",
+          },
+          {
+            label: "Export to Southeast Asia (Singapore / Port Klang)",
+            sub: "SFA & MAQIS Cleared Onions & Agro Produce",
+            href: "/markets/export-to-southeast-asia",
+          },
+        ],
       },
       {
-        label: "Export to UAE (Dubai / Jebel Ali)",
-        sub: "3–4 Days Fast Sea Transit from JNPT",
-        href: "/markets/export-to-uae",
-      },
-      {
-        label: "Export to Saudi Arabia (Dammam / Jeddah)",
-        sub: "SFDA & SABER Compliant Rice & Spices",
-        href: "/markets/export-to-saudi-arabia",
-      },
-      {
-        label: "Export to UK & Europe (Felixstowe / RTM)",
-        sub: "EU-MRL Tested Garwa Onions & Coconuts",
-        href: "/markets/export-to-uk-europe",
-      },
-      {
-        label: "Export to Southeast Asia (Singapore / Klang)",
-        sub: "SFA & MAQIS Cleared Onions & Produce",
-        href: "/markets/export-to-southeast-asia",
+        heading: "Port Logistics Matrix",
+        items: [
+          {
+            label: "Global Export Markets (25+ Countries)",
+            sub: "Ocean freight schedules, transit windows, and discharge ports",
+            href: "/global-export-markets",
+          },
+          {
+            label: "Port Handover & CHA Protocols",
+            sub: "Nhava Sheva (JNPT) & Mundra port customs clearing workflows",
+            href: "/export-process",
+          },
+        ],
       },
     ],
   },
   {
-    label: "Compliance & Company",
+    label: "Statutory & Governance",
     href: "/trade-compliance",
-    children: [
+    columns: [
       {
-        label: "Trade Compliance Hub",
-        sub: "APEDA, IEC, FSSAI, CDB & Lab Testing",
-        href: "/trade-compliance",
+        heading: "Statutory Registrations",
+        items: [
+          {
+            label: "Trade Compliance Hub",
+            sub: "APEDA, IEC, FSSAI, CDB & Spices Board credentials",
+            href: "/trade-compliance",
+            badge: "Govt Verified",
+          },
+          {
+            label: "Quality & Phytosanitary Laboratory",
+            sub: "SGS / Eurofins MRL testing & Fumigation (MBr) protocols",
+            href: "/quality",
+          },
+        ],
       },
       {
-        label: "About Sheshaan Global",
-        sub: "India-Based Agricultural Export Partner",
-        href: "/about",
+        heading: "Company Leadership & Events",
+        items: [
+          {
+            label: "Executive Leadership & Board",
+            sub: "Sana Zeba Bakshi (CEO), Juned Barade, Saksham Singh",
+            href: "/about",
+          },
+          {
+            label: "SIAL & Anuga Select India 2026",
+            sub: "Official trade delegation at Bombay Exhibition Centre & Jio World",
+            href: "/more-info",
+            badge: "Exhibitor 2026",
+          },
+        ],
       },
       {
-        label: "Certifications & Quality Assurance",
-        sub: "APEDA, FSSAI, CDB, IEC & SGS Inspection",
-        href: "/quality",
-      },
-      {
-        label: "Export Process & Logistics",
-        sub: "Farm Sourcing to Port Handover",
-        href: "/export-process",
-      },
-      {
-        label: "Packaging & Private Label",
-        sub: "Export Mesh, Jute, PP & Retail Packs",
-        href: "/packaging",
-      },
-      {
-        label: "2026 Crop Calendar & Trade Intel",
-        sub: "Seasonality & CHA Customs Protocols",
-        href: "/trade-intelligence",
-      },
-      {
-        label: "Company Profile & Policies",
-        sub: "Leadership, Banking & Compliance Dossier",
-        href: "/more-info",
+        heading: "Commercial Procurement",
+        items: [
+          {
+            label: "2026 Indian Crop Seasonality Calendar",
+            sub: "Kharif, Late Kharif & Rabi harvest cycles and price trends",
+            href: "/trade-intelligence",
+          },
+          {
+            label: "Packaging & Private Label Specifications",
+            sub: "Leno mesh bags, jute bags, vacuum packaging & corrugated cartons",
+            href: "/packaging",
+          },
+        ],
       },
     ],
   },
-  { label: "Contact", href: "/contact" },
+  { label: "About", href: "/about" },
+  { label: "Contact Desk", href: "/contact" },
 ];
 
 export function SiteNavbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeCurrency, setActiveCurrency] = useState("USD ($)");
+  const currencies = ["USD ($)", "EUR (€)", "AED (د.إ)", "SAR (﷼)", "GBP (£)"];
 
   useEffect(() => {
     let raf = 0;
-    const on = () => {
+    const onScroll = () => {
       if (raf) return;
       raf = requestAnimationFrame(() => {
         raf = 0;
         setScrolled(window.scrollY > 20);
       });
     };
-    on();
-    window.addEventListener("scroll", on, { passive: true });
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
-      window.removeEventListener("scroll", on);
+      window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
 
   return (
-    <header
-      className={`sticky inset-x-0 top-0 z-50 border-b border-slate-200/70 transition-all ${
-        scrolled ? "bg-white/95 backdrop-blur-lg shadow-[0_2px_20px_rgba(0,0,0,0.06)]" : "bg-white"
-      }`}
-    >
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-6">
-        <a
-          href="/"
-          aria-label="Sheshaan Global - Indian Agricultural Exporter Home"
-          className="flex shrink-0 items-center gap-3"
-        >
-          <img
-            src={logo}
-            alt="Sheshaan Global - Indian Agricultural Exporter Logo"
-            width={48}
-            height={48}
-            className="h-12 w-12 object-contain sg-float drop-shadow-[0_4px_10px_rgba(0,87,184,0.25)]"
-          />
-          <div className="leading-tight">
-            <div className="font-display text-xl font-bold tracking-tight text-brand-blue">
-              SHESHAAN
+    <header className="sticky top-0 z-50 w-full transition-all duration-300">
+      {/* 3.1 TOP MICRO-BAR: Dark Obsidian with Live Trade Signals */}
+      <div className="bg-[#05130E] border-b border-[#C59B27]/20 text-[#FBFBFA] text-xs">
+        <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-4 sm:px-6">
+          {/* Live Port Signals */}
+          <div className="flex items-center gap-4 overflow-x-auto py-1 text-[11px] font-mono no-scrollbar">
+            <div className="inline-flex items-center gap-1.5 whitespace-nowrap text-emerald-400">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span>JNPT (Nhava Sheva): Normal Operations</span>
             </div>
-            <div className="text-[9px] font-semibold tracking-[0.22em] text-brand-orange">
-              EXPORTING GOODNESS WORLDWIDE
+
+            <span className="text-[#C59B27]/40">|</span>
+
+            <div className="inline-flex items-center gap-1.5 whitespace-nowrap text-emerald-400">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span>Mundra: Active Dispatch</span>
+            </div>
+
+            <span className="text-[#C59B27]/40 hidden lg:inline">|</span>
+
+            <div className="hidden lg:inline-flex items-center gap-1.5 whitespace-nowrap text-[#FBFBFA]/75">
+              <Ship className="h-3.5 w-3.5 text-[#C59B27]" />
+              <span>Cold Chain Temp: +2.0°C to +4.0°C Sensitech Monitored</span>
             </div>
           </div>
-        </a>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main Navigation">
-          {SITE_NAV_MENU.map((item) =>
-            item.children ? (
-              <div key={item.label} className="group relative">
-                <a
-                  href={item.href}
-                  className="inline-flex whitespace-nowrap items-center gap-1.5 rounded-full px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-[#0057B8]"
-                >
-                  <span>{item.label}</span>
-                  <ChevronDown className="h-4 w-4 text-slate-400 transition-transform duration-200 group-hover:rotate-180 group-hover:text-[#0057B8]" />
-                </a>
+          {/* Direct Trade Desk & Currency Switcher */}
+          <div className="hidden md:flex items-center gap-5 text-[11px] font-medium text-[#FBFBFA]/85">
+            <a
+              href="https://wa.me/918149909546"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 hover:text-[#C59B27] transition-colors"
+            >
+              <Phone className="h-3 w-3 text-emerald-400" />
+              <span>Direct Trade Desk: +91 81499 09546</span>
+            </a>
 
-                {/* Hover / Focus Dropdown Panel */}
-                <div className="invisible absolute left-0 top-full z-50 w-80 pt-2 opacity-0 transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 translate-y-1">
-                  <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-2 shadow-[0_20px_50px_rgba(4,21,45,0.16)] ring-1 ring-black/5">
-                    {item.children.map((subItem) => (
-                      <a
-                        key={subItem.href}
-                        href={subItem.href}
-                        className="block rounded-xl px-3.5 py-2.5 transition-colors hover:bg-slate-50"
-                      >
-                        <div className="text-xs font-bold text-slate-900 hover:text-[#0057B8]">
-                          {subItem.label}
-                        </div>
-                        {subItem.sub && (
-                          <div className="mt-0.5 text-[11px] text-slate-500">{subItem.sub}</div>
-                        )}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <a
-                key={item.href}
-                href={item.href}
-                className="inline-flex whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-100 hover:text-[#0057B8]"
+            <a
+              href="mailto:info@sheshaanglobal.com"
+              className="inline-flex items-center gap-1.5 hover:text-[#C59B27] transition-colors"
+            >
+              <Mail className="h-3 w-3 text-[#C59B27]" />
+              <span>info@sheshaanglobal.com</span>
+            </a>
+
+            <div className="flex items-center gap-1.5 pl-2 border-l border-[#C59B27]/25">
+              <span className="text-[#C59B27] text-[10px] uppercase font-mono">Currency:</span>
+              <select
+                value={activeCurrency}
+                onChange={(e) => setActiveCurrency(e.target.value)}
+                className="bg-[#091E16] text-[#FBFBFA] border border-[#C59B27]/30 rounded px-1.5 py-0.5 text-[10px] font-mono focus:outline-none focus:border-[#C59B27]"
+                aria-label="Select Trade Quote Currency"
               >
-                {item.label}
-              </a>
-            ),
-          )}
-        </nav>
-
-        <div className="hidden shrink-0 items-center gap-2.5 lg:flex">
-          <SpecSheetDownloadModal buttonLabel="2026 Catalog" variant="header" />
-          <a
-            href="/contact"
-            className="inline-flex shrink-0 whitespace-nowrap items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
-            style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
-          >
-            Get In Touch <ArrowRight className="h-4 w-4" />
-          </a>
+                {currencies.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
-
-        <button
-          type="button"
-          className="lg:hidden"
-          onClick={() => setOpen(!open)}
-          aria-label="Menu"
-        >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
       </div>
 
-      {open && (
-        <div className="max-h-[82vh] overflow-y-auto border-t bg-white lg:hidden">
-          <div className="flex flex-col gap-1 p-4">
-            {SITE_NAV_MENU.map((item) =>
-              item.children ? (
-                <div key={item.label} className="border-b border-slate-100 pb-1 last:border-none">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setMobileExpanded(mobileExpanded === item.label ? null : item.label)
-                    }
-                    className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-left text-sm font-semibold text-slate-800 hover:bg-slate-100"
+      {/* MAIN INSTITUTIONAL NAVIGATION BAR: Obsidian Emerald (#091E16) */}
+      <div
+        className={`bg-[#091E16] border-b border-[#C59B27]/25 text-[#FBFBFA] transition-all duration-300 ${
+          scrolled ? "shadow-[0_12px_40px_rgba(5,19,14,0.65)] py-2" : "py-3"
+        }`}
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+          {/* Institutional Wordmark & Gold Crest Logo */}
+          <a
+            href="/"
+            aria-label="Sheshaan Global - Agricultural Export House Home"
+            className="group flex shrink-0 items-center gap-3.5"
+          >
+            <div className="relative">
+              <img
+                src={logo}
+                alt="Sheshaan Global Emblem"
+                width={48}
+                height={48}
+                className="h-11 w-11 object-contain drop-shadow-[0_2px_8px_rgba(197,155,39,0.35)] transition-transform duration-300 group-hover:scale-105"
+              />
+              <span className="absolute -bottom-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-[#C59B27] text-[8px] font-bold text-[#091E16]">
+                ★
+              </span>
+            </div>
+            <div className="leading-tight">
+              <div className="font-serif text-xl sm:text-2xl font-bold tracking-wider text-[#FBFBFA] group-hover:text-[#E4BC4A] transition-colors">
+                SHESHAAN <span className="text-[#C59B27]">GLOBAL</span>
+              </div>
+              <div className="text-[9px] font-mono font-semibold tracking-[0.24em] text-[#C59B27]/90 uppercase">
+                GOVT ACCREDITED APEDA &amp; IEC EXPORT HOUSE
+              </div>
+            </div>
+          </a>
+
+          {/* Desktop Mega Navigation */}
+          <nav className="hidden xl:flex items-center gap-1" aria-label="Main Navigation">
+            {INSTITUTIONAL_NAV_MENU.map((item) =>
+              item.columns ? (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => setActiveDropdown(item.label)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  <a
+                    href={item.href}
+                    className="inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-[#FBFBFA]/90 transition-colors hover:bg-white/[0.08] hover:text-[#E4BC4A]"
                   >
                     <span>{item.label}</span>
-                    <ChevronDown
-                      className={`h-4 w-4 transition-transform ${
-                        mobileExpanded === item.label
-                          ? "rotate-180 text-[#0057B8]"
-                          : "text-slate-400"
-                      }`}
-                    />
-                  </button>
-                  {mobileExpanded === item.label && (
-                    <div className="mb-2 ml-4 flex flex-col gap-1 border-l-2 border-slate-200 pl-3">
-                      {item.children.map((subItem) => (
-                        <a
-                          key={subItem.href}
-                          href={subItem.href}
-                          onClick={() => setOpen(false)}
-                          className="rounded-lg px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 hover:text-[#0057B8]"
-                        >
-                          <div className="font-bold text-slate-800">{subItem.label}</div>
-                          {subItem.sub && (
-                            <div className="text-[11px] text-slate-500">{subItem.sub}</div>
-                          )}
-                        </a>
-                      ))}
+                    <ChevronDown className="h-3.5 w-3.5 text-[#C59B27] transition-transform duration-200" />
+                  </a>
+
+                  {/* High-Density Mega Dropdown */}
+                  {activeDropdown === item.label && (
+                    <div className="absolute left-1/2 top-full -translate-x-1/2 pt-2 z-50 w-[780px]">
+                      <div className="overflow-hidden rounded-2xl border border-[#C59B27]/30 bg-[#091E16] p-5 shadow-[0_25px_60px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+                        <div className="grid grid-cols-3 gap-6">
+                          {item.columns.map((col, idx) => (
+                            <div key={idx} className="space-y-3">
+                              <div className="border-b border-[#C59B27]/25 pb-1.5 text-[11px] font-mono font-bold uppercase tracking-wider text-[#C59B27]">
+                                {col.heading}
+                              </div>
+                              <div className="space-y-2">
+                                {col.items.map((subItem) => (
+                                  <a
+                                    key={subItem.href}
+                                    href={subItem.href}
+                                    className="group/sub block rounded-lg p-2 transition-colors hover:bg-white/[0.06]"
+                                  >
+                                    <div className="flex items-center justify-between gap-1">
+                                      <span className="text-xs font-semibold text-[#FBFBFA] group-hover/sub:text-[#E4BC4A] transition-colors">
+                                        {subItem.label}
+                                      </span>
+                                      {subItem.badge && (
+                                        <span className="rounded bg-[#C59B27]/20 px-1.5 py-0.5 text-[9px] font-mono text-[#E4BC4A]">
+                                          {subItem.badge}
+                                        </span>
+                                      )}
+                                    </div>
+                                    {subItem.sub && (
+                                      <p className="mt-0.5 text-[11px] leading-relaxed text-[#FBFBFA]/60 line-clamp-2">
+                                        {subItem.sub}
+                                      </p>
+                                    )}
+                                    {subItem.hsCode && (
+                                      <span className="mt-1 inline-block text-[10px] font-mono text-[#C59B27]">
+                                        {subItem.hsCode}
+                                      </span>
+                                    )}
+                                  </a>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -293,23 +410,81 @@ export function SiteNavbar() {
                 <a
                   key={item.href}
                   href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="rounded-lg px-4 py-3 text-sm font-semibold text-slate-800 hover:bg-slate-100"
+                  className="inline-flex items-center rounded-lg px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-[#FBFBFA]/90 transition-colors hover:bg-white/[0.08] hover:text-[#E4BC4A]"
                 >
                   {item.label}
                 </a>
               ),
             )}
-            <div className="mt-3 flex flex-col gap-2 px-2 pt-2">
-              <SpecSheetDownloadModal buttonLabel="Download 2026 Catalog (PDF)" variant="header" />
-              <a
-                href="/contact"
-                onClick={() => setOpen(false)}
-                className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold text-white shadow-md"
-                style={{ background: `linear-gradient(135deg,${BLUE},#003c85)` }}
-              >
-                Get In Touch <ArrowRight className="h-4 w-4" />
-              </a>
+          </nav>
+
+          {/* Action CTAs: Bespoke Brass Button with Micro-Hover Sheen */}
+          <div className="hidden sm:flex shrink-0 items-center gap-3">
+            <SpecSheetDownloadModal
+              buttonLabel="2026 Catalog"
+              variant="header"
+            />
+
+            <RfqModal
+              defaultCommodityName="Fresh Red Onion (Nashik)"
+              defaultHsCode="07031010"
+              triggerLabel="Initiate Trade RFQ / CIF Quotation"
+              triggerClassName="inline-flex shrink-0 whitespace-nowrap items-center gap-2 rounded-lg bg-gradient-to-r from-[#C59B27] via-[#D8AD32] to-[#A67C1E] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#091E16] shadow-[0_4px_16px_rgba(197,155,39,0.3)] transition-all duration-300 hover:brightness-110 hover:shadow-[0_6px_22px_rgba(197,155,39,0.5)] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-[#C59B27]"
+            />
+          </div>
+
+          {/* Mobile Menu Trigger */}
+          <button
+            type="button"
+            className="xl:hidden rounded-lg p-2 text-[#FBFBFA] hover:bg-white/10"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle Navigation Menu"
+          >
+            {mobileOpen ? <X className="h-6 w-6 text-[#C59B27]" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer */}
+      {mobileOpen && (
+        <div className="max-h-[85vh] overflow-y-auto bg-[#091E16] border-b border-[#C59B27]/30 text-[#FBFBFA] xl:hidden">
+          <div className="flex flex-col gap-2 p-5">
+            {INSTITUTIONAL_NAV_MENU.map((group) => (
+              <div key={group.label} className="border-b border-white/10 pb-3">
+                <a
+                  href={group.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="block text-sm font-bold uppercase tracking-wider text-[#C59B27]"
+                >
+                  {group.label}
+                </a>
+                {group.columns && (
+                  <div className="mt-2 space-y-2 pl-3">
+                    {group.columns.flatMap((c) => c.items).map((it) => (
+                      <a
+                        key={it.href}
+                        href={it.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block rounded-md p-1.5 text-xs text-[#FBFBFA]/80 hover:bg-white/10 hover:text-[#E4BC4A]"
+                      >
+                        <div className="font-semibold">{it.label}</div>
+                        {it.sub && <div className="text-[10px] text-white/50">{it.sub}</div>}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+
+            <div className="mt-4 flex flex-col gap-3">
+              <SpecSheetDownloadModal
+                buttonLabel="Download 2026 Master Catalog (PDF)"
+                variant="outline"
+              />
+              <RfqModal
+                triggerLabel="Initiate Trade RFQ / CIF Quotation"
+                triggerClassName="w-full inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-[#C59B27] to-[#A67C1E] py-3 text-xs font-bold uppercase tracking-wider text-[#091E16] shadow-lg"
+              />
             </div>
           </div>
         </div>
