@@ -40,6 +40,7 @@ import prodCurryLeavesDetail from "@/assets/prod-curry-leaves-detail.jpg";
 import prodCowDungDetail from "@/assets/prod-cow-dung-detail.jpg";
 import prodGingerDetail from "@/assets/prod-ginger-detail.jpg";
 import prodBlackPepperDetail from "@/assets/prod-black-pepper-detail.jpg";
+import prodJaggery from "@/assets/prod-jaggery.jpg";
 import prodKabuliChickpeas from "@/assets/prod-kabuli-chickpeas.jpg";
 import prodCloves from "@/assets/prod-cloves.jpg";
 import prodCinnamon from "@/assets/prod-cinnamon.jpg";
@@ -948,6 +949,11 @@ const CATALOG_IMAGE_OVERRIDES: Record<string, { img: string; gallery?: string[] 
   "black-urad-beans": {
     img: prodBlackBeansUrad,
     gallery: [prodBlackBeansUrad, prodPulses],
+  },
+  jaggery: { img: prodJaggery },
+  "dehydrated-garlic": {
+    img: prodDehydratedGarlicDetail,
+    gallery: [prodDehydratedGarlicDetail, prodGarlicDetail],
   },
 };
 
