@@ -40,6 +40,41 @@ import prodCurryLeavesDetail from "@/assets/prod-curry-leaves-detail.jpg";
 import prodCowDungDetail from "@/assets/prod-cow-dung-detail.jpg";
 import prodGingerDetail from "@/assets/prod-ginger-detail.jpg";
 import prodBlackPepperDetail from "@/assets/prod-black-pepper-detail.jpg";
+import prodKabuliChickpeas from "@/assets/prod-kabuli-chickpeas.jpg";
+import prodCloves from "@/assets/prod-cloves.jpg";
+import prodCinnamon from "@/assets/prod-cinnamon.jpg";
+import prodFenugreekSeeds from "@/assets/prod-fenugreek-seeds.jpg";
+import prodFennelSeeds from "@/assets/prod-fennel-seeds.jpg";
+import prodFlaxseedLinseed from "@/assets/prod-flaxseed-linseed.jpg";
+import prodCorianderSeeds from "@/assets/prod-coriander-seeds.jpg";
+import prodMustardSeeds from "@/assets/prod-mustard-seeds.jpg";
+import prodCardamomPods from "@/assets/prod-cardamom-pods.jpg";
+import prodRajmaDark from "@/assets/prod-rajma-dark.jpg";
+import prodRajmaChitra from "@/assets/prod-rajma-chitra.jpg";
+import prodBlackBeansUrad from "@/assets/prod-black-beans-urad.jpg";
+import prodWheatGrain from "@/assets/prod-wheat-grain.jpg";
+import prodMaizeCorn from "@/assets/prod-maize-corn.jpg";
+import prodGreenMoong from "@/assets/prod-green-moong.jpg";
+import prodPumpkinSeeds from "@/assets/prod-pumpkin-seeds.jpg";
+import prodPeanutsRaw from "@/assets/prod-peanuts-raw.jpg";
+import prodHorseGram from "@/assets/prod-horse-gram.jpg";
+import prodDesiChana from "@/assets/prod-desi-chana.jpg";
+import prodLobiaCowpea from "@/assets/prod-lobia-cowpea.jpg";
+import prodYellowPeas from "@/assets/prod-yellow-peas.jpg";
+import prodGreenPeas from "@/assets/prod-green-peas.jpg";
+import prodBlackPeppercorn from "@/assets/prod-black-peppercorn.jpg";
+import prodStarAnise from "@/assets/prod-star-anise.jpg";
+import prodMoringaTree from "@/assets/prod-moringa-tree.jpg";
+import prodMoringaPowder from "@/assets/prod-moringa-powder.jpg";
+import prodSesameWhite from "@/assets/prod-sesame-white.jpg";
+import prodAjwain from "@/assets/prod-ajwain.jpg";
+import prodSesameBlack from "@/assets/prod-sesame-black.jpg";
+import prodGreenPeppercornWhole from "@/assets/prod-green-peppercorn-whole.jpg";
+import prodSorghumJowar from "@/assets/prod-sorghum-jowar.jpg";
+import prodMilletBajra from "@/assets/prod-millet-bajra.jpg";
+import prodMilletRagi from "@/assets/prod-millet-ragi.jpg";
+import prodSoybeansYellow from "@/assets/prod-soybeans-yellow.jpg";
+
 
 export const BLUE = "#0057B8";
 export const ORANGE = "#FF8A00";
@@ -562,7 +597,16 @@ export const PRODUCTS: Product[] = [
     name: "Spices & Masalas",
     tagline: "Whole & ground — steam-sterilized",
     img: prodSpices,
-    gallery: [prodSpices, prodChillies, prodPulses],
+    gallery: [
+      prodSpices,
+      prodCardamomPods,
+      prodBlackPeppercorn,
+      prodCloves,
+      prodCinnamon,
+      prodStarAnise,
+      prodCorianderSeeds,
+      prodTurmericDetail,
+    ],
     description:
       "Authentic Indian spices sourced from origin regions — Kerala, Rajasthan, Karnataka — cleaned, steam-sterilized and packed to lock in oil content and color.",
     varieties: [
@@ -589,7 +633,16 @@ export const PRODUCTS: Product[] = [
     name: "Pulses & Lentils",
     tagline: "Protein-rich, machine-cleaned & sorted",
     img: prodPulses,
-    gallery: [prodPulses, prodRice, prodSpices],
+    gallery: [
+      prodPulses,
+      prodKabuliChickpeas,
+      prodDesiChana,
+      prodRajmaDark,
+      prodGreenMoong,
+      prodYellowPeas,
+      prodLobiaCowpea,
+      prodDalDetail,
+    ],
     description:
       "Full range of Indian pulses — whole, split and polished — cleaned to export purity levels and packed to preserve color and moisture.",
     varieties: ["Toor Dal", "Chana Dal", "Moong Dal", "Urad Dal", "Masoor Dal", "Kabuli Chana"],
@@ -727,12 +780,15 @@ type CatalogSeed = {
 };
 
 const CATALOG_IMAGE_OVERRIDES: Record<string, { img: string; gallery?: string[] }> = {
-  cumin: { img: prodCuminDetail },
+  cumin: { img: prodCuminDetail, gallery: [prodCuminDetail, prodSpices] },
   turmeric: {
     img: prodTurmericDetail,
     gallery: [prodTurmericDetail, prodSpices, prodDriedRedChilliesDetail],
   },
-  "dried-red-chillies": { img: prodDriedRedChilliesDetail },
+  "dried-red-chillies": {
+    img: prodDriedRedChilliesDetail,
+    gallery: [prodDriedRedChilliesDetail, prodChillies],
+  },
   sugar: { img: prodSugarDetail },
   tamarind: { img: prodTamarindDetail },
   "makhana-raw": {
@@ -743,7 +799,10 @@ const CATALOG_IMAGE_OVERRIDES: Record<string, { img: string; gallery?: string[] 
     img: prodMakhanaAltDetail,
     gallery: [prodMakhanaAltDetail, prodMakhanaDetail, prodDryfruits],
   },
-  "dal-split-pulses": { img: prodDalDetail },
+  "dal-split-pulses": {
+    img: prodDalDetail,
+    gallery: [prodDalDetail, prodGreenMoong, prodBlackBeansUrad, prodPulses],
+  },
   cashew: { img: prodCashewDetail },
   pomegranate: { img: prodPomegranateDetail },
   "dehydrated-onion-garlic": {
@@ -753,29 +812,143 @@ const CATALOG_IMAGE_OVERRIDES: Record<string, { img: string; gallery?: string[] 
   potatoes: { img: prodPotatoesDetail },
   "okra-drumsticks": {
     img: prodOkraDetail,
-    gallery: [prodOkraDetail, prodDrumsticksDetail, prodVeg],
+    gallery: [prodOkraDetail, prodMoringaTree, prodDrumsticksDetail, prodVeg],
   },
   "g9-banana": { img: prodBananaDetail },
   grapes: { img: prodGrapesDetail },
   tomatoes: { img: prodTomatoesDetail },
   mango: { img: prodMangoDetail },
-  soyabean: { img: prodSoyabeanDetail },
+  soyabean: {
+    img: prodSoybeansYellow,
+    gallery: [prodSoybeansYellow, prodSoyabeanDetail, prodRice],
+  },
   lemon: { img: prodLemonDetail },
   oranges: { img: prodOrangesDetail },
-  chickpeas: { img: prodChickpeasDetail },
-  mustard: { img: prodMustardDetail },
-  wheat: { img: prodWheatDetail },
-  fenugreek: { img: prodFenugreekDetail },
+  chickpeas: {
+    img: prodKabuliChickpeas,
+    gallery: [prodKabuliChickpeas, prodChickpeasDetail, prodPulses],
+  },
+  mustard: {
+    img: prodMustardSeeds,
+    gallery: [prodMustardSeeds, prodMustardDetail, prodSpices],
+  },
+  wheat: {
+    img: prodWheatGrain,
+    gallery: [prodWheatGrain, prodWheatDetail, prodRice],
+  },
+  "durum-wheat": {
+    img: prodWheatGrain,
+    gallery: [prodWheatGrain, prodWheatDetail],
+  },
+  "wheat-flour-atta-maida": {
+    img: prodWheatGrain,
+    gallery: [prodWheatGrain, prodWheatDetail],
+  },
+  fenugreek: {
+    img: prodFenugreekSeeds,
+    gallery: [prodFenugreekSeeds, prodFenugreekDetail, prodSpices],
+  },
   "cluster-beans": { img: prodClusterBeansDetail },
   ginger: { img: prodGingerDetail },
   garlic: { img: prodGarlicDetail },
-  "black-pepper": { img: prodBlackPepperDetail },
+  "black-pepper": {
+    img: prodBlackPeppercorn,
+    gallery: [prodBlackPeppercorn, prodBlackPepperDetail, prodSpices],
+  },
   "green-peppercorn": {
-    img: prodGreenPeppercornDetail,
-    gallery: [prodGreenPeppercornDetail, prodBlackPepperDetail, prodSpices],
+    img: prodGreenPeppercornWhole,
+    gallery: [prodGreenPeppercornWhole, prodGreenPeppercornDetail, prodBlackPeppercorn, prodSpices],
   },
   "curry-leaves": { img: prodCurryLeavesDetail },
   "cow-dung": { img: prodCowDungDetail },
+  peanuts: {
+    img: prodPeanutsRaw,
+    gallery: [prodPeanutsRaw, prodDryfruits],
+  },
+  cardamom: {
+    img: prodCardamomPods,
+    gallery: [prodCardamomPods, prodSpices],
+  },
+  coriander: {
+    img: prodCorianderSeeds,
+    gallery: [prodCorianderSeeds, prodSpices],
+  },
+  "maize-corn": {
+    img: prodMaizeCorn,
+    gallery: [prodMaizeCorn, prodRice],
+  },
+  millets: {
+    img: prodMilletBajra,
+    gallery: [prodMilletBajra, prodMilletRagi, prodRice],
+  },
+  "sorghum-jowar": {
+    img: prodSorghumJowar,
+    gallery: [prodSorghumJowar, prodRice],
+  },
+  "desi-chana": {
+    img: prodDesiChana,
+    gallery: [prodDesiChana, prodKabuliChickpeas, prodPulses],
+  },
+  "peas-green-yellow": {
+    img: prodYellowPeas,
+    gallery: [prodYellowPeas, prodGreenPeas, prodPulses],
+  },
+  "kidney-beans-rajma": {
+    img: prodRajmaDark,
+    gallery: [prodRajmaDark, prodRajmaChitra, prodPulses],
+  },
+  "lobia-cowpea": {
+    img: prodLobiaCowpea,
+    gallery: [prodLobiaCowpea, prodPulses],
+  },
+  "fennel-seeds": {
+    img: prodFennelSeeds,
+    gallery: [prodFennelSeeds, prodSpices],
+  },
+  "flaxseed-linseed": {
+    img: prodFlaxseedLinseed,
+    gallery: [prodFlaxseedLinseed, prodPumpkinSeeds],
+  },
+  "sesame-seed": {
+    img: prodSesameWhite,
+    gallery: [prodSesameWhite, prodSesameBlack, prodFlaxseedLinseed],
+  },
+  "drumstick-moringa": {
+    img: prodMoringaTree,
+    gallery: [prodMoringaTree, prodMoringaPowder, prodDrumsticksDetail],
+  },
+  cloves: {
+    img: prodCloves,
+    gallery: [prodCloves, prodSpices],
+  },
+  cinnamon: {
+    img: prodCinnamon,
+    gallery: [prodCinnamon, prodSpices],
+  },
+  "star-anise": {
+    img: prodStarAnise,
+    gallery: [prodStarAnise, prodSpices],
+  },
+  ajwain: {
+    img: prodAjwain,
+    gallery: [prodAjwain, prodSpices],
+  },
+  "pumpkin-seeds": {
+    img: prodPumpkinSeeds,
+    gallery: [prodPumpkinSeeds, prodFlaxseedLinseed],
+  },
+  "horse-gram": {
+    img: prodHorseGram,
+    gallery: [prodHorseGram, prodPulses],
+  },
+  "green-moong-beans": {
+    img: prodGreenMoong,
+    gallery: [prodGreenMoong, prodPulses],
+  },
+  "black-urad-beans": {
+    img: prodBlackBeansUrad,
+    gallery: [prodBlackBeansUrad, prodPulses],
+  },
 };
 
 const CATALOG_SEEDS: CatalogSeed[] = [
@@ -1324,6 +1497,77 @@ const CATALOG_SEEDS: CatalogSeed[] = [
     tagline: "NPOP & USDA-NOP certified organic spices, grains & pulses",
     varieties: ["Organic Turmeric", "Organic Basmati Rice", "Organic Cumin", "Organic Pulses & Seeds"],
   },
+  {
+    slug: "cloves",
+    name: "Cloves (Laung)",
+    hs: "0907",
+    g: "spice",
+    tagline: "Handpicked aromatic whole cloves with heads",
+    varieties: ["Handpicked Bold", "FAQ Grade", "Zanzibar / Madagascar Standard", "Clove Powder"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "cinnamon",
+    name: "Cinnamon (Dalchini)",
+    hs: "0906",
+    g: "spice",
+    tagline: "Fragrant Ceylon & Cassia whole sticks and rolls",
+    varieties: ["Cassia Quills 8cm-10cm", "Ceylon Alba / C5 Special", "Split Cinnamon", "Cinnamon Powder"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "star-anise",
+    name: "Star Anise (Chakra Phool)",
+    hs: "0909",
+    g: "spice",
+    tagline: "Whole unbroken 8-arm star anise pods with high aroma",
+    varieties: ["Whole Star Anise 8-Arm", "Autumn Star Anise", "Spring Star Anise", "Star Anise Powder"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "ajwain",
+    name: "Ajwain (Carom Seeds)",
+    hs: "0910",
+    g: "spice",
+    tagline: "Bold sortex-cleaned carom seeds with high thymol content",
+    varieties: ["Machine Cleaned 99%", "Sortex Cleaned 99.5%", "Green Ajwain", "Ajwain Powder"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "pumpkin-seeds",
+    name: "Pumpkin Seeds (Pepitas)",
+    hs: "1209",
+    g: "other",
+    tagline: "Grade AAA hulled green pumpkin seeds & pepitas",
+    varieties: ["Grade AAA Hulled Pepitas", "Shine Skin Pumpkin Seeds", "GWS (Grow Without Skin)", "Roasted Pumpkin Seeds"],
+  },
+  {
+    slug: "horse-gram",
+    name: "Horse Gram (Kulthi Dal)",
+    hs: "0713",
+    g: "pulse",
+    tagline: "High-protein brown kulthi dal & micro-pulses",
+    varieties: ["Whole Horse Gram", "Split Kulthi", "Sortex Cleaned 99%", "Export Machine Cleaned"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "green-moong-beans",
+    name: "Green Moong Beans (Whole & Split)",
+    hs: "0713",
+    g: "pulse",
+    tagline: "Whole polished green moong & yellow split dal",
+    varieties: ["Moong Whole Shiny", "Moong Dal Washed", "Moong Split Chilka", "Organic Green Moong"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "black-urad-beans",
+    name: "Black Gram / Urad (Whole & Split)",
+    hs: "0713",
+    g: "pulse",
+    tagline: "Whole black urad & de-husked split dal",
+    varieties: ["Whole Black Urad", "Urad Dal Split", "Urad Gota White", "Sortex Cleaned"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
 ];
 
 export const CATALOG: Product[] = CATALOG_SEEDS.map((c) => {
@@ -1420,6 +1664,26 @@ const SITE_SLUG_ALIASES: Record<string, string> = {
   "isabgol": "psyllium-husk-isabgol",
   "organic-agri-commodities": "organic-agri-commodities",
   "organic": "organic-agri-commodities",
+  cloves: "cloves",
+  laung: "cloves",
+  cinnamon: "cinnamon",
+  dalchini: "cinnamon",
+  "star-anise": "star-anise",
+  "chakra-phool": "star-anise",
+  ajwain: "ajwain",
+  "carom-seeds": "ajwain",
+  "pumpkin-seeds": "pumpkin-seeds",
+  pepitas: "pumpkin-seeds",
+  "horse-gram": "horse-gram",
+  kulthi: "horse-gram",
+  "green-moong-beans": "green-moong-beans",
+  "green-moong": "green-moong-beans",
+  "moong-beans": "green-moong-beans",
+  moong: "green-moong-beans",
+  "black-urad-beans": "black-urad-beans",
+  "black-urad": "black-urad-beans",
+  "black-beans": "black-urad-beans",
+  urad: "black-urad-beans",
 };
 
 export function getProductBySlug(slug: string): Product | undefined {

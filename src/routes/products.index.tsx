@@ -47,9 +47,9 @@ import {
 } from "@/lib/master-catalog-data";
 import { SpecSheetDownloadModal } from "@/components/SpecSheetDownloadModal";
 
-const TITLE = "Indian Agri Export Catalogue & HS Codes (49 SKUs) | Sheshaan Global";
+const TITLE = `Indian Agri Export Catalogue & HS Codes (${MASTER_COMMODITIES.length} SKUs) | Sheshaan Global`;
 const DESC =
-  "Official technical export catalogue of 49 Indian agricultural commodities with HS codes, commercial grades, contract specs, and APEDA compliance: Milling Wheat, Basmati & Non-Basmati Rice, Pulses, Spices, Oilseeds, Fresh Produce, and Processed Commodities.";
+  `Official technical export catalogue of ${MASTER_COMMODITIES.length} Indian agricultural commodities with HS codes, commercial grades, contract specs, and APEDA compliance: Milling Wheat, Basmati & Non-Basmati Rice, Pulses, Spices, Oilseeds, Fresh Produce, and Processed Commodities.`;
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -69,7 +69,7 @@ export const Route = createFileRoute("/products/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_URL}/products` },
       { property: "og:image", content: DEFAULT_OG_IMAGE },
-      { property: "og:image:alt", content: "Sheshaan Global 49 SKU master export catalogue" },
+      { property: "og:image:alt", content: `Sheshaan Global ${MASTER_COMMODITIES.length} SKU master export catalogue` },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: TITLE },
       { name: "twitter:description", content: DESC },
@@ -201,13 +201,13 @@ function ProductsIndex() {
             />
             <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold text-white/90 backdrop-blur-sm">
               <Sparkles className="h-3.5 w-3.5 text-amber-300" />
-              <span>49 Master Export Commodities • 8 Sourcing Categories</span>
+              <span>{MASTER_COMMODITIES.length} Master Export Commodities • 8 Sourcing Categories</span>
             </div>
             <h1 className="mt-4 max-w-3xl font-display text-4xl font-bold leading-tight text-white md:text-5xl">
               Export Product Catalogue <span style={{ color: ORANGE }}>with HS Codes</span>
             </h1>
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/75">
-              Comprehensive technical catalogue covering 49 export lines across Cereals &amp; Grains,
+              Comprehensive technical catalogue covering {MASTER_COMMODITIES.length} export lines across Cereals &amp; Grains,
               Milled Products, Pulses, Spices, Oilseeds, Fresh Produce, and Processed Commodities.
               Each SKU features verified commercial grades, lab testing parameters, contract targets,
               and APEDA/DGFT trade compliance.
@@ -216,7 +216,7 @@ function ProductsIndex() {
             {/* Quick Metrics Bar */}
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {[
-                { label: "Export Commodities", val: "49 SKUs" },
+                { label: "Export Commodities", val: `${MASTER_COMMODITIES.length} SKUs` },
                 { label: "Core Categories", val: "8 Sectors" },
                 { label: "Lab Verification", val: "100% Pre-Shipment" },
                 { label: "Compliance Scope", val: "APEDA & AGMARK" },
@@ -236,7 +236,7 @@ function ProductsIndex() {
                 href={buildWhatsAppUrl({
                   category: "Master Export Catalogue Inquiry",
                   message:
-                    "Hello Sheshaan Global, I am requesting the latest export price list and technical specifications for your 49 agricultural commodities.",
+                    `Hello Sheshaan Global, I am requesting the latest export price list and technical specifications for your ${MASTER_COMMODITIES.length} agricultural commodities.`,
                 })}
                 target="_blank"
                 rel="noreferrer"
@@ -246,7 +246,7 @@ function ProductsIndex() {
                 <MessageCircle className="h-4 w-4" /> Request Price List on WhatsApp
               </a>
               <SpecSheetDownloadModal
-                productName="Sheshaan Global Master Export Catalogue (49 SKUs)"
+                productName={`Sheshaan Global Master Export Catalogue (${MASTER_COMMODITIES.length} SKUs)`}
                 hsCode="Chapters 07, 08, 09, 10, 11, 12, 17, 20"
                 triggerLabel="Download Master Spec Sheet"
                 variant="outline"
@@ -369,13 +369,13 @@ function ProductsIndex() {
                 Master Commodity Catalogue &amp; Specifications
               </h2>
               <p className="mt-2 max-w-3xl text-sm text-slate-600">
-                Explore the complete technical database of all 49 export products, wheat milling
+                Explore the complete technical database of all {MASTER_COMMODITIES.length} export products, wheat milling
                 standards, trade terminology, pre-shipment audit checklists, and official APEDA regulatory portals.
               </p>
             </div>
             <div className="flex items-center gap-2">
               <SpecSheetDownloadModal
-                productName="Complete 49-SKU Agricultural Export Master Specification"
+                productName={`Complete ${MASTER_COMMODITIES.length}-SKU Agricultural Export Master Specification`}
                 hsCode="Chapters 07 to 20"
                 triggerLabel="Export Spec Sheet (PDF)"
                 variant="primary"
@@ -386,7 +386,7 @@ function ProductsIndex() {
           {/* Navigation Tabs */}
           <div className="mt-8 flex gap-2 overflow-x-auto border-b border-slate-200 pb-3">
             {[
-              { id: "directory", label: "Commodity Directory (Grid)", icon: Package, count: "49 SKUs" },
+              { id: "directory", label: "Commodity Directory (Grid)", icon: Package, count: `${MASTER_COMMODITIES.length} SKUs` },
               { id: "specs-table", label: "Master Specifications Table", icon: FileText, count: "Full Data" },
               { id: "wheat-matrix", label: "Wheat Quality Matrix", icon: Layers, count: "6 Classes" },
               { id: "grade-terms", label: "Grade Terminology", icon: BookOpen, count: "10 Standards" },
