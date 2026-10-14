@@ -23,7 +23,10 @@ import {
   Timer,
   Truck,
   Warehouse,
+  Copy,
+  Check,
 } from "lucide-react";
+import { toast } from "sonner";
 import {
   BLUE,
   ORANGE,
@@ -41,6 +44,10 @@ import {
   type Product,
 } from "@/lib/site";
 import { getProductBySlugOrLegacy, type ExportCommodity } from "@/lib/empirical-products";
+import {
+  getMasterCommodityBySlug,
+  type MasterCommoditySpec,
+} from "@/lib/master-catalog-data";
 import { absoluteUrl, SITE_NAME, SITE_URL } from "@/lib/seo";
 import {
   Dialog,
@@ -282,6 +289,9 @@ function ProductPage() {
   };
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [active, setActive] = useState(0);
+  const masterSpec =
+    getMasterCommodityBySlug(product.slug) ??
+    (empirical ? getMasterCommodityBySlug(empirical.slug) : undefined);
   const [activeTab, setActiveTab] = useState<"overview" | "packing" | "documents" | "markets">(
     "overview",
   );
@@ -857,6 +867,9 @@ function ProductPage() {
         </div>
       </section>
 
+      {/* Master Technical Commodity Specification Block */}
+      {masterSpec && <MasterTechnicalSpecSection masterSpec={masterSpec} />}
+
       {/* Empirical B2B Specification Sheet, Container Matrix, Harvest Calendar & GEO Block */}
       {empirical && <EmpiricalB2BWireframeSection empirical={empirical} />}
 
@@ -1202,3 +1215,126 @@ function EmpiricalB2BWireframeSection({ empirical }: { empirical: ExportCommodit
     </section>
   );
 }
+
+function MasterTechnicalSpecSection({ masterSpec }: { masterSpec: MasterCommoditySpec }) {
+  const [copied, setCopied] = useState(false);
+
+  const copySpec = () => {
+    const text = [
+      `SHESHAAN GLOBAL — COMMODITY SPECIFICATION SHEET`,
+      `Commodity: ${masterSpec.name} (SKU: ${masterSpec.sku})`,
+      `HS Code: ${masterSpec.hsCode} | Category: ${masterSpec.category}`,
+      `Product Form: ${masterSpec.productForm}`,
+      `Common Export Grades: ${masterSpec.exportGrades}`,
+      `Verified Varieties: ${masterSpec.varieties}`,
+      `Core Specifications to Agree: ${masterSpec.coreSpecs}`,
+      `Illustrative Contract Targets: ${masterSpec.contractTargets}`,
+      `Indicative Export Markets: ${masterSpec.exportRegions}`,
+      `Regulatory & Compliance Notes: ${masterSpec.complianceNotes}`,
+      `Export Desk: export@sheshaanglobal.com | +91 81499 09546`,
+    ].join("\n");
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    toast.success(`Copied specifications for ${masterSpec.name}`, {
+      description: "Ready to paste into contracts, RFQs, or commercial emails.",
+    });
+    setTimeout(() => setCopied(false), 3000);
+  };
+
+  const waUrl = buildWhatsAppUrl({
+    category: `${masterSpec.name} (HS ${masterSpec.hsCode})`,
+    message: `Hello Sheshaan Global, I am requesting quotation and technical specs for ${masterSpec.name} (HS ${masterSpec.hsCode}). Specification Targets: ${masterSpec.contractTargets}.`,
+  });
+
+  return (
+    <section className="border-b border-slate-200 bg-slate-50/70 py-12">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0057B8]">
+              <span>Official Commercial Specification</span>
+              <span>•</span>
+              <span>{masterSpec.sku}</span>
+            </div>
+            <h2 className="mt-2 font-display text-2xl font-bold text-slate-900">
+              Technical Export Specifications &amp; Quality Targets
+            </h2>
+            <p className="mt-1 text-xs text-slate-600">
+              Commercial export standard reference for procurement directors, QA inspectors, and customs brokers.
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={copySpec}
+              className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 shadow-sm hover:bg-slate-50"
+            >
+              {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+              {copied ? "Copied" : "Copy Spec"}
+            </button>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-sm hover:bg-emerald-700"
+            >
+              <MessageCircle className="h-3.5 w-3.5" />
+              RFQ via WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div className="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <table className="w-full text-left text-xs">
+            <tbody className="divide-y divide-slate-100">
+              <tr>
+                <th className="w-1/4 bg-slate-50/80 px-6 py-3.5 font-bold text-slate-900">
+                  Product Form &amp; Processing
+                </th>
+                <td className="px-6 py-3.5 text-slate-700 font-medium">{masterSpec.productForm}</td>
+              </tr>
+              <tr>
+                <th className="bg-slate-50/80 px-6 py-3.5 font-bold text-slate-900">
+                  Common Export Grades
+                </th>
+                <td className="px-6 py-3.5 text-slate-700">{masterSpec.exportGrades}</td>
+              </tr>
+              <tr>
+                <th className="bg-slate-50/80 px-6 py-3.5 font-bold text-slate-900">
+                  Verified Varieties / Sourcing Lines
+                </th>
+                <td className="px-6 py-3.5 text-slate-700">{masterSpec.varieties}</td>
+              </tr>
+              <tr>
+                <th className="bg-slate-50/80 px-6 py-3.5 font-bold text-slate-900">
+                  Core Specifications to Agree
+                </th>
+                <td className="px-6 py-3.5 text-slate-700">{masterSpec.coreSpecs}</td>
+              </tr>
+              <tr>
+                <th className="bg-slate-50/80 px-6 py-3.5 font-bold text-slate-900">
+                  Illustrative Contract Targets
+                </th>
+                <td className="px-6 py-3.5 font-semibold text-[#0057B8]">{masterSpec.contractTargets}</td>
+              </tr>
+              <tr>
+                <th className="bg-slate-50/80 px-6 py-3.5 font-bold text-slate-900">
+                  Indicative Global Export Markets
+                </th>
+                <td className="px-6 py-3.5 text-slate-700">{masterSpec.exportRegions}</td>
+              </tr>
+              <tr>
+                <th className="bg-slate-50/80 px-6 py-3.5 font-bold text-amber-900">
+                  Commercial &amp; Regulatory Notes
+                </th>
+                <td className="px-6 py-3.5 text-amber-900 bg-amber-50/30 font-medium leading-relaxed">
+                  {masterSpec.complianceNotes}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
