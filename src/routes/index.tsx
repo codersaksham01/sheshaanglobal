@@ -2004,8 +2004,8 @@ function MessageFab() {
       download: "Sheshaan-Global-Catalogue.pdf",
     },
     {
-      label: "Book Trade Meeting",
-      sub: "Anuga & SIAL Mumbai 2026",
+      label: "Schedule Meeting",
+      sub: "In-Person or Video Call",
       icon: Calendar,
       href: "#trade-delegation",
       bg: BLUE,
@@ -2372,11 +2372,11 @@ function TradeDelegationSection() {
             In-Person Buyer Meetings
           </div>
           <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
-            International Trade Delegations &amp; <span style={{ color: ORANGE }}>Exhibition Meetings</span>
+            Schedule a Direct <span style={{ color: ORANGE }}>Buyer Meeting</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600">
-            Schedule face-to-face procurement sessions with Sheshaan Global founders and operations directors
-            at Anuga Select India, SIAL India, and Gulfood.
+            Schedule an in-person procurement consultation at our Mumbai office / Nashik packhouse or book an
+            executive video conference with Sheshaan Global founders and operations directors.
           </p>
         </div>
 
