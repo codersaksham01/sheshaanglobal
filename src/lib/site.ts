@@ -192,97 +192,127 @@ export const FAQS: { q: string; a: string }[] = [
 
 export const ORGANIZATION_JSONLD = {
   "@context": "https://schema.org",
-  "@type": "Corporation",
-  "@id": "https://www.sheshaanglobal.com/#corporation",
-  name: "Sheshaan Global",
-  alternateName: ["Sheshaan Exporting Goodness Worldwide", "Sheshaan Agro Exports"],
-  url: "https://www.sheshaanglobal.com",
-  logo: "https://www.sheshaanglobal.com/logo.png",
-  telephone: "+91-81499-09546",
-  email: "info@sheshaanglobal.com",
-  foundingDate: "2022",
-  description:
-    "Premier agricultural commodity exporter from India supplying fresh produce, basmati rice, spices, grains, pulses, and coconuts with APEDA, FSSAI, and CDB certification.",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Agricultural Export Trade Desk, Maharashtra",
-    addressLocality: "Pune",
-    addressRegion: "Maharashtra",
-    postalCode: "411001",
-    addressCountry: "IN",
-  },
-  contactPoint: [
+  "@graph": [
     {
-      "@type": "ContactPoint",
-      telephone: "+91-81499-09546",
-      contactType: "sales",
-      email: "info@sheshaanglobal.com",
-      areaServed: [
-        "AE",
-        "SA",
-        "KW",
-        "QA",
-        "OM",
-        "BH",
-        "SG",
-        "MY",
-        "VN",
-        "FR",
-        "NL",
-        "DE",
-        "GB",
-        "US",
-        "ZA",
+      "@type": "Corporation",
+      "@id": "https://www.sheshaanglobal.com/#organization",
+      "name": "Sheshaan Global",
+      "legalName": "Sheshaan Global",
+      "url": "https://www.sheshaanglobal.com/",
+      "logo": "https://www.sheshaanglobal.com/assets/logo.png",
+      "description":
+        "APEDA and IEC certified Indian agricultural export enterprise supplying fresh produce, Nashik red onions, Basmati rice, spices, pulses, and agro commodities to 25+ countries worldwide.",
+      "foundingDate": "2022",
+      "founder": {
+        "@type": "Person",
+        "name": "Sana Zeba Bakshi",
+        "jobTitle": "Chief Executive Officer & Founder",
+      },
+      "employee": [
+        {
+          "@type": "Person",
+          "name": "Juned Barade",
+          "jobTitle": "Chief Operating Officer — Trade Exhibitions & Logistics",
+        },
+        {
+          "@type": "Person",
+          "name": "Saksham Singh",
+          "jobTitle": "Managing Director — Business Development & Sourcing",
+        },
       ],
-      availableLanguage: ["English", "Hindi", "Marathi", "Arabic"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Maharashtra",
+        "addressCountry": "IN",
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-8149909546",
+        "contactType": "sales",
+        "email": "info@sheshaanglobal.com",
+        "availableLanguage": ["English", "Hindi", "Arabic"],
+      },
+      "knowsAbout": [
+        "Agricultural Exports from India",
+        "Fresh Onion Exporting (HS 07031010)",
+        "APEDA Quality Certification",
+        "Reefer Container Cold Chain Logistics",
+        "FOB and CIF Incoterms Coordination",
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/company/sheshaan-global/",
+        "https://www.instagram.com/sheshaanglobal/",
+        "https://www.facebook.com/sheshaanglobal",
+        "https://x.com/sheshaanglobal",
+        "https://www.youtube.com/@sheshaanglobal",
+        "https://freshdi.com/supplier/Sheshaan-Global",
+        "https://www.tradekey.com/company/Sheshaan-Global-14840241.html",
+      ],
     },
-  ],
-  founder: [
-    {
-      "@type": "Person",
-      name: "Sana Zeba Bakshi",
-      jobTitle: "Chief Executive Officer",
-      email: "sanazeba@sheshaanglobal.com",
-    },
-  ],
-  employee: [
-    {
-      "@type": "Person",
-      name: "Juned Barade",
-      jobTitle: "Chief Operating Officer",
-      email: "junedbarade@sheshaanglobal.com",
-    },
-    {
-      "@type": "Person",
-      name: "Saksham Singh",
-      jobTitle: "Business Development",
-      email: "info@sheshaanglobal.com",
-    },
-  ],
-  hasCredential: [
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "APEDA Export Registration",
-    },
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "FSSAI Central Food Safety License",
-    },
-    {
-      "@type": "EducationalOccupationalCredential",
-      name: "Coconut Development Board Exporter Certificate",
-    },
-  ],
-  sameAs: [
-    "https://www.linkedin.com/company/sheshaan-global/",
-    "https://www.instagram.com/sheshaanglobal/",
-    "https://www.facebook.com/sheshaanglobal",
-    "https://x.com/sheshaanglobal",
-    "https://www.youtube.com/@sheshaanglobal",
-    "https://freshdi.com/supplier/Sheshaan-Global",
-    "https://www.tradekey.com/company/Sheshaan-Global-14840241.html",
   ],
 };
+
+export const FRESH_ONIONS_PRODUCT_JSONLD = {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Indian Fresh Red Onions (Nashik Origin)",
+  "image": "https://www.sheshaanglobal.com/assets/products/fresh-onions.jpg",
+  "description":
+    "Bulk export quality fresh Nashik red onions. Graded 45mm to 65mm in 25kg red mesh bags. Shipped in 40ft reefer containers under cold-chain management from JNPT port to international destinations.",
+  "category": "Agricultural Produce > Vegetables > Onions",
+  "brand": {
+    "@type": "Brand",
+    "name": "Sheshaan Global",
+  },
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "price": "Variable as per APMC Mandi Rates",
+    "priceValidUntil": "2027-12-31",
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@id": "https://www.sheshaanglobal.com/#organization",
+    },
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "HS Code",
+      "value": "07031010",
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Origin",
+      "value": "Nashik / Maharashtra, India",
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Calibration Sizes",
+      "value": "45-55 mm, 55-65 mm, 60 mm+",
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Standard Packing",
+      "value": "5kg, 10kg, 20kg, 25kg Leno Mesh Bags",
+    },
+  ],
+};
+
+export function buildFaqPageSchema(faqs: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": f.answer,
+      },
+    })),
+  };
+}
 
 export const LOCAL_BUSINESS_JSONLD = {
   "@context": "https://schema.org",

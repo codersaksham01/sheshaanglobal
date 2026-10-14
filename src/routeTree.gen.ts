@@ -12,24 +12,37 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LocaleRouteImport } from './routes/$locale'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AgriculturalExportsIndiaRouteImport } from './routes/agricultural-exports-india'
 import { Route as CompanyPoliciesRouteImport } from './routes/company-policies'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ExportProcessRouteImport } from './routes/export-process'
+import { Route as GlobalExportMarketsRouteImport } from './routes/global-export-markets'
 import { Route as LogisticsRouteImport } from './routes/logistics'
 import { Route as MarketsRouteImport } from './routes/markets'
 import { Route as MoreInfoRouteImport } from './routes/more-info'
 import { Route as PackagingRouteImport } from './routes/packaging'
 import { Route as QualityRouteImport } from './routes/quality'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TradeComplianceRouteImport } from './routes/trade-compliance'
 import { Route as TradeIntelligenceRouteImport } from './routes/trade-intelligence'
 import { Route as ExportToRegionRouteImport } from './routes/export-to.$region'
 import { Route as ExportsIndexRouteImport } from './routes/exports.index'
 import { Route as ExportsSlugRouteImport } from './routes/exports.$slug'
 import { Route as MarketsAfricaRouteImport } from './routes/markets.africa'
+import { Route as MarketsExportToSaudiArabiaRouteImport } from './routes/markets.export-to-saudi-arabia'
+import { Route as MarketsExportToSoutheastAsiaRouteImport } from './routes/markets.export-to-southeast-asia'
+import { Route as MarketsExportToUaeRouteImport } from './routes/markets.export-to-uae'
+import { Route as MarketsExportToUkEuropeRouteImport } from './routes/markets.export-to-uk-europe'
 import { Route as MarketsMiddleEastRouteImport } from './routes/markets.middle-east'
 import { Route as MarketsUaeRouteImport } from './routes/markets.uae'
 import { Route as ProductsIndexRouteImport } from './routes/products.index'
 import { Route as ProductsSlugRouteImport } from './routes/products.$slug'
+import { Route as ProductsCoconutExporterIndiaRouteImport } from './routes/products.coconut-exporter-india'
+import { Route as ProductsFreshOnionsExporterIndiaRouteImport } from './routes/products.fresh-onions-exporter-india'
+import { Route as ProductsGreenChilliesExporterRouteImport } from './routes/products.green-chillies-exporter'
+import { Route as ProductsIndianBasmatiRiceRouteImport } from './routes/products.indian-basmati-rice'
+import { Route as ProductsPulsesLentilsExporterRouteImport } from './routes/products.pulses-lentils-exporter'
+import { Route as ProductsSpicesMasalasExporterRouteImport } from './routes/products.spices-masalas-exporter'
 import { Route as ProductsCategorySlugRouteImport } from './routes/products.$category.$slug'
 import { Route as ProductsSlugExportToRegionRouteImport } from './routes/products.$slug.export-to.$region'
 import { Route as ProductsCategorySlugExportToRegionRouteImport } from './routes/products.$category.$slug.export-to.$region'
@@ -49,6 +62,12 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgriculturalExportsIndiaRoute =
+  AgriculturalExportsIndiaRouteImport.update({
+    id: '/agricultural-exports-india',
+    path: '/agricultural-exports-india',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CompanyPoliciesRoute = CompanyPoliciesRouteImport.update({
   id: '/company-policies',
   path: '/company-policies',
@@ -62,6 +81,11 @@ const ContactRoute = ContactRouteImport.update({
 const ExportProcessRoute = ExportProcessRouteImport.update({
   id: '/export-process',
   path: '/export-process',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GlobalExportMarketsRoute = GlobalExportMarketsRouteImport.update({
+  id: '/global-export-markets',
+  path: '/global-export-markets',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LogisticsRoute = LogisticsRouteImport.update({
@@ -94,6 +118,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TradeComplianceRoute = TradeComplianceRouteImport.update({
+  id: '/trade-compliance',
+  path: '/trade-compliance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TradeIntelligenceRoute = TradeIntelligenceRouteImport.update({
   id: '/trade-intelligence',
   path: '/trade-intelligence',
@@ -119,6 +148,28 @@ const MarketsAfricaRoute = MarketsAfricaRouteImport.update({
   path: '/africa',
   getParentRoute: () => MarketsRoute,
 } as any)
+const MarketsExportToSaudiArabiaRoute =
+  MarketsExportToSaudiArabiaRouteImport.update({
+    id: '/export-to-saudi-arabia',
+    path: '/export-to-saudi-arabia',
+    getParentRoute: () => MarketsRoute,
+  } as any)
+const MarketsExportToSoutheastAsiaRoute =
+  MarketsExportToSoutheastAsiaRouteImport.update({
+    id: '/export-to-southeast-asia',
+    path: '/export-to-southeast-asia',
+    getParentRoute: () => MarketsRoute,
+  } as any)
+const MarketsExportToUaeRoute = MarketsExportToUaeRouteImport.update({
+  id: '/export-to-uae',
+  path: '/export-to-uae',
+  getParentRoute: () => MarketsRoute,
+} as any)
+const MarketsExportToUkEuropeRoute = MarketsExportToUkEuropeRouteImport.update({
+  id: '/export-to-uk-europe',
+  path: '/export-to-uk-europe',
+  getParentRoute: () => MarketsRoute,
+} as any)
 const MarketsMiddleEastRoute = MarketsMiddleEastRouteImport.update({
   id: '/middle-east',
   path: '/middle-east',
@@ -139,6 +190,42 @@ const ProductsSlugRoute = ProductsSlugRouteImport.update({
   path: '/products/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProductsCoconutExporterIndiaRoute =
+  ProductsCoconutExporterIndiaRouteImport.update({
+    id: '/products/coconut-exporter-india',
+    path: '/products/coconut-exporter-india',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ProductsFreshOnionsExporterIndiaRoute =
+  ProductsFreshOnionsExporterIndiaRouteImport.update({
+    id: '/products/fresh-onions-exporter-india',
+    path: '/products/fresh-onions-exporter-india',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ProductsGreenChilliesExporterRoute =
+  ProductsGreenChilliesExporterRouteImport.update({
+    id: '/products/green-chillies-exporter',
+    path: '/products/green-chillies-exporter',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ProductsIndianBasmatiRiceRoute =
+  ProductsIndianBasmatiRiceRouteImport.update({
+    id: '/products/indian-basmati-rice',
+    path: '/products/indian-basmati-rice',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ProductsPulsesLentilsExporterRoute =
+  ProductsPulsesLentilsExporterRouteImport.update({
+    id: '/products/pulses-lentils-exporter',
+    path: '/products/pulses-lentils-exporter',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ProductsSpicesMasalasExporterRoute =
+  ProductsSpicesMasalasExporterRouteImport.update({
+    id: '/products/spices-masalas-exporter',
+    path: '/products/spices-masalas-exporter',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ProductsCategorySlugRoute = ProductsCategorySlugRouteImport.update({
   id: '/products/$category/$slug',
   path: '/products/$category/$slug',
@@ -161,22 +248,35 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRoute
   '/about': typeof AboutRoute
+  '/agricultural-exports-india': typeof AgriculturalExportsIndiaRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/export-process': typeof ExportProcessRoute
+  '/global-export-markets': typeof GlobalExportMarketsRoute
   '/logistics': typeof LogisticsRoute
   '/markets': typeof MarketsRouteWithChildren
   '/more-info': typeof MoreInfoRoute
   '/packaging': typeof PackagingRoute
   '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trade-compliance': typeof TradeComplianceRoute
   '/trade-intelligence': typeof TradeIntelligenceRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/exports/$slug': typeof ExportsSlugRoute
   '/markets/africa': typeof MarketsAfricaRoute
+  '/markets/export-to-saudi-arabia': typeof MarketsExportToSaudiArabiaRoute
+  '/markets/export-to-southeast-asia': typeof MarketsExportToSoutheastAsiaRoute
+  '/markets/export-to-uae': typeof MarketsExportToUaeRoute
+  '/markets/export-to-uk-europe': typeof MarketsExportToUkEuropeRoute
   '/markets/middle-east': typeof MarketsMiddleEastRoute
   '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
+  '/products/coconut-exporter-india': typeof ProductsCoconutExporterIndiaRoute
+  '/products/fresh-onions-exporter-india': typeof ProductsFreshOnionsExporterIndiaRoute
+  '/products/green-chillies-exporter': typeof ProductsGreenChilliesExporterRoute
+  '/products/indian-basmati-rice': typeof ProductsIndianBasmatiRiceRoute
+  '/products/pulses-lentils-exporter': typeof ProductsPulsesLentilsExporterRoute
+  '/products/spices-masalas-exporter': typeof ProductsSpicesMasalasExporterRoute
   '/exports/': typeof ExportsIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/products/$category/$slug': typeof ProductsCategorySlugRouteWithChildren
@@ -187,22 +287,35 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRoute
   '/about': typeof AboutRoute
+  '/agricultural-exports-india': typeof AgriculturalExportsIndiaRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/export-process': typeof ExportProcessRoute
+  '/global-export-markets': typeof GlobalExportMarketsRoute
   '/logistics': typeof LogisticsRoute
   '/markets': typeof MarketsRouteWithChildren
   '/more-info': typeof MoreInfoRoute
   '/packaging': typeof PackagingRoute
   '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trade-compliance': typeof TradeComplianceRoute
   '/trade-intelligence': typeof TradeIntelligenceRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/exports/$slug': typeof ExportsSlugRoute
   '/markets/africa': typeof MarketsAfricaRoute
+  '/markets/export-to-saudi-arabia': typeof MarketsExportToSaudiArabiaRoute
+  '/markets/export-to-southeast-asia': typeof MarketsExportToSoutheastAsiaRoute
+  '/markets/export-to-uae': typeof MarketsExportToUaeRoute
+  '/markets/export-to-uk-europe': typeof MarketsExportToUkEuropeRoute
   '/markets/middle-east': typeof MarketsMiddleEastRoute
   '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
+  '/products/coconut-exporter-india': typeof ProductsCoconutExporterIndiaRoute
+  '/products/fresh-onions-exporter-india': typeof ProductsFreshOnionsExporterIndiaRoute
+  '/products/green-chillies-exporter': typeof ProductsGreenChilliesExporterRoute
+  '/products/indian-basmati-rice': typeof ProductsIndianBasmatiRiceRoute
+  '/products/pulses-lentils-exporter': typeof ProductsPulsesLentilsExporterRoute
+  '/products/spices-masalas-exporter': typeof ProductsSpicesMasalasExporterRoute
   '/exports': typeof ExportsIndexRoute
   '/products': typeof ProductsIndexRoute
   '/products/$category/$slug': typeof ProductsCategorySlugRouteWithChildren
@@ -214,22 +327,35 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$locale': typeof LocaleRoute
   '/about': typeof AboutRoute
+  '/agricultural-exports-india': typeof AgriculturalExportsIndiaRoute
   '/company-policies': typeof CompanyPoliciesRoute
   '/contact': typeof ContactRoute
   '/export-process': typeof ExportProcessRoute
+  '/global-export-markets': typeof GlobalExportMarketsRoute
   '/logistics': typeof LogisticsRoute
   '/markets': typeof MarketsRouteWithChildren
   '/more-info': typeof MoreInfoRoute
   '/packaging': typeof PackagingRoute
   '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/trade-compliance': typeof TradeComplianceRoute
   '/trade-intelligence': typeof TradeIntelligenceRoute
   '/export-to/$region': typeof ExportToRegionRoute
   '/exports/$slug': typeof ExportsSlugRoute
   '/markets/africa': typeof MarketsAfricaRoute
+  '/markets/export-to-saudi-arabia': typeof MarketsExportToSaudiArabiaRoute
+  '/markets/export-to-southeast-asia': typeof MarketsExportToSoutheastAsiaRoute
+  '/markets/export-to-uae': typeof MarketsExportToUaeRoute
+  '/markets/export-to-uk-europe': typeof MarketsExportToUkEuropeRoute
   '/markets/middle-east': typeof MarketsMiddleEastRoute
   '/markets/uae': typeof MarketsUaeRoute
   '/products/$slug': typeof ProductsSlugRouteWithChildren
+  '/products/coconut-exporter-india': typeof ProductsCoconutExporterIndiaRoute
+  '/products/fresh-onions-exporter-india': typeof ProductsFreshOnionsExporterIndiaRoute
+  '/products/green-chillies-exporter': typeof ProductsGreenChilliesExporterRoute
+  '/products/indian-basmati-rice': typeof ProductsIndianBasmatiRiceRoute
+  '/products/pulses-lentils-exporter': typeof ProductsPulsesLentilsExporterRoute
+  '/products/spices-masalas-exporter': typeof ProductsSpicesMasalasExporterRoute
   '/exports/': typeof ExportsIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/products/$category/$slug': typeof ProductsCategorySlugRouteWithChildren
@@ -242,22 +368,35 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/about'
+    | '/agricultural-exports-india'
     | '/company-policies'
     | '/contact'
     | '/export-process'
+    | '/global-export-markets'
     | '/logistics'
     | '/markets'
     | '/more-info'
     | '/packaging'
     | '/quality'
     | '/sitemap.xml'
+    | '/trade-compliance'
     | '/trade-intelligence'
     | '/export-to/$region'
     | '/exports/$slug'
     | '/markets/africa'
+    | '/markets/export-to-saudi-arabia'
+    | '/markets/export-to-southeast-asia'
+    | '/markets/export-to-uae'
+    | '/markets/export-to-uk-europe'
     | '/markets/middle-east'
     | '/markets/uae'
     | '/products/$slug'
+    | '/products/coconut-exporter-india'
+    | '/products/fresh-onions-exporter-india'
+    | '/products/green-chillies-exporter'
+    | '/products/indian-basmati-rice'
+    | '/products/pulses-lentils-exporter'
+    | '/products/spices-masalas-exporter'
     | '/exports/'
     | '/products/'
     | '/products/$category/$slug'
@@ -268,22 +407,35 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/about'
+    | '/agricultural-exports-india'
     | '/company-policies'
     | '/contact'
     | '/export-process'
+    | '/global-export-markets'
     | '/logistics'
     | '/markets'
     | '/more-info'
     | '/packaging'
     | '/quality'
     | '/sitemap.xml'
+    | '/trade-compliance'
     | '/trade-intelligence'
     | '/export-to/$region'
     | '/exports/$slug'
     | '/markets/africa'
+    | '/markets/export-to-saudi-arabia'
+    | '/markets/export-to-southeast-asia'
+    | '/markets/export-to-uae'
+    | '/markets/export-to-uk-europe'
     | '/markets/middle-east'
     | '/markets/uae'
     | '/products/$slug'
+    | '/products/coconut-exporter-india'
+    | '/products/fresh-onions-exporter-india'
+    | '/products/green-chillies-exporter'
+    | '/products/indian-basmati-rice'
+    | '/products/pulses-lentils-exporter'
+    | '/products/spices-masalas-exporter'
     | '/exports'
     | '/products'
     | '/products/$category/$slug'
@@ -294,22 +446,35 @@ export interface FileRouteTypes {
     | '/'
     | '/$locale'
     | '/about'
+    | '/agricultural-exports-india'
     | '/company-policies'
     | '/contact'
     | '/export-process'
+    | '/global-export-markets'
     | '/logistics'
     | '/markets'
     | '/more-info'
     | '/packaging'
     | '/quality'
     | '/sitemap.xml'
+    | '/trade-compliance'
     | '/trade-intelligence'
     | '/export-to/$region'
     | '/exports/$slug'
     | '/markets/africa'
+    | '/markets/export-to-saudi-arabia'
+    | '/markets/export-to-southeast-asia'
+    | '/markets/export-to-uae'
+    | '/markets/export-to-uk-europe'
     | '/markets/middle-east'
     | '/markets/uae'
     | '/products/$slug'
+    | '/products/coconut-exporter-india'
+    | '/products/fresh-onions-exporter-india'
+    | '/products/green-chillies-exporter'
+    | '/products/indian-basmati-rice'
+    | '/products/pulses-lentils-exporter'
+    | '/products/spices-masalas-exporter'
     | '/exports/'
     | '/products/'
     | '/products/$category/$slug'
@@ -321,19 +486,28 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LocaleRoute: typeof LocaleRoute
   AboutRoute: typeof AboutRoute
+  AgriculturalExportsIndiaRoute: typeof AgriculturalExportsIndiaRoute
   CompanyPoliciesRoute: typeof CompanyPoliciesRoute
   ContactRoute: typeof ContactRoute
   ExportProcessRoute: typeof ExportProcessRoute
+  GlobalExportMarketsRoute: typeof GlobalExportMarketsRoute
   LogisticsRoute: typeof LogisticsRoute
   MarketsRoute: typeof MarketsRouteWithChildren
   MoreInfoRoute: typeof MoreInfoRoute
   PackagingRoute: typeof PackagingRoute
   QualityRoute: typeof QualityRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TradeComplianceRoute: typeof TradeComplianceRoute
   TradeIntelligenceRoute: typeof TradeIntelligenceRoute
   ExportToRegionRoute: typeof ExportToRegionRoute
   ExportsSlugRoute: typeof ExportsSlugRoute
   ProductsSlugRoute: typeof ProductsSlugRouteWithChildren
+  ProductsCoconutExporterIndiaRoute: typeof ProductsCoconutExporterIndiaRoute
+  ProductsFreshOnionsExporterIndiaRoute: typeof ProductsFreshOnionsExporterIndiaRoute
+  ProductsGreenChilliesExporterRoute: typeof ProductsGreenChilliesExporterRoute
+  ProductsIndianBasmatiRiceRoute: typeof ProductsIndianBasmatiRiceRoute
+  ProductsPulsesLentilsExporterRoute: typeof ProductsPulsesLentilsExporterRoute
+  ProductsSpicesMasalasExporterRoute: typeof ProductsSpicesMasalasExporterRoute
   ExportsIndexRoute: typeof ExportsIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   ProductsCategorySlugRoute: typeof ProductsCategorySlugRouteWithChildren
@@ -362,6 +536,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agricultural-exports-india': {
+      id: '/agricultural-exports-india'
+      path: '/agricultural-exports-india'
+      fullPath: '/agricultural-exports-india'
+      preLoaderRoute: typeof AgriculturalExportsIndiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/company-policies': {
       id: '/company-policies'
       path: '/company-policies'
@@ -381,6 +562,13 @@ declare module '@tanstack/react-router' {
       path: '/export-process'
       fullPath: '/export-process'
       preLoaderRoute: typeof ExportProcessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/global-export-markets': {
+      id: '/global-export-markets'
+      path: '/global-export-markets'
+      fullPath: '/global-export-markets'
+      preLoaderRoute: typeof GlobalExportMarketsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/logistics': {
@@ -425,6 +613,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trade-compliance': {
+      id: '/trade-compliance'
+      path: '/trade-compliance'
+      fullPath: '/trade-compliance'
+      preLoaderRoute: typeof TradeComplianceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/trade-intelligence': {
       id: '/trade-intelligence'
       path: '/trade-intelligence'
@@ -460,6 +655,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketsAfricaRouteImport
       parentRoute: typeof MarketsRoute
     }
+    '/markets/export-to-saudi-arabia': {
+      id: '/markets/export-to-saudi-arabia'
+      path: '/export-to-saudi-arabia'
+      fullPath: '/markets/export-to-saudi-arabia'
+      preLoaderRoute: typeof MarketsExportToSaudiArabiaRouteImport
+      parentRoute: typeof MarketsRoute
+    }
+    '/markets/export-to-southeast-asia': {
+      id: '/markets/export-to-southeast-asia'
+      path: '/export-to-southeast-asia'
+      fullPath: '/markets/export-to-southeast-asia'
+      preLoaderRoute: typeof MarketsExportToSoutheastAsiaRouteImport
+      parentRoute: typeof MarketsRoute
+    }
+    '/markets/export-to-uae': {
+      id: '/markets/export-to-uae'
+      path: '/export-to-uae'
+      fullPath: '/markets/export-to-uae'
+      preLoaderRoute: typeof MarketsExportToUaeRouteImport
+      parentRoute: typeof MarketsRoute
+    }
+    '/markets/export-to-uk-europe': {
+      id: '/markets/export-to-uk-europe'
+      path: '/export-to-uk-europe'
+      fullPath: '/markets/export-to-uk-europe'
+      preLoaderRoute: typeof MarketsExportToUkEuropeRouteImport
+      parentRoute: typeof MarketsRoute
+    }
     '/markets/middle-east': {
       id: '/markets/middle-east'
       path: '/middle-east'
@@ -488,6 +711,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/products/coconut-exporter-india': {
+      id: '/products/coconut-exporter-india'
+      path: '/products/coconut-exporter-india'
+      fullPath: '/products/coconut-exporter-india'
+      preLoaderRoute: typeof ProductsCoconutExporterIndiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/fresh-onions-exporter-india': {
+      id: '/products/fresh-onions-exporter-india'
+      path: '/products/fresh-onions-exporter-india'
+      fullPath: '/products/fresh-onions-exporter-india'
+      preLoaderRoute: typeof ProductsFreshOnionsExporterIndiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/green-chillies-exporter': {
+      id: '/products/green-chillies-exporter'
+      path: '/products/green-chillies-exporter'
+      fullPath: '/products/green-chillies-exporter'
+      preLoaderRoute: typeof ProductsGreenChilliesExporterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/indian-basmati-rice': {
+      id: '/products/indian-basmati-rice'
+      path: '/products/indian-basmati-rice'
+      fullPath: '/products/indian-basmati-rice'
+      preLoaderRoute: typeof ProductsIndianBasmatiRiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/pulses-lentils-exporter': {
+      id: '/products/pulses-lentils-exporter'
+      path: '/products/pulses-lentils-exporter'
+      fullPath: '/products/pulses-lentils-exporter'
+      preLoaderRoute: typeof ProductsPulsesLentilsExporterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/spices-masalas-exporter': {
+      id: '/products/spices-masalas-exporter'
+      path: '/products/spices-masalas-exporter'
+      fullPath: '/products/spices-masalas-exporter'
+      preLoaderRoute: typeof ProductsSpicesMasalasExporterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/$category/$slug': {
       id: '/products/$category/$slug'
       path: '/products/$category/$slug'
@@ -514,12 +779,20 @@ declare module '@tanstack/react-router' {
 
 interface MarketsRouteChildren {
   MarketsAfricaRoute: typeof MarketsAfricaRoute
+  MarketsExportToSaudiArabiaRoute: typeof MarketsExportToSaudiArabiaRoute
+  MarketsExportToSoutheastAsiaRoute: typeof MarketsExportToSoutheastAsiaRoute
+  MarketsExportToUaeRoute: typeof MarketsExportToUaeRoute
+  MarketsExportToUkEuropeRoute: typeof MarketsExportToUkEuropeRoute
   MarketsMiddleEastRoute: typeof MarketsMiddleEastRoute
   MarketsUaeRoute: typeof MarketsUaeRoute
 }
 
 const MarketsRouteChildren: MarketsRouteChildren = {
   MarketsAfricaRoute: MarketsAfricaRoute,
+  MarketsExportToSaudiArabiaRoute: MarketsExportToSaudiArabiaRoute,
+  MarketsExportToSoutheastAsiaRoute: MarketsExportToSoutheastAsiaRoute,
+  MarketsExportToUaeRoute: MarketsExportToUaeRoute,
+  MarketsExportToUkEuropeRoute: MarketsExportToUkEuropeRoute,
   MarketsMiddleEastRoute: MarketsMiddleEastRoute,
   MarketsUaeRoute: MarketsUaeRoute,
 }
@@ -555,19 +828,28 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LocaleRoute: LocaleRoute,
   AboutRoute: AboutRoute,
+  AgriculturalExportsIndiaRoute: AgriculturalExportsIndiaRoute,
   CompanyPoliciesRoute: CompanyPoliciesRoute,
   ContactRoute: ContactRoute,
   ExportProcessRoute: ExportProcessRoute,
+  GlobalExportMarketsRoute: GlobalExportMarketsRoute,
   LogisticsRoute: LogisticsRoute,
   MarketsRoute: MarketsRouteWithChildren,
   MoreInfoRoute: MoreInfoRoute,
   PackagingRoute: PackagingRoute,
   QualityRoute: QualityRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TradeComplianceRoute: TradeComplianceRoute,
   TradeIntelligenceRoute: TradeIntelligenceRoute,
   ExportToRegionRoute: ExportToRegionRoute,
   ExportsSlugRoute: ExportsSlugRoute,
   ProductsSlugRoute: ProductsSlugRouteWithChildren,
+  ProductsCoconutExporterIndiaRoute: ProductsCoconutExporterIndiaRoute,
+  ProductsFreshOnionsExporterIndiaRoute: ProductsFreshOnionsExporterIndiaRoute,
+  ProductsGreenChilliesExporterRoute: ProductsGreenChilliesExporterRoute,
+  ProductsIndianBasmatiRiceRoute: ProductsIndianBasmatiRiceRoute,
+  ProductsPulsesLentilsExporterRoute: ProductsPulsesLentilsExporterRoute,
+  ProductsSpicesMasalasExporterRoute: ProductsSpicesMasalasExporterRoute,
   ExportsIndexRoute: ExportsIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   ProductsCategorySlugRoute: ProductsCategorySlugRouteWithChildren,

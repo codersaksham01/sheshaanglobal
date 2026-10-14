@@ -16,6 +16,7 @@ import { ScrollProgress } from "../components/ScrollProgress";
 import { SiteNavbar } from "../components/SiteNavbar";
 import { VisitPopup } from "../components/VisitPopup";
 import { DEFAULT_KEYWORDS, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from "../lib/seo";
+import { ORGANIZATION_JSONLD } from "../lib/site";
 
 function NotFoundComponent() {
   return (
@@ -146,6 +147,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "alternate", hrefLang: "fr", href: SITE_URL + "/fr" },
       { rel: "alternate", hrefLang: "ru", href: SITE_URL + "/ru" },
       { rel: "alternate", hrefLang: "x-default", href: SITE_URL + "/" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(ORGANIZATION_JSONLD),
+      },
     ],
   }),
   shellComponent: RootShell,
