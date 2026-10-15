@@ -75,6 +75,54 @@ import prodSorghumJowar from "@/assets/prod-sorghum-jowar.jpg";
 import prodMilletBajra from "@/assets/prod-millet-bajra.jpg";
 import prodMilletRagi from "@/assets/prod-millet-ragi.jpg";
 import prodSoybeansYellow from "@/assets/prod-soybeans-yellow.jpg";
+import prodCastorSeeds from "@/assets/prod-castor-seeds.jpg";
+import prodDillSeeds from "@/assets/prod-dill-seeds.jpg";
+import prodCelerySeeds from "@/assets/prod-celery-seeds.jpg";
+import prodNutmeg from "@/assets/prod-nutmeg.jpg";
+import prodWatermelonSeeds from "@/assets/prod-watermelon-seeds.jpg";
+import prodYellowMustardSeeds from "@/assets/prod-yellow-mustard-seeds.jpg";
+import prodSteviaLeaves from "@/assets/prod-stevia-leaves.jpg";
+import prodBayLeaves from "@/assets/prod-bay-leaves.jpg";
+import prodRosemaryLeaves from "@/assets/prod-rosemary-leaves.jpg";
+import prodMace from "@/assets/prod-mace.jpg";
+import prodCarawaySeeds from "@/assets/prod-caraway-seeds.jpg";
+import prodAshwagandhaRoots from "@/assets/prod-ashwagandha-roots.jpg";
+import prodAshwagandha from "@/assets/prod-ashwagandha.jpg";
+import prodGalangal from "@/assets/prod-galangal.jpg";
+import prodPsylliumHusk from "@/assets/prod-psyllium-husk.jpg";
+import prodAmlaFresh from "@/assets/prod-amla-fresh.jpg";
+import prodRosemary from "@/assets/prod-rosemary.jpg";
+import prodThymeLeaves from "@/assets/prod-thyme-leaves.jpg";
+import prodSageLeaves from "@/assets/prod-sage-leaves.jpg";
+import prodKasuriMethi from "@/assets/prod-kasuri-methi.jpg";
+import prodSageWhole from "@/assets/prod-sage-whole.jpg";
+import prodShatavariRoots from "@/assets/prod-shatavari-roots.jpg";
+import prodNeemLeaves from "@/assets/prod-neem-leaves.jpg";
+import prodDriedTulsi from "@/assets/prod-dried-tulsi.jpg";
+import prodSennaLeaves from "@/assets/prod-senna-leaves.jpg";
+import prodDriedParsley from "@/assets/prod-dried-parsley.jpg";
+import prodLemongrass from "@/assets/prod-lemongrass.jpg";
+import prodChiaSeeds from "@/assets/prod-chia-seeds.jpg";
+import prodQuinoa from "@/assets/prod-quinoa.jpg";
+import prodRajgiraAmaranth from "@/assets/prod-rajgira-amaranth.jpg";
+import prodBlackBasilTukmaria from "@/assets/prod-black-basil-tukmaria.jpg";
+import prodAmlaDried from "@/assets/prod-amla-dried.jpg";
+import prodCorianderPowder from "@/assets/prod-coriander-powder.jpg";
+import prodJeeraPowder from "@/assets/prod-jeera-powder.jpg";
+import prodDhanaJeeraPowder from "@/assets/prod-dhana-jeera-powder.jpg";
+import prodFenugreekPowder from "@/assets/prod-fenugreek-powder.jpg";
+import prodYellowMustardPowder from "@/assets/prod-yellow-mustard-powder.jpg";
+import prodAmchurPowder from "@/assets/prod-amchur-powder.jpg";
+import prodChaatMasala from "@/assets/prod-chaat-masala.jpg";
+import prodHaldiPowder from "@/assets/prod-haldi-powder.jpg";
+import prodCurryPowder from "@/assets/prod-curry-powder.jpg";
+import prodRedChilliPowder from "@/assets/prod-red-chilli-powder.jpg";
+import prodAlsiPowder from "@/assets/prod-alsi-powder.jpg";
+import prodMoongDalYellow from "@/assets/prod-moong-dal-yellow.jpg";
+import prodChanaDal from "@/assets/prod-chana-dal.jpg";
+import prodUradDalWhole from "@/assets/prod-urad-dal-whole.jpg";
+import prodMoongDalWholeGreen from "@/assets/prod-moong-dal-whole-green.jpg";
+import prodUradDalSplit from "@/assets/prod-urad-dal-split.jpg";
 
 
 export const BLUE = "#0057B8";
@@ -955,6 +1003,194 @@ const CATALOG_IMAGE_OVERRIDES: Record<string, { img: string; gallery?: string[] 
     img: prodDehydratedGarlicDetail,
     gallery: [prodDehydratedGarlicDetail, prodGarlicDetail],
   },
+  "urad-dal-split": {
+    img: prodUradDalSplit,
+    gallery: [prodUradDalSplit, prodUradDalWhole, prodPulses],
+  },
+  "urad-dal": {
+    img: prodUradDalSplit,
+    gallery: [prodUradDalSplit, prodUradDalWhole, prodPulses],
+  },
+  "urad-dal-whole": {
+    img: prodUradDalWhole,
+    gallery: [prodUradDalWhole, prodUradDalSplit, prodPulses],
+  },
+  "moong-dal-whole-green": {
+    img: prodMoongDalWholeGreen,
+    gallery: [prodMoongDalWholeGreen, prodMoongDalYellow, prodGreenMoong, prodPulses],
+  },
+  "chana-dal": {
+    img: prodChanaDal,
+    gallery: [prodChanaDal, prodDesiChana, prodKabuliChickpeas, prodPulses],
+  },
+  "moong-dal-yellow": {
+    img: prodMoongDalYellow,
+    gallery: [prodMoongDalYellow, prodMoongDalWholeGreen, prodGreenMoong, prodPulses],
+  },
+  "chaat-masala": {
+    img: prodChaatMasala,
+    gallery: [prodChaatMasala, prodAmchurPowder, prodJeeraPowder, prodSpices],
+  },
+  "curry-powder": {
+    img: prodCurryPowder,
+    gallery: [prodCurryPowder, prodHaldiPowder, prodCorianderPowder, prodSpices],
+  },
+  "haldi-powder": {
+    img: prodHaldiPowder,
+    gallery: [prodHaldiPowder, prodTurmericDetail, prodSpices],
+  },
+  "amchur-powder": {
+    img: prodAmchurPowder,
+    gallery: [prodAmchurPowder, prodChaatMasala, prodSpices],
+  },
+  "alsi-powder": {
+    img: prodAlsiPowder,
+    gallery: [prodAlsiPowder, prodFlaxseedLinseed, prodSpices],
+  },
+  "yellow-mustard-powder": {
+    img: prodYellowMustardPowder,
+    gallery: [prodYellowMustardPowder, prodYellowMustardSeeds, prodMustardSeeds, prodSpices],
+  },
+  "fenugreek-powder": {
+    img: prodFenugreekPowder,
+    gallery: [prodFenugreekPowder, prodFenugreekSeeds, prodKasuriMethi, prodSpices],
+  },
+  "dhana-jeera-powder": {
+    img: prodDhanaJeeraPowder,
+    gallery: [prodDhanaJeeraPowder, prodCorianderPowder, prodJeeraPowder, prodSpices],
+  },
+  "jeera-powder": {
+    img: prodJeeraPowder,
+    gallery: [prodJeeraPowder, prodCuminDetail, prodSpices],
+  },
+  "coriander-powder": {
+    img: prodCorianderPowder,
+    gallery: [prodCorianderPowder, prodCorianderSeeds, prodSpices],
+  },
+  "red-chilli-powder": {
+    img: prodRedChilliPowder,
+    gallery: [prodRedChilliPowder, prodDriedRedChilliesDetail, prodChillies],
+  },
+  "dried-gooseberry": {
+    img: prodAmlaDried,
+    gallery: [prodAmlaDried, prodAmlaFresh],
+  },
+  "amla-gooseberry": {
+    img: prodAmlaFresh,
+    gallery: [prodAmlaFresh, prodAmlaDried],
+  },
+  "rajgira-amaranth": {
+    img: prodRajgiraAmaranth,
+    gallery: [prodRajgiraAmaranth, prodQuinoa, prodRice],
+  },
+  "black-basil-tukmaria": {
+    img: prodBlackBasilTukmaria,
+    gallery: [prodBlackBasilTukmaria, prodChiaSeeds, prodSpices],
+  },
+  quinoa: {
+    img: prodQuinoa,
+    gallery: [prodQuinoa, prodRajgiraAmaranth, prodRice],
+  },
+  "chia-seeds": {
+    img: prodChiaSeeds,
+    gallery: [prodChiaSeeds, prodBlackBasilTukmaria, prodFlaxseedLinseed],
+  },
+  "dried-lemongrass": {
+    img: prodLemongrass,
+    gallery: [prodLemongrass, prodSpices],
+  },
+  "senna-leaves": {
+    img: prodSennaLeaves,
+    gallery: [prodSennaLeaves, prodSpices],
+  },
+  "dried-stevia-leaves": {
+    img: prodSteviaLeaves,
+    gallery: [prodSteviaLeaves, prodSpices],
+  },
+  "dried-tulsi": {
+    img: prodDriedTulsi,
+    gallery: [prodDriedTulsi, prodSpices],
+  },
+  "shatavari-roots": {
+    img: prodShatavariRoots,
+    gallery: [prodShatavariRoots, prodAshwagandhaRoots],
+  },
+  "neem-leaves": {
+    img: prodNeemLeaves,
+    gallery: [prodNeemLeaves, prodSpices],
+  },
+  "sage-leaves": {
+    img: prodSageLeaves,
+    gallery: [prodSageLeaves, prodSageWhole, prodSpices],
+  },
+  "dried-parsley": {
+    img: prodDriedParsley,
+    gallery: [prodDriedParsley, prodThymeLeaves, prodSpices],
+  },
+  "dried-thyme-leaves": {
+    img: prodThymeLeaves,
+    gallery: [prodThymeLeaves, prodDriedParsley, prodSpices],
+  },
+  "rosemary-leaves": {
+    img: prodRosemaryLeaves,
+    gallery: [prodRosemaryLeaves, prodRosemary, prodSpices],
+  },
+  rosemary: {
+    img: prodRosemary,
+    gallery: [prodRosemary, prodRosemaryLeaves, prodVeg],
+  },
+  galangal: {
+    img: prodGalangal,
+    gallery: [prodGalangal, prodGingerDetail, prodSpices],
+  },
+  "psyllium-husk": {
+    img: prodPsylliumHusk,
+    gallery: [prodPsylliumHusk],
+  },
+  ashwagandha: {
+    img: prodAshwagandha,
+    gallery: [prodAshwagandha, prodAshwagandhaRoots],
+  },
+  "caraway-seeds": {
+    img: prodCarawaySeeds,
+    gallery: [prodCarawaySeeds, prodCuminDetail, prodSpices],
+  },
+  mace: {
+    img: prodMace,
+    gallery: [prodMace, prodNutmeg, prodSpices],
+  },
+  "bay-leaves": {
+    img: prodBayLeaves,
+    gallery: [prodBayLeaves, prodSpices],
+  },
+  "kasuri-methi": {
+    img: prodKasuriMethi,
+    gallery: [prodKasuriMethi, prodFenugreekSeeds, prodSpices],
+  },
+  "yellow-mustard-seeds": {
+    img: prodYellowMustardSeeds,
+    gallery: [prodYellowMustardSeeds, prodYellowMustardPowder, prodMustardSeeds, prodSpices],
+  },
+  nutmeg: {
+    img: prodNutmeg,
+    gallery: [prodNutmeg, prodMace, prodSpices],
+  },
+  "watermelon-seeds": {
+    img: prodWatermelonSeeds,
+    gallery: [prodWatermelonSeeds, prodPumpkinSeeds],
+  },
+  "celery-seeds": {
+    img: prodCelerySeeds,
+    gallery: [prodCelerySeeds, prodAjwain, prodSpices],
+  },
+  "dill-seeds": {
+    img: prodDillSeeds,
+    gallery: [prodDillSeeds, prodFennelSeeds, prodSpices],
+  },
+  "castor-seeds": {
+    img: prodCastorSeeds,
+    gallery: [prodCastorSeeds],
+  },
 };
 
 const CATALOG_SEEDS: CatalogSeed[] = [
@@ -1574,6 +1810,411 @@ const CATALOG_SEEDS: CatalogSeed[] = [
     varieties: ["Whole Black Urad", "Urad Dal Split", "Urad Gota White", "Sortex Cleaned"],
     brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
   },
+  {
+    slug: "urad-dal-split",
+    name: "Urad Dal (Split Washed)",
+    hs: "07133100",
+    g: "pulse",
+    tagline: "Sortex cleaned 99.9% dehusked split white urad dal",
+    varieties: ["Urad Dal Washed", "Urad Gota (Whole Dehusked)", "Split Chilka (Skin-on)", "Organic Urad"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "urad-dal-whole",
+    name: "Urad Dal Whole (Black Matpe)",
+    hs: "07133100",
+    g: "pulse",
+    tagline: "Bold black matpe seeds for milling, dal makhani & papad",
+    varieties: ["Whole Black Matpe", "Special Quality (SQ)", "FAQ Grade", "T9 Variety"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "moong-dal-whole-green",
+    name: "Moong Dal Whole Green (Green Mung)",
+    hs: "07133190",
+    g: "pulse",
+    tagline: "Shiny green mung beans for sprouting and wholesale export",
+    varieties: ["Shiny Green Moong", "Bold Summer Moong", "Sprouting Grade (>92% Germination)", "Desi Moong"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "chana-dal",
+    name: "Chana Dal (Split Bengal Gram)",
+    hs: "07132000",
+    g: "pulse",
+    tagline: "Sortex cleaned golden split desi chickpeas without polish or skin",
+    varieties: ["Sortex Clean 99.9%", "Extra Bold Chana Dal", "Unpolished Natural", "Milling Grade"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "moong-dal-yellow",
+    name: "Moong Dal (Split Yellow Mogar)",
+    hs: "07133190",
+    g: "pulse",
+    tagline: "Dehusked tender yellow mung lentil split cotyledons",
+    varieties: ["Yellow Moong Mogar", "Washed Moong Split", "Sortex Clean 99.9%", "Unpolished Dal"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "chaat-masala",
+    name: "Chaat Masala",
+    hs: "21039040",
+    g: "spice",
+    tagline: "Tangy Indian street-food seasoning blend with dry mango & black salt",
+    varieties: ["North Indian Chaat Blend", "Chunky Fruit Chaat", "HORECA Bulk Blend", "Retail Shaker Grade"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "curry-powder",
+    name: "Curry Powder (Madras Blend)",
+    hs: "09109929",
+    g: "spice",
+    tagline: "Authentic steam-sterilized Madras aromatic curry spice powder",
+    varieties: ["Madras Mild", "Madras Hot", "Golden Organic Curry Blend", "Industrial Seasoning Grade"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "haldi-powder",
+    name: "Haldi Powder (Turmeric Powder)",
+    hs: "09103030",
+    g: "spice",
+    tagline: "High-curcumin (3.5%–5.5%) pulverized golden turmeric rhizome",
+    varieties: ["Salem Finger Powder", "Nizamabad Bulb Powder", "Alleppey Grade", "Organic Certified Haldi"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "amchur-powder",
+    name: "Amchur Powder (Dry Mango Powder)",
+    hs: "09109990",
+    g: "spice",
+    tagline: "Natural souring agent ground from unripe green mango slices",
+    varieties: ["Desi Raw Amchur", "Grade A Light Cream", "Ultra-Fine 80 Mesh", "Organic Dried Amchur"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "alsi-powder",
+    name: "Alsi Powder (Flaxseed / Linseed Meal)",
+    hs: "12089000",
+    g: "other",
+    tagline: "Cold-milled brown flaxseed powder high in ALA Omega-3 & lignans",
+    varieties: ["Full-Fat Brown Flax Powder", "Golden Flaxseed Meal", "Defatted Protein Meal", "Bakery Grade"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "yellow-mustard-powder",
+    name: "Yellow Mustard Powder",
+    hs: "21033000",
+    g: "spice",
+    tagline: "Finely ground yellow mustard flour for condiments & sauces",
+    varieties: ["De-oiled Mustard Flour", "Full-Fat Mustard Powder", "Hot Pungency", "Mild Condiment Grade"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "fenugreek-powder",
+    name: "Fenugreek Powder (Ground Methi)",
+    hs: "09109912",
+    g: "spice",
+    tagline: "Aromatic bittersweet ground fenugreek seed powder (60–80 mesh)",
+    varieties: ["Rajasthan Desi Methi Powder", "Kasuri Methi Seed Ground", "Saponin-Standardized", "Food Grade"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "dhana-jeera-powder",
+    name: "Dhana Jeera Powder",
+    hs: "09109990",
+    g: "spice",
+    tagline: "Traditional roasted 70:30 coriander and cumin spice blend",
+    varieties: ["Traditional 70:30 Blend", "Gujarat Special Roast", "Commercial HORECA Pack", "Steam Sterilized"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "jeera-powder",
+    name: "Jeera Powder (Cumin Powder)",
+    hs: "09093200",
+    g: "spice",
+    tagline: "Pure Sortex cumin seed powder with high volatile oil (2.5%+)",
+    varieties: ["Europe Quality 100% Sortex Base", "Roasted Jeera Powder", "Singapore Quality", "Organic Cumin Powder"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "coriander-powder",
+    name: "Coriander Powder (Dhana Powder)",
+    hs: "09092200",
+    g: "spice",
+    tagline: "Bright greenish-gold freshly milled coriander seed powder",
+    varieties: ["Eagle Quality Ground", "Scooter Quality", "Super Green Dhania Powder", "Steam Treated"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "red-chilli-powder",
+    name: "Red Chilli Powder",
+    hs: "09042211",
+    g: "spice",
+    tagline: "Pure stemless chilli powder calibrated for ASTA color & SHU heat",
+    varieties: ["Teja S17 Extra Hot", "Byadgi High Color Low Heat", "Guntur Sannam", "Kashmiri Mild"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "dried-gooseberry",
+    name: "Dried Gooseberry (Sukha Amla)",
+    hs: "08134090",
+    g: "fruit",
+    tagline: "Sun-dried seedless Indian gooseberry slices rich in natural Vitamin C",
+    varieties: ["Seedless Sukha Amla Slices", "Deseeded Ribbons", "Wild Forest Amla", "Organic Dried Amla"],
+    brochure: `${B}/sheshaan-fresh-fruits.pdf`,
+  },
+  {
+    slug: "amla-gooseberry",
+    name: "Fresh Amla Gooseberry",
+    hs: "08109090",
+    g: "fruit",
+    tagline: "Fresh whole Indian gooseberries calibrated (35–50mm) for export",
+    varieties: ["NA-7 (Neelam)", "Chakaiya", "Anand-2", "Krishna Bold"],
+    brochure: `${B}/sheshaan-fresh-fruits.pdf`,
+  },
+  {
+    slug: "rajgira-amaranth",
+    name: "Rajgira (Amaranth Grains / Ramdana)",
+    hs: "10089090",
+    g: "grain",
+    tagline: "Certified gluten-free nutrient-dense ancient amaranth grains",
+    varieties: ["Sortex Clean 99.8%", "Popping Grade Ramdana", "Organic Amaranth", "Gluten-Free Food Grade"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "black-basil-tukmaria",
+    name: "Black Basil Seeds (Tukmaria / Sabja)",
+    hs: "12099990",
+    g: "spice",
+    tagline: "High-swelling (30ml/g) jet black edible sweet basil seeds",
+    varieties: ["Sortex Cleaned 99.8%", "Desi Sabja Beverage Grade", "Machine Cleaned 99%", "Falooda Special"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "quinoa",
+    name: "Quinoa (White Royal Quinoa Grains)",
+    hs: "10085000",
+    g: "grain",
+    tagline: "Triple-washed saponin-free white royal quinoa grain",
+    varieties: ["White Royal Quinoa", "Saponin-Free Grade A", "Certified Organic", "Non-GMO Verified"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "chia-seeds",
+    name: "Chia Seeds (Salvia hispanica)",
+    hs: "12079990",
+    g: "other",
+    tagline: "Raw Sortex 99.95% black and mottled chia seeds rich in Omega-3",
+    varieties: ["Sortex Clean 99.95%", "Organic Chia Seeds", "Bakery Grade", "Superfood Raw Chia"],
+    brochure: `${B}/sheshaan-pulses-cereals-seeds.pdf`,
+  },
+  {
+    slug: "dried-lemongrass",
+    name: "Dried Lemongrass (Cymbopogon flexuosus)",
+    hs: "12119029",
+    g: "spice",
+    tagline: "Citral-rich dehydrated lemongrass tea cuts and culinary stalks",
+    varieties: ["Tea Bag Cut (TBC 1–3mm)", "Culinary Cut (5–10mm)", "Whole Dried Stalks", "High-Citral Blend"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "senna-leaves",
+    name: "Senna Leaves (Sanay Patta)",
+    hs: "12119022",
+    g: "other",
+    tagline: "Tinnevelly cured Cassia angustifolia leaves standardized for Sennosides",
+    varieties: ["Prime No. 1 Extra Bold", "Prime No. 2", "Senna Pods", "Senna Tea Cut (TBC)"],
+  },
+  {
+    slug: "dried-stevia-leaves",
+    name: "Dried Stevia Leaves (Stevia rebaudiana)",
+    hs: "12119099",
+    g: "other",
+    tagline: "Crisp shade-dried green leaves with 10%+ Steviol Glycosides",
+    varieties: ["Grade A Whole Green Leaf", "High Reb-A Selection", "Crushed Herbal Cut", "Organic Stevia"],
+  },
+  {
+    slug: "dried-tulsi",
+    name: "Dried Tulsi (Holy Basil Leaves)",
+    hs: "12119099",
+    g: "spice",
+    tagline: "Aromatic eugenol-rich whole and cut holy basil leaves",
+    varieties: ["Rama Tulsi (Green)", "Krishna Tulsi (Purple)", "Vana Tulsi (Forest)", "Organic Tea Cut"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "shatavari-roots",
+    name: "Shatavari Roots (Asparagus racemosus)",
+    hs: "12119099",
+    g: "other",
+    tagline: "Peeled creamy-white tuberous roots with high saponin content",
+    varieties: ["Peeled White Roots 10-20cm", "Yellow Roots", "Shatavari Micronized Powder", "Organic Certified"],
+  },
+  {
+    slug: "neem-leaves",
+    name: "Neem Leaves Dried (Azadirachta indica)",
+    hs: "12119099",
+    g: "other",
+    tagline: "Shade-dried dark green neem foliage with preserved bitter triterpenes",
+    varieties: ["Whole Dried Leaf", "Kibbled Tea Cut", "Fine Neem Powder (100 Mesh)", "Organic Farm Sourced"],
+  },
+  {
+    slug: "sage-leaves",
+    name: "Sage Leaves (Salvia officinalis)",
+    hs: "12119099",
+    g: "spice",
+    tagline: "Aromatic whole dried and rubbed velvety sage leaves",
+    varieties: ["Rubbed Sage No. 1", "Whole Dried Leaf", "Culinary Cut (2-4mm)", "Essential Oil Grade"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "dried-parsley",
+    name: "Dried Parsley Flakes (Petroselinum crispum)",
+    hs: "07129090",
+    g: "spice",
+    tagline: "Vivid emerald-green dehydrated parsley flakes (2–4mm)",
+    varieties: ["Grade A Bright Green Flakes", "Fine Granules", "Parsley Herb Powder", "Curly / Flat Blend"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "dried-thyme-leaves",
+    name: "Dried Thyme Leaves (Thymus vulgaris)",
+    hs: "09109914",
+    g: "spice",
+    tagline: "Thymol-rich dried culinary thyme leaves cleaned of woody stems",
+    varieties: ["Whole Cleaned Leaf", "Rubbed Thyme", "Fine Seasoning Cut", "Organic French Thyme"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "rosemary-leaves",
+    name: "Rosemary Leaves (Dried Needle Leaves)",
+    hs: "12119099",
+    g: "spice",
+    tagline: "High-volatile oil piney dried rosemary needle leaves",
+    varieties: ["Whole Needle Select", "Cut Rosemary (2-3mm)", "Ground Rosemary Powder", "High Altitude Crop"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "rosemary",
+    name: "Rosemary (Fresh Sprigs & Cut)",
+    hs: "12119099",
+    g: "spice",
+    tagline: "Fresh culinary rosemary sprigs air-freighted under cold chain",
+    varieties: ["Class 1 Fresh Sprigs (10-15cm)", "Bunch Pack", "Clamshell Pack", "Culinary Selection"],
+  },
+  {
+    slug: "galangal",
+    name: "Galangal Roots (Kulanjan / Greater Galangal)",
+    hs: "09109919",
+    g: "spice",
+    tagline: "Sharp camphoraceous dried and fresh rhizomes of Alpinia galanga",
+    varieties: ["Dried Slices 3-5mm", "Whole Dried Rhizomes", "Fresh Galangal", "Powdered Galangal"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "psyllium-husk",
+    name: "Psyllium Husk (Isabgol 99% & 98%)",
+    hs: "12119032",
+    g: "other",
+    tagline: "99% and 98% purity white translucent mucilage fiber husk",
+    varieties: ["99% Super Clean White", "98% Food Grade", "95% Commercial", "Psyllium Husk Powder"],
+  },
+  {
+    slug: "ashwagandha",
+    name: "Ashwagandha (Roots & Powder)",
+    hs: "12119099",
+    g: "other",
+    tagline: "Starchy brittle Withania somnifera roots with 2.0%+ Withanolides",
+    varieties: ["Grade A Thick Roots (>10mm)", "Medium Nagori Roots", "Micro-pulverized 80 Mesh", "Organic Certified"],
+  },
+  {
+    slug: "caraway-seeds",
+    name: "Caraway Seeds (Shah Jeera / Carum carvi)",
+    hs: "09096119",
+    g: "spice",
+    tagline: "Carvone-rich dark brown crescent caraway seeds, Sortex 99.8%",
+    varieties: ["Sortex Cleaned 99.8%", "Machine Cleaned 99%", "Desi Shah Jeera", "Extra Bold Selection"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "mace",
+    name: "Mace (Javitri / Whole Golden Arils)",
+    hs: "09082100",
+    g: "spice",
+    tagline: "Unbroken golden-amber whole reticulated nutmeg aril blades",
+    varieties: ["Whole Golden Blades", "FAQ Reddish-Yellow Mace", "Fine Ground Mace", "Western Ghats Origin"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "bay-leaves",
+    name: "Bay Leaves (Tejpatta / Cinnamomum tamala)",
+    hs: "09109913",
+    g: "spice",
+    tagline: "Triple-veined aromatic Indian laurel / tejpatta whole cured leaves",
+    varieties: ["Grade 1 Selected Whole Leaf (10-15cm)", "Standard Cleaned", "Tea Cut Bay Leaves", "Organic Tejpatta"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "kasuri-methi",
+    name: "Kasuri Methi (Dried Fenugreek Leaves)",
+    hs: "07129090",
+    g: "spice",
+    tagline: "Nagaur-origin intensely fragrant crispy shade-dried green leaves",
+    varieties: ["Grade A Royal Nagaur Kasuri", "Machine Cleaned Export Leaf", "Sortex Cleaned", "Kasuri Methi Flakes"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "yellow-mustard-seeds",
+    name: "Yellow Mustard Seeds (Sinapis alba)",
+    hs: "12075010",
+    g: "spice",
+    tagline: "Bold uniform creamy-yellow sortex cleaned mustard seeds (2.0–2.5mm)",
+    varieties: ["Sortex Cleaned 99.5%", "Machine Cleaned 99%", "Micro-Cleaned 99.9%", "High Oil Grade"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "nutmeg",
+    name: "Nutmeg (Jaiphal Whole Kernels)",
+    hs: "09081100",
+    g: "spice",
+    tagline: "Sound unwrinkled whole Myristica fragrans kernels (80/85 count)",
+    varieties: ["ABCD Whole Sound 80/85 Count", "110 Count", "With Shell Nutmeg", "Shelled Kernels"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "watermelon-seeds",
+    name: "Watermelon Seeds (Tarbooz Magaz Kernels)",
+    hs: "12077090",
+    g: "nut",
+    tagline: "Hulled flat oval creamy-white magaz kernels for bakery & sweets",
+    varieties: ["Grade AAA Bold White Kernels", "Grade AA Medium", "Confectionery Sortex", "Desi Tarbooz Magaz"],
+  },
+  {
+    slug: "celery-seeds",
+    name: "Celery Seeds (Ajmod / Apium graveolens)",
+    hs: "09109915",
+    g: "spice",
+    tagline: "High-volatile oil (2.5%+) minute aromatic celery seeds, Sortex 99.5%",
+    varieties: ["Sortex Cleaned 99.5%", "Machine Cleaned 99%", "Distillation Grade", "Punjab Ajmod"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "dill-seeds",
+    name: "Dill Seeds (Suva / Anethum graveolens)",
+    hs: "09109911",
+    g: "spice",
+    tagline: "Winged oval brown dill seeds rich in carvone and limonene oils",
+    varieties: ["European Grade Sortex 99.8%", "Machine Cleaned 99%", "Desi Suva Seeds", "Oil Distillation Grade"],
+    brochure: `${B}/sheshaan-spices.pdf`,
+  },
+  {
+    slug: "castor-seeds",
+    name: "Castor Seeds (Ricinus communis / Arandi)",
+    hs: "12073000",
+    g: "other",
+    tagline: "High oil content (48%–50%) Gujarat crushing grade castor seeds",
+    varieties: ["High Oil Crushing Grade (49%+)", "FAQ Export Grade", "GCH-7 Hybrid", "Machine Cleaned"],
+  },
 ];
 
 export const CATALOG: Product[] = CATALOG_SEEDS.map((c) => {
@@ -1666,8 +2307,8 @@ const SITE_SLUG_ALIASES: Record<string, string> = {
   "drumstick-moringa": "drumstick-moringa",
   "moringa": "drumstick-moringa",
   "psyllium-husk-isabgol": "psyllium-husk-isabgol",
-  "psyllium-husk": "psyllium-husk-isabgol",
-  "isabgol": "psyllium-husk-isabgol",
+  "isabgol-husk": "psyllium-husk",
+  "isabgol": "psyllium-husk",
   "organic-agri-commodities": "organic-agri-commodities",
   "organic": "organic-agri-commodities",
   cloves: "cloves",
@@ -1690,6 +2331,119 @@ const SITE_SLUG_ALIASES: Record<string, string> = {
   "black-urad": "black-urad-beans",
   "black-beans": "black-urad-beans",
   urad: "black-urad-beans",
+  "urad-dal": "urad-dal-split",
+  "urad-daal": "urad-dal-split",
+  "urad-dal-split": "urad-dal-split",
+  "urad-daal-split": "urad-dal-split",
+  "urad-daal-whole": "urad-dal-whole",
+  "urad-dal-whole": "urad-dal-whole",
+  "black-matpe": "urad-dal-whole",
+  "sabut-urad": "urad-dal-whole",
+  "moong-dal-whole-green": "moong-dal-whole-green",
+  "moong-daal-whole-green": "moong-dal-whole-green",
+  "sabut-moong": "moong-dal-whole-green",
+  "green-mung": "moong-dal-whole-green",
+  "chana-dal": "chana-dal",
+  "chana-daal": "chana-dal",
+  "moong-dal-yellow": "moong-dal-yellow",
+  "moong-daal-yellow": "moong-dal-yellow",
+  "moong-mogar": "moong-dal-yellow",
+  "chat-masala": "chaat-masala",
+  "chaat-masala": "chaat-masala",
+  "curry-powder": "curry-powder",
+  "haldi-powder": "haldi-powder",
+  "turmeric-powder": "haldi-powder",
+  "amchur-powder": "amchur-powder",
+  amchur: "amchur-powder",
+  "dry-mango-powder": "amchur-powder",
+  "alsi-powder": "alsi-powder",
+  alsi: "alsi-powder",
+  "flaxseed-powder": "alsi-powder",
+  "yellow-mustard-powder": "yellow-mustard-powder",
+  "mustard-powder": "yellow-mustard-powder",
+  "fenugreek-powder": "fenugreek-powder",
+  "methi-powder": "fenugreek-powder",
+  "dhana-jeera-powder": "dhana-jeera-powder",
+  "dhana-jeera": "dhana-jeera-powder",
+  "jeera-powder": "jeera-powder",
+  "cumin-powder": "jeera-powder",
+  "coriander-powder": "coriander-powder",
+  "dhana-powder": "coriander-powder",
+  "red-chilli-powder": "red-chilli-powder",
+  "chilli-powder": "red-chilli-powder",
+  "mirchi-powder": "red-chilli-powder",
+  "dried-gooseberry": "dried-gooseberry",
+  "sukha-amla": "dried-gooseberry",
+  "dired-gooseberry": "dried-gooseberry",
+  "amla-gooseberry": "amla-gooseberry",
+  amla: "amla-gooseberry",
+  gooseberry: "amla-gooseberry",
+  "rajgira-amaranth": "rajgira-amaranth",
+  rajgira: "rajgira-amaranth",
+  amaranth: "rajgira-amaranth",
+  ramdana: "rajgira-amaranth",
+  "black-basil-tukmaria": "black-basil-tukmaria",
+  "black-basil": "black-basil-tukmaria",
+  tukmaria: "black-basil-tukmaria",
+  tukmarai: "black-basil-tukmaria",
+  sabja: "black-basil-tukmaria",
+  quinoa: "quinoa",
+  "chia-seeds": "chia-seeds",
+  chia: "chia-seeds",
+  "dried-lemongrass": "dried-lemongrass",
+  lemongrass: "dried-lemongrass",
+  "senna-leaves": "senna-leaves",
+  senna: "senna-leaves",
+  "sanay-patta": "senna-leaves",
+  "dried-stevia-leaves": "dried-stevia-leaves",
+  "stevia-leaves": "dried-stevia-leaves",
+  stevia: "dried-stevia-leaves",
+  "dried-tulsi": "dried-tulsi",
+  tulsi: "dried-tulsi",
+  "holy-basil": "dried-tulsi",
+  "shatavari-roots": "shatavari-roots",
+  shatavari: "shatavari-roots",
+  satawar: "shatavari-roots",
+  "asparagus-racemosus": "shatavari-roots",
+  "neem-leaves": "neem-leaves",
+  neem: "neem-leaves",
+  "sage-leaves": "sage-leaves",
+  sage: "sage-leaves",
+  "dried-parsley": "dried-parsley",
+  "dried-parsely": "dried-parsley",
+  parsley: "dried-parsley",
+  "dried-thyme-leaves": "dried-thyme-leaves",
+  thyme: "dried-thyme-leaves",
+  "rosemary-leaves": "rosemary-leaves",
+  "rosemarry-leaves": "rosemary-leaves",
+  rosemarry: "rosemary",
+  rosemary: "rosemary",
+  galangal: "galangal",
+  galanglal: "galangal",
+  kulanjan: "galangal",
+  "psyllium-husk": "psyllium-husk",
+  ashwagandha: "ashwagandha",
+  "caraway-seeds": "caraway-seeds",
+  "shah-jeera": "caraway-seeds",
+  mace: "mace",
+  javitri: "mace",
+  "bay-leaves": "bay-leaves",
+  tejpatta: "bay-leaves",
+  "kasuri-methi": "kasuri-methi",
+  "kasturi-methi": "kasuri-methi",
+  "dried-fenugreek-leaves": "kasuri-methi",
+  "dried-fenugreeek-leaves": "kasuri-methi",
+  "yellow-mustard-seeds": "yellow-mustard-seeds",
+  nutmeg: "nutmeg",
+  jaiphal: "nutmeg",
+  "watermelon-seeds": "watermelon-seeds",
+  magaz: "watermelon-seeds",
+  "celery-seeds": "celery-seeds",
+  ajmod: "celery-seeds",
+  "dill-seeds": "dill-seeds",
+  "dil-seeds": "dill-seeds",
+  suva: "dill-seeds",
+  "castor-seeds": "castor-seeds",
 };
 
 export function getProductBySlug(slug: string): Product | undefined {
