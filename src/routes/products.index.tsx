@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
@@ -121,6 +121,12 @@ function ProductsIndex() {
   const [selectedCat, setSelectedCat] = useState<string>("All");
   const [copiedId, setCopiedId] = useState<number | null>(null);
   const [checkedAuditItems, setCheckedAuditItems] = useState<Record<number, boolean>>({});
+  const [visibleCount, setVisibleCount] = useState<number>(24);
+
+  // Reset pagination when search query or category filter changes
+  useEffect(() => {
+    setVisibleCount(24);
+  }, [q, selectedCat]);
 
   // Filtered master commodities for the Directory & Table
   const filteredCommodities = useMemo(() => {
@@ -139,6 +145,12 @@ function ProductsIndex() {
       );
     });
   }, [q, selectedCat]);
+
+  // Slice displayed items for instant DOM render performance when displaying all
+  const displayedCommodities = useMemo(() => {
+    if (q.trim()) return filteredCommodities;
+    return filteredCommodities.slice(0, visibleCount);
+  }, [filteredCommodities, visibleCount, q]);
 
   const copySpecToClipboard = (item: MasterCommoditySpec) => {
     const text = [
@@ -442,8 +454,8 @@ function ProductsIndex() {
                   )}
                 </label>
                 <div className="text-xs text-slate-500">
-                  Showing <strong className="text-slate-900">{filteredCommodities.length}</strong> of{" "}
-                  <strong>{MASTER_COMMODITIES.length}</strong> export commodities
+                  Showing <strong className="text-slate-900">{displayedCommodities.length}</strong> of{" "}
+                  <strong>{filteredCommodities.length}</strong> commodities (Catalogue: {MASTER_COMMODITIES.length} SKUs)
                 </div>
               </div>
 
@@ -475,7 +487,7 @@ function ProductsIndex() {
           {activeTab === "directory" && (
             <div className="mt-8">
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filteredCommodities.map((item) => {
+                {displayedCommodities.map((item) => {
                   const catalogMatch = ALL_PRODUCTS.find((p) => p.slug === item.slug);
                   const img = catalogMatch?.img;
                   const waUrl = buildWhatsAppUrl({
@@ -581,6 +593,24 @@ function ProductsIndex() {
                   );
                 })}
               </div>
+
+              {displayedCommodities.length < filteredCommodities.length && (
+                <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+                  <button
+                    onClick={() => setVisibleCount((prev) => prev + 24)}
+                    className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-xs font-bold text-slate-800 shadow-sm transition hover:bg-slate-50 hover:border-[#0057B8]"
+                  >
+                    Load Next 24 Commodities ({filteredCommodities.length - displayedCommodities.length} remaining)
+                  </button>
+                  <button
+                    onClick={() => setVisibleCount(filteredCommodities.length)}
+                    className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-xs font-bold text-white shadow-sm transition hover:opacity-90"
+                    style={{ background: BLUE }}
+                  >
+                    Show All {filteredCommodities.length} Commodities
+                  </button>
+                </div>
+              )}
 
               {filteredCommodities.length === 0 && (
                 <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">

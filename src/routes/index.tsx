@@ -73,7 +73,6 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { LoadingScreen } from "@/components/LoadingScreen";
 import { ContainerLoadingCalculator } from "@/components/ContainerLoadingCalculator";
 import { OceanTransitMatrix } from "@/components/OceanTransitMatrix";
 import { SeasonalCropRadar } from "@/components/SeasonalCropRadar";
@@ -2390,7 +2389,6 @@ function TradeDelegationSection() {
 function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
-      <LoadingScreen />
       <main id="main">
         <Hero />
         <About />
