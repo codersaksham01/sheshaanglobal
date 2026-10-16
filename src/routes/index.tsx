@@ -37,7 +37,6 @@ import {
   Factory,
   BarChart3,
   Layers3,
-  Calendar,
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import heroGlobe from "@/assets/hero-globe.jpg";
@@ -73,12 +72,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { ContainerLoadingCalculator } from "@/components/ContainerLoadingCalculator";
-import { OceanTransitMatrix } from "@/components/OceanTransitMatrix";
-import { SeasonalCropRadar } from "@/components/SeasonalCropRadar";
-import { StatutoryComplianceInspector } from "@/components/StatutoryComplianceInspector";
-import { MetricCurrencyConverter } from "@/components/MetricCurrencyConverter";
-import { TradeDelegationScheduler } from "@/components/TradeDelegationScheduler";
+import { LoadingScreen } from "@/components/LoadingScreen";
 
 const HOME_OG_IMAGE =
   "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/151163a4-b0a4-4618-870c-3036bf272bc4/id-preview-9f783eb1--1c1a3479-b063-4556-a6ca-26b03b90f481.lovable.app-1784225780475.png";
@@ -1987,36 +1981,21 @@ function MessageFab() {
   const menuRef = useRef<HTMLDivElement>(null);
   const actions = [
     {
-      label: "Quick Rate Check",
-      sub: "WhatsApp Live Mandi Rate",
+      label: "WhatsApp",
+      sub: "Chat instantly",
       icon: MessageCircle,
-      href: "https://wa.me/918149909546?text=Hello%20Sheshaan%20Global%20Trade%20Desk%2C%20please%20share%20today%27s%20live%20export%20rates%20for%20Fresh%20Nashik%20Onions%2C%20Basmati%20Rice%20and%20Agri-Commodities.",
+      href: WHATSAPP_URL,
       bg: "#25D366",
       external: true,
     },
+    { label: "Email Us", sub: EMAIL, icon: Mail, href: MAILTO_URL, bg: BLUE },
     {
-      label: "Download Catalogue",
-      sub: "2026 Export Brochure (PDF)",
+      label: "Download Brochure",
+      sub: "PDF catalogue",
       icon: FileText,
       href: BROCHURE_URL,
       bg: ORANGE,
       download: "Sheshaan-Global-Catalogue.pdf",
-    },
-    {
-      label: "Schedule Meeting",
-      sub: "In-Person or Video Call",
-      icon: Calendar,
-      href: "#trade-delegation",
-      bg: BLUE,
-      external: false,
-    },
-    {
-      label: "Email Export Desk",
-      sub: EMAIL,
-      icon: Mail,
-      href: MAILTO_URL,
-      bg: NAVY,
-      external: false,
     },
   ] as const;
 
@@ -2234,179 +2213,24 @@ function FAQ() {
   );
 }
 
-/* ---------- Interactive B2B Procurement Desk ---------- */
-function ProcurementUtilitiesSection() {
-  const [activeTab, setActiveTab] = useState<"calculator" | "converter">("calculator");
-
-  return (
-    <section id="procurement-tools" className="bg-slate-50 py-24 border-t border-slate-200">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center">
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
-            Interactive B2B Procurement Desk
-          </div>
-          <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
-            Container Load, Bag Count &amp; <span style={{ color: ORANGE }}>Currency Modeler</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600">
-            Model container payload capacities, Euro pallet layouts, reefer temperature settings, and instant
-            bi-directional unit &amp; multi-currency exchange calculations.
-          </p>
-
-          <div className="mt-8 inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-xs">
-            <button
-              onClick={() => setActiveTab("calculator")}
-              className={`rounded-xl px-5 py-2.5 text-xs font-bold transition ${
-                activeTab === "calculator"
-                  ? "bg-[#0057B8] text-white shadow-sm"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              FCL Container Load &amp; Reefer Calculator
-            </button>
-            <button
-              onClick={() => setActiveTab("converter")}
-              className={`rounded-xl px-5 py-2.5 text-xs font-bold transition ${
-                activeTab === "converter"
-                  ? "bg-[#0057B8] text-white shadow-sm"
-                  : "text-slate-600 hover:text-slate-900"
-              }`}
-            >
-              Metric &amp; Multi-Currency Converter
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-10">
-          {activeTab === "calculator" ? (
-            <ContainerLoadingCalculator selectableCommodity={true} />
-          ) : (
-            <MetricCurrencyConverter />
-          )}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Port-to-Port Ocean Transit Section ---------- */
-function OceanTransitSection() {
-  return (
-    <section id="transit-matrix" className="bg-white py-24 border-t border-slate-200">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-10">
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
-            Port-to-Port Sea Corridors
-          </div>
-          <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
-            Ocean Transit Times &amp; <span style={{ color: ORANGE }}>Carrier Schedule Matrix</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600">
-            Real sailing durations, weekly departure frequencies, and mandatory phytosanitary protocols from
-            Nhava Sheva (JNPT) and Mundra to GCC, Southeast Asia, and European ports.
-          </p>
-        </div>
-
-        <OceanTransitMatrix />
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Harvest & Mandi Seasonal Radar Section ---------- */
-function SeasonalRadarSection() {
-  return (
-    <section id="seasonal-radar" className="bg-slate-50 py-24 border-t border-slate-200">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-10">
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
-            Farm-to-Port Supply Calendar
-          </div>
-          <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
-            Harvest &amp; Mandi <span style={{ color: ORANGE }}>Seasonal Availability Radar</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600">
-            Track Maharashtra Kharif and Rabi onion seasons, green chilli harvest cycles, and aged Basmati
-            milling availability across India's leading APMC mandis.
-          </p>
-        </div>
-
-        <SeasonalCropRadar />
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Statutory Document & Compliance Inspector Section ---------- */
-function StatutoryInspectorSection() {
-  return (
-    <section id="compliance-inspector" className="bg-white py-24 border-t border-slate-200">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-10">
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
-            Government &amp; Trade Authorities
-          </div>
-          <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
-            Statutory Document &amp; <span style={{ color: ORANGE }}>Compliance Inspector</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600">
-            Inspect our statutory government registrations (APEDA, IEC, FSSAI, CDB, GST) and request attested
-            copies for foreign exchange bank Letter of Credit (L/C) negotiation.
-          </p>
-        </div>
-
-        <StatutoryComplianceInspector />
-      </div>
-    </section>
-  );
-}
-
-/* ---------- Trade Delegation Scheduler Section ---------- */
-function TradeDelegationSection() {
-  return (
-    <section id="trade-delegation" className="bg-slate-50 py-24 border-t border-slate-200">
-      <div className="mx-auto max-w-7xl px-6">
-        <div className="text-center mb-10">
-          <div className="text-xs font-bold uppercase tracking-[0.28em]" style={{ color: ORANGE }}>
-            In-Person Buyer Meetings
-          </div>
-          <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
-            Schedule a Direct <span style={{ color: ORANGE }}>Buyer Meeting</span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-600">
-            Schedule an in-person procurement consultation at our Mumbai office / Nashik packhouse or book an
-            executive video conference with Sheshaan Global founders and operations directors.
-          </p>
-        </div>
-
-        <TradeDelegationScheduler />
-      </div>
-    </section>
-  );
-}
-
 /* ---------- Page ---------- */
 function Home() {
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900">
+      <LoadingScreen />
       <main id="main">
         <Hero />
         <About />
         <TrustDashboard />
         <Products />
         <TradeJourney />
-        <SeasonalRadarSection />
         <AgriCommodityDirectory />
         <Markets />
-        <OceanTransitSection />
         <RegionsStrip />
         <Certifications />
-        <StatutoryInspectorSection />
         <WhyUs />
         <BuyerProof />
-        <TradeDelegationSection />
         <FAQ />
-        <ProcurementUtilitiesSection />
       </main>
       <Footer />
       <MessageFab />
