@@ -74,8 +74,7 @@ import {
 } from "@/components/ui/dialog";
 import { LoadingScreen } from "@/components/LoadingScreen";
 
-const HOME_OG_IMAGE =
-  "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/151163a4-b0a4-4618-870c-3036bf272bc4/id-preview-9f783eb1--1c1a3479-b063-4556-a6ca-26b03b90f481.lovable.app-1784225780475.png";
+const HOME_OG_IMAGE = "https://www.sheshaanglobal.com/logo.png";
 
 const HOME_PAGE_TITLE = "Sheshaan Global | Indian Agricultural Produce Exporter";
 
@@ -257,7 +256,7 @@ function Hero() {
   const reduced = useReducedMotion();
   const stats = [
     { icon: Globe2, n: "25+", l: "Export Markets" },
-    { icon: Package, n: "70+", l: "HS Code Lines" },
+    { icon: Package, n: "103", l: "HS Code Lines" },
     { icon: ShieldCheck, n: "5", l: "Compliance Layers" },
     { icon: Ship, n: "FCL/LCL", l: "Ocean Freight" },
   ];
@@ -286,7 +285,7 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-[#04152Df4] via-[#04152Dc5] to-[#04152D44]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent,rgba(4,21,45,0.35))]" />
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-6 pb-20 pt-12 sm:pb-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:pt-24">
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 pb-20 pt-12 sm:pb-16 lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:pt-24">
         <motion.div
           initial={reduced ? { opacity: 0 } : { opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -299,10 +298,10 @@ function Hero() {
           </div>
           <h1
             id="hero-title"
-            className="font-display text-[2.05rem] font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+            className="font-display text-[1.85rem] font-extrabold leading-[1.08] tracking-tight break-words sm:text-5xl lg:text-6xl"
           >
             <span className="block text-xl font-bold uppercase tracking-wider text-amber-400 sm:text-2xl lg:text-3xl mb-3">
-              Indian Agricultural Exporter
+              Indian Agricultural Exporter{" "}
             </span>
             CONNECTING INDIA&apos;S
             <br />
@@ -319,21 +318,21 @@ function Hero() {
             25+ countries worldwide with disciplined farm sourcing, phytosanitary inspection, and
             scheduled ocean freight coordination.
           </p>
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4">
             <a
               href="#products"
               aria-label="Explore Agricultural Export Products and HS Codes"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-[#0070e0] px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-[#0070e0] px-6 sm:px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
             >
               Explore Products <ArrowRight className="h-4 w-4" />
             </a>
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               aria-label="Submit an Indian Agricultural Export Inquiry"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-orange to-[#ff6a00] px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-orange to-[#ff6a00] px-6 sm:px-7 py-3.5 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105"
             >
               Export Inquiry <ArrowRight className="h-4 w-4" />
-            </a>
+            </Link>
           </div>
 
           <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -343,7 +342,7 @@ function Hero() {
                 initial={reduced ? { opacity: 0 } : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + i * 0.1, ease: EASE }}
-                className="rounded-2xl border border-white/15 bg-white/[0.07] px-4 py-4 backdrop-blur-md"
+                className="rounded-2xl border border-white/15 bg-white/[0.07] px-3.5 sm:px-4 py-3.5 sm:py-4 backdrop-blur-md"
               >
                 <s.icon className="mb-2 h-5 w-5 text-brand-orange" />
                 <div className="font-display text-2xl font-bold text-white">{s.n}</div>
@@ -466,13 +465,13 @@ function About() {
               </div>
             ))}
           </div>
-          <a
-            href="/about"
+          <Link
+            to="/about"
             aria-label="Learn more about Sheshaan Global agricultural export operations"
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-blue to-[#003c85] px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
           >
             Learn About Our Export Operations <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </motion.div>
 
         <div className="relative">
@@ -492,7 +491,7 @@ function About() {
               className="h-[440px] w-full object-cover"
             />
           </motion.div>
-          <div className="absolute -right-4 top-6 flex flex-col gap-3">
+          <div className="mt-4 flex flex-col gap-2.5 sm:grid sm:grid-cols-2 lg:absolute lg:-right-4 lg:top-6 lg:mt-0 lg:flex lg:flex-col lg:gap-3">
             {badges.map((b, i) => (
               <motion.div
                 key={b.t}
@@ -500,10 +499,10 @@ function About() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, ease: EASE }}
-                className="flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-xl"
+                className="flex items-center gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-md lg:shadow-xl"
               >
                 <div
-                  className="grid h-9 w-9 place-items-center rounded-full"
+                  className="grid h-9 w-9 shrink-0 place-items-center rounded-full"
                   style={{ background: `${BLUE}15`, color: BLUE }}
                 >
                   <b.i className="h-5 w-5" />
@@ -524,8 +523,8 @@ function Products() {
   const scroll = (dir: number) =>
     scroller.current?.scrollBy({ left: dir * 320, behavior: "smooth" });
   return (
-    <section id="products" className="bg-white py-24">
-      <div className="mx-auto max-w-7xl px-6">
+    <section id="products" className="bg-white py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mb-10 flex items-end justify-between gap-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -540,7 +539,7 @@ function Products() {
             >
               Our Products
             </div>
-            <h2 className="mt-3 font-display text-4xl font-bold text-slate-900 sm:text-5xl">
+            <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-5xl">
               Premium Quality <span style={{ color: ORANGE }}>Agricultural Products</span>
             </h2>
             <div
@@ -549,13 +548,13 @@ function Products() {
             />
           </motion.div>
           <div className="hidden items-center gap-2 sm:flex">
-            <a
-              href="/products"
+            <Link
+              to="/products"
               className="mr-2 inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-4 py-2.5 text-xs font-semibold transition hover:border-[#0057B8]"
               style={{ color: BLUE }}
             >
               All products & HS codes
-            </a>
+            </Link>
             <button
               onClick={() => scroll(-1)}
               aria-label="Scroll left"
@@ -586,8 +585,9 @@ function Products() {
               transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
               className="w-[220px] flex-shrink-0 snap-start sm:w-[240px]"
             >
-              <a
-                href={`/products/${p.slug}`}
+              <Link
+                to="/products/$slug"
+                params={{ slug: p.slug }}
                 className="group relative block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-2 hover:shadow-2xl"
               >
                 <div className="aspect-square overflow-hidden">
@@ -616,9 +616,19 @@ function Products() {
                     <ChevronRight className="h-4 w-4" />
                   </div>
                 </div>
-              </a>
+              </Link>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-6 flex items-center justify-center sm:hidden">
+          <Link
+            to="/products"
+            className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-xs font-semibold shadow-sm transition hover:border-[#0057B8]"
+            style={{ color: BLUE }}
+          >
+            All 103 products & HS codes <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </div>
     </section>
@@ -636,7 +646,7 @@ function TrustDashboard() {
     },
     {
       icon: Package,
-      value: "70+",
+      value: "103+",
       label: "catalogue lines",
       detail: "Fresh produce, spices, rice, pulses, nuts and commodities",
     },
@@ -940,13 +950,13 @@ function AgriCommodityDirectory() {
                 ))}
               </div>
               <div className="mt-4 pt-3 border-t border-slate-100">
-                <a
-                  href={c.link}
+                <Link
+                  to={c.link}
                   aria-label={c.linkText}
                   className="text-xs font-bold text-brand-blue hover:text-brand-orange transition-colors"
                 >
                   {c.linkText}
-                </a>
+                </Link>
               </div>
             </article>
           ))}
@@ -968,20 +978,20 @@ function AgriCommodityDirectory() {
                 farm freshness upon arrival at Jebel Ali, Dammam, Rotterdam, or Port Klang.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="/export-process"
+                <Link
+                  to="/export-process"
                   aria-label="View complete 6-stage Indian agricultural export process"
                   className="inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-slate-900 hover:bg-slate-100 transition-colors"
                 >
                   View 6-Stage Export Process →
-                </a>
-                <a
-                  href="/contact"
+                </Link>
+                <Link
+                  to="/contact"
                   aria-label="Request FOB or CIF shipping rates from JNPT and Mundra"
                   className="inline-flex items-center gap-1.5 rounded-full bg-brand-orange px-5 py-2.5 text-xs font-bold text-white hover:bg-brand-orange/90 transition-colors"
                 >
                   Request FOB / CIF Freight Quote →
-                </a>
+                </Link>
               </div>
             </div>
             <div className="grid gap-3 sm:grid-cols-1">
@@ -1093,13 +1103,13 @@ function Markets() {
             We are proud to export our premium quality products to a wide range of countries across
             the globe. Hover a country to spot it on the map.
           </p>
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-transform hover:scale-105"
             style={{ background: `linear-gradient(135deg,${BLUE},#0070e0)` }}
           >
             Start Export Inquiry <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </motion.div>
 
         <div>
@@ -1157,7 +1167,7 @@ function Markets() {
           {/* Country list */}
           <div
             ref={listRef}
-            className="mt-6 grid grid-cols-2 gap-x-6 gap-y-1 rounded-2xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-md sm:grid-cols-2"
+            className="mt-6 grid grid-cols-1 gap-x-6 gap-y-1 rounded-2xl border border-white/10 bg-white/[0.06] p-4 sm:p-6 backdrop-blur-md sm:grid-cols-2"
           >
             {COUNTRIES.map((c) => {
               const isActive = active === c.n;
@@ -1446,7 +1456,7 @@ function Certifications() {
           {filtered.length} of {CERTIFICATES.length} certificates
         </div>
 
-        <div className="mt-8 grid grid-cols-2 gap-8 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 sm:gap-8">
           <AnimatePresence mode="popLayout">
             {filtered.map((c, i) => (
               <motion.div
@@ -1828,13 +1838,13 @@ function MobileStickyCTA() {
         >
           <MessageCircle className="h-4 w-4" /> WhatsApp
         </a>
-        <a
-          href="/contact"
+        <Link
+          to="/contact"
           aria-label="Request an Indian agricultural export quote"
           className="inline-flex items-center justify-center gap-1 rounded-full bg-gradient-to-r from-brand-blue to-[#003c85] px-3 py-2 text-xs font-bold text-white shadow-sm"
         >
           <Mail className="h-4 w-4" /> Request Quote
-        </a>
+        </Link>
         <a
           href={BROCHURE_URL}
           download
@@ -1851,8 +1861,8 @@ function MobileStickyCTA() {
 /* ---------- Footer ---------- */
 function Footer() {
   return (
-    <footer className="py-14 text-white bg-brand-navy">
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-4">
+    <footer className="pt-14 pb-24 md:pb-14 text-white bg-brand-navy">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">
             <img
@@ -1894,14 +1904,14 @@ function Footer() {
           </div>
           <div className="mt-4 space-y-2">
             {NAV_LINKS.map((l) => (
-              <a
+              <Link
                 key={l.href}
-                href={l.href}
+                to={l.href}
                 aria-label={`Navigate to ${l.label}`}
                 className="block text-sm text-white/70 hover:text-white transition-colors"
               >
                 {l.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
@@ -2055,7 +2065,7 @@ function MessageFab() {
   }, [open]);
 
   return (
-    <div className="fixed bottom-20 right-6 z-50 flex flex-col items-end gap-3 md:bottom-6">
+    <div className="fixed bottom-20 right-4 sm:right-6 z-50 flex flex-col items-end gap-3 md:bottom-6">
       <AnimatePresence>
         {open && (
           <motion.div
@@ -2067,7 +2077,7 @@ function MessageFab() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ type: "spring", damping: 22 }}
-            className="flex w-64 flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl"
+            className="flex w-64 max-w-[calc(100vw-2rem)] flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl"
           >
             <div className="px-3 py-2">
               <div className="font-display text-sm font-bold text-slate-900">How can we help?</div>

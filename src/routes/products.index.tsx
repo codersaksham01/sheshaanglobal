@@ -193,7 +193,7 @@ function ProductsIndex() {
           className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-25 blur-3xl"
           style={{ background: ORANGE }}
         />
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <nav aria-label="Breadcrumb" className="mb-6 text-xs text-white/60">
             <Link to="/" className="hover:text-white">
               Home
@@ -275,7 +275,7 @@ function ProductsIndex() {
       </section>
 
       {/* Priority Export Lines (6 flagship categories) */}
-      <section className="mx-auto max-w-7xl px-6 py-14">
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-14">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-slate-500">
@@ -371,7 +371,7 @@ function ProductsIndex() {
 
       {/* Master B2B Specification Hub & Tabs */}
       <section className="border-t border-slate-200 bg-slate-50 py-14">
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6">
           <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
             <div>
               <div className="inline-flex items-center gap-1.5 rounded-full bg-blue-100 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#0057B8]">
@@ -396,7 +396,7 @@ function ProductsIndex() {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="mt-8 flex gap-2 overflow-x-auto border-b border-slate-200 pb-3">
+          <div className="mt-8 flex gap-2 overflow-x-auto border-b border-slate-200 pb-3 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {[
               { id: "directory", label: "Commodity Directory (Grid)", icon: Package, count: `${MASTER_COMMODITIES.length} SKUs` },
               { id: "specs-table", label: "Master Specifications Table", icon: FileText, count: "Full Data" },
