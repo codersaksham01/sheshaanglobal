@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && node scripts/verify-schemas.mjs && node scripts/prerender-static.mjs",
+    "build": "vite build && node scripts/verify-schemas.mjs",
     "build:dev": "vite build --mode development",
     "prerender": "node scripts/prerender-static.mjs",
     "preview": "vite preview",
