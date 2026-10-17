@@ -68,9 +68,39 @@ export default {
         });
       }
 
+      const isLovableHost =
+        url.hostname.includes("lovable.app") ||
+        url.hostname.includes("lovableproject.com");
+
+      // 301 Redirect lovable.app public traffic directly to production domain (except editor preview)
+      if (
+        isLovableHost &&
+        !url.searchParams.has("preview") &&
+        !url.searchParams.has("lovable_preview") &&
+        url.pathname !== "/lovable"
+      ) {
+        return new Response(null, {
+          status: 301,
+          headers: {
+            Location: `https://www.sheshaanglobal.com${url.pathname}${url.search}`,
+            "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+          },
+        });
+      }
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalized = await normalizeCatastrophicSsrResponse(response);
+
+      // Block search bots from indexing staging on lovable.app
+      if (isLovableHost) {
+        normalized.headers.set(
+          "X-Robots-Tag",
+          "noindex, nofollow, noarchive, nosnippet",
+        );
+      }
+
+      return normalized;
     } catch (error) {
       console.error(error);
       return new Response(renderErrorPage(), {

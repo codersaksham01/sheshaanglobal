@@ -208,7 +208,8 @@ function useMotionSafe() {
 /* ---------- Counter ---------- */
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const reduced = useReducedMotion();
-  const [n, setN] = useState(reduced ? to : 0);
+  // Initialize with target value (`to`) so SSR / pre-rendered static HTML serves '25+' to search bots
+  const [n, setN] = useState(to);
   const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     if (reduced) {
@@ -219,6 +220,7 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
     if (!el) return;
     const obs = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) {
+        setN(0);
         const start = performance.now();
         const step = (t: number) => {
           const p = Math.min((t - start) / 1400, 1);

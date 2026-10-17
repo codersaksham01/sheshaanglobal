@@ -167,6 +167,28 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en">
       <head>
         <meta name="msvalidate.01" content="220260664B862A3A28DB3917C5DCE05C" />
+        {/* Anti-Duplicate Staging Defense: Strictly block lovable.app staging domain from search engine indexing */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var host = window.location.hostname;
+                  if (host.indexOf('lovable.app') !== -1 || host.indexOf('lovableproject.com') !== -1) {
+                    var m = document.createElement('meta');
+                    m.name = 'robots';
+                    m.content = 'noindex, nofollow, noarchive, nosnippet';
+                    document.head.appendChild(m);
+                    // Redirect non-preview live traffic to official production domain
+                    if (window.location.search.indexOf('preview=true') === -1 && window.location.search.indexOf('lovable_preview=true') === -1 && window.location.pathname !== '/lovable') {
+                      window.location.replace('https://www.sheshaanglobal.com' + window.location.pathname + window.location.search + window.location.hash);
+                    }
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
         <HeadContent />
       </head>
       <body>
@@ -179,6 +201,22 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  // Ensure client-side DOM keeps noindex on lovable staging
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const host = window.location.hostname;
+      if (host.includes("lovable.app") || host.includes("lovableproject.com")) {
+        let meta = document.querySelector('meta[name="robots"]');
+        if (!meta) {
+          meta = document.createElement("meta");
+          meta.setAttribute("name", "robots");
+          document.head.appendChild(meta);
+        }
+        meta.setAttribute("content", "noindex, nofollow, noarchive, nosnippet");
+      }
+    }
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

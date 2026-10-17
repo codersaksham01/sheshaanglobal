@@ -2763,240 +2763,700 @@ export const REGIONS: Region[] = [
       },
     ],
   },
-  ...[
-    [
-      "saudi-arabia",
-      "Saudi Arabia",
-      "Saudi Arabia",
-      "🇸🇦",
-      ["Jeddah Islamic Port", "Dammam King Abdulaziz Port", "Riyadh Dry Port"],
-      "7–12 days to Jeddah",
-      [
-        "fresh-onions",
-        "premium-rice",
-        "green-chillies",
-        "spices-masalas",
-        "fresh-fruits",
-        "coconut-brown-husked",
-      ],
+  {
+    slug: "saudi-arabia",
+    name: "Saudi Arabia",
+    short: "Saudi Arabia",
+    flag: "🇸🇦",
+    ports: ["Jeddah Islamic Port", "Dammam King Abdulaziz Port", "Riyadh Dry Port"],
+    topProducts: [
+      "fresh-onions",
+      "premium-rice",
+      "green-chillies",
+      "spices-masalas",
+      "fresh-fruits",
+      "coconut-brown-husked",
     ],
-    [
-      "qatar",
-      "Qatar",
-      "Qatar",
-      "🇶🇦",
-      ["Hamad Port", "Doha Port"],
-      "6–10 days to Hamad Port",
-      [
-        "fresh-onions",
-        "green-chillies",
-        "premium-rice",
-        "fresh-vegetables",
-        "spices-masalas",
-        "fresh-fruits",
-      ],
-    ],
-    [
-      "kuwait",
-      "Kuwait",
-      "Kuwait",
-      "🇰🇼",
-      ["Shuwaikh Port", "Shuaiba Port"],
-      "7–11 days to Kuwait",
-      [
-        "fresh-onions",
-        "premium-rice",
-        "green-chillies",
-        "spices-masalas",
-        "pulses-lentils",
-        "fresh-fruits",
-      ],
-    ],
-    [
-      "oman",
-      "Oman",
-      "Oman",
-      "🇴🇲",
-      ["Sohar Port", "Salalah Port", "Muscat"],
-      "5–9 days to Sohar",
-      [
-        "fresh-onions",
-        "coconut-brown-husked",
-        "green-chillies",
-        "premium-rice",
-        "fresh-vegetables",
-        "spices-masalas",
-      ],
-    ],
-    [
-      "bahrain",
-      "Bahrain",
-      "Bahrain",
-      "🇧🇭",
-      ["Khalifa Bin Salman Port", "Mina Salman"],
-      "7–10 days to Bahrain",
-      [
-        "fresh-onions",
-        "green-chillies",
-        "premium-rice",
-        "spices-masalas",
-        "fresh-fruits",
-        "fresh-vegetables",
-      ],
-    ],
-    [
-      "singapore",
-      "Singapore",
-      "Singapore",
-      "🇸🇬",
-      ["Port of Singapore", "Pasir Panjang Terminal"],
-      "8–12 days to Singapore",
-      [
-        "premium-rice",
-        "spices-masalas",
-        "pulses-lentils",
-        "dry-fruits-nuts",
-        "fresh-fruits",
-        "green-chillies",
-      ],
-    ],
-    [
-      "malaysia",
-      "Malaysia",
-      "Malaysia",
-      "🇲🇾",
-      ["Port Klang", "Penang Port", "Tanjung Pelepas"],
-      "9–14 days to Port Klang",
-      [
-        "fresh-onions",
-        "premium-rice",
-        "spices-masalas",
-        "pulses-lentils",
-        "fresh-fruits",
-        "dry-fruits-nuts",
-      ],
-    ],
-    [
-      "bangladesh",
-      "Bangladesh",
-      "Bangladesh",
-      "🇧🇩",
-      ["Chittagong Port", "Mongla Port"],
-      "5–9 days to Chittagong",
-      ["fresh-onions", "premium-rice", "wheat", "spices-masalas", "pulses-lentils", "ginger"],
-    ],
-    [
-      "south-africa",
-      "South Africa",
-      "South Africa",
-      "🇿🇦",
-      ["Durban", "Cape Town", "Port Elizabeth"],
-      "18–25 days to Durban",
-      [
-        "premium-rice",
-        "spices-masalas",
-        "pulses-lentils",
-        "dry-fruits-nuts",
-        "fresh-fruits",
-        "fresh-onions",
-      ],
-    ],
-    [
-      "australia",
-      "Australia",
-      "Australia",
-      "🇦🇺",
-      ["Melbourne", "Sydney", "Brisbane", "Fremantle"],
-      "22–32 days to Australia",
-      [
-        "premium-rice",
-        "spices-masalas",
-        "dry-fruits-nuts",
-        "pulses-lentils",
-        "mango",
-        "fresh-fruits",
-      ],
-    ],
-    [
-      "canada",
-      "Canada",
-      "Canada",
-      "🇨🇦",
-      ["Vancouver", "Toronto", "Montreal"],
-      "28–40 days to Canada",
-      ["premium-rice", "spices-masalas", "pulses-lentils", "dry-fruits-nuts", "cashew", "turmeric"],
-    ],
-    [
-      "netherlands",
-      "Netherlands",
-      "Netherlands",
-      "🇳🇱",
-      ["Rotterdam", "Amsterdam"],
-      "22–28 days to Rotterdam",
-      [
-        "premium-rice",
-        "spices-masalas",
-        "pulses-lentils",
-        "dry-fruits-nuts",
-        "green-chillies",
-        "fresh-fruits",
-      ],
-    ],
-  ].map(([slug, name, short, flag, ports, transitDays, topProducts]) => ({
-    slug: slug as string,
-    name: name as string,
-    short: short as string,
-    flag: flag as string,
-    ports: ports as string[],
-    topProducts: topProducts as string[],
-    incoterms: [
-      `FOB Nhava Sheva`,
-      `CIF ${Array.isArray(ports) ? ports[0] : name}`,
-      `CFR ${Array.isArray(ports) ? ports[0] : name}`,
-    ],
-    transitDays: transitDays as string,
+    incoterms: ["FOB Nhava Sheva", "CIF Jeddah", "CIF Dammam", "CFR Riyadh"],
+    transitDays: "7–12 days to Jeddah / Dammam",
     keywords: [
-      `Indian exporter to ${name}`,
-      `agricultural products exporter ${name}`,
-      `Indian spices supplier ${name}`,
-      `rice exporter to ${name}`,
-      `onion exporter to ${name}`,
+      "onion exporter to Saudi Arabia",
+      "basmati rice supplier Jeddah",
+      "spices exporter Dammam",
+      "SFDA food supplier Saudi",
+      "Indian agricultural produce Riyadh",
     ],
-    intro: `Indian agricultural exporter to ${name} supplying rice, spices, fresh produce, pulses and agri commodities with export documentation and buyer-specified packing.`,
-    hero: `Sheshaan Global supports importers in ${name} with export-grade Indian agricultural products, coordinated packing, FOB/CIF/CFR shipment options and shipment documents such as Commercial Invoice, Packing List, Certificate of Origin, Phytosanitary Certificate and Bill of Lading.`,
+    intro:
+      "SFDA & SABER-compliant Indian exporter to Saudi Arabia — supplying 1121 Sella Basmati rice, Nashik red onions, Salem turmeric and G4 chillies to Jeddah and Dammam with halal & phyto certification.",
+    hero: "Sheshaan Global coordinates dedicated container shipments to Saudi Arabia via Jeddah Islamic Port and King Abdulaziz Port Dammam. All consignments conform to Saudi Food and Drug Authority (SFDA) standards, SASO/SABER electronic customs clearance, and GCC pesticide MRL protocols for bulk buyers and distributors across Riyadh, Jeddah, and the Eastern Province.",
     advantages: [
       {
-        title: "Buyer-specific packing",
-        body: "Bulk, retail-ready and private-label options can be aligned to importer and distributor requirements.",
+        title: "SFDA & SABER clearance",
+        body: "Every consignment is pre-cleared with SABER platform documentation, SFDA food registration, and Halal declaration.",
       },
       {
-        title: "Export documentation support",
-        body: "Commercial, origin, phytosanitary, fumigation and health documents are coordinated per shipment.",
+        title: "Fast 7–12 day sea corridor",
+        body: "Direct weekly sailings from Nhava Sheva (JNPT) and Mundra to Jeddah Islamic Port and Dammam.",
       },
       {
-        title: "Product range depth",
-        body: "Rice, onions, spices, pulses, fresh produce and dry fruits can be sourced under one export desk.",
+        title: "Bulk Basmati & Onion supply",
+        body: "1121 Steam & Sella Basmati in 5kg/10kg/20kg/40kg BOPP bags and Nashik red onions in 25kg mesh bags.",
       },
       {
-        title: "Quotation clarity",
-        body: "FOB, CIF and CFR quotations can include packing, loading port, lead time and document scope.",
+        title: "Reefer chillies & produce",
+        body: "Pre-cooled G4 green chillies in micro-perforated 4kg/5kg boxes maintained at +4°C cold chain.",
       },
     ],
     faqs: [
       {
-        q: `Do you export agricultural products from India to ${name}?`,
-        a: `Yes. Sheshaan Global supplies Indian agricultural products to ${name} with FOB, CIF and CFR shipment coordination.`,
+        q: "Are your shipments registered on the Saudi SABER and SFDA platforms?",
+        a: "Yes. All export documentation is uploaded to SABER and accompanied by SFDA-compliant commercial invoices, phytosanitary certificates, and halal attestations.",
       },
       {
-        q: `Which products can you ship to ${name}?`,
-        a: `Priority products include ${(topProducts as string[]).slice(0, 4).join(", ")} and other catalogue items based on buyer demand.`,
+        q: "What are typical transit times from India to Jeddah and Dammam?",
+        a: "Direct sailings from Nhava Sheva (JNPT) take 7–9 days to Jeddah and 10–12 days to Dammam Port.",
       },
       {
-        q: `Which documents are provided for ${name} shipments?`,
-        a: "Commercial Invoice, Packing List, Certificate of Origin, Phytosanitary Certificate, Fumigation Certificate and Bill of Lading are supported; additional documents are arranged where applicable.",
+        q: "Can you provide Arabic-English bilingual packaging for Saudi hypermarkets?",
+        a: "Yes. We offer private-label bilingual packaging compliant with GCC food labelling standards.",
       },
     ],
-  })),
+  },
+  {
+    slug: "qatar",
+    name: "Qatar",
+    short: "Qatar",
+    flag: "🇶🇦",
+    ports: ["Hamad Port", "Doha Port"],
+    topProducts: [
+      "fresh-onions",
+      "green-chillies",
+      "premium-rice",
+      "fresh-vegetables",
+      "spices-masalas",
+      "fresh-fruits",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF Hamad Port", "CFR Doha", "DDP Qatar"],
+    transitDays: "6–10 days to Hamad Port",
+    keywords: [
+      "onion exporter Qatar",
+      "green chillies supplier Doha",
+      "basmati rice export Hamad Port",
+      "spices supplier Qatar",
+      "APEDA exporter Doha",
+    ],
+    intro:
+      "APEDA-certified agricultural exporter to Qatar — pre-cooled G4 green chillies, Nashik red onions, steam Basmati rice and whole spices shipped to Hamad Port with MoPH food safety clearance.",
+    hero: "Operating regular reefer and dry container lines from Nhava Sheva to Hamad Port, Doha. Sheshaan Global supplies Qatari supermarkets, institutional caterers, and wholesale produce distributors with temperature-logged reefer containers, phytosanitary certificates, and bilingual Arabic/English labelling.",
+    advantages: [
+      {
+        title: "Direct Hamad Port service",
+        body: "Fast 6–10 day ocean transit from West Coast India straight to Hamad Port container terminals.",
+      },
+      {
+        title: "MoPH compliance gate",
+        body: "Full conformity with Qatar Ministry of Public Health (MoPH) import safety, temperature, and residue requirements.",
+      },
+      {
+        title: "Cold chain temperature logs",
+        body: "Continuous data-logger monitoring for fresh G4 chillies, okra, and seasonal produce.",
+      },
+      {
+        title: "Institutional catering packs",
+        body: "Bulk 25kg/50kg master packs for industrial kitchens alongside retail-ready pre-packs.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How often do you ship fresh produce to Hamad Port?",
+        a: "We load weekly reefer containers from Nhava Sheva for scheduled weekend discharges at Hamad Port.",
+      },
+      {
+        q: "What documents do you provide for Qatar customs clearance?",
+        a: "Commercial invoice, packing list, Chamber-attested COO, phytosanitary certificate, and temperature inspection logs.",
+      },
+      {
+        q: "Do you supply both FCL and LCL shipments to Doha?",
+        a: "Yes. Full container loads (FCL) are standard for onions and rice, with consolidated LCL available for spices and pulses.",
+      },
+    ],
+  },
+  {
+    slug: "kuwait",
+    name: "Kuwait",
+    short: "Kuwait",
+    flag: "🇰🇼",
+    ports: ["Shuwaikh Port", "Shuaiba Port"],
+    topProducts: [
+      "fresh-onions",
+      "premium-rice",
+      "green-chillies",
+      "spices-masalas",
+      "pulses-lentils",
+      "fresh-fruits",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF Shuwaikh", "CFR Shuaiba", "DDP Kuwait"],
+    transitDays: "7–11 days to Kuwait",
+    keywords: [
+      "rice exporter Kuwait",
+      "onion supplier Shuwaikh",
+      "spices exporter Kuwait",
+      "green chillies supplier Shuaiba",
+      "Indian agro commodities Kuwait",
+    ],
+    intro:
+      "Direct Indian farm exporter to Kuwait — premium 1121 Golden Sella rice, Garwa red onions, Sortex chickpeas, and ground spices delivered to Shuwaikh and Shuaiba ports with PAFN compliance.",
+    hero: "Sheshaan Global operates regular breakbulk and containerized supply chains to Kuwait City. Consignments arrive through Shuwaikh and Shuaiba ports with complete Chamber of Commerce attestations, Kuwait Public Authority for Food & Nutrition (PAFN) documentation, and tailored 25kg/50kg export packaging.",
+    advantages: [
+      {
+        title: "PAFN regulatory alignment",
+        body: "Complete lab testing, allergen disclosures, and certifications aligned to Kuwait food authority mandates.",
+      },
+      {
+        title: "High-grade 1121 Sella Rice",
+        body: "Purity 95%+, average grain length 8.35mm+ with aromatic profile favoured by Kuwaiti trade houses.",
+      },
+      {
+        title: "Weekly Shuwaikh sailings",
+        body: "Consistent 7–11 day sea window from Nhava Sheva ensuring maximum retail shelf life.",
+      },
+      {
+        title: "Custom jute & PP packing",
+        body: "Private-label branding and barcode integration for local Kuwait supermarket distribution.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Do you handle Kuwait Chamber of Commerce legalization?",
+        a: "Yes. We coordinate required embassy or chamber document attestations before vessel arrival.",
+      },
+      {
+        q: "What is the minimum order quantity for rice or onions to Kuwait?",
+        a: "One 20ft container (approx. 25–26 MT for rice; 13–14 MT for onions in 20ft / 29 MT in 40ft reefer).",
+      },
+      {
+        q: "Which ports in Kuwait do you service?",
+        a: "We ship to Shuwaikh Port for commercial dry and reefer cargo, as well as Shuaiba Port.",
+      },
+    ],
+  },
+  {
+    slug: "oman",
+    name: "Oman",
+    short: "Oman",
+    flag: "🇴🇲",
+    ports: ["Sohar Port", "Salalah Port", "Muscat"],
+    topProducts: [
+      "fresh-onions",
+      "coconut-brown-husked",
+      "green-chillies",
+      "premium-rice",
+      "fresh-vegetables",
+      "spices-masalas",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF Sohar", "CFR Salalah", "DDP Muscat"],
+    transitDays: "5–9 days to Sohar",
+    keywords: [
+      "coconut supplier Oman",
+      "onion exporter Sohar",
+      "rice supplier Muscat",
+      "Indian produce Salalah",
+      "CDB exporter Oman",
+    ],
+    intro:
+      "CDB & APEDA-registered Indian exporter to Oman — Pollachi semi-husked brown coconuts, Nashik red onions, Basmati rice and whole cumin shipped to Sohar and Salalah with fast 5–8 day transit.",
+    hero: "Direct west-coast vessel services from Nhava Sheva to Sohar and Salalah ports in Oman within 5–9 days. We support Omani food importers and commercial repackers with fresh coconuts, onions, and grains meeting Ministry of Agriculture, Fisheries and Water Resources standards.",
+    advantages: [
+      {
+        title: "Fast 5–8 day transit",
+        body: "Direct western sea corridor from Nhava Sheva right to Sohar Port, minimizing transit shrinkage.",
+      },
+      {
+        title: "CDB-certified coconuts",
+        body: "Semi-husked Pollachi brown coconuts (550g–650g+) in 25-nut bags with guaranteed 45+ day shelf life.",
+      },
+      {
+        title: "MAFWR compliance",
+        body: "Phytosanitary and fumigation certificates aligned with Omani agricultural quarantine laws.",
+      },
+      {
+        title: "Wholesale repacker supply",
+        body: "Cost-effective bulk containers tailored for packaging and regional re-export across Muscat.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How are brown coconuts packed for shipping to Oman?",
+        a: "Coconuts are packed 25 nuts per PP woven mesh bag, loaded 2,000 bags (approx. 50,000 nuts / 28 MT) per 40ft high cube container.",
+      },
+      {
+        q: "How long does shipping take to Sohar Port?",
+        a: "Direct vessel sailings from Nhava Sheva take between 5 to 7 days to reach Sohar.",
+      },
+      {
+        q: "Can you ship mixed containers of spices and rice to Muscat?",
+        a: "Yes. We arrange consolidated mixed containers for buyers requiring multiple commodities under one bill of lading.",
+      },
+    ],
+  },
+  {
+    slug: "bahrain",
+    name: "Bahrain",
+    short: "Bahrain",
+    flag: "🇧🇭",
+    ports: ["Khalifa Bin Salman Port", "Mina Salman"],
+    topProducts: [
+      "fresh-onions",
+      "green-chillies",
+      "premium-rice",
+      "spices-masalas",
+      "fresh-fruits",
+      "fresh-vegetables",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF KBSP", "CFR Manama", "DDP Bahrain"],
+    transitDays: "7–10 days to Bahrain",
+    keywords: [
+      "onion exporter Bahrain",
+      "basmati rice supplier Manama",
+      "green chillies export Bahrain",
+      "spices supplier KBSP",
+      "Indian produce Bahrain",
+    ],
+    intro:
+      "Indian agricultural export partner to Bahrain — export-grade red onions, Teja green chillies, Basmati rice and turmeric fingers shipped to Khalifa Bin Salman Port with GCC-compliant lab inspection.",
+    hero: "Fast sea freight connection to Bahrain via Khalifa Bin Salman Port (KBSP). Consignments feature lot-wise phytosanitary clearance, fumigation certificates, and flexible FCL/LCL ocean freight for Manama and Sitra wholesale markets.",
+    advantages: [
+      {
+        title: "Direct KBSP sea calls",
+        body: "Weekly 7–10 day ocean services connecting Mumbai port straight to Khalifa Bin Salman Port.",
+      },
+      {
+        title: "GCC unified customs",
+        body: "Documentation structured for fast duty clearance under Gulf Cooperation Council protocols.",
+      },
+      {
+        title: "Cold chain chilli reefer",
+        body: "Strict +4°C temperature discipline for fresh chillies and perishables destined for Manama souks.",
+      },
+      {
+        title: "Direct farm traceability",
+        body: "Lot-coded sourcing from Nashik and Guntur growers ensuring consistent grades.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Do you supply Nashik red onions to Bahrain year-round?",
+        a: "Yes. We supply Kharif, Late Kharif, and Rabi Garwa red onions to ensure uninterrupted twelve-month availability.",
+      },
+      {
+        q: "What is the typical shipping duration to Bahrain?",
+        a: "7 to 10 days from Nhava Sheva to Khalifa Bin Salman Port (KBSP).",
+      },
+      {
+        q: "What certificates accompany each shipment to Bahrain?",
+        a: "Commercial invoice, packing list, certificate of origin, phytosanitary certificate, and fumigation certificate.",
+      },
+    ],
+  },
+  {
+    slug: "singapore",
+    name: "Singapore",
+    short: "Singapore",
+    flag: "🇸🇬",
+    ports: ["Port of Singapore", "Pasir Panjang Terminal", "Jurong Port"],
+    topProducts: [
+      "premium-rice",
+      "spices-masalas",
+      "pulses-lentils",
+      "dry-fruits-nuts",
+      "fresh-fruits",
+      "green-chillies",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF Singapore", "CFR Pasir Panjang", "DDP Singapore"],
+    transitDays: "8–12 days to Singapore",
+    keywords: [
+      "rice exporter Singapore",
+      "spices supplier Singapore",
+      "SFA compliant Indian exporter",
+      "pulses exporter Pasir Panjang",
+      "cumin seeds Singapore",
+    ],
+    intro:
+      "SFA-cleared Indian agricultural exporter to Singapore — Sortex Basmati rice, machine-cleaned cumin seeds, turmeric powder, pulses and fresh produce shipped to Jurong & Pasir Panjang Terminal.",
+    hero: "Supplying Singaporean trading houses, spice mills, and supermarket distributors with consignments compliant with Singapore Food Agency (SFA) integrated food safety guidelines. Certified pre-shipment SGS inspection and vacuum/nitrogen-flushed packing.",
+    advantages: [
+      {
+        title: "SFA regulatory compliance",
+        body: "Pesticide residue testing, heavy metal assays, and microbiological safety verified against SFA criteria.",
+      },
+      {
+        title: "Machine-cleaned 99.5% spices",
+        body: "Unjha cumin seeds (Singapore quality 99%/99.5% purity) and Salem turmeric fingers with high curcumin.",
+      },
+      {
+        title: "Pasir Panjang rapid berthing",
+        body: "8–12 days transit via Chennai and Nhava Sheva with immediate container terminal processing.",
+      },
+      {
+        title: "Silky sortex rice grading",
+        body: "100% Sortexed Basmati and Non-Basmati (Sona Masoori, Ponni) free of broken grains or impurities.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Are your commodities compliant with Singapore Food Agency (SFA) rules?",
+        a: "Yes. Every shipment adheres to the Sale of Food Act and Food Regulations administered by SFA.",
+      },
+      {
+        q: "Do you export Singapore-quality cumin seeds?",
+        a: "Yes. We supply machine-cleaned 99% and 99.5% purity cumin seeds (Jeera) specifically processed for Singapore grinders.",
+      },
+      {
+        q: "Can you ship South Indian rice varieties like Sona Masoori to Singapore?",
+        a: "Yes. We supply authentic aged Sona Masoori, Ponni, and 1121 Basmati in consumer-friendly 5kg and 10kg bags.",
+      },
+    ],
+  },
+  {
+    slug: "malaysia",
+    name: "Malaysia",
+    short: "Malaysia",
+    flag: "🇲🇾",
+    ports: ["Port Klang", "Penang Port", "Tanjung Pelepas"],
+    topProducts: [
+      "fresh-onions",
+      "premium-rice",
+      "spices-masalas",
+      "pulses-lentils",
+      "fresh-fruits",
+      "dry-fruits-nuts",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF Port Klang", "CFR Penang", "DDP Malaysia"],
+    transitDays: "9–14 days to Port Klang",
+    keywords: [
+      "onion exporter Malaysia",
+      "rice supplier Port Klang",
+      "chilli exporter Malaysia",
+      "MAQIS exporter India",
+      "spices supplier Penang",
+    ],
+    intro:
+      "MAQIS-compliant exporter to Malaysia — Nashik Garwa onions, Guntur dried chillies, IR64 parboiled rice, and whole spices shipped weekly to Port Klang, Penang and Tanjung Pelepas.",
+    hero: "Weekly vessel sailings from Nhava Sheva and Chennai to Port Klang and Penang. Our shipments comply with Malaysian Quarantine and Inspection Services (MAQIS) guidelines, JAKIM Halal sourcing protocols, and ASEAN trade standards.",
+    advantages: [
+      {
+        title: "MAQIS permit coordination",
+        body: "Phytosanitary certificates, pest-free endorsements, and fumigation logs matching MAQIS electronic permits.",
+      },
+      {
+        title: "Dry red chilli specialists",
+        body: "Guntur Sannam S4, Teja, and Byadgi chillies with stemless grading, moisture < 11%, and verified ASTA colour.",
+      },
+      {
+        title: "Weekly Port Klang sailings",
+        body: "9–14 days transit connecting peninsular Malaysian markets with continuous supply.",
+      },
+      {
+        title: "Halal processing compliance",
+        body: "Clean sorting, non-GMO handling, and segregated packaging suitable for Muslim-majority consumer markets.",
+      },
+    ],
+    faqs: [
+      {
+        q: "How do you fulfill MAQIS import requirements for onions and chillies?",
+        a: "We issue phytosanitary certificates with verified fumigation details and lab testing as mandated by MAQIS.",
+      },
+      {
+        q: "Which ports in Malaysia do you ship to?",
+        a: "Port Klang (Northport and Westport) and Penang Port are our primary discharge destinations.",
+      },
+      {
+        q: "Can you supply large commercial volumes of dried chillies to Malaysia?",
+        a: "Yes. We ship multi-container consignments of stemless Guntur S4 and Teja chillies in 25kg PP bags.",
+      },
+    ],
+  },
+  {
+    slug: "bangladesh",
+    name: "Bangladesh",
+    short: "Bangladesh",
+    flag: "🇧🇩",
+    ports: ["Chittagong Port", "Mongla Port", "Benapole Land Customs"],
+    topProducts: ["fresh-onions", "premium-rice", "wheat", "spices-masalas", "pulses-lentils", "ginger"],
+    incoterms: ["FOB Kolkata", "CIF Chittagong", "CPT Benapole", "CFR Mongla"],
+    transitDays: "5–9 days sea / 2–4 days overland",
+    keywords: [
+      "onion exporter Bangladesh",
+      "rice supplier Chittagong",
+      "wheat exporter Bangladesh",
+      "spices supplier Benapole",
+      "Indian agri exporter Dhaka",
+    ],
+    intro:
+      "High-volume agricultural exporter to Bangladesh — bulk Nashik red onions, Non-Basmati parboiled rice, milling wheat, and dry ginger via Chittagong Port, Mongla, and Benapole land customs.",
+    hero: "Strategic cross-border and ocean logistics to Bangladesh through Chittagong Port and the Petrapole-Benapole border corridor. Sheshaan Global provides bulk vessel chartering, railway rake supply, and phytosanitary clearance for essential food staples.",
+    advantages: [
+      {
+        title: "Dual Sea & Land logistics",
+        body: "Vessel shipments via Chittagong/Mongla alongside rapid truck rail logistics via Petrapole-Benapole.",
+      },
+      {
+        title: "Large-tonnage supply",
+        body: "High-capacity export quotas for onions, parboiled rice (IR64, Swarna), and wheat grain.",
+      },
+      {
+        title: "Fast customs transit",
+        body: "5–9 days by sea from West/East Coast India and 2–4 days via border land customs stations.",
+      },
+      {
+        title: "LC & Banking compliance",
+        body: "Commercial documents prepared strictly according to Bangladesh Bank import regulations and letter of credit terms.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Do you export red onions by truck through Benapole land port?",
+        a: "Yes. We coordinate direct border transit through Petrapole-Benapole for immediate delivery to Dhaka and Khulna markets.",
+      },
+      {
+        q: "What rice varieties do you supply to Bangladesh?",
+        a: "IR64 parboiled rice, Swarna parboiled, PR11, and aromatic Basmati grades.",
+      },
+      {
+        q: "Can you handle 1,000+ metric ton export contracts for Bangladesh?",
+        a: "Yes. We execute large-tonnage institutional contracts with complete inspection and bank documentation.",
+      },
+    ],
+  },
+  {
+    slug: "south-africa",
+    name: "South Africa",
+    short: "South Africa",
+    flag: "🇿🇦",
+    ports: ["Durban", "Cape Town", "Port Elizabeth"],
+    topProducts: [
+      "premium-rice",
+      "spices-masalas",
+      "pulses-lentils",
+      "dry-fruits-nuts",
+      "fresh-fruits",
+      "fresh-onions",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF Durban", "CFR Cape Town", "DAP Johannesburg"],
+    transitDays: "18–25 days to Durban",
+    keywords: [
+      "rice exporter South Africa",
+      "spices supplier Durban",
+      "chilli exporter South Africa",
+      "pulses supplier Cape Town",
+      "Indian exporter Johannesburg",
+    ],
+    intro:
+      "DALRRD-compliant Indian exporter to South Africa — 1121 Basmati rice, stemless dried red chillies, turmeric fingers, and Sortex pulses shipped to Durban, Cape Town and Port Elizabeth.",
+    hero: "Reliable ocean container freight to Southern Africa through Durban Port. Consignments meet South African Department of Agriculture, Land Reform and Rural Development (DALRRD) import permit standards and aflatoxin testing limits.",
+    advantages: [
+      {
+        title: "DALRRD import permits",
+        body: "Full compliance with South African biosecurity permits, phytosanitary declarations, and weed-seed free certs.",
+      },
+      {
+        title: "Direct Durban ocean link",
+        body: "Regular liner services from Nhava Sheva with 18–25 day transit to Durban's container terminals.",
+      },
+      {
+        title: "Aflatoxin & lab testing",
+        body: "Accredited NABL lab analysis confirming compliance with South African foodstuffs residue tolerances.",
+      },
+      {
+        title: "Ethnic retail & milling grades",
+        body: "Supplying top wholesale distributors in Gauteng, KwaZulu-Natal, and the Western Cape.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Do you hold phytosanitary clearance for South African DALRRD?",
+        a: "Yes. Every export container is inspected and issued a Phytosanitary Certificate meeting specific DALRRD conditions.",
+      },
+      {
+        q: "What is the typical shipping transit time to Durban?",
+        a: "Average ocean transit is 18 to 25 days from Nhava Sheva (JNPT) to Durban.",
+      },
+      {
+        q: "Which spice products are most in demand for South Africa?",
+        a: "Turmeric fingers, ground chillies, cumin seeds, and coriander seeds are our top export lines to South African spice blenders.",
+      },
+    ],
+  },
+  {
+    slug: "australia",
+    name: "Australia",
+    short: "Australia",
+    flag: "🇦🇺",
+    ports: ["Melbourne", "Sydney", "Brisbane", "Fremantle"],
+    topProducts: [
+      "premium-rice",
+      "spices-masalas",
+      "dry-fruits-nuts",
+      "pulses-lentils",
+      "mango",
+      "fresh-fruits",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF Melbourne", "CIF Sydney", "DDP Australia"],
+    transitDays: "22–32 days to Australia",
+    keywords: [
+      "basmati rice exporter Australia",
+      "spices supplier Sydney",
+      "BICON compliant exporter",
+      "pulses supplier Melbourne",
+      "makhana exporter Australia",
+    ],
+    intro:
+      "Biosecurity-compliant Indian exporter to Australia — aged 1121 Basmati rice, steam-sterilized spices, fox nuts (makhana), and pulses shipped to Melbourne, Sydney and Fremantle under DAFF protocols.",
+    hero: "Strict compliance with Australia’s Department of Agriculture, Fisheries and Forestry (DAFF) biosecurity import conditions (BICON). Consignments feature verified heat treatment / steam sterilization certificates and gas-tight container fumigation.",
+    advantages: [
+      {
+        title: "DAFF & BICON alignment",
+        body: "Every consignment complies with Australian biosecurity mandates — Khapra beetle protocols, gas-tight fumigation, and seed-freedom.",
+      },
+      {
+        title: "Steam-sterilized spices",
+        body: "Non-ETO heat/steam treated spices ensuring zero chemical residues and microbial safety.",
+      },
+      {
+        title: "Direct major port calls",
+        body: "Shipping to Melbourne, Port Botany (Sydney), and Fremantle with reliable 22–32 day schedules.",
+      },
+      {
+        title: "Aged premium Basmati",
+        body: "Authentic aged 1121 and 1509 Basmati rice certified for length, aroma, and moisture < 12.5%.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Are your shipments compliant with Australia's Khapra beetle regulations?",
+        a: "Yes. We provide mandatory offshore treatment certificates (methyl bromide / heat treatment) from approved Australian-recognized facilities.",
+      },
+      {
+        q: "Can you export mangoes and fresh produce to Australia?",
+        a: "Yes, subject to irradiation / hot water treatment protocols as governed by APEDA and DAFF bilateral work plans.",
+      },
+      {
+        q: "Which ports in Australia do you service?",
+        a: "Melbourne, Sydney (Port Botany), Brisbane, and Fremantle.",
+      },
+    ],
+  },
+  {
+    slug: "canada",
+    name: "Canada",
+    short: "Canada",
+    flag: "🇨🇦",
+    ports: ["Vancouver", "Toronto", "Montreal"],
+    topProducts: ["premium-rice", "spices-masalas", "pulses-lentils", "dry-fruits-nuts", "cashew", "turmeric"],
+    incoterms: ["FOB Nhava Sheva", "CIF Vancouver", "CIF Montreal", "DDP Canada"],
+    transitDays: "28–40 days to Canada",
+    keywords: [
+      "basmati rice exporter Canada",
+      "spices supplier Toronto",
+      "CFIA compliant exporter India",
+      "pulses supplier Vancouver",
+      "cashew exporter Montreal",
+    ],
+    intro:
+      "CFIA-compliant Indian exporter to Canada — authentic Basmati rice, Unjha cumin seeds, Salem turmeric, and Sortex chickpeas shipped to Vancouver, Montreal and Toronto terminals.",
+    hero: "Supplying Canadian wholesale distributors and ethnic supermarket chains through Port of Vancouver and Montreal. All products meet Canadian Food Inspection Agency (CFIA) traceability, Safe Food for Canadians Act (SFCA) licensing, and residue guidelines.",
+    advantages: [
+      {
+        title: "CFIA & SFCA compliance",
+        body: "Lot-level digital traceability, preventive control plans (PCP), and testing compliant with CFIA standards.",
+      },
+      {
+        title: "Coast-to-coast ocean lines",
+        body: "Direct West Coast sailings to Vancouver (28–32 days) and Atlantic services to Montreal/Toronto.",
+      },
+      {
+        title: "Bilingual packaging support",
+        body: "English-French compliant nutrition facts tables, ingredient lists, and allergen declarations.",
+      },
+      {
+        title: "Certified Sortex pulses",
+        body: "Kabuli chickpeas, lentils, and beans cleaned on optical colour sorters to 99.9% purity.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Do you support CFIA's Safe Food for Canadians Regulations (SFCR)?",
+        a: "Yes. Our processing partners maintain HACCP and food safety records required by Canadian licensed importers.",
+      },
+      {
+        q: "What packaging sizes are available for Basmati rice in Canada?",
+        a: "We offer 2lb, 10lb, 20lb, and 40lb retail and food-service BOPP and cloth bags with Canadian nutrition labelling.",
+      },
+      {
+        q: "How long does shipping take to Vancouver and Montreal?",
+        a: "28–32 days to Vancouver on the West Coast, and 34–40 days to Montreal on the East Coast.",
+      },
+    ],
+  },
+  {
+    slug: "netherlands",
+    name: "Netherlands",
+    short: "Netherlands",
+    flag: "🇳🇱",
+    ports: ["Rotterdam", "Amsterdam"],
+    topProducts: [
+      "premium-rice",
+      "spices-masalas",
+      "pulses-lentils",
+      "dry-fruits-nuts",
+      "green-chillies",
+      "fresh-fruits",
+    ],
+    incoterms: ["FOB Nhava Sheva", "CIF Rotterdam", "CFR Amsterdam", "DDP Netherlands"],
+    transitDays: "22–28 days to Rotterdam",
+    keywords: [
+      "rice exporter Rotterdam",
+      "spices supplier Netherlands",
+      "EU MRL exporter India",
+      "produce supplier Amsterdam",
+      "APEDA exporter Netherlands",
+    ],
+    intro:
+      "Gateway to Continental Europe — EU-MRL residue-tested Basmati rice, steam-sterilized turmeric, cumin seeds, and pulses shipped directly to the Port of Rotterdam with full lab COA.",
+    hero: "Rotterdam serves as our European logistics hub for Western and Northern Europe. Consignments ship with accredited Eurofins/SGS COAs verifying zero ETO residues, strict EU heavy-metal and pesticide tolerances, and customs T1 transit documentation.",
+    advantages: [
+      {
+        title: "Port of Rotterdam gateway",
+        body: "Strategic 22–28 day transit to Europe's largest port, enabling seamless bonded transit across the EU.",
+      },
+      {
+        title: "Eurofins & SGS certified COAs",
+        body: "Pre-shipment testing for aflatoxins (EC 1881/2006), pesticide MRLs (EC 396/2005), and microbiology.",
+      },
+      {
+        title: "Zero Ethylene Oxide (ETO)",
+        body: "Clean steam sterilization for whole and ground spices, meeting strict Dutch and German standards.",
+      },
+      {
+        title: "Bulk containerized delivery",
+        body: "20ft and 40ft FCL shipments ready for repacking and wholesale distribution.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Can goods clearing in Rotterdam be distributed throughout the EU?",
+        a: "Yes. Consignments custom-cleared in Rotterdam travel freely across all Schengen and EU member states without secondary inspections.",
+      },
+      {
+        q: "Do your shipments to Rotterdam include pesticide residue analysis?",
+        a: "Yes. Each container is accompanied by a multi-residue pesticide screen performed by an accredited NABL / ISO 17025 laboratory.",
+      },
+      {
+        q: "How often do you have sailings to Rotterdam?",
+        a: "Weekly container vessels depart from Nhava Sheva (JNPT) and Mundra directly to Rotterdam.",
+      },
+    ],
+  },
 ];
 
 const REGION_SLUG_ALIASES: Record<string, string> = {
