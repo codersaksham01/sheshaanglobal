@@ -40,7 +40,7 @@ import {
 } from "lucide-react";
 import logo from "@/assets/logo.png";
 import heroGlobe from "@/assets/hero-globe.jpg";
-import farmExport from "@/assets/farm-export.jpg";
+import farmExport from "@/assets/global-farm-to-market-partnership.png";
 import worldMap from "@/assets/world-map.jpg";
 import {
   BLUE,
