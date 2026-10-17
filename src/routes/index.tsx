@@ -76,7 +76,7 @@ import { LoadingScreen } from "@/components/LoadingScreen";
 
 const HOME_OG_IMAGE = "https://www.sheshaanglobal.com/logo.png";
 
-const HOME_PAGE_TITLE = "Sheshaan Global | Indian Agricultural Produce Exporter";
+const HOME_PAGE_TITLE = "Indian Agricultural Exporter | Fresh Onions, Rice & Spices — Sheshaan Global";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -85,7 +85,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "IEC and APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue and pricing.",
+          "APEDA & IEC certified Indian agricultural exporter supplying Nashik red onions, Basmati rice, green chillies, spices, coconuts and pulses to 25+ countries worldwide via JNPT and Mundra.",
       },
       { name: "keywords", content: DEFAULT_KEYWORDS },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1" },
@@ -96,7 +96,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "IEC and APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries. Get catalogue and pricing.",
+          "APEDA & IEC certified Indian agricultural exporter supplying Nashik red onions, Basmati rice, green chillies, spices, coconuts and pulses to 25+ countries worldwide via JNPT and Mundra.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL + "/" },
@@ -110,7 +110,7 @@ export const Route = createFileRoute("/")({
       {
         name: "twitter:description",
         content:
-          "IEC and APEDA certified Indian exporter of onions, green chillies, rice, coconut, spices and pulses to 25+ countries.",
+          "APEDA & IEC certified Indian agricultural exporter supplying Nashik red onions, Basmati rice, green chillies, spices, coconuts and pulses to 25+ countries worldwide.",
       },
       { name: "twitter:image", content: HOME_OG_IMAGE },
     ],
@@ -245,12 +245,12 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 /* ---------- Nav Links (Footer) ---------- */
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Products", href: "/products" },
-  { label: "Export Corridors", href: "/exports" },
-  { label: "Markets", href: "/markets" },
-  { label: "Certifications", href: "/quality" },
-  { label: "More Info", href: "/more-info" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "Products Catalog (49 Commodities)", href: "/products" },
+  { label: "Dedicated Port Corridors", href: "/exports" },
+  { label: "Global Export Markets", href: "/global-export-markets" },
+  { label: "Trade Compliance Hub", href: "/trade-compliance" },
+  { label: "Quality & Certifications", href: "/quality" },
+  { label: "Contact Trade Desk", href: "/contact" },
 ];
 
 /* ---------- Hero ---------- */
@@ -296,7 +296,7 @@ function Hero() {
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.24em] backdrop-blur">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-orange" />
-            Leading Indian Agricultural Exporter
+            APEDA & IEC Accredited Trade House
           </div>
           <h1
             id="hero-title"
@@ -315,7 +315,7 @@ function Hero() {
             id="hero-description"
             className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg"
           >
-            Sheshaan Global is an APEDA, IEC and FSSAI certified Indian agricultural exporter
+            Sheshaan Global is an APEDA, IEC, CDB and FSSAI certified Indian agricultural exporter
             supplying fresh produce, premium basmati rice, spices, pulses and agro commodities to
             25+ countries worldwide with disciplined farm sourcing, phytosanitary inspection, and
             scheduled ocean freight coordination.
@@ -453,7 +453,7 @@ function About() {
             </p>
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            {["IEC Certified", "GST Registered", "APEDA Certified", "FSSAI Certified"].map((c) => (
+            {["IEC Certified", "GST Registered", "APEDA Certified", "FSSAI Certified", "CDB Registered"].map((c) => (
               <div
                 key={c}
                 className="rounded-xl border border-slate-200 bg-white px-5 py-3 shadow-sm"
@@ -578,49 +578,74 @@ function Products() {
           ref={scroller}
           className="flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden"
         >
-          {PRODUCTS.map((p, i) => (
-            <motion.div
-              key={p.slug}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
-              className="w-[220px] flex-shrink-0 snap-start sm:w-[240px]"
-            >
-              <Link
-                to="/products/$slug"
-                params={{ slug: p.slug }}
-                className="group relative block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-2 hover:shadow-2xl"
+          {PRODUCTS.map((p, i) => {
+            const specSummary =
+              p.slug === "fresh-onions"
+                ? "HS 07031010 • 45–65mm • 25kg Mesh"
+                : p.slug === "green-chillies"
+                  ? "HS 07096010 • G4/Teja 7–11cm • Cartons"
+                  : p.slug === "premium-rice"
+                    ? "HS 10063020 • 1121 Sella 8.35mm+ • BOPP"
+                    : p.slug === "coconut-brown-husked"
+                      ? "HS 08011910 • 550g–650g+ • CDB Certified"
+                      : p.slug === "fresh-vegetables"
+                        ? "HS 07099990 • Cold-Chain Graded • Cartons"
+                        : p.slug === "fresh-fruits"
+                          ? "HS 08045020 • Pre-Cooled Lots • 40ft Reefer"
+                          : p.slug === "spices-masalas"
+                            ? "HS 09103030 • Steam-Sterilized ASTA • Bags"
+                            : p.slug === "pulses-lentils"
+                              ? "HS 07132000 • Sortex 99.5% Chickpeas/Dals"
+                              : "HS 08013210 • W240/W320 Vacuum Flushed";
+            const shortName = p.name.replace(/\(.*\)/, "").trim();
+
+            return (
+              <motion.div
+                key={p.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.06, duration: 0.6, ease: EASE }}
+                className="w-[230px] flex-shrink-0 snap-start sm:w-[250px]"
               >
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={p.img}
-                    alt={`${p.name} Exporter in India — Bulk Supply`}
-                    width={480}
-                    height={480}
-                    loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
-                <div className="flex items-center justify-between px-4 py-4">
-                  <div>
+                <Link
+                  to="/products/$slug"
+                  params={{ slug: p.slug }}
+                  className="group relative block overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:-translate-y-2 hover:shadow-2xl"
+                >
+                  <div className="aspect-square overflow-hidden">
+                    <img
+                      src={p.img}
+                      alt={`${p.name} Exporter in India — Bulk Supply`}
+                      width={480}
+                      height={480}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="px-4 py-3.5">
                     <div className="font-display text-sm font-semibold text-slate-900">
                       {p.name}
                     </div>
-                    <div className="mt-0.5 text-[10px] uppercase tracking-wider text-slate-500">
-                      View Specifications
+                    <p className="mt-1 text-[11px] font-medium text-slate-500 line-clamp-1">
+                      {specSummary}
+                    </p>
+                    <div className="mt-2 flex items-center justify-between pt-1 border-t border-slate-100">
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-brand-blue group-hover:text-brand-orange transition-colors">
+                        View {shortName} Specs
+                      </span>
+                      <div
+                        className="grid h-6 w-6 place-items-center rounded-full transition-colors group-hover:bg-[#0057B8] group-hover:text-white"
+                        style={{ background: `${BLUE}12`, color: BLUE }}
+                      >
+                        <ChevronRight className="h-3.5 w-3.5" />
+                      </div>
                     </div>
                   </div>
-                  <div
-                    className="grid h-8 w-8 place-items-center rounded-full transition-colors group-hover:bg-[#0057B8] group-hover:text-white"
-                    style={{ background: `${BLUE}12`, color: BLUE }}
-                  >
-                    <ChevronRight className="h-4 w-4" />
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                </Link>
+              </motion.div>
+            );
+          })}
         </div>
 
         <div className="mt-6 flex items-center justify-center sm:hidden">
@@ -882,13 +907,27 @@ function AgriCommodityDirectory() {
     },
     {
       title: "Pollachi Brown Coconuts & Agro Commodities",
-      hs: "HS 0801.19 / 0713",
+      hs: "HS 0801.19 / 0801.32",
       origins: "Pollachi (Tamil Nadu), Mysore (Karnataka)",
       description:
-        "Direct plantation sourcing of mature semi-husked Brown Coconuts (550g–650g / 650g+ in 25-nut PP bags), Desiccated Coconut Powder, Makhana (Fox Nuts), Kabuli Chickpeas (9mm–12mm), and export pulses. Supported by CDB registration and containerized sea freight across the Middle East and Europe.",
+        "Direct plantation sourcing of mature semi-husked Brown Coconuts (550g–650g / 650g+ in 25-nut PP bags), Desiccated Coconut Powder, Makhana (Fox Nuts), and export agro products. Supported by CDB registration and containerized sea freight across the Middle East and Europe.",
       highlights: ["CDB Certified", "Transit Shelf Life 45+ Days", "20FT / 40FT FCL Shipping"],
-      link: "/products/coconut",
+      link: "/products/coconut-exporter-india",
       linkText: "Explore Coconut & Commodity Export Guidelines →",
+    },
+    {
+      title: "Sortex Pulses, Chickpeas & Dry Fruits",
+      hs: "HS 0713 / 0801.32 / 0806",
+      origins: "Madhya Pradesh, Maharashtra, Gujarat, Rajasthan",
+      description:
+        "Sortex-cleaned Kabuli Chickpeas (42–44, 44–46 count / 9mm–12mm), Desi Chickpeas, Toor Dal (split pigeon peas), Red Lentils (Masoor), and export-grade cashew kernels (W240/W320) & raisins. Rigorous 99.5% purity grading, moisture controlled (<12%), packed in 25kg/50kg PP bags and vacuum pouches for global canning and distribution.",
+      highlights: [
+        "Sortex Cleaned 99.5% Purity",
+        "Moisture Controlled <12%",
+        "20ft FCL (24 MT Heavy)",
+      ],
+      link: "/products/pulses-lentils-exporter",
+      linkText: "Explore Pulses, Chickpeas & Cashew Export Specs →",
     },
   ];
 
@@ -897,7 +936,7 @@ function AgriCommodityDirectory() {
       port: "Nhava Sheva (JNPT) - INNSA",
       lane: "Primary gateway for West & South India produce",
       details:
-        "Direct weekly vessel services to Jebel Ali (4-5 days), Dammam (6-7 days), Jeddah (9-10 days), and Rotterdam (18-22 days).",
+        "Direct weekly vessel services to Jebel Ali (3–4 days), Dammam (5–6 days), Jeddah (7–9 days), and Rotterdam (18–22 days).",
     },
     {
       port: "Mundra Port - INMUN",
@@ -1173,23 +1212,49 @@ function Markets() {
           >
             {COUNTRIES.map((c) => {
               const isActive = active === c.n;
+              const regionMatch = REGIONS.find(
+                (r) =>
+                  r.name.toLowerCase() === c.n.toLowerCase() ||
+                  (c.n === "United Kingdom" && r.slug === "uk") ||
+                  (c.n === "United States" && r.slug === "usa"),
+              );
+              const targetHref = regionMatch
+                ? (regionMatch.slug === "uae"
+                    ? "/markets/export-to-uae"
+                    : regionMatch.slug === "saudi-arabia"
+                      ? "/markets/export-to-saudi-arabia"
+                      : regionMatch.slug === "uk" || regionMatch.slug === "eu"
+                        ? "/markets/export-to-uk-europe"
+                        : regionMatch.slug === "singapore" || regionMatch.slug === "malaysia"
+                          ? "/markets/export-to-southeast-asia"
+                          : `/export-to/${regionMatch.slug}`)
+                : "#regions";
+
               return (
-                <button
+                <a
                   key={c.n}
+                  href={targetHref}
                   data-country={c.n}
                   onMouseEnter={() => setActive(c.n)}
                   onFocus={() => setActive(c.n)}
-                  className={`group flex items-center gap-3 rounded-lg px-2 py-1.5 text-left text-sm transition-all ${
+                  className={`group flex items-center justify-between rounded-lg px-2.5 py-1.5 text-left text-sm transition-all ${
                     isActive ? "bg-white/10 text-white" : "text-white/80 hover:bg-white/5"
                   }`}
                 >
-                  <span
-                    className={`inline-block h-1.5 w-1.5 rounded-full transition-all ${isActive ? "scale-150" : ""}`}
-                    style={{ background: isActive ? ORANGE : "rgba(255,255,255,0.35)" }}
-                  />
-                  <span className="text-lg">{c.f}</span>
-                  <span className={isActive ? "font-semibold" : ""}>{c.n}</span>
-                </button>
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={`inline-block h-1.5 w-1.5 rounded-full transition-all ${isActive ? "scale-150" : ""}`}
+                      style={{ background: isActive ? ORANGE : "rgba(255,255,255,0.35)" }}
+                    />
+                    <span className="text-lg">{c.f}</span>
+                    <span className={isActive ? "font-semibold" : ""}>{c.n}</span>
+                  </div>
+                  {regionMatch && (
+                    <span className="text-[10px] uppercase font-semibold text-white/40 group-hover:text-brand-orange transition-colors">
+                      Market Guide →
+                    </span>
+                  )}
+                </a>
               );
             })}
           </div>
@@ -1488,7 +1553,10 @@ function Certifications() {
                 </div>
                 <div className="mt-4 font-display text-xl font-bold text-slate-900">{c.name}</div>
                 <div className="text-xs uppercase tracking-widest text-slate-500">{c.label}</div>
-                <div className="mt-1 text-[10px] font-medium text-slate-400">{c.type}</div>
+                <div className="mt-1 text-[10px] font-semibold text-brand-blue">{c.type}</div>
+                <p className="mt-2 text-center text-xs text-slate-600 line-clamp-2 px-3">
+                  {c.fullName} • Issued by {c.issuer}.
+                </p>
                 <div className="mt-3 flex gap-2">
                   <button
                     onClick={() => setOpenId(c.id)}

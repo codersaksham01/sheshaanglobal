@@ -58,6 +58,8 @@ function clearGoogTransCookie() {
 
 function injectGoogleTranslate() {
   if (typeof window === "undefined") return;
+  // Strictly prevent Google Translate DOM bloat on /contact or for crawlers
+  if (window.location.pathname.startsWith("/contact")) return;
   if (document.getElementById("google-translate-script")) return;
 
   window.googleTranslateElementInit = function () {
@@ -87,27 +89,19 @@ export function LanguageSwitcher() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const runIdle =
-      window.requestIdleCallback ??
-      ((cb: IdleRequestCallback) =>
-        window.setTimeout(() => cb({ didTimeout: false, timeRemaining: () => 0 }), 1800));
-    const idleId = runIdle(() => injectGoogleTranslate());
+    if (window.location.pathname.startsWith("/contact")) return;
 
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) setCurrent(stored);
 
-    // Apply stored language on load (in case cookie was cleared)
+    // Only inject Google Translate if user has actively selected a non-English language
     if (stored && stored !== "en") {
+      injectGoogleTranslate();
       const cookieHas = document.cookie.includes(`googtrans=/en/${stored}`);
       if (!cookieHas) {
         setGoogTransCookie(stored);
       }
     }
-
-    // Automatic language popup disabled to prevent intrusive interstitial penalty (opens strictly via user click)
-    return () => {
-      if ("cancelIdleCallback" in window) window.cancelIdleCallback(idleId as number);
-    };
   }, []);
 
   // Compact mode after user scrolls — shrinks to icon-only to avoid content overlap
@@ -253,7 +247,9 @@ export function LanguageSwitcher() {
       {/* Hidden Google Translate mount point */}
       <div
         id="google_translate_element"
-        style={{ position: "absolute", left: "-9999px", top: 0 }}
+        data-nosnippet="true"
+        className="notranslate"
+        style={{ display: "none" }}
         aria-hidden="true"
       />
       <style>{`
@@ -271,7 +267,10 @@ export function LanguageSwitcher() {
       */}
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          injectGoogleTranslate();
+          setOpen(true);
+        }}
         aria-label={`Change language — current: ${activeLang.name}`}
         title={`Language: ${activeLang.name}`}
         className={`notranslate fixed z-[55] inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 font-semibold text-slate-700 shadow-lg backdrop-blur transition-all hover:border-[#0057B8] hover:text-[#0057B8] focus:outline-none focus-visible:ring-4 focus-visible:ring-[#0057B8]/30 ${

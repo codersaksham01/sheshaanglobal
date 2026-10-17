@@ -253,12 +253,20 @@ export const CERT_TYPES: CertType[] = ["Government", "Trade", "Food Safety", "Qu
 
 export const FAQS: { q: string; a: string }[] = [
   {
+    q: "What is the Minimum Order Quantity (MOQ) and container load capacity?",
+    a: "Our standard Minimum Order Quantity (MOQ) is one Full Container Load (FCL): either a 20ft FCL (accommodating 24–26 MT of rice, pulses or whole spices) or a 40ft High Cube Reefer container (holding 28–29 Metric Tons / 1,120–1,160 mesh bags of 25kg fresh onions or 44,000–46,000 coconuts). Consolidated trial air-cargo consignments are supported for select perishable produce.",
+  },
+  {
+    q: "What Incoterms and commercial payment terms does Sheshaan Global accept?",
+    a: "We operate primarily on FOB (Nhava Sheva JNPT or Mundra Port), CFR, and CIF destination port terms. Commercial payment structures include 100% Irrevocable Letter of Credit (L/C at sight) confirmed by a prime international bank, or Telegraphic Transfer (TT: 30% advance deposit with the 70% balance payable against scanned original Bill of Lading and inspection certificates).",
+  },
+  {
     q: "Which countries does Sheshaan Global export to?",
     a: "We export to 25+ countries across the Middle East, Europe, Asia-Pacific, Africa and the Americas — including UAE, Saudi Arabia, UK, USA, Singapore, Malaysia, Bangladesh, South Africa and Australia.",
   },
   {
     q: "What certifications do you hold?",
-    a: "We are GST registered, IEC certified (DGFT), APEDA registered and FSSAI compliant. Product-specific documentation (Phytosanitary, COO, Health Certificate, Fumigation) is provided per shipment.",
+    a: "We are GST registered, IEC certified (DGFT), APEDA registered, Coconut Development Board (CDB) registered and FSSAI compliant. Product-specific documentation (Phytosanitary, COO, Health Certificate, Fumigation) is provided per shipment.",
   },
   {
     q: "How do I get the right quote for my shipment?",
@@ -291,22 +299,28 @@ export const ORGANIZATION_JSONLD = {
         "@type": "Person",
         "name": "Sana Zeba Bakshi",
         "jobTitle": "Chief Executive Officer & Founder",
+        "email": "sanazeba@sheshaanglobal.com",
       },
       "employee": [
         {
           "@type": "Person",
           "name": "Juned Barade",
           "jobTitle": "Chief Operating Officer — Trade Exhibitions & Logistics",
+          "email": "junedbarade@sheshaanglobal.com",
         },
         {
           "@type": "Person",
           "name": "Saksham Singh",
           "jobTitle": "Managing Director — Business Development & Sourcing",
+          "email": "sakshamsingh@sheshaanglobal.com",
         },
       ],
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Agricultural Export Trade Desk, Camp",
+        "addressLocality": "Pune",
         "addressRegion": "Maharashtra",
+        "postalCode": "411001",
         "addressCountry": "IN",
       },
       "contactPoint": {
@@ -461,7 +475,7 @@ export const LOCAL_BUSINESS_JSONLD = {
   paymentAccepted: "Letter of Credit (LC), T/T (Telegraphic Transfer)",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Agricultural Export Trade Desk, Pune",
+    streetAddress: "Agricultural Export Trade Desk, Camp",
     addressLocality: "Pune",
     addressRegion: "Maharashtra",
     postalCode: "411001",

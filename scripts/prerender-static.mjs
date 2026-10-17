@@ -37,22 +37,28 @@ const CORPORATION_SCHEMA = {
         "@type": "Person",
         "name": "Sana Zeba Bakshi",
         "jobTitle": "Chief Executive Officer & Founder",
+        "email": "sanazeba@sheshaanglobal.com",
       },
       "employee": [
         {
           "@type": "Person",
           "name": "Juned Barade",
           "jobTitle": "Chief Operating Officer — Trade Exhibitions & Logistics",
+          "email": "junedbarade@sheshaanglobal.com",
         },
         {
           "@type": "Person",
           "name": "Saksham Singh",
           "jobTitle": "Managing Director — Business Development & Sourcing",
+          "email": "sakshamsingh@sheshaanglobal.com",
         },
       ],
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "Agricultural Export Trade Desk, Camp",
+        "addressLocality": "Pune",
         "addressRegion": "Maharashtra",
+        "postalCode": "411001",
         "addressCountry": "IN",
       },
       "contactPoint": {
