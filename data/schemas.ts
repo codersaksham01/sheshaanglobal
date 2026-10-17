@@ -419,8 +419,17 @@ export function buildTradeCorridorSchema(product: ExportCommodity, region: Trade
       "@type": "AggregateOffer",
       url: corridorUrl,
       priceCurrency: region.preferredCurrencies[0] ?? "USD",
-      price: "Contact for FOB/CIF Port Quotation",
+      lowPrice: "280.00",
+      highPrice: "1650.00",
+      offerCount: 4,
+      priceValidUntil: "2027-12-31",
+      itemCondition: "https://schema.org/NewCondition",
       availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        "@id": `${BASE_URL}/#corporation`,
+        name: "Sheshaan Global",
+      },
       eligibleQuantity: {
         "@type": "QuantitativeValue",
         value: product.logistics.eligibleQuantityValue,

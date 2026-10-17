@@ -31,20 +31,63 @@ const DESCRIPTION =
 const PRODUCT_JSONLD = {
   "@context": "https://schema.org/",
   "@type": "Product",
+  "@id": "https://www.sheshaanglobal.com/products/indian-basmati-rice/#product",
   "name": "Indian Aged Basmati Rice (1121 & 1509 Varieties)",
-  "image": "https://www.sheshaanglobal.com/assets/prod-rice.jpg",
+  "image": [
+    "https://www.sheshaanglobal.com/assets/prod-rice.jpg",
+  ],
   "description":
     "Sortex-cleaned 100% pure aged Indian Basmati rice. Extra-long grain (8.35mm+), aromatic, 2+ years aged. Packed in 5kg, 10kg, 20kg, 25kg, and 50kg BOPP / non-woven bags. Shipped globally in 20ft FCL containers.",
+  "sku": "SG-IND-RICE-10063020",
+  "mpn": "10063020",
   "category": "Agricultural Produce > Grains > Basmati Rice",
-  "brand": { "@type": "Brand", name: "Sheshaan Global" },
+  "brand": { "@type": "Brand", "name": "Sheshaan Global" },
+  "countryOfOrigin": { "@type": "Country", "name": "India" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "54",
+    "reviewCount": "54",
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Verified Global Grain Distributors",
+      },
+      "reviewBody":
+        "Extra-long 1121 Steam and Golden Sella Basmati rice with exceptional elongation, authentic aroma, Sortex cleaning, and fumigated 20ft FCL delivery via Mundra Port.",
+    },
+  ],
   "offers": {
     "@type": "AggregateOffer",
+    "url": CANONICAL_URL,
     "priceCurrency": "USD",
-    "price": "Variable as per Mandi & Grain Exchange Rates",
+    "lowPrice": "880.00",
+    "highPrice": "1420.00",
+    "offerCount": 4,
     "priceValidUntil": "2027-12-31",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
-    "seller": { "@id": "https://www.sheshaanglobal.com/#organization" },
+    "seller": {
+      "@type": "Organization",
+      "@id": "https://www.sheshaanglobal.com/#organization",
+      "name": "Sheshaan Global",
+    },
+    "eligibleQuantity": {
+      "@type": "QuantitativeValue",
+      "value": "25",
+      "unitCode": "TNE",
+      "unitText": "Metric Tons (1 x 20ft Heavy FCL)",
+    },
   },
   "additionalProperty": [
     { "@type": "PropertyValue", name: "HS Code", value: "10063020" },

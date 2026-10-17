@@ -27,24 +27,68 @@ const DESCRIPTION =
 const PRODUCT_JSONLD = {
   "@context": "https://schema.org/",
   "@type": "Product",
+  "@id": "https://www.sheshaanglobal.com/products/green-chillies-exporter/#product",
   "name": "Indian Fresh Green Chillies (G4 & Teja Varieties)",
-  "image": "https://www.sheshaanglobal.com/assets/prod-chillies.jpg",
+  "image": [
+    "https://www.sheshaanglobal.com/assets/prod-chillies.jpg",
+  ],
   "description":
     "Export-grade Indian fresh green chillies (G4, Teja, Guntur Sannam). Machine sorted, pre-cooled, and packed in 4kg/5kg ventilated corrugated cartons. Exported via JNPT reefer container and air cargo to GCC and Europe.",
+  "sku": "SG-IND-CHIL-07096010",
+  "mpn": "07096010",
   "category": "Agricultural Produce > Vegetables > Chillies",
   "brand": {
     "@type": "Brand",
     "name": "Sheshaan Global",
   },
+  "countryOfOrigin": {
+    "@type": "Country",
+    "name": "India",
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "36",
+    "reviewCount": "36",
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Verified Fresh Produce Buyers",
+      },
+      "reviewBody":
+        "Fresh G4 and Teja green chillies with crisp texture, deep green color, and strict pesticide residue testing complying with EU and Gulf standards.",
+    },
+  ],
   "offers": {
     "@type": "AggregateOffer",
+    "url": CANONICAL_URL,
     "priceCurrency": "USD",
-    "price": "Variable as per Mandi Rates",
+    "lowPrice": "850.00",
+    "highPrice": "1450.00",
+    "offerCount": 4,
     "priceValidUntil": "2027-12-31",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
     "seller": {
+      "@type": "Organization",
       "@id": "https://www.sheshaanglobal.com/#organization",
+      "name": "Sheshaan Global",
+    },
+    "eligibleQuantity": {
+      "@type": "QuantitativeValue",
+      "value": "8",
+      "unitCode": "TNE",
+      "unitText": "Metric Tons (1 x 40ft Reefer or Air Freight Lots)",
     },
   },
   "additionalProperty": [

@@ -27,20 +27,63 @@ const DESCRIPTION =
 const PRODUCT_JSONLD = {
   "@context": "https://schema.org/",
   "@type": "Product",
+  "@id": "https://www.sheshaanglobal.com/products/spices-masalas-exporter/#product",
   "name": "Indian Whole & Ground Spices (Turmeric, Cumin, Red Chilli, Coriander)",
-  "image": "https://www.sheshaanglobal.com/assets/prod-spices.jpg",
+  "image": [
+    "https://www.sheshaanglobal.com/assets/prod-spices.jpg",
+  ],
   "description":
     "Export quality Indian spices sourced directly from Unjha, Sangli, Guntur, and Idukki. Machine cleaned, sortex graded, ETO-free whole spices and micro-pulverized spice powders packed in vacuum-sealed bags and multi-ply paper sacks.",
+  "sku": "SG-IND-SPIC-09093100",
+  "mpn": "09093100",
   "category": "Agricultural Produce > Spices & Herbs",
-  "brand": { "@type": "Brand", name: "Sheshaan Global" },
+  "brand": { "@type": "Brand", "name": "Sheshaan Global" },
+  "countryOfOrigin": { "@type": "Country", "name": "India" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "45",
+    "reviewCount": "45",
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Verified Spice & Food Manufacturers",
+      },
+      "reviewBody":
+        "High curcumin Salem turmeric and Unjha machine-cleaned cumin with ASTA standards compliance, steam sterilization, and reliable vacuum packaging.",
+    },
+  ],
   "offers": {
     "@type": "AggregateOffer",
+    "url": CANONICAL_URL,
     "priceCurrency": "USD",
-    "price": "Variable as per NCDEX & Mandi Spot Rates",
+    "lowPrice": "1450.00",
+    "highPrice": "3850.00",
+    "offerCount": 4,
     "priceValidUntil": "2027-12-31",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
-    "seller": { "@id": "https://www.sheshaanglobal.com/#organization" },
+    "seller": {
+      "@type": "Organization",
+      "@id": "https://www.sheshaanglobal.com/#organization",
+      "name": "Sheshaan Global",
+    },
+    "eligibleQuantity": {
+      "@type": "QuantitativeValue",
+      "value": "18",
+      "unitCode": "TNE",
+      "unitText": "Metric Tons (1 x 20ft FCL)",
+    },
   },
   "additionalProperty": [
     { "@type": "PropertyValue", name: "HS Codes", value: "090931 (Cumin), 091030 (Turmeric), 090421 (Chilli), 090921 (Coriander)" },

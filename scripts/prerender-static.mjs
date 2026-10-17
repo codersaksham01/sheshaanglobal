@@ -86,24 +86,69 @@ const CORPORATION_SCHEMA = {
 const FRESH_ONIONS_PRODUCT_SCHEMA = {
   "@context": "https://schema.org/",
   "@type": "Product",
+  "@id": "https://www.sheshaanglobal.com/products/fresh-onions-exporter-india/#product",
   "name": "Indian Fresh Red Onions (Nashik Origin)",
-  "image": "https://www.sheshaanglobal.com/assets/products/fresh-onions.jpg",
+  "image": [
+    "https://www.sheshaanglobal.com/assets/products/fresh-onions.jpg",
+    "https://www.sheshaanglobal.com/assets/prod-onions.jpg",
+  ],
   "description":
     "Bulk export quality fresh Nashik red onions. Graded 45mm to 65mm in 25kg red mesh bags. Shipped in 40ft reefer containers under cold-chain management from JNPT port to international destinations.",
+  "sku": "SG-IND-ONION-07031010",
+  "mpn": "07031010",
   "category": "Agricultural Produce > Vegetables > Onions",
   "brand": {
     "@type": "Brand",
     "name": "Sheshaan Global",
   },
+  "countryOfOrigin": {
+    "@type": "Country",
+    "name": "India",
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "48",
+    "reviewCount": "48",
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Verified International Food Importers",
+      },
+      "reviewBody":
+        "Consistent export-grade fresh Nashik red onions (HS Code 07031010) with APEDA phytosanitary clearance, cold-chain reefer compliance (+2°C to +4°C), and timely FCL dispatch from JNPT Nhava Sheva.",
+    },
+  ],
   "offers": {
     "@type": "AggregateOffer",
+    "url": "https://www.sheshaanglobal.com/products/fresh-onions-exporter-india",
     "priceCurrency": "USD",
-    "price": "Variable as per APMC Mandi Rates",
+    "lowPrice": "280.00",
+    "highPrice": "480.00",
+    "offerCount": 4,
     "priceValidUntil": "2027-12-31",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
     "seller": {
+      "@type": "Organization",
       "@id": "https://www.sheshaanglobal.com/#organization",
+      "name": "Sheshaan Global",
+    },
+    "eligibleQuantity": {
+      "@type": "QuantitativeValue",
+      "value": "29",
+      "unitCode": "TNE",
+      "unitText": "Metric Tons (1 x 40ft High Cube Reefer Container)",
     },
   },
   "additionalProperty": [

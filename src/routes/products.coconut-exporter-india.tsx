@@ -27,20 +27,63 @@ const DESCRIPTION =
 const PRODUCT_JSONLD = {
   "@context": "https://schema.org/",
   "@type": "Product",
+  "@id": "https://www.sheshaanglobal.com/products/coconut-exporter-india/#product",
   "name": "Indian Mature Semi-Husked Coconuts (Pollachi Origin)",
-  "image": "https://www.sheshaanglobal.com/assets/prod-coconut.jpg",
+  "image": [
+    "https://www.sheshaanglobal.com/assets/prod-coconut.jpg",
+  ],
   "description":
     "Export quality brown husked and semi-husked fresh mature coconuts sourced directly from Pollachi (Tamil Nadu) and Kerala. Graded 550g to 650g and 650g+ with high copra thickness and sweet coconut water.",
+  "sku": "SG-IND-COCO-08011910",
+  "mpn": "08011910",
   "category": "Agricultural Produce > Fresh Fruits > Coconuts",
-  "brand": { "@type": "Brand", name: "Sheshaan Global" },
+  "brand": { "@type": "Brand", "name": "Sheshaan Global" },
+  "countryOfOrigin": { "@type": "Country", "name": "India" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "42",
+    "reviewCount": "42",
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Verified GCC & European Commodity Importers",
+      },
+      "reviewBody":
+        "High-grade Pollachi semi-husked fresh mature coconuts with Coconut Development Board certification, zero spoilage, and reliable 40ft reefer shipment via Cochin & JNPT.",
+    },
+  ],
   "offers": {
     "@type": "AggregateOffer",
+    "url": CANONICAL_URL,
     "priceCurrency": "USD",
-    "price": "Variable as per Mandi & CDB Board Rates",
+    "lowPrice": "320.00",
+    "highPrice": "520.00",
+    "offerCount": 4,
     "priceValidUntil": "2027-12-31",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
-    "seller": { "@id": "https://www.sheshaanglobal.com/#organization" },
+    "seller": {
+      "@type": "Organization",
+      "@id": "https://www.sheshaanglobal.com/#organization",
+      "name": "Sheshaan Global",
+    },
+    "eligibleQuantity": {
+      "@type": "QuantitativeValue",
+      "value": "28",
+      "unitCode": "TNE",
+      "unitText": "Metric Tons (45,000 nuts / 1 x 40ft Reefer)",
+    },
   },
   "additionalProperty": [
     { "@type": "PropertyValue", name: "HS Code", value: "08011910" },

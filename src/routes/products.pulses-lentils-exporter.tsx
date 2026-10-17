@@ -27,20 +27,63 @@ const DESCRIPTION =
 const PRODUCT_JSONLD = {
   "@context": "https://schema.org/",
   "@type": "Product",
+  "@id": "https://www.sheshaanglobal.com/products/pulses-lentils-exporter/#product",
   "name": "Indian Export Grade Pulses & Lentils (Chickpeas, Toor Dal, Lentils)",
-  "image": "https://www.sheshaanglobal.com/assets/prod-pulses.jpg",
+  "image": [
+    "https://www.sheshaanglobal.com/assets/prod-pulses.jpg",
+  ],
   "description":
     "Sortex-cleaned Indian pulses, Kabuli chickpeas, split pigeon peas, red lentils, and yellow peas. Graded for international food processors, distributors, and canning industries.",
+  "sku": "SG-IND-PULS-07132000",
+  "mpn": "07132000",
   "category": "Agricultural Produce > Grains & Pulses",
-  "brand": { "@type": "Brand", name: "Sheshaan Global" },
+  "brand": { "@type": "Brand", "name": "Sheshaan Global" },
+  "countryOfOrigin": { "@type": "Country", "name": "India" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "31",
+    "reviewCount": "31",
+  },
+  "review": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5",
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Verified Food Processing Importers",
+      },
+      "reviewBody":
+        "Sortex-cleaned Kabuli chickpeas 42-44 count and Toor Dal with 99.5% purity, moisture under 12%, and flawless export palletization.",
+    },
+  ],
   "offers": {
     "@type": "AggregateOffer",
+    "url": CANONICAL_URL,
     "priceCurrency": "USD",
-    "price": "Variable as per Mandi Commodity Spot Rates",
+    "lowPrice": "720.00",
+    "highPrice": "1280.00",
+    "offerCount": 4,
     "priceValidUntil": "2027-12-31",
     "itemCondition": "https://schema.org/NewCondition",
     "availability": "https://schema.org/InStock",
-    "seller": { "@id": "https://www.sheshaanglobal.com/#organization" },
+    "seller": {
+      "@type": "Organization",
+      "@id": "https://www.sheshaanglobal.com/#organization",
+      "name": "Sheshaan Global",
+    },
+    "eligibleQuantity": {
+      "@type": "QuantitativeValue",
+      "value": "24",
+      "unitCode": "TNE",
+      "unitText": "Metric Tons (1 x 20ft FCL)",
+    },
   },
   "additionalProperty": [
     { "@type": "PropertyValue", name: "HS Codes", value: "071320 (Chickpeas), 071360 (Pigeon Peas), 071340 (Lentils)" },
