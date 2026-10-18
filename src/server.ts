@@ -94,10 +94,13 @@ export default {
 
       // Block search bots from indexing staging on lovable.app
       if (isLovableHost) {
-        normalized.headers.set(
-          "X-Robots-Tag",
-          "noindex, nofollow, noarchive, nosnippet",
-        );
+        const headers = new Headers(normalized.headers);
+        headers.set("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet");
+        return new Response(normalized.body, {
+          status: normalized.status,
+          statusText: normalized.statusText,
+          headers,
+        });
       }
 
       return normalized;
