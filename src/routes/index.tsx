@@ -41,6 +41,7 @@ import {
 import logo from "@/assets/logo.png";
 import heroGlobe from "@/assets/hero-globe.jpg";
 import farmExport from "@/assets/global-farm-to-market-partnership.png";
+import goldenHarvest from "@/assets/golden-harvest-with-sheshaan-global.png";
 import worldMap from "@/assets/world-map.jpg";
 import {
   BLUE,
@@ -693,8 +694,17 @@ function TrustDashboard() {
   return (
     <section className="bg-white py-16">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm lg:p-8">
-          <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+        <div className="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-950 p-6 shadow-xl lg:p-8">
+          <img
+            src={goldenHarvest}
+            alt="Golden Harvest with Sheshaan Global — Direct Indian Farm Sourcing to International Export"
+            width={1672}
+            height={941}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/85 to-slate-950/70 sm:bg-gradient-to-r sm:from-slate-950/95 sm:via-slate-950/85 sm:to-slate-950/60" />
+          <div className="relative z-10 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <div>
               <div
                 className="text-xs font-bold uppercase tracking-[0.28em]"
@@ -702,10 +712,10 @@ function TrustDashboard() {
               >
                 Trust Dashboard
               </div>
-              <h2 className="mt-3 font-display text-3xl font-bold text-slate-900 sm:text-4xl">
+              <h2 className="mt-3 font-display text-3xl font-bold text-white sm:text-4xl">
                 Export readiness buyers can verify
               </h2>
-              <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              <p className="mt-3 text-sm leading-relaxed text-slate-200">
                 Clear registrations, category depth, shipment planning and documentation support
                 make the buying process easier from the first RFQ.
               </p>
@@ -718,7 +728,7 @@ function TrustDashboard() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06, ease: EASE }}
-                  className="rounded-2xl border border-slate-200 bg-white p-5"
+                  className="rounded-2xl border border-white/20 bg-white/95 p-5 shadow-lg backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1"
                 >
                   <p.icon className="h-5 w-5" style={{ color: BLUE }} />
                   <div className="mt-3 font-display text-2xl font-bold text-slate-900">
@@ -730,7 +740,7 @@ function TrustDashboard() {
                   >
                     {p.label}
                   </div>
-                  <p className="mt-2 text-xs leading-relaxed text-slate-500">{p.detail}</p>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600">{p.detail}</p>
                 </motion.div>
               ))}
             </div>
