@@ -1,0 +1,8 @@
+User-agent: *
+# One consistent policy for search, AI-search, and commercial crawlers.
+# CDN/WAF rules must also allow the public paths below.
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+
+Sitemap: https://www.sheshaanglobal.com/sitemap.xml

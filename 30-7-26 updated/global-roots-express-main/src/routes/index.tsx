@@ -2053,8 +2053,11 @@ function Footer() {
           rights reserved.
         </div>
         <div className="flex gap-4">
+          <Link to="/more-info" className="hover:text-white transition-colors">
+            Terms &amp; Conditions
+          </Link>
           <Link to="/company-policies" className="hover:text-white transition-colors">
-            Company Policies & Terms
+            Privacy Policy
           </Link>
           <Link to="/contact" className="hover:text-white transition-colors">
             Export Inquiry Desk
