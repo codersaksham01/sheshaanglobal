@@ -123,6 +123,9 @@ import prodChanaDal from "@/assets/prod-chana-dal.jpg";
 import prodUradDalWhole from "@/assets/prod-urad-dal-whole.jpg";
 import prodMoongDalWholeGreen from "@/assets/prod-moong-dal-whole-green.jpg";
 import prodUradDalSplit from "@/assets/prod-urad-dal-split.jpg";
+import prodWhiteOnion from "@/assets/prod-white-onion.jpg";
+import prodTea from "@/assets/prod-tea.jpg";
+import prodCoffee from "@/assets/prod-coffee.jpg";
 
 
 export const BLUE = "#0057B8";
@@ -584,7 +587,7 @@ export const PRODUCTS: Product[] = [
     name: "Fresh Onions",
     tagline: "Export-grade red, pink & white onions",
     img: prodFreshOnions,
-    gallery: [prodFreshOnions, prodVeg, prodFruits],
+    gallery: [prodFreshOnions, prodWhiteOnion, prodVeg, prodFruits],
     description:
       "Our flagship export — premium Indian onions sourced directly from Nashik, Maharashtra. Uniformly graded, well-cured and packed for long transit, meeting the size, color and pungency standards of Middle East, South-East Asia and European buyers.",
     varieties: ["Red Onion (Nashik)", "Pink Onion", "White Onion", "Rose Onion", "Bangalore Rose"],
@@ -898,6 +901,30 @@ const CATALOG_IMAGE_OVERRIDES: Record<string, { img: string; gallery?: string[] 
     gallery: [prodDriedRedChilliesDetail, prodChillies],
   },
   sugar: { img: prodSugarDetail },
+  tea: {
+    img: prodTea,
+    gallery: [prodTea, prodSpices],
+  },
+  coffee: {
+    img: prodCoffee,
+    gallery: [prodCoffee, prodSpices],
+  },
+  "white-onion": {
+    img: prodWhiteOnion,
+    gallery: [prodWhiteOnion, prodFreshOnions],
+  },
+  "white-onion-exporter-india": {
+    img: prodWhiteOnion,
+    gallery: [prodWhiteOnion, prodFreshOnions],
+  },
+  "indian-tea-exporter-india": {
+    img: prodTea,
+    gallery: [prodTea, prodSpices],
+  },
+  "indian-coffee-beans-exporter-india": {
+    img: prodCoffee,
+    gallery: [prodCoffee, prodSpices],
+  },
   tamarind: { img: prodTamarindDetail },
   "makhana-raw": {
     img: prodMakhanaDetail,
@@ -1375,6 +1402,15 @@ const CATALOG_SEEDS: CatalogSeed[] = [
     g: "vegetable",
     tagline: "Kibbled, minced, granules & powder",
     varieties: ["White Onion Kibbled", "Onion Powder", "Garlic Granules", "Garlic Powder"],
+  },
+  {
+    slug: "white-onion",
+    name: "Fresh White Onion",
+    hs: "07031010",
+    g: "vegetable",
+    tagline: "High-TSS 50mm+ Nashik & Mahuva White Onions",
+    varieties: ["Agrifound White", "Phule Safed", "Mahuva High-TSS White", "Alibag Sweet White"],
+    brochure: `${B}/sheshaan-fresh-produce-coconuts.pdf`,
   },
   {
     slug: "potatoes",

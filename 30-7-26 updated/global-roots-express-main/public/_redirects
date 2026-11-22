@@ -1,0 +1,10 @@
+# Retired market URL variants: use the single /export-to/{market} pattern.
+/markets/uae                       /export-to/uae              301
+/markets/middle-east               /export-to/uae              301
+/markets/export-to-uae             /export-to/uae              301
+/markets/export-to-saudi-arabia    /export-to/saudi-arabia     301
+/markets/export-to-uk-europe       /export-to/uk               301
+/markets/export-to-southeast-asia  /export-to/singapore        301
+
+# Cloudflare Pages / Netlify SPA fallback routing
+/*    /index.html   200

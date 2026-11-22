@@ -218,7 +218,7 @@ const RAW_COMMODITIES: RawCommoditySeed[] = [
     h1Headline: "Fresh White Onion Exporter in India: High-Solids Bulk Supply",
     originCluster: "Alibag & Nashik, Maharashtra / Mahuva, Gujarat",
     varieties: ["Agrifound White", "Phule Safed", "Mahuva High-TSS White", "Alibag Sweet White"],
-    image: "/assets/products/fresh-red-onion-nashik.jpg",
+    image: "/assets/products/fresh-white-onion.jpg",
     primaryGrade: "45mm–55mm / 55mm–70mm Calibrated Diameter",
     moistureTolerance: "Max 13.0% (High Total Soluble Solids 12–14° Brix)",
     purityAdmixture: "< 0.5% foreign matter; free from black mold",
@@ -1532,7 +1532,7 @@ const RAW_COMMODITIES: RawCommoditySeed[] = [
       "Nilgiri High-Grown Fragrant Black Tea",
       "Masala Chai & Cardamom Tea Blends",
     ],
-    image: "/assets/products/spices-collection.jpg",
+    image: "/assets/products/indian-tea.jpg",
     primaryGrade:
       "Primary Garden Fresh CTC & Orthodox Leaf Grades; High Theaflavin & Liquor Brightness",
     moistureTolerance: "Max 6.0% (At time of garden/warehouse packing)",
@@ -1575,7 +1575,7 @@ const RAW_COMMODITIES: RawCommoditySeed[] = [
       "Robusta Cherry AA & AB",
       "GI Monsooned Malabar AA",
     ],
-    image: "/assets/products/spices-collection.jpg",
+    image: "/assets/products/indian-coffee-beans.jpg",
     primaryGrade:
       "Screen 17/18 (AA / Kaapi Royale) & Screen 15/16 (A / AB); Specialty Cup Score 82+",
     moistureTolerance: "10.5%–12.0% (Water Activity aw < 0.65)",

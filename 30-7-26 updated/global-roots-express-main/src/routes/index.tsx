@@ -1230,15 +1230,7 @@ function Markets() {
                   (c.n === "United States" && r.slug === "usa"),
               );
               const targetHref = regionMatch
-                ? (regionMatch.slug === "uae"
-                    ? "/markets/export-to-uae"
-                    : regionMatch.slug === "saudi-arabia"
-                      ? "/markets/export-to-saudi-arabia"
-                      : regionMatch.slug === "uk" || regionMatch.slug === "eu"
-                        ? "/markets/export-to-uk-europe"
-                        : regionMatch.slug === "singapore" || regionMatch.slug === "malaysia"
-                          ? "/markets/export-to-southeast-asia"
-                          : `/export-to/${regionMatch.slug}`)
+                ? `/export-to/${regionMatch.slug}`
                 : "#regions";
 
               return (

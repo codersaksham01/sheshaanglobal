@@ -71,22 +71,22 @@ export const SITE_NAV_MENU: NavItem[] = [
       {
         label: "Export to UAE (Dubai / Jebel Ali)",
         sub: "3–4 Days Fast Sea Transit from JNPT",
-        href: "/markets/export-to-uae",
+        href: "/export-to/uae",
       },
       {
         label: "Export to Saudi Arabia (Dammam / Jeddah)",
         sub: "SFDA & SABER Compliant Rice & Spices",
-        href: "/markets/export-to-saudi-arabia",
+        href: "/export-to/saudi-arabia",
       },
       {
         label: "Export to UK & Europe (Felixstowe / RTM)",
         sub: "EU-MRL Tested Garwa Onions & Coconuts",
-        href: "/markets/export-to-uk-europe",
+        href: "/export-to/uk",
       },
       {
         label: "Export to Southeast Asia (Singapore / Klang)",
         sub: "SFA & MAQIS Cleared Onions & Produce",
-        href: "/markets/export-to-southeast-asia",
+        href: "/export-to/singapore",
       },
     ],
   },

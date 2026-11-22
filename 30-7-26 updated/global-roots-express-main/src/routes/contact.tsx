@@ -276,7 +276,11 @@ function ContactPage() {
       trackLeadEvent("generate_lead", {
         form_name: "export_inquiry",
         product: category,
-        destination: form.destination || form.country || "not_provided",
+        destination_country: form.country || "not_provided",
+        destination_port: form.destination || "not_provided",
+        quantity: form.quantity || "not_provided",
+        packaging: form.packaging || "not_provided",
+        source_page: window.location.pathname,
       });
       setStatus("sent");
       setForm(emptyForm);

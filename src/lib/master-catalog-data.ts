@@ -1707,6 +1707,54 @@ export const MASTER_COMMODITIES: MasterCommoditySpec[] = [
     "contractTargets": "Oil content min 48.0%, moisture max 5.5%, FFA max 0.8%, machine cleaned, sound merchantable quality",
     "exportRegions": "China, European Union, USA, Japan, Brazil, Middle East",
     "complianceNotes": "SEA (Solvent Extractors' Association of India) certified quality, hazardous goods export compliance, bulk containerized"
+  },
+  {
+    "id": 104,
+    "sku": "SG-VEG-ONI-002",
+    "name": "Fresh White Onion",
+    "slug": "white-onion",
+    "category": "Fresh Produce",
+    "hsCode": "07031010",
+    "group": "vegetable",
+    "productForm": "Fresh whole white globes with double cured papery tunic; high Total Soluble Solids (TSS)",
+    "exportGrades": "45mm–55mm / 55mm–70mm calibrated export grade; High-TSS (12–14° Brix)",
+    "varieties": "Agrifound White, Phule Safed, Mahuva White, Alibag Sweet White",
+    "coreSpecs": "Bulb diameter; TSS / Brix level; moisture max 13%; rot/skin split <1.0%; zero black mold; phytosanitary compliance",
+    "contractTargets": "Size 45–65mm, moisture max 12.5%, TSS >12° Brix, 25kg white leno mesh bags, +1°C to +2°C reefer stowage",
+    "exportRegions": "Middle East (UAE, Saudi Arabia, Kuwait), Europe, Southeast Asia",
+    "complianceNotes": "APEDA certified, phytosanitary clearance, fumigation certified, non-GMO export consignment"
+  },
+  {
+    "id": 105,
+    "sku": "SG-SPC-TEA-033",
+    "name": "Indian Tea (Assam CTC & Darjeeling)",
+    "slug": "tea",
+    "category": "Spices & Herbs",
+    "hsCode": "09024020",
+    "group": "spice",
+    "productForm": "Primary garden-fresh CTC granulated pearls & orthodox loose leaf grades; high liquor brightness",
+    "exportGrades": "Assam CTC (BP, BOP, BOPSM, PD); Darjeeling Orthodox (FTGFOP1, TGFOP); Nilgiri Black Tea",
+    "varieties": "Camellia sinensis var. assamica; First & Second Flush Estates; Masala Chai Blends",
+    "coreSpecs": "Moisture max 6.0%; total ash 4–8%; water extract >38%; ISO 3720 compliance; zero foreign matter",
+    "contractTargets": "Garden fresh primary grades, moisture <6.0%, aluminum-foil lined 35kg multi-wall paper sacks",
+    "exportRegions": "Russia, CIS, United Kingdom, UAE, USA, Germany, Iran, Middle East",
+    "complianceNotes": "Tea Board of India export license, Non-ETO, maximum residue level (MRL) compliant with EU/US standards"
+  },
+  {
+    "id": 106,
+    "sku": "SG-SPC-COF-034",
+    "name": "Indian Green Coffee Beans (Arabica & Robusta)",
+    "slug": "coffee",
+    "category": "Spices & Herbs",
+    "hsCode": "09011111",
+    "group": "spice",
+    "productForm": "Unroasted washed & natural raw green coffee beans; specialty cup grade 82+",
+    "exportGrades": "Arabica Plantation AA/A; Robusta Parchment AB (Kaapi Royale); Cherry AA; Monsooned Malabar AA",
+    "varieties": "Coffea arabica & Coffea canephora; Chikmagalur, Coorg, Wayanad & Malabar origins",
+    "coreSpecs": "Screen 17/18 (AA) & Screen 15/16 (A); moisture 10.5–12.0%; zero primary defects; water activity aw <0.65",
+    "contractTargets": "Screen 17+ AA grade, moisture <11.5%, 60kg jute bags with GrainPro hermetic inner liner",
+    "exportRegions": "Italy, Germany, Belgium, Middle East, USA, Japan, Australia",
+    "complianceNotes": "Coffee Board of India ICO certificate of origin, phytosanitary clearance, hermetic barrier packaging"
   }
 ];
 

@@ -132,6 +132,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "msvalidate.01", content: "220260664B862A3A28DB3917C5DCE05C" },
     ],
     links: [
+      { rel: "canonical", href: SITE_URL + "/" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
@@ -143,11 +144,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/favicon-192.png", type: "image/png", sizes: "192x192" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "manifest", href: "/site.webmanifest" },
-      { rel: "alternate", hrefLang: "en", href: SITE_URL + "/" },
-      { rel: "alternate", hrefLang: "ar", href: SITE_URL + "/ar" },
-      { rel: "alternate", hrefLang: "fr", href: SITE_URL + "/fr" },
-      { rel: "alternate", hrefLang: "ru", href: SITE_URL + "/ru" },
-      { rel: "alternate", hrefLang: "x-default", href: SITE_URL + "/" },
     ],
     scripts: [
       {
